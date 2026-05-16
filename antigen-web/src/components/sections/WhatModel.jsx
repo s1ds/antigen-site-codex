@@ -1,3 +1,5 @@
+import { WhatMatrix } from "@/components/sections/WhatMatrix";
+
 const comparisons = [
   ["Model", "Convergent", "Divergent"],
   ["Operating mode", "Constant. Familiar.", "Uncomfortable places"],
@@ -86,22 +88,23 @@ export function WhatModel() {
         </div>
       </div>
 
-      <div className="mt-24 border border-black/15">
+      <div className="group mt-24 border border-black/15">
         <div className="grid grid-cols-[0.8fr_1fr_1fr] bg-black text-[0.7rem] font-black uppercase tracking-[0.1em] text-white">
           <div className="border-r border-white/15 p-4 text-white/45">Attribute</div>
           <div className="border-r border-white/15 bg-neutral-200 p-4 text-black/55">Legacy OpCos</div>
           <div className="p-4 text-[var(--antigen-yellow)]">The ANTIGEN Insurgence</div>
         </div>
         {comparisons.map(([attribute, legacy, antigen]) => (
-          <div key={attribute} className="grid grid-cols-1 border-t border-black/15 md:grid-cols-[0.8fr_1fr_1fr]">
+          <div key={attribute} className="grid grid-cols-1 border-t border-black/15 transition hover:bg-[rgba(227,29,40,0.04)] md:grid-cols-[0.8fr_1fr_1fr]">
             <div className="bg-white p-4 text-xs font-black uppercase tracking-[0.08em] text-neutral-500 md:border-r md:border-black/15">
               {attribute}
             </div>
-            <div className="bg-[var(--antigen-smoke)] p-4 text-sm font-bold md:border-r md:border-black/15">
+            <div className="bg-[var(--antigen-smoke)] p-4 text-sm font-bold transition hover:text-neutral-500 md:border-r md:border-black/15">
               {legacy}
             </div>
-            <div className="bg-black p-4 text-sm font-black text-[var(--antigen-yellow)]">
-              {antigen}
+            <div className="relative overflow-hidden bg-black p-4 text-sm font-black text-[var(--antigen-yellow)]">
+              <span className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-[var(--antigen-red)] transition group-hover:scale-y-100" />
+              <span className="relative z-10">{antigen}</span>
             </div>
           </div>
         ))}
@@ -126,21 +129,7 @@ export function WhatModel() {
               alpha is always in the uncomfortable territory.
             </p>
           </div>
-          <div className="grid gap-1 md:grid-cols-2">
-            {["Consulting Firms", "ANTIGEN", "Legacy OpCos", "In-House Upskill"].map((item) => (
-              <div
-                key={item}
-                className={`min-h-44 border border-white/15 p-5 ${
-                  item === "ANTIGEN" ? "bg-[var(--antigen-yellow)] text-black" : "bg-white/[0.04]"
-                }`}
-              >
-                <p className="text-[0.62rem] font-black uppercase tracking-[0.1em] opacity-50">
-                  {item === "ANTIGEN" ? "Q4 / Unfamiliar problem" : "Strategic quadrant"}
-                </p>
-                <p className="mt-10 font-display text-4xl uppercase leading-none">{item}</p>
-              </div>
-            ))}
-          </div>
+          <WhatMatrix />
         </div>
       </div>
 
