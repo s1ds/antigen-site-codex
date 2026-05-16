@@ -1,10 +1,34 @@
 import Link from "next/link";
 
 const povs = [
-  ["01", "The ANTIGENERIC Thesis", "Why algorithmic sameness is the defining strategic crisis of this decade - and the antidote.", "The convergence engines are money-balling everything to homogeneity. The antidote is not a better algorithm."],
-  ["02", "The Post-Algorithm World", "What strategy looks like when convergence engines have optimised everything to the mean.", "Speed without direction. Infinite capability, finite courage. The post-algorithm world demands a different strategic posture."],
-  ["03", "The Age of Average", "On music, brands, and the global collapse of meaningful difference.", "The same compression happening to music is happening to every brand in every category."],
-  ["04", "The Hallways We Killed", "On liminality, loneliness, and what corporations lost when they optimised for efficiency.", "The spaces between things were where ideas lived. We killed them."],
+  [
+    "01",
+    "The Automated Media Paradox",
+    "Doing things better vs doing better things.",
+    "AdTech has turned sophisticated technological leaps into optimisation machinery for problems that may not matter. Breakthrough innovation becomes noise when it solves the wrong brief.",
+    "https://link.sidht.com/adtech",
+  ],
+  [
+    "02",
+    "Our Digital Lobotomy",
+    "Low-entropy lives, outsourced judgment, and the split between cognitive outsourcing and human context.",
+    "The post-algorithm world is not just changing output. It is training people to produce smoother, more predictable thought unless they clutch onto lived, imperfect human judgment.",
+    "https://link.sidht.com/lobotomy",
+  ],
+  [
+    "03",
+    "The Post-Algorithm World",
+    "What happens when algorithms stop being novel and become the invisible infrastructure of daily life.",
+    "Algorithms are no longer a thing we notice. They are the water. Post-algorithm does not mean after algorithms; it means after the novelty has disappeared.",
+    "https://link.sidht.com/postalgo",
+  ],
+  [
+    "04",
+    "The Cartographers of Chaos",
+    "Strategy and the strategist in the age of average.",
+    "The strategist is endangered at the exact moment businesses need strategy most. Tactics without strategy is expensive noise, especially when AI makes that noise cheaper to produce.",
+    "https://link.sidht.com/strat",
+  ],
 ];
 
 export function PovPerspectives() {
@@ -22,8 +46,8 @@ export function PovPerspectives() {
           </p>
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-2">
-          {povs.map(([num, kicker, title, desc]) => (
-            <Link key={num} href="https://sidht.com" target="_blank" className="group relative overflow-hidden border border-black/15 bg-white p-7 transition hover:-translate-y-1 hover:border-[var(--antigen-red)] hover:shadow-[0_20px_50px_rgba(17,17,17,0.1)]">
+          {povs.map(([num, kicker, title, desc, href]) => (
+            <Link key={num} href={href} target="_blank" className="group relative overflow-hidden border border-black/15 bg-white p-7 transition hover:-translate-y-1 hover:border-[var(--antigen-red)] hover:shadow-[0_20px_50px_rgba(17,17,17,0.1)]">
               <span className="absolute inset-x-0 top-0 h-0 bg-[var(--antigen-red)] transition group-hover:h-1" />
               <p className="font-display text-7xl leading-none text-[var(--antigen-smoke)] transition group-hover:text-[rgba(227,29,40,0.12)]">{num}</p>
               <p className="mt-4 text-xs font-black uppercase tracking-[0.1em] text-[var(--antigen-red)]">{kicker}</p>
