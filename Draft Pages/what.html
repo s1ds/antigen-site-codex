@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — The Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · WHAT ──────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b; --color-crimson:#b11226;
+  --color-black:#111111; --color-white:#ffffff; --color-paper:#f8f7f6;
+  --color-smoke:#e8e8e8; --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --text-muted:#6e6e6e;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-display:clamp(3.25rem,9vw,9rem);
+  --type-micro:.68rem; --type-small:.82rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem;
+  --space-6:2rem; --space-7:3rem; --space-8:4rem; --space-9:6rem;
+  --rule:1px solid rgba(17,17,17,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--color-black);
+  background:var(--color-white);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+
+/* ── Section wrapper ─────────────────────────────────────────────────── */
+#what {
+  background:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+.section-num {
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;letter-spacing:-.04em;
+  color:rgba(17,17,17,.05);
+  position:absolute;right:var(--page-pad);top:var(--space-7);
+  pointer-events:none;user-select:none;
+}
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:var(--space-7);
+  padding-bottom:var(--space-4);
+  border-bottom:var(--rule);
+}
+.section-label {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-red);}
+.section-meta{font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);}
+
+/* ── Opener ──────────────────────────────────────────────────────────── */
+.what-opener {
+  display:grid;
+  grid-template-columns:minmax(0,7fr) minmax(0,4fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:start;
+  margin-bottom:var(--space-9);
+}
+.what-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;letter-spacing:-.03em;text-transform:uppercase;
+}
+.what-headline .stroke {
+  -webkit-text-stroke:2px var(--color-black);color:transparent;display:block;
+}
+.what-headline .fill{color:var(--color-red);display:block;}
+.what-tag {
+  margin-top:var(--space-5);
+  font-size:clamp(1.1rem,1.8vw,1.75rem);
+  font-weight:800;letter-spacing:-.02em;line-height:1.15;
+}
+.what-intro-copy{
+  font-size:clamp(1rem,1.4vw,1.3rem);font-weight:500;
+  line-height:1.65;margin-top:var(--space-3);
+}
+.what-intro-copy p+p{margin-top:var(--space-4);}
+
+/* ── Comparison strip — interactive ─────────────────────────────────── */
+.comparison-wrap {
+  margin-bottom:var(--space-9);
+  position:relative;
+}
+
+/* Header row — two column labels */
+.cmp-header-row {
+  display:grid;
+  grid-template-columns:minmax(0,3fr) minmax(0,4fr) minmax(0,4fr);
+  gap:0;
+  border:var(--rule);
+  border-bottom:none;
+}
+.cmp-header-cell {
+  padding:var(--space-4) clamp(1rem,2.5vw,2rem);
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.cmp-header-cell.attr-col  { color:var(--color-grey); border-right:var(--rule); }
+.cmp-header-cell.legacy-col{ color:var(--text-muted); background:var(--color-smoke); border-right:var(--rule); }
+.cmp-header-cell.antigen-col{
+  color:var(--color-yellow);
+  background:var(--color-black);
+}
+
+/* Table body */
+.cmp-table { border:var(--rule); border-top:none; position:relative; overflow:hidden; }
+
+/* Scan line that sweeps down on entry */
+.cmp-scan {
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--color-red), var(--color-yellow), transparent);
+  transform:translateY(-4px);
+  transition:none;
+  pointer-events:none;
+  z-index:10;
+  opacity:0;
+}
+.cmp-table.scanned .cmp-scan {
+  opacity:1;
+  transform:translateY(calc(var(--scan-target, 0) * 1px));
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1), opacity .1s;
+}
+
+/* Each data row */
+.cmp-row {
+  display:grid;
+  grid-template-columns:minmax(0,3fr) minmax(0,4fr) minmax(0,4fr);
+  gap:0;
+  border-bottom:var(--rule);
+  cursor:default;
+  position:relative;
+  /* entrance animation */
+  opacity:0;
+  transform:translateX(-12px);
+  transition:opacity .5s ease, transform .5s ease, background .2s;
+}
+.cmp-row:last-child { border-bottom:none; }
+.cmp-row.row-visible { opacity:1; transform:none; }
+
+/* Row hover highlight */
+.cmp-row::before {
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(227,29,40,.0);
+  pointer-events:none;
+  transition:background .25s;
+  z-index:0;
+}
+.cmp-row:hover::before { background:rgba(227,29,40,.04); }
+.cmp-row.is-focused::before { background:rgba(227,29,40,.07); }
+
+/* Cells inside each row */
+.cmp-cell {
+  padding:var(--space-4) clamp(1rem,2.5vw,2rem);
+  position:relative;z-index:1;
+  display:flex;align-items:center;
+}
+.cmp-cell.attr-cell {
+  font-size:.72rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--color-grey);
+  border-right:var(--rule);
+  background:rgba(17,17,17,.02);
+}
+.cmp-cell.legacy-cell {
+  background:var(--color-smoke);
+  border-right:var(--rule);
+  font-size:.9rem;font-weight:700;
+  color:var(--color-black);
+  transition:color .2s;
+}
+.cmp-cell.antigen-cell {
+  background:var(--color-black);
+  font-size:.9rem;font-weight:700;
+  color:rgba(255,255,255,.5);
+  transition:color .2s, background .2s;
+}
+
+/* Antigen value — revealed per row with a typewriter wipe */
+.antigen-val {
+  display:inline-block;
+  color:rgba(255,255,255,.5);
+  transition:color .3s;
+  position:relative;
+}
+/* Wipe-in mask */
+.antigen-val::after {
+  content:'';
+  position:absolute;
+  top:0;right:0;bottom:0;
+  width:100%;
+  background:var(--color-black);
+  transition:width .55s cubic-bezier(.16,1,.3,1);
+}
+.cmp-row.row-visible .antigen-val::after { width:0%; }
+
+/* On row focus (hover/active), pop the antigen value yellow */
+.cmp-row.is-focused .antigen-val,
+.cmp-row:hover .antigen-val { color:var(--color-yellow); }
+.cmp-row.is-focused .legacy-cell { color:var(--text-muted); }
+.cmp-row:hover .legacy-cell { color:var(--text-muted); }
+
+/* Verdict badge that slides in on row hover */
+.cmp-verdict {
+  position:absolute;
+  right:clamp(.75rem,2vw,1.5rem);
+  top:50%;transform:translateY(-50%) translateX(8px);
+  font-size:.58rem;font-weight:900;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-black);
+  background:var(--color-yellow);
+  padding:.2rem .5rem;
+  opacity:0;
+  transition:opacity .2s, transform .2s;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.cmp-row:hover .cmp-verdict,
+.cmp-row.is-focused .cmp-verdict {
+  opacity:1;
+  transform:translateY(-50%) translateX(0);
+}
+
+/* Win indicator bar on left edge of antigen column */
+.cmp-win-bar {
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;
+  background:var(--color-red);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+.cmp-row.row-visible .cmp-win-bar { transform:scaleY(1); }
+.cmp-row.is-focused .cmp-win-bar,
+.cmp-row:hover .cmp-win-bar { background:var(--color-yellow); }
+
+/* Progress counter */
+.cmp-counter {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:var(--space-3) clamp(1rem,2.5vw,2rem);
+  background:var(--color-black);
+  border:var(--rule);border-top:none;
+}
+.cmp-counter-track {
+  flex:1;height:2px;background:rgba(255,255,255,.08);
+  position:relative;overflow:hidden;margin-right:var(--space-5);
+}
+.cmp-counter-fill {
+  position:absolute;top:0;left:0;height:100%;
+  background:var(--gradient-insurgence);
+  width:0%;
+  transition:width .6s cubic-bezier(.16,1,.3,1);
+}
+.cmp-counter-label {
+  font-size:.6rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);
+  white-space:nowrap;
+}
+.cmp-counter-label span { color:var(--color-yellow); }
+
+/* Closing contrast line */
+.comparison-close {
+  background:var(--color-red);
+  color:var(--color-white);
+  padding:var(--space-4) clamp(1rem,2.5vw,2rem);
+  font-size:clamp(1rem,1.8vw,1.55rem);
+  font-weight:800;letter-spacing:-.02em;line-height:1.2;
+  border:var(--rule);border-top:none;
+  /* slide up on entry */
+  opacity:0;transform:translateY(12px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.comparison-close.row-visible { opacity:1; transform:none; }
+.comparison-close span { color:var(--color-yellow); }
+
+/* ── Positioning matrix ──────────────────────────────────────────────── */
+.matrix-section {
+  background:var(--color-black);
+  padding:clamp(2.5rem,5vw,5rem) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1) var(--space-9);
+  position:relative;
+  overflow:hidden;
+}
+/* Subtle grid texture */
+.matrix-section::before {
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
+.matrix-header {
+  margin-bottom:var(--space-7);
+  position:relative;z-index:2;
+}
+.matrix-eyebrow {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.6rem;
+  margin-bottom:var(--space-4);
+}
+.matrix-eyebrow::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-red);}
+.matrix-title {
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5rem);
+  text-transform:uppercase;line-height:.85;
+  color:var(--color-white);
+  margin-bottom:var(--space-3);
+}
+.matrix-title em{font-style:normal;color:var(--color-yellow);}
+.matrix-subtitle {
+  font-size:clamp(1rem,1.3vw,1.15rem);font-weight:500;
+  line-height:1.55;color:rgba(255,255,255,.5);
+  max-width:60ch;
+}
+
+/* Main two-column layout */
+.matrix-layout {
+  display:grid;
+  grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:start;
+  position:relative;z-index:2;
+}
+
+/* The 2×2 grid */
+.matrix-wrap {
+  position:relative;
+}
+/* Axis labels */
+.matrix-axis-y {
+  position:absolute;
+  left:-2.2rem;top:0;bottom:2.5rem;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+}
+.matrix-axis-x {
+  position:absolute;
+  bottom:-2.2rem;left:0;right:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+}
+.axis-lbl {
+  font-size:.6rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  white-space:nowrap;
+}
+.axis-lbl.y { writing-mode:vertical-rl; transform:rotate(180deg); }
+
+.matrix-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:2px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  aspect-ratio:1/1;
+}
+.mq {
+  background:rgba(255,255,255,.04);
+  padding:clamp(.75rem,2vw,1.5rem);
+  display:flex;flex-direction:column;justify-content:space-between;
+  cursor:pointer;
+  transition:background .3s, border .3s;
+  border:1px solid transparent;
+  position:relative;
+  overflow:hidden;
+}
+.mq:hover { background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2); }
+.mq.is-hero {
+  background:rgba(255,192,0,.07);
+  border:1px solid rgba(255,192,0,.45);
+}
+.mq.is-hero:hover { background:rgba(255,192,0,.12); border-color:var(--color-yellow); }
+.mq.is-active  { background:rgba(255,192,0,.1); border-color:var(--color-yellow); }
+.mq.is-dim { opacity:.45; }
+
+/* Pulse on hero quadrant */
+@keyframes mq-pulse {
+  0%,100% { box-shadow:0 0 0 0 rgba(255,192,0,.0); border-color:rgba(255,192,0,.45); }
+  50%      { box-shadow:0 0 18px 2px rgba(255,192,0,.18); border-color:rgba(255,192,0,.9); }
+}
+.mq.is-hero { animation:mq-pulse 3s ease-in-out infinite; }
+.mq.is-active { animation:none; }
+
+.mq-q {
+  font-size:.58rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+  font-family:var(--font-sans);
+}
+.mq-name {
+  font-family:var(--font-display);
+  font-size:clamp(1rem,2.2vw,1.8rem);
+  text-transform:uppercase;line-height:.9;
+  color:var(--color-white);
+}
+.mq.is-hero .mq-name, .mq.is-active .mq-name { color:var(--color-yellow); }
+.mq-tag {
+  font-size:.62rem;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  margin-top:.3rem;
+  line-height:1.3;
+}
+/* Live dot on ANTIGEN quadrant */
+.mq-dot {
+  width:7px;height:7px;border-radius:50%;
+  background:var(--color-yellow);
+  display:inline-block;margin-right:.4rem;
+  flex-shrink:0;
+  box-shadow:0 0 8px rgba(255,192,0,.7);
+  animation:dot-blink 2s ease-in-out infinite;
+}
+@keyframes dot-blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* Axis line overlays — centre crosshair */
+.matrix-cross {
+  position:absolute;inset:0;pointer-events:none;
+}
+.matrix-cross::before, .matrix-cross::after {
+  content:'';position:absolute;background:rgba(255,255,255,.08);
+}
+.matrix-cross::before { top:50%; left:0; right:0; height:1px; }
+.matrix-cross::after  { left:50%; top:0; bottom:0; width:1px; }
+
+/* ── Detail panel ────────────────────────────────────────────────────── */
+.matrix-detail {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  padding:clamp(1.5rem,3vw,2.5rem);
+  min-height:360px;
+  display:flex;flex-direction:column;
+  transition:border-color .3s,box-shadow .3s;
+}
+.matrix-detail.is-antigen {
+  border-color:rgba(255,192,0,.4);
+  box-shadow:0 0 40px rgba(255,192,0,.07);
+}
+.detail-q {
+  font-size:.6rem;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.25);
+  margin-bottom:var(--space-3);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.detail-q span { color:var(--color-yellow); }
+.detail-title {
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,3.5rem);
+  text-transform:uppercase;line-height:.85;
+  color:var(--color-white);
+  margin-bottom:var(--space-3);
+}
+.detail-title.is-antigen-title { color:var(--color-yellow); }
+.detail-sub {
+  font-size:.68rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-red);
+  padding-bottom:var(--space-4);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:var(--space-4);
+}
+.detail-body {
+  font-size:.92rem;font-weight:500;
+  line-height:1.65;color:rgba(255,255,255,.65);
+  margin-bottom:var(--space-5);
+  flex:1;
+}
+.detail-points { display:flex;flex-direction:column;gap:var(--space-3); }
+.detail-point {
+  display:flex;gap:var(--space-3);align-items:start;
+  padding:var(--space-3) var(--space-4);
+  border:1px solid rgba(255,255,255,.07);
+  font-size:.82rem;font-weight:600;
+  color:rgba(255,255,255,.6);line-height:1.4;
+  transition:border-color .2s,color .2s;
+}
+.detail-point:hover { border-color:rgba(255,192,0,.3); color:rgba(255,255,255,.85); }
+.detail-point-dot {
+  width:5px;height:5px;border-radius:50%;
+  background:var(--color-red);flex-shrink:0;
+  margin-top:.35rem;
+}
+.matrix-detail.is-antigen .detail-point-dot { background:var(--color-yellow); }
+
+/* Alpha quote */
+.matrix-quote {
+  margin-top:var(--space-6);
+  padding:var(--space-5);
+  border-left:3px solid var(--color-yellow);
+  background:rgba(255,192,0,.05);
+  position:relative;z-index:2;
+}
+.matrix-quote-kicker {
+  font-size:.6rem;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.3);
+  margin-bottom:var(--space-3);
+}
+.matrix-quote-text {
+  font-size:clamp(.9rem,1.3vw,1.15rem);
+  font-weight:600;font-style:italic;
+  line-height:1.5;color:rgba(255,255,255,.7);
+}
+.matrix-quote-text em { font-style:normal; color:var(--color-yellow); }
+
+/* ── Cell model ──────────────────────────────────────────────────────── */
+.cell-model {
+  background:var(--color-paper);
+  padding:clamp(2rem,4vw,4rem);
+  margin-bottom:var(--space-9);
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+}
+.cell-label {
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5.5rem);
+  line-height:.82;text-transform:uppercase;
+}
+.cell-label span{color:var(--color-red);}
+.cell-sub{
+  font-size:var(--type-small);font-weight:700;
+  letter-spacing:.05em;color:var(--text-muted);
+  text-transform:uppercase;margin-top:var(--space-3);
+}
+.cell-items{display:flex;flex-direction:column;gap:var(--space-4);}
+.cell-item{
+  display:grid;
+  grid-template-columns:2.5rem 1fr;
+  gap:var(--space-4);align-items:start;
+  padding:var(--space-4);
+  background:var(--color-white);
+  border-left:3px solid var(--color-red);
+  transition:border-color .2s,box-shadow .2s;
+}
+.cell-item:hover{
+  border-color:var(--color-black);
+  box-shadow:4px 0 0 var(--color-red);
+}
+.cell-item-num{
+  font-family:var(--font-display);
+  font-size:2.2rem;line-height:1;color:var(--color-red);
+}
+.cell-item-title{
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.05em;font-size:.85rem;margin-bottom:.25rem;
+}
+.cell-item-desc{
+  font-size:.85rem;font-weight:500;
+  color:var(--text-muted);line-height:1.5;
+}
+
+/* ── Infrastructure list ─────────────────────────────────────────────── */
+.infra-section {
+  background:var(--color-black);
+  padding:clamp(2.5rem,5vw,5rem) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+  margin-bottom:0;
+}
+.infra-header {
+  display:flex;align-items:baseline;gap:var(--space-5);
+  margin-bottom:var(--space-7);
+  flex-wrap:wrap;
+}
+.infra-title {
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,4rem);
+  text-transform:uppercase;line-height:.85;
+  color:var(--color-white);
+}
+.infra-subtitle {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+.infra-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--space-5);
+}
+.infra-item {
+  border:1px solid rgba(255,255,255,.1);
+  padding:var(--space-5);
+  position:relative;
+  transition:border-color .2s,background .2s;
+}
+.infra-item:hover{
+  border-color:rgba(227,29,40,.5);
+  background:rgba(227,29,40,.05);
+}
+.infra-item-num{
+  font-family:var(--font-display);
+  font-size:1.2rem;
+  color:rgba(255,255,255,.18);
+  margin-bottom:var(--space-3);
+}
+.infra-item-title{
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.05em;font-size:.88rem;
+  color:var(--color-yellow);
+  margin-bottom:var(--space-3);
+}
+.infra-item-desc{
+  font-size:.85rem;font-weight:500;
+  color:rgba(255,255,255,.6);line-height:1.55;
+}
+
+/* Zero-legacy strip */
+.zero-legacy-strip {
+  margin-top:var(--space-7);
+  padding-top:var(--space-6);
+  border-top:1px solid rgba(255,255,255,.1);
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+}
+.zero-legacy-label {
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,4.5rem);
+  text-transform:uppercase;line-height:.85;
+  color:var(--color-white);
+}
+.zero-legacy-label em{font-style:normal;color:var(--color-red);}
+.zero-legacy-copy{
+  font-size:clamp(1rem,1.3vw,1.2rem);font-weight:500;
+  line-height:1.65;color:rgba(255,255,255,.65);
+}
+.zero-legacy-copy p+p{margin-top:var(--space-4);}
+
+/* Result bullets */
+.result-list{
+  display:flex;flex-direction:column;gap:var(--space-3);
+  margin-top:var(--space-5);
+}
+.result-item{
+  display:flex;gap:var(--space-4);align-items:start;
+  font-size:.88rem;font-weight:600;
+  color:rgba(255,255,255,.75);line-height:1.4;
+}
+.result-item::before{
+  content:'—';
+  color:var(--color-red);flex-shrink:0;
+  font-weight:800;
+}
+.result-item strong{color:var(--color-white);font-weight:800;}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-left.visible{opacity:1;transform:none;}
+.stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.18s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.31s;}
+.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.44s;}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .what-opener{grid-template-columns:1fr;}
+  .comparison-strip{grid-template-columns:1fr;}
+  .matrix-layout{grid-template-columns:1fr;}
+  .matrix-detail{min-height:auto;}
+  .cell-model{grid-template-columns:1fr;}
+  .infra-grid{grid-template-columns:1fr;}
+  .zero-legacy-strip{grid-template-columns:1fr;}
+  .matrix-axis-y,.matrix-axis-x{display:none;}
+  .matrix-wrap{padding:0;}
+}
+@media(max-width:560px){:root{--page-pad:1.25rem;}}
+</style>
+</head>
+<body>
+
+<section id="what">
+  <div class="section-num" aria-hidden="true">02</div>
+
+  <div class="section-header">
+    <span class="section-label">The Model</span>
+    <span class="section-meta">What we are building</span>
+  </div>
+
+  <!-- Opener -->
+  <div class="what-opener reveal">
+    <div>
+      <h2 class="what-headline">
+        <span class="stroke">NOT AN</span>
+        <span class="stroke">AGENCY.</span>
+        <span class="fill">NOT A</span>
+        <span class="fill">CONSULTANCY.</span>
+      </h2>
+      <p class="what-tag">A First-Principles Intelligence Collective.</p>
+    </div>
+    <div class="what-intro-copy">
+      <p>Built as a distributed network of the most insurgent minds, augmented with AI provocation engines. Zero legacy, zero bloat, zero inertia — systems created to solve today's unfamiliar growth problems.</p>
+      <p>ANTIGEN replaces the agency's factory model — aggregating billable hours to cover fixed overhead — with a network model: orchestrating high-velocity insight at near-zero fixed cost.</p>
+      <p>There are no employees, silos, or divisions. <strong>Cells form. Cells solve. Cells dissolve.</strong> Clients pay for the output, not the months.</p>
+    </div>
+  </div>
+
+  <!-- Comparison strip — interactive -->
+  <div class="comparison-wrap reveal">
+
+    <!-- Column headers -->
+    <div class="cmp-header-row">
+      <div class="cmp-header-cell attr-col">Attribute</div>
+      <div class="cmp-header-cell legacy-col">Legacy OpCos</div>
+      <div class="cmp-header-cell antigen-col">The Antigen Insurgence</div>
+    </div>
+
+    <!-- Table body -->
+    <div class="cmp-table" id="cmpTable">
+      <div class="cmp-scan" id="cmpScan"></div>
+
+      <div class="cmp-row" data-verdict="ANTIGEN WINS">
+        <div class="cmp-cell attr-cell">Model</div>
+        <div class="cmp-cell legacy-cell">Convergent</div>
+        <div class="cmp-cell antigen-cell">
+          <div class="cmp-win-bar"></div>
+          <span class="antigen-val">Divergent</span>
+          <span class="cmp-verdict">Insurgent</span>
+        </div>
+      </div>
+
+      <div class="cmp-row" data-verdict="ANTIGEN WINS">
+        <div class="cmp-cell attr-cell">Operating mode</div>
+        <div class="cmp-cell legacy-cell">Constant. Familiar.</div>
+        <div class="cmp-cell antigen-cell">
+          <div class="cmp-win-bar"></div>
+          <span class="antigen-val">Uncomfortable places</span>
+          <span class="cmp-verdict">Insurgent</span>
+        </div>
+      </div>
+
+      <div class="cmp-row" data-verdict="ANTIGEN WINS">
+        <div class="cmp-cell attr-cell">Talent model</div>
+        <div class="cmp-cell legacy-cell">In-house upskill &amp; hire</div>
+        <div class="cmp-cell antigen-cell">
+          <div class="cmp-win-bar"></div>
+          <span class="antigen-val">Bespoke recombinant assembly</span>
+          <span class="cmp-verdict">Insurgent</span>
+        </div>
+      </div>
+
+      <div class="cmp-row" data-verdict="ANTIGEN WINS">
+        <div class="cmp-cell attr-cell">Focus</div>
+        <div class="cmp-cell legacy-cell">Campaign oriented</div>
+        <div class="cmp-cell antigen-cell">
+          <div class="cmp-win-bar"></div>
+          <span class="antigen-val">Outcome oriented</span>
+          <span class="cmp-verdict">Insurgent</span>
+        </div>
+      </div>
+
+      <div class="cmp-row" data-verdict="ANTIGEN WINS">
+        <div class="cmp-cell attr-cell">Optimised for</div>
+        <div class="cmp-cell legacy-cell">Business as usual</div>
+        <div class="cmp-cell antigen-cell">
+          <div class="cmp-win-bar"></div>
+          <span class="antigen-val">Pure signal</span>
+          <span class="cmp-verdict">Insurgent</span>
+        </div>
+      </div>
+
+      <div class="cmp-row" data-verdict="ANTIGEN WINS">
+        <div class="cmp-cell attr-cell">Value model</div>
+        <div class="cmp-cell legacy-cell">4% tie fees to results</div>
+        <div class="cmp-cell antigen-cell">
+          <div class="cmp-win-bar"></div>
+          <span class="antigen-val">Alignment, not extraction</span>
+          <span class="cmp-verdict">Insurgent</span>
+        </div>
+      </div>
+
+    </div><!-- /cmp-table -->
+
+    <!-- Progress bar -->
+    <div class="cmp-counter">
+      <div class="cmp-counter-track"><div class="cmp-counter-fill" id="cmpFill"></div></div>
+      <p class="cmp-counter-label"><span id="cmpCount">0</span> / 6 dimensions — ANTIGEN leads</p>
+    </div>
+
+    <!-- Closing statement -->
+    <div class="comparison-close">
+      Where traditional agencies sell <span>effort</span>, ANTIGEN sells <span>outcomes</span>. Where they sell hours, ANTIGEN sells intelligence.
+    </div>
+
+  </div><!-- /comparison-wrap -->
+
+  <!-- Positioning Matrix -->
+  <div class="matrix-section reveal">
+
+    <div class="matrix-header">
+      <p class="matrix-eyebrow">Strategic Framework</p>
+      <h3 class="matrix-title">THE SPACE<br/><em>ANTIGEN</em> PLAYS IN</h3>
+      <p class="matrix-subtitle">Positioning against the gravitational pull toward the average. The alpha is always in the uncomfortable territory.</p>
+    </div>
+
+    <div class="matrix-layout">
+
+      <!-- 2×2 grid -->
+      <div class="matrix-wrap" style="padding:2.5rem 0 2.5rem 2.5rem;">
+        <!-- Y axis -->
+        <div class="matrix-axis-y">
+          <span class="axis-lbl y">Orphaned Capability</span>
+          <span class="axis-lbl y">Owned Capability</span>
+        </div>
+        <!-- X axis -->
+        <div class="matrix-axis-x">
+          <span class="axis-lbl">Now Problems</span>
+          <span class="axis-lbl">New / Next Problems</span>
+        </div>
+
+        <div class="matrix-grid" id="matrix-grid">
+          <div class="matrix-cross"></div>
+
+          <!-- Q2: Consulting Firms — top left -->
+          <div class="mq is-dim" data-key="consulting" onclick="selectQ(this)" onmouseenter="hoverQ(this)" onmouseleave="unhoverQ()">
+            <span class="mq-q">Q2</span>
+            <div>
+              <p class="mq-name">Consulting Firms</p>
+              <p class="mq-tag">Best practices &amp; convergent solutions</p>
+            </div>
+          </div>
+
+          <!-- Q4: ANTIGEN — top right (HERO) -->
+          <div class="mq is-hero" data-key="antigen" onclick="selectQ(this)" onmouseenter="hoverQ(this)" onmouseleave="unhoverQ()">
+            <span class="mq-q">Q4</span>
+            <div>
+              <p class="mq-name"><span class="mq-dot"></span>ANTIGEN</p>
+              <p class="mq-tag">Bespoke, hand-picked, divergent</p>
+            </div>
+          </div>
+
+          <!-- Q1: Legacy OpCos — bottom left -->
+          <div class="mq is-dim" data-key="legacy" onclick="selectQ(this)" onmouseenter="hoverQ(this)" onmouseleave="unhoverQ()">
+            <span class="mq-q">Q1</span>
+            <div>
+              <p class="mq-name">Legacy OpCos</p>
+              <p class="mq-tag">The comfort zone / BAU</p>
+            </div>
+          </div>
+
+          <!-- Q3: In-House Upskill — bottom right -->
+          <div class="mq is-dim" data-key="upskill" onclick="selectQ(this)" onmouseenter="hoverQ(this)" onmouseleave="unhoverQ()">
+            <span class="mq-q">Q3</span>
+            <div>
+              <p class="mq-name">In-House Upskill</p>
+              <p class="mq-tag">Aspirational labs &amp; slow growth</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <div>
+        <div class="matrix-detail is-antigen" id="matrix-detail">
+          <p class="detail-q">Strategic position <span id="d-q">Quadrant 04</span></p>
+          <h4 class="detail-title is-antigen-title" id="d-title">ANTIGEN</h4>
+          <p class="detail-sub" id="d-sub">Unfamiliar Problem / Orphaned Capability</p>
+          <p class="detail-body" id="d-body">This is where organisations have no playbook, no clear owner, and genuine uncertainty. Traditional consultancies avoid this space because it resists templating. This is where ANTIGEN operates.</p>
+          <div class="detail-points" id="d-points">
+            <div class="detail-point"><span class="detail-point-dot"></span>Hand-picked: specific expertise for specific problems.</div>
+            <div class="detail-point"><span class="detail-point-dot"></span>Bespoke: creating custom solutions, not frameworks.</div>
+            <div class="detail-point"><span class="detail-point-dot"></span>Divergent: differentiation that creates competitive separation.</div>
+          </div>
+        </div>
+
+        <div class="matrix-quote">
+          <p class="matrix-quote-kicker">The Alpha Strategy</p>
+          <p class="matrix-quote-text">"The alpha is in the <em>uncomfortable territory</em>. If you're looking for growth in familiar places with familiar approaches, you've already lost."</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cell model -->
+  <div class="cell-model reveal">
+    <div>
+      <p class="cell-label">THE <span>CELL</span><br/>MODEL</p>
+      <p class="cell-sub">Pure signal. No overhead. No legacy.</p>
+    </div>
+    <div class="cell-items stagger">
+      <div class="cell-item">
+        <span class="cell-item-num">P</span>
+        <div>
+          <p class="cell-item-title">Partners — The Stewards</p>
+          <p class="cell-item-desc">Senior context holders who manage relationships, carry reputational risk, and are accountable for outcomes. P&amp;G, Coca-Cola, WPP, DoubleVerify pedigree. They don't brief — they deliver.</p>
+        </div>
+      </div>
+      <div class="cell-item">
+        <span class="cell-item-num">E</span>
+        <div>
+          <p class="cell-item-title">Experts — The Deep Nodes</p>
+          <p class="cell-item-desc">Highly specialised practitioners deployed per engagement. MarTech, performance, narrative, product marketing, commercial. No generalists. They own their IP and define the terms of their engagement.</p>
+        </div>
+      </div>
+      <div class="cell-item">
+        <span class="cell-item-num">A</span>
+        <div>
+          <p class="cell-item-title">Associates — Apprentice-Explorers</p>
+          <p class="cell-item-desc">Early-career talent who learn through exposure to real, consequential problems, supported by AI-amplified senior performance. They operate above their level from day one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Infrastructure section -->
+<div class="infra-section">
+  <div class="infra-header reveal">
+    <h3 class="infra-title">THE INFRASTRUCTURE</h3>
+    <p class="infra-subtitle">A Zero-Legacy Model</p>
+  </div>
+
+  <div class="infra-grid stagger">
+    <div class="infra-item">
+      <p class="infra-item-num">01</p>
+      <p class="infra-item-title">Zero-Legacy Value Model</p>
+      <p class="infra-item-desc">Built for value alignment, not value extraction. Divergent where legacy opcos are convergent. Recombinant where they are familiar. Bespoke where they upskill and hire. Optimised for pure signal where they are optimised for business as usual.</p>
+    </div>
+    <div class="infra-item">
+      <p class="infra-item-num">02</p>
+      <p class="infra-item-title">RAG-Based AI Synthesis Layer</p>
+      <p class="infra-item-desc">The institutional brain that provokes questions, challenges assumptions, synthesises artefacts, and manages logistics. Institutional memory from day one — knowledge that compounds instead of departing with every strategist.</p>
+    </div>
+    <div class="infra-item">
+      <p class="infra-item-num">03</p>
+      <p class="infra-item-title">Service Velocity Architecture</p>
+      <p class="infra-item-desc">Two deployment tiers: Tier 1 (Days → Weeks) for intensive, high-velocity strategic challenges — POVs, workshops, pitch war rooms, go-to-market. Tier 2 (Weeks → Months) for deeper integration and embedded transformation.</p>
+    </div>
+    <div class="infra-item">
+      <p class="infra-item-num">04</p>
+      <p class="infra-item-title">Zero Fixed-Cost Architecture</p>
+      <p class="infra-item-desc">Zero real estate. Zero idle staff. Zero billable hour logic. Every structural constraint of the legacy agency model has been dissolved. What remains is pure capability, activated on demand.</p>
+    </div>
+  </div>
+
+  <div class="zero-legacy-strip reveal">
+    <div>
+      <p class="zero-legacy-label">A ZERO-<em>LEGACY</em><br/>MODEL</p>
+    </div>
+    <div class="zero-legacy-copy">
+      <p>Most attempts to fix agencies focus on surface-level change: flatter hierarchies, better culture, flexible work, AI tools bolted on top. These reforms fail because they don't address the underlying structural problem — the agency model itself is a legacy construct, optimised for a world that no longer exists.</p>
+      <p>ANTIGEN is not a reform. It is a reconstruction from first principles.</p>
+      <div class="result-list">
+        <div class="result-item"><strong>Divergent</strong>, not convergent. Built to challenge, not confirm.</div>
+        <div class="result-item"><strong>Recombinant</strong>, not familiar. Bespoke assembly for every problem.</div>
+        <div class="result-item"><strong>Faster</strong>: AI-augmented, with no management layer diluting or delaying ideas.</div>
+        <div class="result-item"><strong>Better incentivised</strong>: talent owns the upside; they are motivated to solve, not to sustain.</div>
+        <div class="result-item"><strong>More intelligent</strong>: knowledge compounds via the Synthesis Layer rather than leaving with every departing strategist.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Scroll reveal ─────────────────────────────────────────────── */
+(function(){
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.stagger').forEach(el=>obs.observe(el));
+})();
+
+/* ── Comparison table animation ────────────────────────────────── */
+(function(){
+  const table    = document.getElementById('cmpTable');
+  const scan     = document.getElementById('cmpScan');
+  const fill     = document.getElementById('cmpFill');
+  const countEl  = document.getElementById('cmpCount');
+  const rows     = Array.from(table.querySelectorAll('.cmp-row'));
+  const closeEl  = document.querySelector('.comparison-close');
+  let animated   = false;
+
+  function runAnimation() {
+    if(animated) return;
+    animated = true;
+
+    // Sweep the scan line across the full table height
+    const tableH = table.offsetHeight;
+    table.classList.add('scanned');
+    table.style.setProperty('--scan-target', tableH + 'px');
+    scan.style.opacity = '1';
+
+    // Stagger each row's entrance + wipe reveal
+    rows.forEach((row, i) => {
+      const delay = 120 + i * 140; // ms
+      setTimeout(() => {
+        row.classList.add('row-visible');
+        // Tick up the counter
+        const pct = Math.round(((i + 1) / rows.length) * 100);
+        fill.style.width = pct + '%';
+        countEl.textContent = i + 1;
+      }, delay);
+    });
+
+    // Fade in the closing line after all rows
+    setTimeout(() => {
+      if(closeEl) closeEl.classList.add('row-visible');
+      // Fade scan line out
+      setTimeout(()=>{ scan.style.opacity='0'; }, 400);
+    }, 120 + rows.length * 140 + 200);
+  }
+
+  // Trigger when the table scrolls into view
+  const tableObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) runAnimation(); });
+  }, { threshold: 0.2 });
+  tableObs.observe(table);
+
+  // Row hover — focus / unfocus behaviour
+  rows.forEach(row => {
+    row.addEventListener('mouseenter', () => {
+      rows.forEach(r => r.classList.toggle('is-focused', r === row));
+    });
+    row.addEventListener('mouseleave', () => {
+      rows.forEach(r => r.classList.remove('is-focused'));
+    });
+  });
+})();
+
+/* ── Positioning matrix interaction ────────────────────────────── */
+const matrixData = {
+  consulting: {
+    q:'Quadrant 02', title:'Consulting Firms',
+    sub:'Familiar Problem / Orphaned Capability',
+    body:'When organisations lack capability for known challenges, they call McKinsey, BCG, or Bain. These firms arrive with "best practices" and playbooks that deliver convergent solutions.',
+    points:[
+      'Pulls organisations toward industry norms.',
+      'Reduces variance by design.',
+      'Makes companies more like each other, not less.'
+    ],
+    hero:false
+  },
+  antigen: {
+    q:'Quadrant 04', title:'ANTIGEN',
+    sub:'Unfamiliar Problem / Orphaned Capability',
+    body:'This is where organisations have no playbook, no clear owner, and genuine uncertainty. Traditional consultancies avoid this space because it resists templating. This is where ANTIGEN operates.',
+    points:[
+      'Hand-picked: specific expertise for specific problems.',
+      'Bespoke: creating custom solutions, not frameworks.',
+      'Divergent: differentiation that creates competitive separation.'
+    ],
+    hero:true
+  },
+  legacy: {
+    q:'Quadrant 01', title:'Legacy OpCos',
+    sub:'Familiar Problem / Owned Capability',
+    body:"The domain of operational efficiency. This is 'business as usual' — campaign-oriented work that keeps the lights on but rarely transforms anything.",
+    points:[
+      'The comfort zone: precisely where growth goes to die.',
+      'Optimising what is already known.',
+      'Strategic breakthrough is rarely the focus.'
+    ],
+    hero:false
+  },
+  upskill: {
+    q:'Quadrant 03', title:'In-House Upskill',
+    sub:'New Problem / Owned Capability',
+    body:'The aspirational response to new problems. Organisations try to build internal capability to handle shifts like AI or new channels.',
+    points:[
+      'Noble but slow impulse.',
+      'By the time capability is built, the problem has mutated.',
+      'Often creates innovation labs that lack organisational sponsorship.'
+    ],
+    hero:false
+  }
+};
+
+let activeKey = 'antigen';
+
+function renderDetail(key) {
+  const d = matrixData[key];
+  const panel = document.getElementById('matrix-detail');
+  document.getElementById('d-q').textContent = d.q;
+  const titleEl = document.getElementById('d-title');
+  titleEl.textContent = d.title;
+  titleEl.className = 'detail-title' + (d.hero ? ' is-antigen-title' : '');
+  document.getElementById('d-sub').textContent = d.sub;
+  document.getElementById('d-body').textContent = d.body;
+  const pts = document.getElementById('d-points');
+  pts.innerHTML = d.points.map(p =>
+    `<div class="detail-point"><span class="detail-point-dot"></span>${p}</div>`
+  ).join('');
+  panel.className = 'matrix-detail' + (d.hero ? ' is-antigen' : '');
+}
+
+function selectQ(el) {
+  activeKey = el.dataset.key;
+  document.querySelectorAll('.mq').forEach(q => {
+    const isActive = q.dataset.key === activeKey;
+    const isHero   = q.dataset.key === 'antigen';
+    q.classList.toggle('is-active', isActive && !isHero);
+    q.classList.toggle('is-hero',   isHero);
+    q.classList.toggle('is-dim',    !isActive);
+  });
+  renderDetail(activeKey);
+}
+
+function hoverQ(el) {
+  if(el.dataset.key !== activeKey) renderDetail(el.dataset.key);
+}
+
+function unhoverQ() {
+  renderDetail(activeKey);
+}
+
+// Initialise
+renderDetail('antigen');
+document.querySelectorAll('.mq').forEach(q => {
+  if(q.dataset.key !== 'antigen') q.classList.add('is-dim');
+});
+</script>
+</body>
+</html>

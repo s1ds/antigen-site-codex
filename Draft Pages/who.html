@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — The Human × AI Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · WHO ────────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b;
+  --color-black:#111111; --color-white:#ffffff;
+  --color-paper:#f8f7f6; --color-smoke:#e8e8e8;
+  --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --text-muted:#6e6e6e;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-display:clamp(3.25rem,9vw,9rem);
+  --type-micro:.68rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-3:.75rem; --space-4:1rem; --space-5:1.5rem;
+  --space-6:2rem; --space-7:3rem; --space-8:4rem; --space-9:6rem;
+  --rule:1px solid rgba(17,17,17,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--color-white);
+  background:var(--color-black);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+
+/* ── Section wrapper ──────────────────────────────────────────────────── */
+#who {
+  background:var(--gradient-insurgence);
+  color:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+/* Grid texture */
+#who::before {
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  opacity:.5;
+}
+/* Noise overlay */
+#who::after {
+  content:'';
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  pointer-events:none;
+  mix-blend-mode:overlay;
+}
+
+.section-num {
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;letter-spacing:-.04em;
+  color:rgba(255,255,255,.07);
+  position:absolute;right:var(--page-pad);top:var(--space-7);
+  pointer-events:none;user-select:none;
+  z-index:1;
+}
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:var(--space-7);
+  padding-bottom:var(--space-4);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  position:relative;z-index:2;
+}
+.section-label {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-yellow);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-yellow);}
+.section-meta{font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+
+/* ── Stack headline ───────────────────────────────────────────────────── */
+.who-stack-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.8;letter-spacing:-.03em;text-transform:uppercase;
+  margin-bottom:var(--space-7);
+  position:relative;z-index:2;
+}
+.who-stack-headline .ghost {
+  -webkit-text-stroke:1.5px rgba(255,255,255,.28);
+  color:transparent;display:block;
+}
+.who-stack-headline .solid{display:block;}
+
+/* ── Two-column grid ──────────────────────────────────────────────────── */
+.who-grid {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.5rem,4vw,5rem);
+  margin-bottom:var(--space-8);
+  position:relative;z-index:2;
+}
+.who-col-header {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-yellow);
+  margin-bottom:var(--space-5);
+  padding-bottom:var(--space-3);
+  border-bottom:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;gap:.6rem;
+  line-height:1.4;
+}
+.who-col-header::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-yellow);flex-shrink:0;}
+
+/* Role cards */
+.who-role-cards{display:flex;flex-direction:column;gap:var(--space-3);}
+.who-role-card{
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.12);
+  padding:var(--space-4) var(--space-5);
+  backdrop-filter:blur(4px);
+  transition:background .2s,border-color .2s;
+}
+.who-role-card:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25);}
+.who-role-tag{
+  font-size:.7rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-yellow);margin-bottom:.4rem;
+}
+.who-role-name{
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.05em;font-size:.88rem;margin-bottom:.5rem;
+}
+.who-role-desc{
+  font-size:.85rem;font-weight:500;
+  color:rgba(255,255,255,.65);line-height:1.5;
+}
+
+/* AI engines */
+.who-engines{display:flex;flex-direction:column;gap:var(--space-3);}
+.who-engine{
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.12);
+  padding:var(--space-5);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:var(--space-4);align-items:start;
+  transition:border-color .2s,background .2s;
+}
+.who-engine:hover{border-color:rgba(255,192,0,.35);background:rgba(0,0,0,.35);}
+.who-engine-name{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  line-height:.9;text-transform:uppercase;
+}
+.who-engine-sub{
+  font-size:.68rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-yellow);margin-top:.3rem;margin-bottom:.6rem;
+}
+.who-engine-desc{
+  font-size:.85rem;font-weight:500;
+  color:rgba(255,255,255,.65);line-height:1.5;
+  max-width:38ch;
+}
+.who-engine-icon{
+  font-family:var(--font-display);
+  font-size:3.5rem;line-height:1;
+  color:rgba(255,255,255,.1);
+  flex-shrink:0;
+}
+
+/* ── Equation ─────────────────────────────────────────────────────────── */
+.who-equation {
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.1);
+  padding:clamp(1.5rem,3vw,3rem);
+  display:flex;
+  align-items:center;justify-content:center;
+  gap:var(--space-6);flex-wrap:wrap;
+  text-align:center;
+  position:relative;z-index:2;
+}
+.eq-part{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,3.5vw,3.5rem);
+  text-transform:uppercase;line-height:1;
+}
+.eq-op{
+  font-size:clamp(2rem,4vw,4rem);
+  color:var(--color-yellow);
+  font-family:var(--font-display);
+}
+.eq-result{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,5vw,5rem);
+  color:var(--color-yellow);
+  text-transform:uppercase;line-height:.9;
+}
+
+/* ── Pedigree strip ───────────────────────────────────────────────────── */
+.pedigree-strip {
+  background:rgba(0,0,0,.4);
+  color:var(--color-white);
+  padding:var(--space-6) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+  margin-top:0;
+  display:flex;
+  align-items:center;
+  gap:var(--space-6);
+  flex-wrap:wrap;
+  position:relative;z-index:2;
+}
+.pedigree-label{
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);flex-shrink:0;
+}
+.pedigree-names{
+  display:flex;gap:var(--space-5);flex-wrap:wrap;align-items:center;
+}
+.pedigree-name{
+  font-family:var(--font-display);
+  font-size:clamp(1.2rem,2.5vw,2rem);
+  text-transform:uppercase;
+  color:rgba(255,255,255,.25);
+  letter-spacing:.03em;
+  transition:color .2s;
+}
+.pedigree-name:hover{color:rgba(255,255,255,.7);}
+.pedigree-sep{color:rgba(255,255,255,.12);}
+
+/* ── Scroll reveal ───────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-left.visible{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-right.visible{opacity:1;transform:none;}
+.stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.18s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.31s;}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .who-grid{grid-template-columns:1fr;}
+  .who-equation{flex-direction:column;}
+  .pedigree-strip{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:560px){:root{--page-pad:1.25rem;}}
+</style>
+</head>
+<body>
+
+<section id="who">
+  <div class="section-num" aria-hidden="true">03</div>
+
+  <div class="section-header">
+    <span class="section-label">The Stack</span>
+    <span class="section-meta">Sovereign Humans × Divergent Engines</span>
+  </div>
+
+  <h2 class="who-stack-headline reveal">
+    <span class="ghost">THE HUMAN</span>
+    <span class="solid">× AI STACK.</span>
+  </h2>
+
+  <div class="who-grid">
+    <!-- Sovereign Humans -->
+    <div class="reveal-left">
+      <p class="who-col-header">Sovereign Humans — Curiosity, Curation, Connectivity</p>
+      <div class="who-role-cards stagger">
+        <div class="who-role-card">
+          <p class="who-role-tag">Partners · The Stewards</p>
+          <p class="who-role-name">Senior Context Holders</p>
+          <p class="who-role-desc">Manage relationships, carry reputational risk, and are accountable for outcomes. P&amp;G, Coca-Cola, WPP, DoubleVerify — global holding company pedigree. They don't brief — they deliver.</p>
+        </div>
+        <div class="who-role-card">
+          <p class="who-role-tag">Experts · The Deep Nodes</p>
+          <p class="who-role-name">Highly Specialised Practitioners</p>
+          <p class="who-role-desc">MarTech, performance, narrative, product marketing, commercial. Plugged in per engagement. No generalists. They own their IP and define the terms of their engagement.</p>
+        </div>
+        <div class="who-role-card">
+          <p class="who-role-tag">Associates · Apprentice-Explorers</p>
+          <p class="who-role-name">Early-Career Talent</p>
+          <p class="who-role-desc">Learn through exposure to real, consequential problems. AI-supported senior performance means they operate above their level from day one.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divergent Engines -->
+    <div class="reveal-right">
+      <p class="who-col-header">Divergent Intelligence Engines — Institutional Memory &amp; Counterfactual Synthesis</p>
+      <div class="who-engines stagger">
+        <div class="who-engine">
+          <div>
+            <p class="who-engine-name">The Provocateur</p>
+            <p class="who-engine-sub">Divergent Thinking · Permanent Dissent</p>
+            <p class="who-engine-desc">Acts as a permanent dissenter, challenging assumptions and preventing groupthink. The contrarian voice in every room.</p>
+          </div>
+          <p class="who-engine-icon">!?</p>
+        </div>
+        <div class="who-engine">
+          <div>
+            <p class="who-engine-name">The Synthesizer</p>
+            <p class="who-engine-sub">RAG-Based · Institutional Memory</p>
+            <p class="who-engine-desc">RAG-based knowledge graphs carry institutional memory from day one. Collective wisdom is never lost. Knowledge compounds instead of departing with every strategist.</p>
+          </div>
+          <p class="who-engine-icon">≋</p>
+        </div>
+        <div class="who-engine">
+          <div>
+            <p class="who-engine-name">The Scaffolding</p>
+            <p class="who-engine-sub">Structured Creativity · Divergent Output</p>
+            <p class="who-engine-desc">Structured creativity interfaces that guide the creative process toward significantly more divergent output. Structure as a provocation engine.</p>
+          </div>
+          <p class="who-engine-icon">⌗</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Equation -->
+  <div class="who-equation reveal">
+    <div class="eq-part">Sovereign<br/>Humans</div>
+    <div class="eq-op">×</div>
+    <div class="eq-part">Divergent<br/>Engines</div>
+    <div class="eq-op">=</div>
+    <div class="eq-result">The Human<br/>× AI Stack.</div>
+  </div>
+
+</section>
+
+<!-- Pedigree strip -->
+<div class="pedigree-strip">
+  <span class="pedigree-label">Pedigree from</span>
+  <div class="pedigree-names">
+    <span class="pedigree-name">P&amp;G</span>
+    <span class="pedigree-sep">/</span>
+    <span class="pedigree-name">Coca-Cola</span>
+    <span class="pedigree-sep">/</span>
+    <span class="pedigree-name">WPP</span>
+    <span class="pedigree-sep">/</span>
+    <span class="pedigree-name">DoubleVerify</span>
+    <span class="pedigree-sep">/</span>
+    <span class="pedigree-name">Global Holding Companies</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.stagger').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>

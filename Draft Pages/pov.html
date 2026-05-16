@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — Perspectives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · POV ─────────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b;
+  --color-black:#111111; --color-white:#ffffff;
+  --color-paper:#f8f7f6; --color-smoke:#e8e8e8;
+  --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --text-muted:#6e6e6e;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-display:clamp(3.25rem,9vw,9rem);
+  --type-micro:.68rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-3:.75rem; --space-4:1rem; --space-5:1.5rem;
+  --space-6:2rem; --space-7:3rem; --space-8:4rem; --space-9:6rem;
+  --rule:1px solid rgba(17,17,17,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--color-black);
+  background:var(--color-paper);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+a{text-decoration:none;color:inherit;}
+
+/* ── Section wrapper ─────────────────────────────────────────────────── */
+#pov {
+  background:var(--color-paper);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+.section-num {
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;letter-spacing:-.04em;
+  color:rgba(17,17,17,.055);
+  position:absolute;right:var(--page-pad);top:var(--space-7);
+  pointer-events:none;user-select:none;
+}
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:var(--space-7);padding-bottom:var(--space-4);border-bottom:var(--rule);
+}
+.section-label {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-red);}
+.section-meta{font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);}
+
+/* ── POV headline ────────────────────────────────────────────────────── */
+.pov-header-grid {
+  display:grid;
+  grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:end;
+  margin-bottom:var(--space-8);
+}
+.pov-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;text-transform:uppercase;letter-spacing:-.03em;
+}
+.pov-headline span{color:var(--color-red);}
+.pov-intro{
+  font-size:clamp(1rem,1.4vw,1.3rem);font-weight:500;
+  color:var(--text-muted);line-height:1.65;
+}
+.pov-intro em{font-style:normal;color:var(--color-black);font-weight:700;}
+
+/* ── POV cards ───────────────────────────────────────────────────────── */
+.pov-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--space-5);
+  margin-bottom:var(--space-8);
+}
+.pov-card {
+  background:var(--color-white);
+  border:var(--rule);
+  padding:var(--space-6);
+  position:relative;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+  text-decoration:none;color:inherit;
+  display:block;overflow:hidden;
+}
+.pov-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:0;background:var(--color-red);
+  transition:height .3s;
+}
+.pov-card:hover{
+  border-color:var(--color-red);
+  transform:translateY(-4px);
+  box-shadow:0 20px 50px rgba(17,17,17,.1);
+}
+.pov-card:hover::before{height:4px;}
+.pov-card-num{
+  font-family:var(--font-display);
+  font-size:5rem;line-height:.8;
+  color:var(--color-smoke);margin-bottom:var(--space-3);
+  transition:color .25s;
+}
+.pov-card:hover .pov-card-num{color:rgba(227,29,40,.12);}
+.pov-card-kicker{
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-red);margin-bottom:var(--space-3);
+}
+.pov-card-title{
+  font-weight:800;
+  font-size:clamp(1.1rem,1.8vw,1.6rem);
+  line-height:1.15;letter-spacing:-.02em;
+  margin-bottom:var(--space-3);
+}
+.pov-card-desc{
+  font-size:.9rem;font-weight:500;
+  color:var(--text-muted);line-height:1.55;
+  margin-bottom:var(--space-5);
+}
+.pov-card-read {
+  font-size:.72rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.5rem;
+}
+.pov-card-read::after{content:'↗';transition:transform .2s;}
+.pov-card:hover .pov-card-read::after{transform:translate(3px,-3px);}
+
+/* ── Thesis statement strip ──────────────────────────────────────────── */
+.pov-thesis {
+  background:var(--color-black);
+  padding:clamp(2rem,4vw,4rem) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+}
+.pov-thesis-label{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,4.5rem);
+  text-transform:uppercase;line-height:.85;
+  color:var(--color-white);
+}
+.pov-thesis-label span{color:var(--color-red);}
+.pov-thesis-copy{
+  font-size:clamp(1rem,1.3vw,1.2rem);font-weight:500;
+  line-height:1.65;color:rgba(255,255,255,.6);
+}
+.pov-thesis-link{
+  display:inline-block;
+  margin-top:var(--space-5);
+  font-size:var(--type-micro);font-weight:900;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-black);background:var(--color-yellow);
+  padding:.9rem 1.75rem;transition:background .2s;
+  text-decoration:none;
+}
+.pov-thesis-link:hover{background:var(--color-white);}
+
+/* Featured quote */
+.pov-quote-strip {
+  padding:var(--space-8) var(--page-pad);
+  background:var(--color-white);
+  border-top:4px solid var(--color-red);
+  margin-bottom:0;
+}
+.pov-quote {
+  font-family:var(--font-display);
+  font-size:clamp(2rem,5vw,5.5rem);
+  line-height:.85;letter-spacing:-.03em;
+  text-transform:uppercase;
+  color:var(--color-black);
+  max-width:1000px;
+}
+.pov-quote em{font-style:normal;color:var(--color-red);}
+.pov-quote-source {
+  margin-top:var(--space-5);
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-muted);
+  display:flex;align-items:center;gap:.6rem;
+}
+.pov-quote-source::before{content:'—';color:var(--color-red);}
+
+/* ── Scroll reveal ─────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.18s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.31s;}
+.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.44s;}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .pov-header-grid{grid-template-columns:1fr;}
+  .pov-grid{grid-template-columns:1fr;}
+  .pov-thesis{grid-template-columns:1fr;}
+}
+@media(max-width:560px){:root{--page-pad:1.25rem;}}
+</style>
+</head>
+<body>
+
+<section id="pov">
+  <div class="section-num" aria-hidden="true">05</div>
+
+  <div class="section-header">
+    <span class="section-label">Perspectives</span>
+    <span class="section-meta">Published POVs &amp; essays</span>
+  </div>
+
+  <!-- Header grid -->
+  <div class="pov-header-grid reveal">
+    <div>
+      <h2 class="pov-headline">ANTIGEN<br/><span>PERSPECTIVES.</span></h2>
+    </div>
+    <div class="pov-intro">
+      We don't hold positions quietly. <em>Every growth problem has a structural diagnosis underneath it.</em> We publish ours — openly, specifically, and without the language of comfortable consulting.
+    </div>
+  </div>
+
+  <!-- POV cards -->
+  <div class="pov-grid stagger">
+
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">01</p>
+      <p class="pov-card-kicker">The ANTIGENERIC Thesis</p>
+      <p class="pov-card-title">Why algorithmic sameness is the defining strategic crisis of this decade — and the antidote.</p>
+      <p class="pov-card-desc">The convergence engines are money-balling everything to homogeneity. The antidote is not a better algorithm. It is a first-principles reconstruction of how growth strategy gets built.</p>
+      <span class="pov-card-read">Read at sidht.com</span>
+    </a>
+
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">02</p>
+      <p class="pov-card-kicker">The Post-Algorithm World</p>
+      <p class="pov-card-title">What strategy looks like when convergence engines have optimised everything to the mean.</p>
+      <p class="pov-card-desc">Speed without direction. Infinite capability, finite courage. The post-algorithm world demands a fundamentally different strategic posture — and most brands don't have one.</p>
+      <span class="pov-card-read">Read at sidht.com</span>
+    </a>
+
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">03</p>
+      <p class="pov-card-kicker">The Age of Average</p>
+      <p class="pov-card-title">On music, brands, and the global collapse of meaningful difference.</p>
+      <p class="pov-card-desc">In 1970, 35% of top 100 songs had a key change. By 2021: 0.5%. The same thing is happening to every brand in every category. The question is whether you're part of the collapse or the answer to it.</p>
+      <span class="pov-card-read">Read at sidht.com</span>
+    </a>
+
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">04</p>
+      <p class="pov-card-kicker">The Hallways We Killed</p>
+      <p class="pov-card-title">On liminality, loneliness, and what corporations lost when they optimised for efficiency.</p>
+      <p class="pov-card-desc">The spaces between things — the corridor, the canteen, the walk between meetings — were where ideas actually lived. We killed them. This essay asks what we owe the spaces we removed.</p>
+      <span class="pov-card-read">Read at sidht.com</span>
+    </a>
+
+  </div>
+
+</section>
+
+<!-- Thesis strip -->
+<div class="pov-thesis reveal">
+  <div>
+    <p class="pov-thesis-label">WE DON'T<br/>HOLD<br/><span>POSITIONS</span><br/>QUIETLY.</p>
+  </div>
+  <div>
+    <p class="pov-thesis-copy">Every growth problem has a structural diagnosis underneath it. The ANTIGENERIC Thesis is the core provocation: why algorithmic sameness is the defining strategic crisis of this decade, and what the antidote looks like from first principles.</p>
+    <a class="pov-thesis-link" href="https://sidht.com" target="_blank" rel="noopener">Read the full thesis at sidht.com →</a>
+  </div>
+</div>
+
+<!-- Quote strip -->
+<div class="pov-quote-strip reveal">
+  <p class="pov-quote">
+    Infinite <em>capability</em>, finite <em>courage.</em>
+  </p>
+  <p class="pov-quote-source">The Post-Algorithm World — ANTIGEN Perspectives</p>
+</div>
+
+<script>
+(function(){
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal,.stagger').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>

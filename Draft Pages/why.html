@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — The Disruption</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · WHY ────────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b; --color-crimson:#b11226;
+  --color-black:#111111; --color-white:#ffffff; --color-paper:#f8f7f6;
+  --color-smoke:#e8e8e8; --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --text-muted:#6e6e6e;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-display:clamp(3.25rem,9vw,9rem);
+  --type-micro:.68rem; --type-small:.82rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem;
+  --space-7:3rem; --space-8:4rem; --space-9:6rem;
+  --rule:1px solid rgba(17,17,17,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--color-black);
+  background:var(--color-paper);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+
+/* ── Section wrapper ─────────────────────────────────────────────────── */
+#why {
+  background:var(--color-paper);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+
+/* Section number watermark */
+.section-num {
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;
+  letter-spacing:-.04em;
+  color:rgba(17,17,17,.055);
+  position:absolute;
+  right:var(--page-pad);
+  top:var(--space-7);
+  pointer-events:none;
+  user-select:none;
+}
+
+/* Header row */
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:var(--space-7);
+  padding-bottom:var(--space-4);
+  border-bottom:var(--rule);
+}
+.section-label {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before {
+  content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-red);
+}
+.section-meta {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);
+}
+
+/* ── Intro grid ──────────────────────────────────────────────────────── */
+.why-intro-grid {
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:start;
+  margin-bottom:var(--space-9);
+}
+.why-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+  color:var(--color-black);
+}
+.why-headline em { font-style:normal; color:var(--color-red); }
+.why-body {
+  font-size:clamp(1rem,1.3vw,1.2rem);
+  font-weight:500;
+  line-height:1.65;
+  color:var(--color-black);
+}
+.why-body p+p { margin-top:var(--space-4); }
+.why-body strong { font-weight:800; color:var(--color-red); }
+
+/* ── Force cards ─────────────────────────────────────────────────────── */
+.forces-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(1.25rem,2.5vw,2.5rem);
+  margin-bottom:var(--space-9);
+}
+.force-card {
+  background:var(--color-white);
+  border-top:5px solid var(--color-red);
+  padding:var(--space-5) var(--space-5) var(--space-6);
+  position:relative;overflow:hidden;
+  transition:transform .3s, box-shadow .3s;
+}
+.force-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(227,29,40,.12);
+}
+/* corner cut */
+.force-card::after {
+  content:'';
+  position:absolute;bottom:0;right:0;
+  width:3.5rem;height:3.5rem;
+  background:var(--color-smoke);
+  clip-path:polygon(100% 0,100% 100%,0 100%);
+}
+.force-kicker {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-red);
+  margin-bottom:var(--space-3);
+}
+.force-stat {
+  font-family:var(--font-display);
+  font-size:clamp(4.5rem,9vw,9rem);
+  line-height:.78;
+  letter-spacing:-.03em;
+  color:var(--color-black);
+  margin-bottom:var(--space-4);
+}
+.force-stat sup {
+  font-size:.38em;
+  vertical-align:top;
+  margin-top:.25em;
+  display:inline-block;
+}
+.force-title {
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5rem);
+  line-height:.82;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  color:var(--color-red);
+  margin-bottom:var(--space-4);
+}
+.force-body {
+  font-size:.92rem;font-weight:600;
+  line-height:1.55;color:var(--text-muted);
+  max-width:36ch;
+}
+
+/* Stat bar — data visualisation accent */
+.force-bar-wrap { margin:var(--space-4) 0; }
+.force-bar-label {
+  font-size:.62rem;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-muted);
+  margin-bottom:.35rem;
+  display:flex;justify-content:space-between;
+}
+.force-bar-track {
+  height:4px;background:var(--color-smoke);
+  position:relative;overflow:hidden;
+}
+.force-bar-fill {
+  position:absolute;top:0;left:0;height:100%;
+  background:var(--color-red);
+  width:0%;
+  transition:width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── Thesis block ─────────────────────────────────────────────────────── */
+.thesis-block {
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:center;
+  background:var(--color-black);
+  padding:clamp(2.5rem,5vw,5rem) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+  position:relative;
+  overflow:hidden;
+}
+/* Red strip on left edge */
+.thesis-block::before {
+  content:'';
+  position:absolute;top:0;left:0;
+  width:5px;height:100%;
+  background:var(--gradient-insurgence);
+}
+.thesis-label {
+  font-family:var(--font-display);
+  font-size:clamp(3rem,7vw,7.5rem);
+  line-height:.8;
+  text-transform:uppercase;
+  color:var(--color-white);
+}
+.thesis-label span { color:var(--color-red); }
+.thesis-copy {
+  font-size:clamp(1rem,1.4vw,1.3rem);
+  font-weight:500;line-height:1.65;
+  color:rgba(255,255,255,.72);
+}
+.thesis-copy p+p { margin-top:var(--space-4); }
+.thesis-copy strong { color:var(--color-white);font-weight:700; }
+.thesis-copy em { font-style:italic; color:var(--color-yellow); }
+
+/* ── Word wall divider ─────────────────────────────────────────────────── */
+.word-wall-section {
+  position:relative;
+  background:var(--gradient-insurgence);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  margin:0 calc(var(--page-pad)*-1);
+  margin-top:var(--space-9);
+}
+.word-wall-bg {
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:1rem 2.5rem;
+  padding:var(--space-7) var(--page-pad);
+  opacity:.3;
+  font-size:.72rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.07em;
+  color:var(--color-white);
+  pointer-events:none;line-height:1.6;overflow:hidden;
+}
+.word-wall-claim {
+  position:relative;z-index:2;
+  font-family:var(--font-display);
+  font-size:clamp(5rem,16vw,17rem);
+  line-height:.72;letter-spacing:-.045em;
+  text-transform:uppercase;
+  color:var(--color-black);
+  max-width:1200px;
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────────── */
+.reveal { opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease; }
+.reveal.visible { opacity:1;transform:none; }
+.stagger > * { opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease; }
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.18s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.31s;}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .why-intro-grid{grid-template-columns:1fr;}
+  .forces-grid{grid-template-columns:1fr;}
+  .thesis-block{grid-template-columns:1fr;}
+  .word-wall-bg{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:560px){
+  :root{--page-pad:1.25rem;}
+  .word-wall-claim{font-size:clamp(4rem,22vw,8rem);}
+}
+</style>
+</head>
+<body>
+
+<section id="why">
+  <div class="section-num" aria-hidden="true">01</div>
+
+  <div class="section-header">
+    <span class="section-label">The Disruption</span>
+    <span class="section-meta">Why ANTIGEN exists</span>
+  </div>
+
+  <!-- Intro grid -->
+  <div class="why-intro-grid reveal">
+    <div>
+      <h2 class="why-headline">Forces of disruption have shifted growth to <em>uncomfortable places.</em></h2>
+    </div>
+    <div class="why-body">
+      <p>We live in an Age of Average. Post-algorithm convergence engines are money-balling everything to homogeneity. The tools got faster. The ideas got slower. The industry kept billing.</p>
+      <p>Three forces have permanently shifted growth to uncomfortable places — and none of them reward the legacy model that most agencies still run.</p>
+      <p><strong>Speed without direction. 2026 tools plugging into 2006 systems. That is not innovation. That is camouflage.</strong></p>
+    </div>
+  </div>
+
+  <!-- Force cards -->
+  <div class="forces-grid stagger">
+
+    <div class="force-card">
+      <p class="force-kicker">Force 01 &nbsp;/&nbsp; Sameness</p>
+      <p class="force-stat">79<sup>%</sup></p>
+      <p class="force-title">SAMENESS</p>
+      <div class="force-bar-wrap">
+        <div class="force-bar-label"><span>Brands with no meaningful difference</span><span>79%</span></div>
+        <div class="force-bar-track"><div class="force-bar-fill" data-width="79"></div></div>
+      </div>
+      <p class="force-body">In 1970, 35% of top 100 songs had a key change. By 2021: 0.5%. The same compression is happening to every brand in every category. Optimisation engines making the same recommendations to the same briefs.</p>
+    </div>
+
+    <div class="force-card">
+      <p class="force-kicker">Force 02 &nbsp;/&nbsp; Stagnation</p>
+      <p class="force-stat">29<sup>%</sup></p>
+      <p class="force-title">STAGNATION</p>
+      <div class="force-bar-wrap">
+        <div class="force-bar-label"><span>Consumers who find advertising innovative</span><span>29%</span></div>
+        <div class="force-bar-track"><div class="force-bar-fill" data-width="29"></div></div>
+      </div>
+      <p class="force-body">The agency model was built for information scarcity, talent concentration, and high coordination costs. All three constraints have collapsed. The model hasn't.</p>
+    </div>
+
+    <div class="force-card">
+      <p class="force-kicker">Force 03 &nbsp;/&nbsp; Suppression</p>
+      <p class="force-stat">4<sup>%</sup></p>
+      <p class="force-title">SUPPRESSION</p>
+      <div class="force-bar-wrap">
+        <div class="force-bar-label"><span>Agencies tying fees to business results</span><span>4%</span></div>
+        <div class="force-bar-track"><div class="force-bar-fill" data-width="4"></div></div>
+      </div>
+      <p class="force-body">64% of marketers report brief quality in decline. Fear of blandness ranks higher than AI as CMOs' #1 threat — at 47%. The structural model rewards slow work and scope creep.</p>
+    </div>
+
+  </div>
+
+  <!-- Thesis block -->
+  <div class="thesis-block reveal">
+    <div>
+      <h3 class="thesis-label">OUR<br/>EXIST<span>—</span><br/>ENCE IS A<br/><span>REACTION.</span></h3>
+    </div>
+    <div class="thesis-copy">
+      <p>Organisations are organisms. Systems of interconnected and interdependent parts that act, react, grow, shrink, thrive, diminish — based entirely on their ability to respond to threats. Survival and propagation depends on response.</p>
+      <p>The first-principles question is not <em>how do we fix the agency?</em> It is: if the agency didn't exist, what would you build instead?</p>
+      <p><strong>The answer is not a better agency.</strong> It is a distributed intelligence network — fluid, sovereign, AI-augmented, and built to solve problems rather than sustain a billing model.</p>
+      <p>Antigen introduces external agents of change into stagnant systems to provoke, stimulate, and generate breakthrough growth. That is what ANTIGEN is.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- Word wall divider -->
+<div class="word-wall-section">
+  <div class="word-wall-bg" aria-hidden="true">
+    <span>Performance Marketing</span><span>Brand Strategy</span><span>Agency Review</span><span>GTM Advisory</span><span>PMF Research</span>
+    <span>Legacy OpCo</span><span>Holding Company</span><span>Account Management</span><span>Billable Hours</span><span>Scope Creep</span>
+    <span>Integrated Agency</span><span>Creative Platform</span><span>Brand Architecture</span><span>Content Strategy</span><span>Media Planning</span>
+    <span>Digital Transformation</span><span>Innovation Lab</span><span>Agile Sprint</span><span>Growth Hacking</span><span>Omnichannel</span>
+    <span>Strategic Roadmap</span><span>ROI Framework</span><span>Customer Journey</span><span>Touchpoint Audit</span><span>Brand Tracking</span>
+    <span>Synergy</span><span>Best Practice</span><span>Alignment Session</span><span>Stakeholder Map</span><span>Consensus Play</span>
+    <span>Full Service</span><span>Campaign First</span><span>Brief Cycle</span><span>Creative Review</span><span>Pitch Deck</span>
+    <span>SOW Expansion</span><span>Retainer Model</span><span>Incremental Change</span><span>Business As Usual</span><span>Industry Standard</span>
+  </div>
+  <p class="word-wall-claim">NOT<br/>AN<br/>AGENCY.</p>
+</div>
+
+<script>
+(function(){
+  // Reveal on scroll
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        // Animate stat bars
+        e.target.querySelectorAll('.force-bar-fill').forEach(bar=>{
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal,.stagger').forEach(el=>obs.observe(el));
+
+  // Trigger bars that are already visible on load
+  document.querySelectorAll('.force-bar-fill').forEach(bar=>{
+    const card = bar.closest('.force-card');
+    if(card){
+      const cardObs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting) bar.style.width = bar.dataset.width + '%';
+        });
+      },{threshold:.3});
+      cardObs.observe(card);
+    }
+  });
+})();
+</script>
+</body>
+</html>

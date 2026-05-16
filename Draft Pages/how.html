@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — Deployment Protocols</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · HOW ────────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b;
+  --color-black:#111111; --color-white:#ffffff;
+  --color-paper:#f8f7f6; --color-smoke:#e8e8e8;
+  --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --text-muted:#6e6e6e;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-display:clamp(3.25rem,9vw,9rem);
+  --type-micro:.68rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem;
+  --space-6:2rem; --space-7:3rem; --space-8:4rem; --space-9:6rem;
+  --rule:1px solid rgba(17,17,17,.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--color-black);
+  background:var(--color-white);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+
+/* ── Section wrapper ─────────────────────────────────────────────────── */
+#how {
+  background:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+.section-num {
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;letter-spacing:-.04em;
+  color:rgba(17,17,17,.05);
+  position:absolute;right:var(--page-pad);top:var(--space-7);
+  pointer-events:none;user-select:none;
+}
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:var(--space-7);padding-bottom:var(--space-4);border-bottom:var(--rule);
+}
+.section-label {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-red);}
+.section-meta{font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);}
+
+/* ── Headline ─────────────────────────────────────────────────────────── */
+.how-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;text-transform:uppercase;letter-spacing:-.03em;
+  max-width:900px;
+  margin-bottom:var(--space-7);
+}
+.how-headline span{color:var(--color-red);}
+
+.how-intro {
+  max-width:60ch;
+  font-size:clamp(1rem,1.3vw,1.2rem);font-weight:500;line-height:1.65;
+  color:var(--text-muted);margin-bottom:var(--space-8);
+}
+.how-intro strong{color:var(--color-black);font-style:italic;}
+
+/* ── Ecosystem grid ──────────────────────────────────────────────────── */
+.ecosystem-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0;
+  border:var(--rule);
+  margin-bottom:var(--space-9);
+}
+.ecosystem-card {
+  padding:var(--space-5) var(--space-4);
+  border-right:var(--rule);
+  position:relative;overflow:hidden;
+  transition:background .25s;
+  cursor:default;
+}
+.ecosystem-card:last-child{border-right:0;}
+.ecosystem-card:hover{background:var(--color-black);}
+.ecosystem-card:hover .eco-title,
+.ecosystem-card:hover .eco-kicker,
+.ecosystem-card:hover .eco-desc,
+.ecosystem-card:hover .eco-detail { color:var(--color-white); }
+.ecosystem-card:hover .eco-num   { color:rgba(255,255,255,.06); }
+.ecosystem-card:hover .eco-bar   { background:var(--color-yellow); }
+
+.eco-bar{height:3px;background:var(--color-red);margin-bottom:var(--space-5);transition:background .25s;}
+.eco-num{
+  font-family:var(--font-display);
+  font-size:3.5rem;line-height:.8;letter-spacing:-.03em;
+  color:var(--color-smoke);margin-bottom:var(--space-3);transition:color .25s;
+}
+.eco-kicker{
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-red);margin-bottom:var(--space-2);transition:color .25s;
+}
+.eco-title{
+  font-weight:800;font-size:.95rem;
+  text-transform:uppercase;letter-spacing:.04em;
+  margin-bottom:var(--space-3);transition:color .25s;
+}
+.eco-desc{
+  font-size:.82rem;font-weight:500;
+  color:var(--text-muted);line-height:1.5;transition:color .25s;
+}
+/* Hidden detail revealed on hover */
+.eco-detail {
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.0);
+  margin-top:var(--space-3);
+  transition:color .25s;
+}
+.ecosystem-card:hover .eco-detail{color:var(--color-yellow);}
+
+/* ── Service velocity ─────────────────────────────────────────────────── */
+.velocity-section {
+  background:var(--color-black);
+  padding:clamp(2.5rem,5vw,5rem) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+/* Red accent band */
+.velocity-section::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:4px;
+  background:var(--gradient-insurgence);
+}
+.velocity-label {
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5.5rem);
+  text-transform:uppercase;line-height:.82;
+  color:var(--color-white);
+}
+.velocity-label em{font-style:normal;color:var(--color-yellow);}
+.velocity-sub{
+  margin-top:var(--space-4);
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+.velocity-tiers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--space-4);
+}
+.velocity-tier{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  padding:var(--space-5);
+  transition:border-color .2s,background .2s;
+  position:relative;
+}
+.velocity-tier:hover{
+  border-color:rgba(255,192,0,.3);
+  background:rgba(255,255,255,.09);
+}
+.tier-badge{
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:var(--color-red);color:var(--color-white);
+  display:inline-block;padding:.25rem .6rem;
+  margin-bottom:var(--space-3);
+}
+.tier-badge.yellow{background:var(--color-yellow);color:var(--color-black);}
+.tier-title{
+  font-family:var(--font-display);
+  font-size:2rem;text-transform:uppercase;line-height:.9;
+  color:var(--color-white);margin-bottom:var(--space-2);
+}
+.tier-time{
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;
+  color:var(--color-grey);margin-bottom:var(--space-3);
+}
+.tier-desc{
+  font-size:.85rem;font-weight:500;
+  color:rgba(255,255,255,.6);line-height:1.55;
+}
+.tier-services{
+  margin-top:var(--space-3);
+  display:flex;flex-direction:column;gap:.4rem;
+}
+.tier-service-item{
+  font-size:.7rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  display:flex;gap:.5rem;align-items:center;
+}
+.tier-service-item::before{content:'→';color:var(--color-red);}
+.tier-badge.yellow ~ .tier-services .tier-service-item::before{color:var(--color-yellow);}
+.tier-ready{
+  margin-top:var(--space-3);
+  font-size:.75rem;font-weight:800;
+  color:var(--color-yellow);text-transform:uppercase;letter-spacing:.06em;
+}
+
+/* Closing statement */
+.how-closing {
+  background:var(--color-black);
+  padding:var(--space-6) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--space-6);
+  flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.how-closing-line {
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,3.5vw,3.5rem);
+  text-transform:uppercase;letter-spacing:-.02em;
+  color:rgba(255,255,255,.15);
+}
+.how-cta {
+  display:inline-block;
+  font-size:var(--type-micro);font-weight:900;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-black);background:var(--color-yellow);
+  padding:1rem 2.2rem;text-decoration:none;flex-shrink:0;
+  transition:background .2s;
+}
+.how-cta:hover{background:var(--color-white);}
+
+/* ── Scroll reveal ─────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.04s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.12s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.20s;}
+.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.28s;}
+.stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:.36s;}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media(max-width:1024px){
+  .ecosystem-grid{grid-template-columns:repeat(3,1fr);}
+  .ecosystem-card:nth-child(n+4){border-top:var(--rule);}
+}
+@media(max-width:900px){
+  .velocity-section{grid-template-columns:1fr;}
+  .velocity-tiers{grid-template-columns:1fr;}
+  .ecosystem-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:560px){
+  :root{--page-pad:1.25rem;}
+  .ecosystem-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<section id="how">
+  <div class="section-num" aria-hidden="true">04</div>
+
+  <div class="section-header">
+    <span class="section-label">Deployment Protocols</span>
+    <span class="section-meta">How we engage</span>
+  </div>
+
+  <h2 class="how-headline reveal">
+    DEPLOYMENT<br/>PROTOCOLS<br/><span>ACROSS ECOSYSTEMS.</span>
+  </h2>
+
+  <p class="how-intro reveal">
+    ANTIGEN deploys across five ecosystems, each with a purpose-built engagement model.
+    Every engagement begins the same way: we find the <strong>uncomfortable place where your growth is actually hiding</strong> — and we go there.
+  </p>
+
+  <!-- Ecosystem grid -->
+  <div class="ecosystem-grid stagger">
+
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">01</p>
+      <p class="eco-kicker">Agencies</p>
+      <p class="eco-title">Pitch Strategy &amp; Thought Leadership</p>
+      <p class="eco-desc">Capability building, pitch strategy, thought leadership. We sharpen your offering and harden your competitive position.</p>
+      <p class="eco-detail">From the outside in →</p>
+    </div>
+
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">02</p>
+      <p class="eco-kicker">Brands</p>
+      <p class="eco-title">Transformation &amp; Agency Review</p>
+      <p class="eco-desc">Transformation programs, agency review, performance marketing architecture. We sit on your side of the table.</p>
+      <p class="eco-detail">Client-side only →</p>
+    </div>
+
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">03</p>
+      <p class="eco-kicker">AdTech / MarTech</p>
+      <p class="eco-title">GTM &amp; PMF Advisory</p>
+      <p class="eco-desc">GTM strategy, PMF advisory, holding company partnerships. We translate technology into commercial traction.</p>
+      <p class="eco-detail">Tech to revenue →</p>
+    </div>
+
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">04</p>
+      <p class="eco-kicker">Startups</p>
+      <p class="eco-title">Positioning &amp; Growth Architecture</p>
+      <p class="eco-desc">Positioning, growth architecture, fractional CMO. We build the strategic foundation before you scale.</p>
+      <p class="eco-detail">Before the scale →</p>
+    </div>
+
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">05</p>
+      <p class="eco-kicker">Cross-Sector</p>
+      <p class="eco-title">Fractional CSO &amp; Advisory Retainers</p>
+      <p class="eco-desc">For organisations that need a permanent provocation engine, not a periodic consultant. We exist inside the problem.</p>
+      <p class="eco-detail">Permanently embedded →</p>
+    </div>
+
+  </div>
+
+  <!-- Velocity tiers -->
+  <div class="velocity-section reveal">
+    <div>
+      <p class="velocity-label">SERVICE<br/><em>VELOCITY</em><br/>ARCHITECTURE</p>
+      <p class="velocity-sub">Two deployment tiers</p>
+    </div>
+    <div class="velocity-tiers stagger">
+      <div class="velocity-tier">
+        <span class="tier-badge">Tier 1</span>
+        <p class="tier-title">IMMEDIATE</p>
+        <p class="tier-time">Days → Weeks · Project-Based</p>
+        <p class="tier-desc">Intensive, high-velocity strategic challenges designed for speed and specificity.</p>
+        <div class="tier-services">
+          <span class="tier-service-item">POVs &amp; strategic positions</span>
+          <span class="tier-service-item">Pitch war rooms</span>
+          <span class="tier-service-item">Workshops &amp; diagnostics</span>
+          <span class="tier-service-item">Go-to-market strategy</span>
+        </div>
+        <p class="tier-ready">↑ We are ready to deliver today.</p>
+      </div>
+      <div class="velocity-tier">
+        <span class="tier-badge yellow">Tier 2</span>
+        <p class="tier-title">MID-LONG TERM</p>
+        <p class="tier-time">Weeks → Months · Embedded</p>
+        <p class="tier-desc">Deeper integration, structural capability building, embedded transformation and ongoing fractional leadership.</p>
+        <div class="tier-services">
+          <span class="tier-service-item">Structural capability building</span>
+          <span class="tier-service-item">Embedded transformation</span>
+          <span class="tier-service-item">Fractional CMO / CSO</span>
+          <span class="tier-service-item">Advisory retainers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Closing bar -->
+<div class="how-closing">
+  <p class="how-closing-line">HARD PROBLEMS. FAST. // ANTIGEN.</p>
+  <a class="how-cta" href="contact.html">Bring us a hard problem →</a>
+</div>
+
+<script>
+(function(){
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal,.stagger').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>

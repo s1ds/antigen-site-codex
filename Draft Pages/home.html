@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — Welcome to the Insurgence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · HOME ──────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b; --color-crimson:#b11226;
+  --color-black:#111111; --color-white:#ffffff; --color-paper:#f8f7f6;
+  --color-smoke:#e8e8e8; --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-hero:clamp(5.5rem,15vw,16rem);
+  --type-micro:.68rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-4:1rem; --space-5:1.5rem; --space-6:2rem;
+  --space-7:3rem; --space-8:4rem; --space-9:6rem; --space-10:8rem;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  background:var(--color-black);
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+a{color:inherit;text-decoration:none;}
+
+/* ── HERO ─────────────────────────────────────────────────────────── */
+#home {
+  position:relative;
+  min-height:100vh;
+  background:var(--gradient-insurgence);
+  color:var(--color-white);
+  overflow:hidden;
+  display:grid;
+  align-items:end;
+  padding:var(--space-10) var(--page-pad) var(--space-9);
+}
+
+/* Noise overlay */
+.hero-noise {
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  pointer-events:none;
+  mix-blend-mode:overlay;
+}
+
+/* Grid lines */
+.hero-grid-bg {
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+/* Diagonal accent slash */
+.hero-slash {
+  position:absolute;
+  bottom:-120px; right:-60px;
+  width:520px; height:520px;
+  background:rgba(0,0,0,.12);
+  transform:rotate(-22deg);
+  pointer-events:none;
+}
+.hero-slash-2 {
+  position:absolute;
+  top:-80px; right:120px;
+  width:280px; height:600px;
+  background:rgba(255,255,255,.04);
+  transform:rotate(-22deg);
+  pointer-events:none;
+}
+
+/* Large ghost number */
+.hero-ghost-num {
+  position:absolute;
+  top:50%; right:var(--page-pad);
+  transform:translateY(-50%);
+  font-family:var(--font-display);
+  font-size:clamp(14rem,30vw,30rem);
+  line-height:.72;
+  letter-spacing:-.04em;
+  color:rgba(0,0,0,.12);
+  pointer-events:none;
+  user-select:none;
+}
+
+.hero-content {
+  position:relative;
+  z-index:2;
+  max-width:1200px;
+}
+
+/* Kicker */
+.hero-kicker {
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  margin-bottom:var(--space-5);
+  display:flex;align-items:center;gap:.85rem;
+}
+.hero-kicker::before {
+  content:'';display:block;
+  width:2.5rem;height:1.5px;
+  background:var(--color-yellow);
+  flex-shrink:0;
+}
+
+/* Main headline */
+.hero-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-hero);
+  line-height:.76;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  margin-bottom:var(--space-7);
+}
+.hero-headline .line-outline {
+  -webkit-text-stroke:2px rgba(255,255,255,.42);
+  color:transparent;
+  display:block;
+}
+.hero-headline .line-solid { display:block; }
+.hero-headline .line-yellow { display:block; color:var(--color-yellow); }
+
+/* Bottom sub-row */
+.hero-sub {
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,4fr);
+  gap:var(--space-8);
+  align-items:end;
+  padding-top:var(--space-6);
+  border-top:1px solid rgba(255,255,255,.16);
+}
+.hero-sub-copy {
+  font-size:clamp(1.05rem,1.6vw,1.55rem);
+  font-weight:600;
+  line-height:1.3;
+  letter-spacing:-.02em;
+  max-width:54ch;
+}
+.hero-sub-copy em {
+  font-style:normal;
+  color:var(--color-yellow);
+}
+
+/* Right side nav pills + CTA */
+.hero-sub-right { text-align:right; }
+.hero-nav-pills {
+  display:flex;justify-content:flex-end;
+  gap:.65rem;flex-wrap:wrap;
+  margin-bottom:var(--space-4);
+}
+.hero-nav-pill {
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+  text-decoration:none;
+  padding:.38rem .8rem;
+  border:1px solid rgba(255,255,255,.16);
+  transition:all .2s;
+}
+.hero-nav-pill:hover {
+  color:var(--color-yellow);
+  border-color:var(--color-yellow);
+}
+.hero-cta {
+  display:inline-block;
+  font-size:var(--type-micro);
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-black);
+  background:var(--color-yellow);
+  padding:.9rem 1.75rem;
+  text-decoration:none;
+  transition:background .2s,color .2s;
+}
+.hero-cta:hover { background:var(--color-white); }
+
+/* Scroll indicator */
+.hero-scroll {
+  position:absolute;
+  bottom:var(--space-6);
+  left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.45rem;
+  color:rgba(255,255,255,.3);
+  font-size:var(--type-micro);
+  font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  animation:pulse 2.2s ease-in-out infinite;
+}
+.hero-scroll svg {
+  width:18px;height:18px;
+  stroke:currentColor;fill:none;stroke-width:1.5;
+}
+@keyframes pulse { 0%,100%{opacity:.3;} 50%{opacity:.7;} }
+
+/* ── Entrance animations ────────────────────────────────────────────── */
+.anim-fade-up {
+  opacity:0;
+  transform:translateY(28px);
+  animation:fadeUp .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.anim-fade-up.d1 { animation-delay:.1s; }
+.anim-fade-up.d2 { animation-delay:.25s; }
+.anim-fade-up.d3 { animation-delay:.42s; }
+.anim-fade-up.d4 { animation-delay:.6s; }
+.anim-fade-up.d5 { animation-delay:.75s; }
+
+@keyframes fadeUp {
+  to { opacity:1; transform:none; }
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .hero-sub { grid-template-columns:1fr; }
+  .hero-sub-right { text-align:left; }
+  .hero-nav-pills { justify-content:flex-start; }
+  .hero-ghost-num { display:none; }
+}
+@media(max-width:560px){
+  :root{--page-pad:1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<section id="home">
+  <div class="hero-noise"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-slash"></div>
+  <div class="hero-slash-2"></div>
+  <div class="hero-ghost-num" aria-hidden="true">AG</div>
+
+  <div class="hero-content">
+
+    <p class="hero-kicker anim-fade-up d1">
+      FILE REF: 001-A &nbsp;·&nbsp; STATUS: ACTIVE &nbsp;·&nbsp; ANTIGEN.IN
+    </p>
+
+    <h1 class="hero-headline">
+      <span class="line-outline anim-fade-up d2">WELCOME</span>
+      <span class="line-solid  anim-fade-up d3">TO THE</span>
+      <span class="line-yellow anim-fade-up d4">INSURGENCE.</span>
+    </h1>
+
+    <div class="hero-sub anim-fade-up d5">
+      <p class="hero-sub-copy">
+        A post-algorithm organism built to tackle stagnation and sameness through
+        <em>purpose-built configurations</em> of minds and machines.
+        We are looking for hard problems.
+      </p>
+      <div class="hero-sub-right">
+        <div class="hero-nav-pills">
+          <a class="hero-nav-pill" href="why.html">The Disruption</a>
+          <a class="hero-nav-pill" href="what.html">The Model</a>
+          <a class="hero-nav-pill" href="who.html">The Stack</a>
+          <a class="hero-nav-pill" href="how.html">How We Deploy</a>
+          <a class="hero-nav-pill" href="pov.html">POV</a>
+        </div>
+        <a class="hero-cta" href="contact.html">Talk to us if you have one →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+</body>
+</html>

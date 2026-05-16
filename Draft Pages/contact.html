@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ── ANTIGEN V3 · CONTACT ─────────────────────────────────────────────── */
+:root {
+  --color-red:#e31d28; --color-magenta:#e3195b;
+  --color-black:#111111; --color-white:#ffffff;
+  --color-paper:#f8f7f6; --color-smoke:#e8e8e8;
+  --color-grey:#9fa2a4; --color-yellow:#ffc000;
+  --text-muted:#6e6e6e;
+  --gradient-insurgence:linear-gradient(135deg,#e31d28 0%,#e3195b 72%,#f0448e 100%);
+  --font-display:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;
+  --font-sans:'Montserrat',Arial,sans-serif;
+  --type-display:clamp(3.25rem,9vw,9rem);
+  --type-micro:.68rem;
+  --page-pad:clamp(1.5rem,5vw,4.5rem);
+  --space-3:.75rem; --space-4:1rem; --space-5:1.5rem;
+  --space-6:2rem; --space-7:3rem; --space-8:4rem; --space-9:6rem;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--color-white);
+  background:var(--color-black);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+a{text-decoration:none;color:inherit;}
+
+/* ── Section wrapper ─────────────────────────────────────────────────── */
+#contact {
+  background:var(--color-black);
+  color:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+  min-height:100vh;
+}
+/* Grid texture */
+#contact::before {
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+/* Red left-edge accent */
+#contact::after{
+  content:'';
+  position:absolute;top:0;left:0;
+  width:4px;height:100%;
+  background:var(--gradient-insurgence);
+}
+.section-num {
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;letter-spacing:-.04em;
+  color:rgba(255,255,255,.04);
+  position:absolute;right:var(--page-pad);top:var(--space-7);
+  pointer-events:none;user-select:none;
+  z-index:1;
+}
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:var(--space-7);padding-bottom:var(--space-4);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  position:relative;z-index:2;
+}
+.section-label {
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-yellow);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-yellow);}
+.section-meta{font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+
+/* ── Contact headline ────────────────────────────────────────────────── */
+.contact-headline {
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;text-transform:uppercase;letter-spacing:-.03em;
+  margin-bottom:var(--space-6);
+  position:relative;z-index:2;
+}
+.contact-headline .red{color:var(--color-red);}
+.contact-headline .yellow{color:var(--color-yellow);}
+
+/* ── Main grid ───────────────────────────────────────────────────────── */
+.contact-grid {
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:start;
+  margin-bottom:var(--space-8);
+  position:relative;z-index:2;
+}
+.contact-copy{
+  font-size:clamp(1rem,1.4vw,1.3rem);font-weight:500;
+  line-height:1.65;color:rgba(255,255,255,.7);
+}
+.contact-copy p+p{margin-top:var(--space-4);}
+.contact-copy strong{color:var(--color-white);}
+.contact-flag{
+  margin-top:var(--space-5);
+  font-size:var(--type-micro);font-weight:800;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--color-yellow);
+  display:flex;align-items:center;gap:.6rem;
+}
+.contact-flag::before{content:'';display:block;width:1.8rem;height:1.5px;background:var(--color-yellow);}
+
+/* Channel cards */
+.contact-channels{display:flex;flex-direction:column;gap:var(--space-4);}
+.contact-channel{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:var(--space-4);
+  padding:var(--space-5);
+  border:1px solid rgba(255,255,255,.1);
+  align-items:center;
+  text-decoration:none;color:inherit;
+  transition:border-color .25s,background .25s,transform .2s;
+}
+.contact-channel:hover{
+  border-color:var(--color-yellow);
+  background:rgba(255,192,0,.07);
+  transform:translateX(4px);
+}
+.channel-icon{
+  width:3rem;height:3rem;
+  background:var(--color-red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:1.35rem;
+  flex-shrink:0;
+  transition:background .25s;
+}
+.contact-channel:hover .channel-icon{background:var(--color-yellow);color:var(--color-black);}
+.channel-label{
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-yellow);margin-bottom:.25rem;
+}
+.channel-value{
+  font-size:.9rem;font-weight:600;color:rgba(255,255,255,.75);
+}
+.channel-desc{
+  font-size:.72rem;font-weight:600;
+  color:rgba(255,255,255,.3);line-height:1.4;
+  margin-top:.2rem;
+}
+.channel-arrow{
+  font-size:1.2rem;color:rgba(255,255,255,.2);
+  transition:color .2s,transform .2s;
+}
+.contact-channel:hover .channel-arrow{
+  color:var(--color-yellow);
+  transform:translate(3px,-3px);
+}
+
+/* ── Status bar ──────────────────────────────────────────────────────── */
+.status-bar{
+  display:flex;gap:var(--space-6);flex-wrap:wrap;
+  margin-bottom:var(--space-8);
+  padding:var(--space-4) var(--space-5);
+  border:1px solid rgba(255,255,255,.08);
+  position:relative;z-index:2;
+  background:rgba(255,255,255,.03);
+}
+.status-item{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.7rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--color-grey);flex-shrink:0;
+}
+.status-dot.active{
+  background:#22c55e;
+  box-shadow:0 0 8px rgba(34,197,94,.6);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+.status-item.is-active{color:rgba(255,255,255,.55);}
+
+/* ── Closing bar ─────────────────────────────────────────────────────── */
+.closing-bar{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:var(--space-7);
+  display:flex;align-items:center;
+  justify-content:space-between;
+  gap:var(--space-6);flex-wrap:wrap;
+  position:relative;z-index:2;
+}
+.closing-tagline{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,3.5vw,3.5rem);
+  text-transform:uppercase;letter-spacing:-.02em;
+  color:rgba(255,255,255,.15);
+}
+.closing-cta{
+  display:inline-block;
+  font-size:var(--type-micro);font-weight:900;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--color-black);background:var(--color-yellow);
+  padding:1rem 2.2rem;text-decoration:none;flex-shrink:0;
+  transition:background .2s;
+}
+.closing-cta:hover{background:var(--color-white);}
+
+/* ── Three-column tagline ────────────────────────────────────────────── */
+.three-col {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:var(--space-8);
+  position:relative;z-index:2;
+}
+.three-col-item{
+  padding:var(--space-5);
+  border-right:1px solid rgba(255,255,255,.08);
+  position:relative;
+}
+.three-col-item:last-child{border-right:none;}
+.three-col-kicker{
+  font-size:var(--type-micro);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:var(--space-3);
+}
+.three-col-val{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,4rem);
+  text-transform:uppercase;line-height:.85;
+  color:var(--color-white);
+}
+.three-col-val span{color:var(--color-red);}
+
+/* ── Scroll reveal ─────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-left.visible{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-right.visible{opacity:1;transform:none;}
+.stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.18s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.31s;}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .contact-grid{grid-template-columns:1fr;}
+  .three-col{grid-template-columns:1fr;}
+  .three-col-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .three-col-item:last-child{border-bottom:none;}
+  .closing-bar{flex-direction:column;align-items:flex-start;}
+  .status-bar{flex-direction:column;gap:var(--space-3);}
+}
+@media(max-width:560px){:root{--page-pad:1.25rem;}}
+</style>
+</head>
+<body>
+
+<section id="contact">
+  <div class="section-num" aria-hidden="true">06</div>
+
+  <div class="section-header">
+    <span class="section-label">Contact</span>
+    <span class="section-meta">Status: Active</span>
+  </div>
+
+  <h2 class="contact-headline reveal">
+    ANTIGEN<br/><span class="red">UNLOCKS</span><br/>GROWTH FROM<br/><span class="yellow">UNCOMFORTABLE</span><br/>PLACES.
+  </h2>
+
+  <!-- Status bar -->
+  <div class="status-bar reveal">
+    <div class="status-item is-active">
+      <span class="status-dot active"></span>
+      <span>Tier 1 — Available Now</span>
+    </div>
+    <div class="status-item is-active">
+      <span class="status-dot active"></span>
+      <span>Accepting New Briefs</span>
+    </div>
+    <div class="status-item">
+      <span class="status-dot"></span>
+      <span>Response within 24 hrs</span>
+    </div>
+    <div class="status-item">
+      <span class="status-dot"></span>
+      <span>Network — Open</span>
+    </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="contact-copy">
+        <p>We are ready to deliver today. If you have a hard problem — a brand that has gone average, a pitch you keep losing, a growth engine that has stalled — we want to hear about it.</p>
+        <p>If you are a strategist, a creative, or a specialist practitioner who is done brokering inspiration for employment, we want to talk.</p>
+        <div class="contact-flag">Composable. Distributed. Insurgent.</div>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div class="contact-channels stagger">
+        <a class="contact-channel" href="mailto:sid@antigen.in">
+          <div class="channel-icon">B</div>
+          <div>
+            <p class="channel-label">Brief Us</p>
+            <p class="channel-value">sid@antigen.in</p>
+            <p class="channel-desc">Hard problems. Stalled growth. Pitch challenges.</p>
+          </div>
+          <span class="channel-arrow">↗</span>
+        </a>
+        <a class="contact-channel" href="mailto:talent@antigen.in">
+          <div class="channel-icon">J</div>
+          <div>
+            <p class="channel-label">Join the Network</p>
+            <p class="channel-value">talent@antigen.in</p>
+            <p class="channel-desc">Strategists, creatives, specialist practitioners.</p>
+          </div>
+          <span class="channel-arrow">↗</span>
+        </a>
+        <a class="contact-channel" href="mailto:partners@antigen.in">
+          <div class="channel-icon">P</div>
+          <div>
+            <p class="channel-label">Partner With Us</p>
+            <p class="channel-value">partners@antigen.in</p>
+            <p class="channel-desc">Agencies, platforms, ecosystem collaborators.</p>
+          </div>
+          <span class="channel-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three attributes -->
+  <div class="three-col reveal">
+    <div class="three-col-item">
+      <p class="three-col-kicker">Architecture</p>
+      <p class="three-col-val">COM<span>-</span><br/>POS<span>ABLE</span></p>
+    </div>
+    <div class="three-col-item">
+      <p class="three-col-kicker">Structure</p>
+      <p class="three-col-val">DIS<span>-</span><br/>TRIB<span>UTED</span></p>
+    </div>
+    <div class="three-col-item">
+      <p class="three-col-kicker">Posture</p>
+      <p class="three-col-val">IN<span>-</span><br/>SUR<span>GENT</span></p>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div class="closing-bar">
+    <p class="closing-tagline">END OF DOSSIER // COORDINATES ACTIVE</p>
+    <a class="closing-cta" href="mailto:sid@antigen.in">Bring us a hard problem →</a>
+  </div>
+
+</section>
+
+<script>
+(function(){
+  // Trigger all reveal animations immediately since this is a standalone page
+  setTimeout(()=>{
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.stagger').forEach(el=>{
+      el.classList.add('visible');
+    });
+  }, 80);
+
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.stagger').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>

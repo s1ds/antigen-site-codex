@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANTIGEN — A First-Principles Intelligence Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+/* ─── ANTIGEN V3 DESIGN SYSTEM ────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
+
+:root {
+  --color-red: #e31d28;
+  --color-magenta: #e3195b;
+  --color-crimson: #b11226;
+  --color-black: #111111;
+  --color-ink: #1e1c17;
+  --color-white: #ffffff;
+  --color-paper: #f8f7f6;
+  --color-smoke: #e8e8e8;
+  --color-grey: #9fa2a4;
+  --color-blue: #08a7d8;
+  --color-yellow: #ffc000;
+  --bg-primary: var(--color-white);
+  --bg-paper: var(--color-paper);
+  --bg-insurgence: var(--color-red);
+  --text-primary: var(--color-black);
+  --text-muted: #6e6e6e;
+  --text-inverse: var(--color-white);
+  --accent-primary: var(--color-red);
+  --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-display: 'Bebas Neue', 'Oswald', Impact, 'Arial Narrow', sans-serif;
+  --font-sans: 'Montserrat', Arial, sans-serif;
+  --type-hero: clamp(5.5rem, 15vw, 16rem);
+  --type-display: clamp(3.25rem, 9vw, 9rem);
+  --type-title: clamp(2.25rem, 5.5vw, 5.5rem);
+  --type-subtitle: clamp(1.4rem, 2.6vw, 2.75rem);
+  --type-body: clamp(1rem, 1.1vw, 1.125rem);
+  --type-small: .82rem;
+  --type-micro: .68rem;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.5rem; --space-6:2rem; --space-7:3rem; --space-8:4rem;
+  --space-9:6rem; --space-10:8rem;
+  --page-pad: clamp(1.5rem, 5vw, 4.5rem);
+  --max-page: 1440px;
+  --rule: 1px solid rgba(17,17,17,.13);
+  --shadow-hard: 10px 10px 0 rgba(17,17,17,.92);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-family:var(--font-sans);
+  font-size:var(--type-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg,video{display:block;max-width:100%;}
+a{color:inherit;text-decoration-thickness:.08em;text-underline-offset:.18em;}
+::selection{background:var(--color-yellow);color:var(--color-black);}
+
+/* ─── NAV ─────────────────────────────────────────────────────────────── */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.1rem var(--page-pad);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(17,17,17,.0);
+  backdrop-filter:blur(0px);
+  transition:background .3s,backdrop-filter .3s;
+}
+.site-nav.scrolled{
+  background:rgba(17,17,17,.94);
+  backdrop-filter:blur(12px);
+}
+.nav-logo{
+  font-family:var(--font-display);
+  font-size:1.8rem;
+  letter-spacing:.04em;
+  color:var(--color-white);
+  text-decoration:none;
+}
+.nav-links{
+  display:flex;gap:var(--space-6);list-style:none;
+}
+.nav-links a{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--color-yellow);}
+.nav-cta{
+  font-size:var(--type-micro);
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-white);
+  text-decoration:none;
+  border:1.5px solid rgba(255,255,255,.45);
+  padding:.55rem 1.1rem;
+  transition:border-color .2s,color .2s;
+}
+.nav-cta:hover{border-color:var(--color-yellow);color:var(--color-yellow);}
+
+/* ─── HERO ────────────────────────────────────────────────────────────── */
+#home{
+  position:relative;
+  min-height:100vh;
+  background:var(--gradient-insurgence);
+  color:var(--color-white);
+  overflow:hidden;
+  display:grid;
+  align-items:end;
+  padding:var(--space-10) var(--page-pad) var(--space-9);
+}
+.hero-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  pointer-events:none;
+  mix-blend-mode:overlay;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:1200px;}
+.hero-kicker{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  margin-bottom:var(--space-5);
+  display:flex;align-items:center;gap:.75rem;
+}
+.hero-kicker::before{
+  content:'';display:block;
+  width:2.5rem;height:1.5px;
+  background:var(--color-yellow);
+}
+.hero-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-hero);
+  line-height:.78;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  margin-bottom:var(--space-7);
+}
+.hero-headline .line-outline{
+  -webkit-text-stroke:2px rgba(255,255,255,.45);
+  color:transparent;
+  display:block;
+}
+.hero-headline .line-solid{display:block;}
+.hero-headline .line-yellow{display:block;color:var(--color-yellow);}
+.hero-sub{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,4fr);
+  gap:var(--space-8);
+  align-items:end;
+  padding-top:var(--space-6);
+  border-top:1px solid rgba(255,255,255,.18);
+}
+.hero-sub-copy{
+  font-size:clamp(1.05rem,1.6vw,1.55rem);
+  font-weight:600;
+  line-height:1.3;
+  letter-spacing:-.02em;
+  max-width:56ch;
+}
+.hero-sub-right{text-align:right;}
+.hero-nav-pills{
+  display:flex;justify-content:flex-end;
+  gap:.75rem;flex-wrap:wrap;
+  margin-bottom:var(--space-4);
+}
+.hero-nav-pill{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  text-decoration:none;
+  padding:.4rem .85rem;
+  border:1px solid rgba(255,255,255,.18);
+  transition:all .2s;
+}
+.hero-nav-pill:hover{
+  color:var(--color-yellow);
+  border-color:var(--color-yellow);
+}
+.hero-cta{
+  display:inline-block;
+  font-size:var(--type-micro);
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-black);
+  background:var(--color-yellow);
+  padding:.9rem 1.75rem;
+  text-decoration:none;
+  transition:background .2s,color .2s;
+}
+.hero-cta:hover{background:var(--color-white);}
+.hero-scroll-indicator{
+  position:absolute;
+  bottom:var(--space-6);
+  left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:rgba(255,255,255,.35);
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  animation:pulse 2s ease-in-out infinite;
+}
+.hero-scroll-indicator svg{
+  width:20px;height:20px;
+  stroke:currentColor;fill:none;stroke-width:1.5;
+}
+@keyframes pulse{0%,100%{opacity:.35;}50%{opacity:.7;}}
+
+/* ─── SECTION COMMON ─────────────────────────────────────────────────── */
+section{position:relative;}
+.section-header{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  margin-bottom:var(--space-7);
+  padding-bottom:var(--space-4);
+  border-bottom:var(--rule);
+}
+.section-label{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--color-red);
+  display:flex;align-items:center;gap:.6rem;
+}
+.section-label::before{
+  content:'';display:block;
+  width:1.8rem;height:1.5px;
+  background:var(--color-red);
+}
+.section-num{
+  font-family:var(--font-display);
+  font-size:clamp(6rem,14vw,14rem);
+  line-height:.75;
+  letter-spacing:-.04em;
+  color:var(--color-smoke);
+  position:absolute;
+  right:var(--page-pad);
+  top:var(--space-7);
+  pointer-events:none;
+  user-select:none;
+}
+
+/* ─── WHY SECTION ────────────────────────────────────────────────────── */
+#why{
+  background:var(--color-paper);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+}
+.why-intro-grid{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:start;
+  margin-bottom:var(--space-9);
+}
+.why-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+  color:var(--color-black);
+}
+.why-headline em{
+  font-style:normal;
+  color:var(--color-red);
+}
+.why-body{
+  font-size:clamp(1rem,1.3vw,1.2rem);
+  font-weight:500;
+  line-height:1.6;
+  color:var(--color-black);
+}
+.why-body p+p{margin-top:var(--space-4);}
+
+/* Force cards */
+.forces-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(1.25rem,2.5vw,2.5rem);
+  margin-bottom:var(--space-9);
+}
+.force-card{
+  background:var(--color-white);
+  border-top:5px solid var(--color-red);
+  padding:var(--space-5) var(--space-5) var(--space-6);
+  position:relative;overflow:hidden;
+}
+.force-card::after{
+  content:'';
+  position:absolute;bottom:0;right:0;
+  width:4rem;height:4rem;
+  background:var(--color-smoke);
+  clip-path:polygon(100% 0,100% 100%,0 100%);
+}
+.force-kicker{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-red);
+  margin-bottom:var(--space-3);
+}
+.force-stat{
+  font-family:var(--font-display);
+  font-size:clamp(4.5rem,9vw,9rem);
+  line-height:.78;
+  letter-spacing:-.03em;
+  color:var(--color-black);
+  margin-bottom:var(--space-4);
+}
+.force-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5rem);
+  line-height:.82;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  color:var(--color-red);
+  margin-bottom:var(--space-4);
+}
+.force-body{
+  font-size:.92rem;
+  font-weight:600;
+  line-height:1.5;
+  color:var(--text-muted);
+  max-width:36ch;
+}
+
+/* Thesis block */
+.thesis-block{
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:center;
+  background:var(--color-black);
+  padding:clamp(2.5rem,5vw,5rem) var(--page-pad);
+  margin:0 calc(var(--page-pad)*-1);
+}
+.thesis-label{
+  font-family:var(--font-display);
+  font-size:clamp(3rem,7vw,7.5rem);
+  line-height:.8;
+  text-transform:uppercase;
+  color:var(--color-white);
+}
+.thesis-label span{color:var(--color-red);}
+.thesis-copy{
+  font-size:clamp(1rem,1.4vw,1.3rem);
+  font-weight:500;
+  line-height:1.6;
+  color:rgba(255,255,255,.72);
+}
+.thesis-copy p+p{margin-top:var(--space-4);}
+.thesis-copy strong{color:var(--color-white);font-weight:700;}
+
+/* ─── WHAT SECTION ───────────────────────────────────────────────────── */
+#what{
+  background:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+}
+.what-opener{
+  display:grid;
+  grid-template-columns:minmax(0,7fr) minmax(0,4fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:start;
+  margin-bottom:var(--space-9);
+}
+.what-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+}
+.what-headline .stroke{
+  -webkit-text-stroke:2px var(--color-black);
+  color:transparent;
+  display:block;
+}
+.what-headline .fill{
+  color:var(--color-red);
+  display:block;
+}
+.what-intro-copy{
+  font-size:clamp(1rem,1.4vw,1.3rem);
+  font-weight:500;
+  line-height:1.6;
+  margin-top:var(--space-3);
+}
+.what-intro-copy p+p{margin-top:var(--space-4);}
+
+/* Comparison strip */
+.comparison-strip{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;
+  margin-bottom:var(--space-9);
+  border:var(--rule);
+}
+.comparison-col{padding:clamp(1.5rem,3vw,3rem);}
+.comparison-col.is-legacy{background:var(--color-smoke);}
+.comparison-col.is-antigen{
+  background:var(--color-black);
+  color:var(--color-white);
+}
+.comparison-header{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:var(--space-5);
+  padding-bottom:var(--space-3);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.is-legacy .comparison-header{
+  border-bottom:var(--rule);
+  color:var(--text-muted);
+}
+.is-antigen .comparison-header{color:var(--color-yellow);}
+.comparison-row{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:var(--space-4);
+  padding:var(--space-3) 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-size:.9rem;
+  font-weight:600;
+}
+.is-legacy .comparison-row{border-bottom:var(--rule);}
+.comparison-row .label{color:var(--text-muted);}
+.is-antigen .comparison-row .value{color:var(--color-yellow);}
+.is-legacy .comparison-row .value{color:var(--color-black);}
+
+/* Cell model */
+.cell-model{
+  background:var(--color-paper);
+  padding:clamp(2rem,4vw,4rem);
+  margin-bottom:var(--space-9);
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+}
+.cell-label{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5.5rem);
+  line-height:.82;
+  text-transform:uppercase;
+}
+.cell-label span{color:var(--color-red);}
+.cell-sub{
+  font-size:var(--type-small);
+  font-weight:700;
+  letter-spacing:.05em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  margin-top:var(--space-3);
+}
+.cell-items{display:flex;flex-direction:column;gap:var(--space-4);}
+.cell-item{
+  display:grid;
+  grid-template-columns:2.5rem 1fr;
+  gap:var(--space-4);
+  align-items:start;
+  padding:var(--space-4);
+  background:var(--color-white);
+  border-left:3px solid var(--color-red);
+}
+.cell-item-num{
+  font-family:var(--font-display);
+  font-size:2.2rem;
+  line-height:1;
+  color:var(--color-red);
+}
+.cell-item-title{
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.85rem;
+  margin-bottom:.25rem;
+}
+.cell-item-desc{
+  font-size:.85rem;
+  font-weight:500;
+  color:var(--text-muted);
+  line-height:1.4;
+}
+
+/* ─── WHO SECTION ─────────────────────────────────────────────────────── */
+#who{
+  background:var(--gradient-insurgence);
+  color:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+#who .hero-grid-bg{opacity:.4;}
+.who-stack-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.8;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+  margin-bottom:var(--space-7);
+}
+.who-stack-headline .ghost{
+  -webkit-text-stroke:1.5px rgba(255,255,255,.3);
+  color:transparent;
+  display:block;
+}
+.who-stack-headline .solid{display:block;}
+
+/* Human side */
+.who-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.5rem,4vw,5rem);
+  margin-bottom:var(--space-8);
+}
+.who-col-header{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--color-yellow);
+  margin-bottom:var(--space-5);
+  padding-bottom:var(--space-3);
+  border-bottom:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;gap:.6rem;
+}
+.who-col-header::before{
+  content:'';display:block;
+  width:1.8rem;height:1.5px;
+  background:var(--color-yellow);
+}
+.who-role-cards{display:flex;flex-direction:column;gap:var(--space-3);}
+.who-role-card{
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.12);
+  padding:var(--space-4) var(--space-5);
+  backdrop-filter:blur(4px);
+}
+.who-role-card:hover{background:rgba(255,255,255,.15);transition:background .2s;}
+.who-role-name{
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.88rem;
+  margin-bottom:.4rem;
+}
+.who-role-tag{
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-yellow);
+  margin-bottom:.5rem;
+}
+.who-role-desc{
+  font-size:.85rem;
+  font-weight:500;
+  color:rgba(255,255,255,.65);
+  line-height:1.45;
+}
+
+/* AI engines */
+.who-engine{
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.12);
+  padding:var(--space-4) var(--space-5);
+  margin-bottom:var(--space-3);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:var(--space-4);
+  align-items:start;
+}
+.who-engine-name{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  line-height:.9;
+  text-transform:uppercase;
+}
+.who-engine-sub{
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-yellow);
+  margin-top:.3rem;
+}
+.who-engine-desc{
+  font-size:.85rem;
+  font-weight:500;
+  color:rgba(255,255,255,.65);
+  line-height:1.45;
+  max-width:40ch;
+}
+.who-engine-icon{
+  font-family:var(--font-display);
+  font-size:3rem;
+  line-height:1;
+  color:rgba(255,255,255,.12);
+}
+
+/* Stack equation */
+.who-equation{
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.1);
+  padding:clamp(1.5rem,3vw,3rem);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--space-6);
+  flex-wrap:wrap;
+  text-align:center;
+}
+.eq-part{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,3.5vw,3.5rem);
+  text-transform:uppercase;
+  line-height:1;
+}
+.eq-op{
+  font-size:clamp(2rem,4vw,4rem);
+  color:var(--color-yellow);
+  font-family:var(--font-display);
+}
+.eq-result{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,5vw,5rem);
+  color:var(--color-yellow);
+  text-transform:uppercase;
+  line-height:.9;
+}
+
+/* ─── HOW SECTION ─────────────────────────────────────────────────────── */
+#how{
+  background:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+}
+.how-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;
+  text-transform:uppercase;
+  letter-spacing:-.03em;
+  max-width:900px;
+  margin-bottom:var(--space-7);
+}
+.ecosystem-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0;
+  border:var(--rule);
+  margin-bottom:var(--space-9);
+}
+.ecosystem-card{
+  padding:var(--space-5) var(--space-4);
+  border-right:var(--rule);
+  position:relative;overflow:hidden;
+  transition:background .2s;
+}
+.ecosystem-card:last-child{border-right:0;}
+.ecosystem-card:hover{background:var(--color-black);}
+.ecosystem-card:hover .eco-title,
+.ecosystem-card:hover .eco-kicker,
+.ecosystem-card:hover .eco-desc{color:var(--color-white);}
+.ecosystem-card:hover .eco-num{color:rgba(255,255,255,.08);}
+.ecosystem-card:hover .eco-bar{background:var(--color-yellow);}
+.eco-bar{
+  height:3px;
+  background:var(--color-red);
+  margin-bottom:var(--space-5);
+  transition:background .2s;
+}
+.eco-num{
+  font-family:var(--font-display);
+  font-size:3.5rem;
+  line-height:.8;
+  letter-spacing:-.03em;
+  color:var(--color-smoke);
+  margin-bottom:var(--space-3);
+  transition:color .2s;
+}
+.eco-kicker{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-red);
+  margin-bottom:var(--space-2);
+  transition:color .2s;
+}
+.eco-title{
+  font-weight:800;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:var(--space-3);
+  transition:color .2s;
+}
+.eco-desc{
+  font-size:.82rem;
+  font-weight:500;
+  color:var(--text-muted);
+  line-height:1.5;
+  transition:color .2s;
+}
+
+/* Service velocity */
+.velocity-section{
+  background:var(--color-black);
+  padding:clamp(2.5rem,5vw,5rem);
+  margin:0 calc(var(--page-pad)*-1);
+  display:grid;
+  grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+}
+.velocity-label{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,5vw,5.5rem);
+  text-transform:uppercase;
+  line-height:.82;
+  color:var(--color-white);
+}
+.velocity-label em{font-style:normal;color:var(--color-yellow);}
+.velocity-tiers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--space-4);
+}
+.velocity-tier{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  padding:var(--space-5);
+}
+.tier-badge{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  background:var(--color-red);
+  color:var(--color-white);
+  display:inline-block;
+  padding:.25rem .6rem;
+  margin-bottom:var(--space-3);
+}
+.tier-badge.yellow{background:var(--color-yellow);color:var(--color-black);}
+.tier-title{
+  font-family:var(--font-display);
+  font-size:2rem;
+  text-transform:uppercase;
+  line-height:.9;
+  color:var(--color-white);
+  margin-bottom:var(--space-2);
+}
+.tier-time{
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--color-grey);
+  margin-bottom:var(--space-3);
+}
+.tier-desc{
+  font-size:.85rem;
+  font-weight:500;
+  color:rgba(255,255,255,.6);
+  line-height:1.5;
+}
+.tier-ready{
+  margin-top:var(--space-3);
+  font-size:.78rem;
+  font-weight:800;
+  color:var(--color-yellow);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+/* ─── POV SECTION ─────────────────────────────────────────────────────── */
+#pov{
+  background:var(--color-paper);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+}
+.pov-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;
+  text-transform:uppercase;
+  letter-spacing:-.03em;
+  margin-bottom:var(--space-3);
+}
+.pov-sub{
+  font-size:clamp(1rem,1.4vw,1.3rem);
+  font-weight:500;
+  color:var(--text-muted);
+  margin-bottom:var(--space-8);
+  max-width:60ch;
+}
+.pov-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--space-5);
+}
+.pov-card{
+  background:var(--color-white);
+  border:var(--rule);
+  padding:var(--space-6);
+  position:relative;
+  transition:border-color .2s,transform .2s;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+.pov-card:hover{
+  border-color:var(--color-red);
+  transform:translateY(-3px);
+}
+.pov-card-num{
+  font-family:var(--font-display);
+  font-size:5rem;
+  line-height:.8;
+  color:var(--color-smoke);
+  margin-bottom:var(--space-3);
+}
+.pov-card-kicker{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-red);
+  margin-bottom:var(--space-3);
+}
+.pov-card-title{
+  font-weight:800;
+  font-size:clamp(1.1rem,1.8vw,1.6rem);
+  line-height:1.15;
+  letter-spacing:-.02em;
+  margin-bottom:var(--space-3);
+}
+.pov-card-desc{
+  font-size:.9rem;
+  font-weight:500;
+  color:var(--text-muted);
+  line-height:1.5;
+}
+.pov-card-arrow{
+  position:absolute;bottom:var(--space-5);right:var(--space-5);
+  font-size:1.5rem;
+  color:var(--color-red);
+  transition:transform .2s;
+}
+.pov-card:hover .pov-card-arrow{transform:translate(4px,-4px);}
+
+/* ─── CONTACT SECTION ────────────────────────────────────────────────── */
+#contact{
+  background:var(--color-black);
+  color:var(--color-white);
+  padding:var(--space-9) var(--page-pad);
+  overflow:hidden;
+  position:relative;
+}
+#contact .hero-grid-bg{opacity:.15;}
+.contact-headline{
+  font-family:var(--font-display);
+  font-size:var(--type-display);
+  line-height:.82;
+  text-transform:uppercase;
+  letter-spacing:-.03em;
+  margin-bottom:var(--space-6);
+}
+.contact-headline .red{color:var(--color-red);}
+.contact-headline .yellow{color:var(--color-yellow);}
+.contact-grid{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2rem,6vw,7rem);
+  align-items:start;
+  margin-bottom:var(--space-8);
+}
+.contact-copy{
+  font-size:clamp(1rem,1.4vw,1.3rem);
+  font-weight:500;
+  line-height:1.6;
+  color:rgba(255,255,255,.72);
+}
+.contact-copy p+p{margin-top:var(--space-4);}
+.contact-channels{display:flex;flex-direction:column;gap:var(--space-4);}
+.contact-channel{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:var(--space-4);
+  padding:var(--space-4) var(--space-5);
+  border:1px solid rgba(255,255,255,.1);
+  align-items:center;
+  text-decoration:none;
+  color:inherit;
+  transition:border-color .2s,background .2s;
+}
+.contact-channel:hover{
+  border-color:var(--color-yellow);
+  background:rgba(255,192,0,.07);
+}
+.channel-icon{
+  width:2.5rem;height:2.5rem;
+  background:var(--color-red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);
+  font-size:1.1rem;
+  flex-shrink:0;
+}
+.channel-label{
+  font-size:var(--type-micro);
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--color-yellow);
+  margin-bottom:.2rem;
+}
+.channel-value{
+  font-size:.9rem;
+  font-weight:600;
+  color:rgba(255,255,255,.8);
+}
+
+/* Closing statement */
+.closing-bar{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:var(--space-7);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--space-6);
+  flex-wrap:wrap;
+}
+.closing-tagline{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,3.5vw,3.5rem);
+  text-transform:uppercase;
+  letter-spacing:-.02em;
+  color:rgba(255,255,255,.18);
+}
+.closing-cta{
+  display:inline-block;
+  font-size:var(--type-micro);
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--color-black);
+  background:var(--color-yellow);
+  padding:1rem 2.2rem;
+  text-decoration:none;
+  flex-shrink:0;
+  transition:background .2s;
+}
+.closing-cta:hover{background:var(--color-white);}
+
+/* ─── WORD WALL ──────────────────────────────────────────────────────── */
+.word-wall-section{
+  position:relative;
+  background:var(--gradient-insurgence);
+  padding:var(--space-10) var(--page-pad);
+  overflow:hidden;
+}
+.word-wall-bg{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:1rem 2.5rem;
+  padding:var(--space-7) var(--page-pad);
+  opacity:.35;
+  font-size:.75rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--color-white);
+  pointer-events:none;
+  line-height:1.6;
+  overflow:hidden;
+}
+.word-wall-claim{
+  position:relative;
+  z-index:2;
+  font-family:var(--font-display);
+  font-size:clamp(5rem,16vw,17rem);
+  line-height:.72;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
+  color:var(--color-black);
+  max-width:1200px;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────────────── */
+.site-footer{
+  background:var(--color-black);
+  padding:var(--space-6) var(--page-pad);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;
+  gap:var(--space-4);
+}
+.footer-logo{
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  color:rgba(255,255,255,.35);
+  letter-spacing:.04em;
+}
+.footer-meta{
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+}
+.footer-nav{
+  display:flex;gap:var(--space-5);
+  list-style:none;
+}
+.footer-nav a{
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.25);
+  text-decoration:none;
+  transition:color .2s;
+}
+.footer-nav a:hover{color:var(--color-yellow);}
+
+/* ─── SCROLL ANIMATIONS ──────────────────────────────────────────────── */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{
+  opacity:0;
+  transform:translateX(-24px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal-left.visible{opacity:1;transform:none;}
+
+/* Stagger children */
+.stagger > *{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.25s;}
+.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.35s;}
+.stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:.45s;}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media(max-width:1024px){
+  .ecosystem-grid{grid-template-columns:repeat(3,1fr);}
+  .ecosystem-card:nth-child(4){border-top:var(--rule);}
+  .ecosystem-card:nth-child(5){border-top:var(--rule);}
+}
+@media(max-width:900px){
+  .hero-sub{grid-template-columns:1fr;}
+  .hero-sub-right{text-align:left;}
+  .hero-nav-pills{justify-content:flex-start;}
+  .why-intro-grid{grid-template-columns:1fr;}
+  .forces-grid{grid-template-columns:1fr;}
+  .thesis-block{grid-template-columns:1fr;}
+  .what-opener{grid-template-columns:1fr;}
+  .comparison-strip{grid-template-columns:1fr;}
+  .cell-model{grid-template-columns:1fr;}
+  .who-grid{grid-template-columns:1fr;}
+  .velocity-section{grid-template-columns:1fr;}
+  .velocity-tiers{grid-template-columns:1fr;}
+  .ecosystem-grid{grid-template-columns:repeat(2,1fr);}
+  .contact-grid{grid-template-columns:1fr;}
+  .pov-grid{grid-template-columns:1fr;}
+  .closing-bar{flex-direction:column;align-items:flex-start;}
+  .nav-links{display:none;}
+}
+@media(max-width:560px){
+  :root{--page-pad:1.25rem;}
+  .ecosystem-grid{grid-template-columns:1fr;}
+  .word-wall-claim{font-size:clamp(4rem,22vw,8rem);}
+}
+
+/* ─── CURSOR ACCENT ──────────────────────────────────────────────────── */
+@media(pointer:fine){
+  body{cursor:none;}
+  .cursor{
+    width:10px;height:10px;
+    background:var(--color-red);
+    border-radius:50%;
+    position:fixed;top:0;left:0;
+    pointer-events:none;
+    z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:transform .08s,width .2s,height .2s,background .2s;
+    mix-blend-mode:difference;
+  }
+  a:hover~.cursor,.cursor.hovering{
+    width:28px;height:28px;
+    background:var(--color-yellow);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+
+<!-- ─── NAV ─────────────────────────────────────────────────────────── -->
+<nav class="site-nav" id="site-nav">
+  <a class="nav-logo" href="#home">ANTIGEN</a>
+  <ul class="nav-links">
+    <li><a href="#why">Why</a></li>
+    <li><a href="#what">What</a></li>
+    <li><a href="#who">Who</a></li>
+    <li><a href="#how">How</a></li>
+    <li><a href="#pov">POV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Bring us a hard problem</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  HOME                                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="home">
+  <div class="hero-noise"></div>
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-content">
+    <p class="hero-kicker">FILE REF: 001-A &nbsp;·&nbsp; STATUS: ACTIVE</p>
+
+    <h1 class="hero-headline">
+      <span class="line-outline">WELCOME</span>
+      <span class="line-solid">TO THE</span>
+      <span class="line-yellow">INSURGENCE.</span>
+    </h1>
+
+    <div class="hero-sub">
+      <p class="hero-sub-copy">
+        A post-algorithm organism built to tackle stagnation and sameness through purpose-built configurations of minds and machines. We are looking for hard problems.
+      </p>
+      <div class="hero-sub-right">
+        <div class="hero-nav-pills">
+          <a class="hero-nav-pill" href="#why">The Disruption</a>
+          <a class="hero-nav-pill" href="#what">The Model</a>
+          <a class="hero-nav-pill" href="#who">The Stack</a>
+          <a class="hero-nav-pill" href="#how">How We Deploy</a>
+          <a class="hero-nav-pill" href="#pov">POV</a>
+        </div>
+        <a class="hero-cta" href="#contact">Talk to us if you have one →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  WHY                                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="why">
+  <div class="section-num" aria-hidden="true">01</div>
+
+  <div class="section-header">
+    <span class="section-label">The Disruption</span>
+    <span style="font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);">Why ANTIGEN exists</span>
+  </div>
+
+  <div class="why-intro-grid reveal">
+    <div>
+      <h2 class="why-headline">Forces of disruption have shifted growth to <em>uncomfortable places.</em></h2>
+    </div>
+    <div class="why-body">
+      <p>We live in an Age of Average. Post-algorithm convergence engines are money-balling everything to homogeneity. The tools got faster. The ideas got slower. The industry kept billing.</p>
+      <p>Three forces have permanently redefined where growth lives — and none of them reward the legacy model that most agencies still run.</p>
+      <p>Speed without direction. 2026 tools plugging into 2006 systems. <strong>That is not innovation. That is camouflage.</strong></p>
+    </div>
+  </div>
+
+  <!-- Force cards -->
+  <div class="forces-grid stagger">
+    <div class="force-card">
+      <p class="force-kicker">Force 01 &nbsp;/&nbsp; Sameness</p>
+      <p class="force-stat">79<span style="font-size:.45em">%</span></p>
+      <p class="force-title">SAMENESS</p>
+      <p class="force-body">of brands exist without any meaningful difference versus their category. In 1970, 35% of top 100 songs had a key change. By 2021: 0.5%. The same compression is happening to every brand in every category.</p>
+    </div>
+    <div class="force-card">
+      <p class="force-kicker">Force 02 &nbsp;/&nbsp; Stagnation</p>
+      <p class="force-stat">29<span style="font-size:.45em">%</span></p>
+      <p class="force-title">STAGNATION</p>
+      <p class="force-body">of consumers find current media and advertising innovative. The agency model was built for information scarcity, talent concentration, and high coordination costs. All three constraints have collapsed. The model hasn't.</p>
+    </div>
+    <div class="force-card">
+      <p class="force-kicker">Force 03 &nbsp;/&nbsp; Suppression</p>
+      <p class="force-stat">4<span style="font-size:.45em">%</span></p>
+      <p class="force-title">SUPPRESSION</p>
+      <p class="force-body">of agencies tie strategy fees to business results. 64% of marketers report brief quality in decline. Fear of blandness ranks higher than AI as the #1 threat — at 47%. The structural model rewards slow work and scope creep.</p>
+    </div>
+  </div>
+
+  <!-- Thesis block -->
+  <div class="thesis-block reveal">
+    <div>
+      <h3 class="thesis-label">OUR<br/>EXIST<span>-</span><br/>ENCE IS A<br/><span>REACTION.</span></h3>
+    </div>
+    <div class="thesis-copy">
+      <p>Organisations are organisms. Systems of interconnected and interdependent parts that act, react, grow, shrink, thrive, diminish — based entirely on their ability to respond to threats.</p>
+      <p>The first-principles question is not <em>how do we fix the agency?</em> It is: if the agency didn't exist, what would you build instead?</p>
+      <p><strong>The answer is not a better agency.</strong> It is a distributed intelligence network — fluid, sovereign, AI-augmented, and built to solve problems rather than sustain a billing model.</p>
+      <p>Antigen introduces external agents of change into stagnant systems to provoke, stimulate, and generate breakthrough growth. We exist to restore focus on the only metric that matters: <strong>your growth.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WORD WALL DIVIDER ──────────────────────────────────────────── -->
+<div class="word-wall-section">
+  <div class="word-wall-bg" aria-hidden="true">
+    <span>Performance Marketing</span><span>Brand Strategy</span><span>Agency Review</span><span>GTM Advisory</span><span>PMF Research</span>
+    <span>Legacy OpCo</span><span>Holding Company</span><span>Account Management</span><span>Billable Hours</span><span>Scope Creep</span>
+    <span>Integrated Agency</span><span>Creative Platform</span><span>Brand Architecture</span><span>Content Strategy</span><span>Media Planning</span>
+    <span>Digital Transformation</span><span>Innovation Lab</span><span>Agile Sprint</span><span>Growth Hacking</span><span>Omnichannel</span>
+    <span>Strategic Roadmap</span><span>ROI Framework</span><span>Customer Journey</span><span>Touchpoint Audit</span><span>Brand Tracking</span>
+    <span>Awareness Funnel</span><span>Consideration Phase</span><span>Purchase Intent</span><span>Loyalty Loop</span><span>Net Promoter</span>
+    <span>Synergy</span><span>Best Practice</span><span>Alignment Session</span><span>Stakeholder Map</span><span>Consensus Play</span>
+    <span>Full Service</span><span>Campaign First</span><span>Brief Cycle</span><span>Creative Review</span><span>Pitch Deck</span>
+    <span>SOW Expansion</span><span>Retainer Model</span><span>Incremental Change</span><span>Business As Usual</span><span>Industry Standard</span>
+  </div>
+  <p class="word-wall-claim">NOT<br/>AN<br/>AGENCY.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  WHAT                                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="what">
+  <div class="section-num" aria-hidden="true">02</div>
+
+  <div class="section-header">
+    <span class="section-label">The Model</span>
+    <span style="font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);">What we are building</span>
+  </div>
+
+  <div class="what-opener reveal">
+    <div>
+      <h2 class="what-headline">
+        <span class="stroke">NOT AN</span>
+        <span class="stroke">AGENCY.</span>
+        <span class="fill">NOT A</span>
+        <span class="fill">CONSULTANCY.</span>
+      </h2>
+      <p style="margin-top:var(--space-5);font-size:clamp(1.1rem,1.8vw,1.75rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;">A First-Principles Intelligence Collective.</p>
+    </div>
+    <div class="what-intro-copy">
+      <p>Built as a distributed network of the most insurgent minds, augmented with AI provocation engines. Zero legacy, zero bloat, zero inertia — systems created to solve today's unfamiliar growth problems.</p>
+      <p>ANTIGEN replaces the agency's factory model — aggregating billable hours to cover fixed overhead — with a network model: orchestrating high-velocity insight at near-zero fixed cost.</p>
+      <p>There are no employees, silos, or divisions. Cells form. Cells solve. Cells dissolve. Clients pay for the output, not the months.</p>
+    </div>
+  </div>
+
+  <!-- Comparison -->
+  <div class="comparison-strip reveal">
+    <div class="comparison-col is-legacy">
+      <p class="comparison-header">Legacy OpCos</p>
+      <div class="comparison-row"><span class="label">Model</span><span class="value">Convergent</span></div>
+      <div class="comparison-row"><span class="label">Operating mode</span><span class="value">Constant. Familiar.</span></div>
+      <div class="comparison-row"><span class="label">Talent</span><span class="value">In-house upskill &amp; hire</span></div>
+      <div class="comparison-row"><span class="label">Focus</span><span class="value">Campaign oriented</span></div>
+      <div class="comparison-row"><span class="label">Optimised for</span><span class="value">Business as usual</span></div>
+      <div class="comparison-row"><span class="label">Fees tied to results</span><span class="value">4% of agencies</span></div>
+    </div>
+    <div class="comparison-col is-antigen">
+      <p class="comparison-header">The Antigen Insurgence</p>
+      <div class="comparison-row"><span class="label">Model</span><span class="value">Divergent</span></div>
+      <div class="comparison-row"><span class="label">Operating mode</span><span class="value">Uncomfortable places</span></div>
+      <div class="comparison-row"><span class="label">Talent</span><span class="value">Bespoke recombinant assembly</span></div>
+      <div class="comparison-row"><span class="label">Focus</span><span class="value">Outcome oriented</span></div>
+      <div class="comparison-row"><span class="label">Optimised for</span><span class="value">Pure signal</span></div>
+      <div class="comparison-row"><span class="label">Value model</span><span class="value">Alignment, not extraction</span></div>
+    </div>
+  </div>
+
+  <!-- Cell model -->
+  <div class="cell-model reveal">
+    <div>
+      <p class="cell-label">THE <span>CELL</span><br/>MODEL</p>
+      <p class="cell-sub">Pure signal. No overhead. No legacy.</p>
+    </div>
+    <div class="cell-items stagger">
+      <div class="cell-item">
+        <span class="cell-item-num">P</span>
+        <div>
+          <p class="cell-item-title">Partner</p>
+          <p class="cell-item-desc">Founding principals with P&amp;G, Coca-Cola, WPP, DoubleVerify pedigree. Senior context holders who carry reputational risk. They don't brief — they deliver.</p>
+        </div>
+      </div>
+      <div class="cell-item">
+        <span class="cell-item-num">E</span>
+        <div>
+          <p class="cell-item-title">Expert</p>
+          <p class="cell-item-desc">Specialist practitioners deployed per engagement. MarTech, performance, narrative, product marketing, commercial. No generalists. They own their IP.</p>
+        </div>
+      </div>
+      <div class="cell-item">
+        <span class="cell-item-num">AI</span>
+        <div>
+          <p class="cell-item-title">AI Agent / Provocateur</p>
+          <p class="cell-item-desc">RAG-based intelligence infrastructure. The contrarian voice. Buyer psychology, market reality. Synthesis layer that accelerates research, pattern recognition, and output velocity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  WHO                                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="who">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="section-num" style="color:rgba(255,255,255,.07);" aria-hidden="true">03</div>
+
+  <div class="section-header" style="border-bottom-color:rgba(255,255,255,.12);">
+    <span class="section-label" style="color:var(--color-yellow);">The Stack</span>
+    <span style="font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);">Sovereign Humans × Divergent Engines</span>
+  </div>
+
+  <h2 class="who-stack-headline reveal">
+    <span class="ghost">THE HUMAN</span>
+    <span class="solid">× AI STACK.</span>
+  </h2>
+
+  <div class="who-grid">
+    <!-- Sovereign Humans -->
+    <div class="reveal-left">
+      <p class="who-col-header">Sovereign Humans — Curiosity, Curation, Connectivity</p>
+      <div class="who-role-cards stagger">
+        <div class="who-role-card">
+          <p class="who-role-tag">Partners · The Stewards</p>
+          <p class="who-role-name">Senior Context Holders</p>
+          <p class="who-role-desc">Manage relationships, carry reputational risk, and are accountable for outcomes. P&amp;G, Coca-Cola, WPP, DoubleVerify — global holding company pedigree. They don't brief — they deliver.</p>
+        </div>
+        <div class="who-role-card">
+          <p class="who-role-tag">Experts · The Deep Nodes</p>
+          <p class="who-role-name">Highly Specialised Practitioners</p>
+          <p class="who-role-desc">MarTech, performance, narrative, product marketing, commercial. Plugged in per engagement. No generalists. They own their IP and define the terms of their engagement.</p>
+        </div>
+        <div class="who-role-card">
+          <p class="who-role-tag">Associates · Apprentice-Explorers</p>
+          <p class="who-role-name">Early-Career Talent</p>
+          <p class="who-role-desc">Learn through exposure to real, consequential problems. AI-supported senior performance means they operate above their level from day one.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divergent Engines -->
+    <div class="reveal">
+      <p class="who-col-header">Divergent Intelligence Engines — Institutional Memory, Counterfactual Synthesis</p>
+      <div class="who-engine">
+        <div>
+          <p class="who-engine-name">The Provocateur</p>
+          <p class="who-engine-sub">Divergent Thinking</p>
+          <p class="who-engine-desc">Acts as a permanent dissenter, challenging assumptions and preventing groupthink. The contrarian voice in every room.</p>
+        </div>
+        <p class="who-engine-icon">!?</p>
+      </div>
+      <div class="who-engine">
+        <div>
+          <p class="who-engine-name">The Synthesizer</p>
+          <p class="who-engine-sub">Institutional Memory</p>
+          <p class="who-engine-desc">Uses RAG-based knowledge graphs, ensuring access to collective wisdom from day one. Knowledge that compounds instead of departing.</p>
+        </div>
+        <p class="who-engine-icon">≋</p>
+      </div>
+      <div class="who-engine">
+        <div>
+          <p class="who-engine-name">The Scaffolding</p>
+          <p class="who-engine-sub">Structured Creativity</p>
+          <p class="who-engine-desc">Interfaces that guide the creative process toward significantly more innovative outputs. Structure as a provocation engine.</p>
+        </div>
+        <p class="who-engine-icon">⌗</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Equation -->
+  <div class="who-equation reveal">
+    <div class="eq-part">Sovereign<br/>Humans</div>
+    <div class="eq-op">×</div>
+    <div class="eq-part">Divergent<br/>Engines</div>
+    <div class="eq-op">=</div>
+    <div class="eq-result">The Human<br/>× AI Stack.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  HOW                                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="how">
+  <div class="section-num" aria-hidden="true">04</div>
+
+  <div class="section-header">
+    <span class="section-label">Deployment Protocols</span>
+    <span style="font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);">How we engage</span>
+  </div>
+
+  <h2 class="how-headline reveal">DEPLOYMENT<br/>PROTOCOLS<br/><span style="color:var(--color-red);">ACROSS ECOSYSTEMS.</span></h2>
+
+  <!-- Ecosystem grid -->
+  <div class="ecosystem-grid stagger">
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">01</p>
+      <p class="eco-kicker">Agencies</p>
+      <p class="eco-title">Pitch Strategy &amp; Thought Leadership</p>
+      <p class="eco-desc">Capability building, pitch strategy, thought leadership. We sharpen your offering and harden your competitive position.</p>
+    </div>
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">02</p>
+      <p class="eco-kicker">Brands</p>
+      <p class="eco-title">Transformation &amp; Agency Review</p>
+      <p class="eco-desc">Transformation programs, agency review, performance marketing architecture. We sit on your side of the table.</p>
+    </div>
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">03</p>
+      <p class="eco-kicker">AdTech / MarTech</p>
+      <p class="eco-title">GTM &amp; PMF Advisory</p>
+      <p class="eco-desc">GTM strategy, PMF advisory, holding company partnerships. We translate technology into commercial traction.</p>
+    </div>
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">04</p>
+      <p class="eco-kicker">Startups</p>
+      <p class="eco-title">Positioning &amp; Growth Architecture</p>
+      <p class="eco-desc">Positioning, growth architecture, fractional CMO. We build the strategic foundation before you scale.</p>
+    </div>
+    <div class="ecosystem-card">
+      <div class="eco-bar"></div>
+      <p class="eco-num">05</p>
+      <p class="eco-kicker">Cross-Sector</p>
+      <p class="eco-title">Fractional CSO &amp; Advisory Retainers</p>
+      <p class="eco-desc">For organisations that need a permanent provocation engine, not a periodic consultant. We exist inside the problem.</p>
+    </div>
+  </div>
+
+  <!-- Service velocity -->
+  <div class="velocity-section reveal">
+    <div>
+      <p class="velocity-label">SERVICE<br/><em>VELOCITY</em><br/>ARCHITECTURE</p>
+    </div>
+    <div class="velocity-tiers stagger">
+      <div class="velocity-tier">
+        <span class="tier-badge">Tier 1</span>
+        <p class="tier-title">IMMEDIATE</p>
+        <p class="tier-time">Days → Weeks · Project-Based</p>
+        <p class="tier-desc">Crack a specific strategic challenge fast. Intensive engagements designed for velocity — POVs, workshops, pitch war rooms, go-to-market strategy.</p>
+        <p class="tier-ready">↑ We are ready to deliver this today.</p>
+      </div>
+      <div class="velocity-tier">
+        <span class="tier-badge yellow">Tier 2</span>
+        <p class="tier-title">MID-LONG TERM</p>
+        <p class="tier-time">Weeks → Months · Embedded</p>
+        <p class="tier-desc">Deeper integration, structural capability building, embedded transformation programs, and ongoing fractional leadership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  POV                                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="pov">
+  <div class="section-num" aria-hidden="true">05</div>
+
+  <div class="section-header">
+    <span class="section-label">Perspectives</span>
+    <span style="font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-grey);">Published POVs &amp; essays</span>
+  </div>
+
+  <h2 class="pov-headline reveal">ANTIGEN<br/><span style="color:var(--color-red);">PERSPECTIVES.</span></h2>
+  <p class="pov-sub reveal">We don't hold positions quietly. Every growth problem has a structural diagnosis underneath it. We publish ours.</p>
+
+  <div class="pov-grid stagger">
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">01</p>
+      <p class="pov-card-kicker">The ANTIGENERIC Thesis</p>
+      <p class="pov-card-title">Why algorithmic sameness is the defining strategic crisis of this decade — and the antidote.</p>
+      <p class="pov-card-desc">The convergence engines are money-balling everything to homogeneity. The antidote is not a better algorithm. It is a first-principles reconstruction of how growth strategy gets built.</p>
+      <span class="pov-card-arrow">↗</span>
+    </a>
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">02</p>
+      <p class="pov-card-kicker">The Post-Algorithm World</p>
+      <p class="pov-card-title">What strategy looks like when convergence engines have optimised everything to the mean.</p>
+      <p class="pov-card-desc">Speed without direction. Infinite capability, finite courage. The post-algorithm world demands a fundamentally different strategic posture — and most brands don't have one.</p>
+      <span class="pov-card-arrow">↗</span>
+    </a>
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">03</p>
+      <p class="pov-card-kicker">The Age of Average</p>
+      <p class="pov-card-title">On music, brands, and the global collapse of meaningful difference.</p>
+      <p class="pov-card-desc">In 1970, 35% of top 100 songs had a key change. By 2021: 0.5%. The same thing is happening to every brand in every category. The question is whether you're part of the collapse or the answer to it.</p>
+      <span class="pov-card-arrow">↗</span>
+    </a>
+    <a class="pov-card" href="https://sidht.com" target="_blank" rel="noopener">
+      <p class="pov-card-num">04</p>
+      <p class="pov-card-kicker">The Hallways We Killed</p>
+      <p class="pov-card-title">On liminality, loneliness, and what corporations lost when they optimised for efficiency.</p>
+      <p class="pov-card-desc">The spaces between things — the corridor, the canteen, the corridor between meetings — were where ideas actually lived. We killed them. This essay asks what we owe the spaces we removed.</p>
+      <span class="pov-card-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  CONTACT                                                           -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="section-num" style="color:rgba(255,255,255,.05);" aria-hidden="true">06</div>
+
+  <div class="section-header" style="border-bottom-color:rgba(255,255,255,.1);">
+    <span class="section-label" style="color:var(--color-yellow);">Contact</span>
+    <span style="font-size:var(--type-micro);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);">Status: Active</span>
+  </div>
+
+  <h2 class="contact-headline reveal">
+    ANTIGEN<br/><span class="red">UNLOCKS</span><br/>GROWTH FROM<br/><span class="yellow">UNCOMFORTABLE</span><br/>PLACES.
+  </h2>
+
+  <div class="contact-grid reveal">
+    <div class="contact-copy">
+      <p>We are ready to deliver today. If you have a hard problem — a brand that has gone average, a pitch you keep losing, a growth engine that has stalled — we want to hear about it.</p>
+      <p>If you are a strategist, a creative, or a specialist practitioner who is done brokering inspiration for employment, we want to talk.</p>
+      <p style="font-size:var(--type-small);font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--color-yellow);margin-top:var(--space-5);">Composable. Distributed. Insurgent.</p>
+    </div>
+    <div class="contact-channels">
+      <a class="contact-channel" href="mailto:sid@antigen.in">
+        <div class="channel-icon">B</div>
+        <div>
+          <p class="channel-label">Brief Us</p>
+          <p class="channel-value">sid@antigen.in</p>
+        </div>
+      </a>
+      <a class="contact-channel" href="mailto:talent@antigen.in">
+        <div class="channel-icon">J</div>
+        <div>
+          <p class="channel-label">Join the Network</p>
+          <p class="channel-value">talent@antigen.in</p>
+        </div>
+      </a>
+      <a class="contact-channel" href="mailto:partners@antigen.in">
+        <div class="channel-icon">P</div>
+        <div>
+          <p class="channel-label">Partner With Us</p>
+          <p class="channel-value">partners@antigen.in</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="closing-bar">
+    <p class="closing-tagline">END OF DOSSIER // COORDINATES ACTIVE</p>
+    <a class="closing-cta" href="mailto:sid@antigen.in">Bring us a hard problem →</a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <p class="footer-logo">ANTIGEN</p>
+  <ul class="footer-nav">
+    <li><a href="#why">Why</a></li>
+    <li><a href="#what">What</a></li>
+    <li><a href="#who">Who</a></li>
+    <li><a href="#how">How</a></li>
+    <li><a href="#pov">POV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-meta">A First-Principles Intelligence Collective &nbsp;·&nbsp; Siliguri, India</p>
+</footer>
+
+<!-- ─── JS ────────────────────────────────────────────────────────── -->
+<script>
+(function(){
+  'use strict';
+
+  /* Nav scroll state */
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, {passive:true});
+
+  /* Active nav link */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#'+id);
+        });
+      }
+    });
+  }, {threshold:0.4});
+  sections.forEach(s => observer.observe(s));
+
+  /* Reveal on scroll */
+  const reveals = document.querySelectorAll('.reveal,.reveal-left,.stagger');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+  reveals.forEach(el => revealObs.observe(el));
+
+  /* Custom cursor */
+  const cursor = document.getElementById('cursor');
+  if(cursor && window.matchMedia('(pointer:fine)').matches){
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  }
+
+  /* Smooth scroll for anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
