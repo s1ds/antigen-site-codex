@@ -1,15 +1,9 @@
-import { ContentBlocks } from "@/components/sections/ContentBlocks";
-import { PageHero } from "@/components/sections/PageHero";
-import { fallbackContent } from "@/lib/fallbackContent";
-import { getWhoPage } from "@/lib/sanity/queries";
+import { WhoStack } from "@/components/sections/WhoStack";
 
-export default async function WhoPage() {
-  const page = (await getWhoPage()) || fallbackContent.who;
-
+export default function WhoPage() {
   return (
     <main>
-      <PageHero eyebrow={page.eyebrow} title={page.title} body={page.body} />
-      <ContentBlocks blocks={page.blocks || fallbackContent.who.blocks} />
+      <WhoStack />
     </main>
   );
 }
