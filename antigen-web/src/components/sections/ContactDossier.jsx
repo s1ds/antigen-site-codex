@@ -1,7 +1,6 @@
 const channels = [
-  ["B", "Brief Us", "sid@antigen.in", "Hard problems. Stalled growth. Pitch challenges."],
-  ["J", "Join the Network", "talent@antigen.in", "Strategists, creatives, specialist practitioners."],
-  ["P", "Partner With Us", "partners@antigen.in", "Agencies, platforms, ecosystem collaborators."],
+  ["B", "Brief Us", "sid@1antigen.com", "Hard problems. Stalled growth. Pitch challenges."],
+  ["J", "Join the Network", "Partner@1antigen.com", "Strategists, creatives, specialist practitioners."],
 ];
 
 export function ContactDossier() {
