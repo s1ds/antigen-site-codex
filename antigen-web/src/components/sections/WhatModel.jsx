@@ -1,53 +1,24 @@
 import { WhatMatrix } from "@/components/sections/WhatMatrix";
 
-const comparisons = [
-  ["Model", "Convergent", "Divergent"],
-  ["Operating mode", "Constant. Familiar.", "Uncomfortable places"],
-  ["Talent model", "In-house upskill and hire", "Bespoke recombinant assembly"],
-  ["Focus", "Campaign oriented", "Outcome oriented"],
-  ["Optimised for", "Business as usual", "Pure signal"],
-  ["Value model", "4% tie fees to results", "Alignment, not extraction"],
-];
-
-const cells = [
+const stackInputs = [
   {
-    mark: "P",
-    title: "Partners - The Stewards",
-    body: "Senior context holders who manage relationships, carry reputational risk, and are accountable for outcomes. P&G, Coca-Cola, WPP, DoubleVerify pedigree. They do not brief - they deliver.",
+    title: "Sovereign Humans",
+    body: "Curiosity. Curation. Connectivity.",
+    detail:
+      "High-judgement operators bring moral courage, taste, framing, and lived commercial pattern recognition.",
   },
   {
-    mark: "E",
-    title: "Experts - The Deep Nodes",
-    body: "Highly specialised practitioners deployed per engagement. MarTech, performance, narrative, product marketing, commercial. No generalists. They own their IP.",
-  },
-  {
-    mark: "A",
-    title: "Associates - Apprentice-Explorers",
-    body: "Early-career talent who learn through exposure to real, consequential problems, supported by AI-amplified senior performance.",
+    title: "Provocation Algorithms",
+    body: "Institutional memory. Counterfactual synthesis.",
+    detail:
+      "AI sense-amplification preserves context, detects patterns, challenges assumptions, and multiplies strategic options.",
   },
 ];
 
-const infrastructure = [
-  {
-    number: "01",
-    title: "Zero-Legacy Value Model",
-    body: "Built for value alignment, not value extraction. Divergent where legacy opcos are convergent. Recombinant where they are familiar. Bespoke where they upskill and hire.",
-  },
-  {
-    number: "02",
-    title: "RAG-Based AI Synthesis Layer",
-    body: "The institutional brain that provokes questions, challenges assumptions, synthesises artefacts, and manages logistics. Institutional memory from day one.",
-  },
-  {
-    number: "03",
-    title: "Service Velocity Architecture",
-    body: "Two deployment tiers: intensive days-to-weeks strategic challenges, and deeper weeks-to-months transformation programs.",
-  },
-  {
-    number: "04",
-    title: "Zero Fixed-Cost Architecture",
-    body: "Zero real estate. Zero idle staff. Zero billable hour logic. Pure capability, activated on demand.",
-  },
+const advantages = [
+  ["High fixed costs", "Zero fixed costs"],
+  ["High employee churn", "Sovereign talent portability"],
+  ["Artificial scarcity", "Infinite cognitive scale"],
 ];
 
 export function WhatModel() {
@@ -77,41 +48,61 @@ export function WhatModel() {
           </p>
           <p>
             ANTIGEN replaces the agency&apos;s factory model - aggregating billable
-            hours to cover fixed overhead - with a network model: orchestrating
+            hours to cover fixed overhead - with a network model that orchestrates
             high-velocity insight at near-zero fixed cost.
           </p>
           <p>
-            There are no employees, silos, or divisions.{" "}
-            <strong>Cells form. Cells solve. Cells dissolve.</strong> Clients
-            pay for the output, not the months.
+            The machine provides memory and pattern detection. The human provides
+            moral courage, taste, and framing.
           </p>
         </div>
       </div>
 
-      <div className="group mt-24 border border-black/15">
-        <div className="grid grid-cols-[0.8fr_1fr_1fr] bg-black text-[0.7rem] font-black uppercase tracking-[0.1em] text-white">
-          <div className="border-r border-white/15 p-4 text-white/45">Attribute</div>
-          <div className="border-r border-white/15 bg-neutral-200 p-4 text-black/55">Legacy OpCos</div>
-          <div className="p-4 text-[var(--antigen-yellow)]">The ANTIGEN Insurgence</div>
-        </div>
-        {comparisons.map(([attribute, legacy, antigen]) => (
-          <div key={attribute} className="grid grid-cols-1 border-t border-black/15 transition hover:bg-[rgba(227,29,40,0.04)] md:grid-cols-[0.8fr_1fr_1fr]">
-            <div className="bg-white p-4 text-xs font-black uppercase tracking-[0.08em] text-neutral-500 md:border-r md:border-black/15">
-              {attribute}
-            </div>
-            <div className="bg-[var(--antigen-smoke)] p-4 text-sm font-bold transition hover:text-neutral-500 md:border-r md:border-black/15">
-              {legacy}
-            </div>
-            <div className="relative overflow-hidden bg-black p-4 text-sm font-black text-[var(--antigen-yellow)]">
-              <span className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-[var(--antigen-red)] transition group-hover:scale-y-100" />
-              <span className="relative z-10">{antigen}</span>
-            </div>
-          </div>
-        ))}
-        <p className="bg-[var(--antigen-red)] p-5 text-xl font-black leading-tight text-white">
-          Where traditional agencies sell <span className="text-[var(--antigen-yellow)]">effort</span>, ANTIGEN sells{" "}
-          <span className="text-[var(--antigen-yellow)]">outcomes</span>. Where they sell hours, ANTIGEN sells intelligence.
+      <div className="mt-24 border-y border-black py-14 md:py-20">
+        <p className="kicker text-[var(--antigen-red)]">ANTIGEN is</p>
+        <h2 className="mt-4 max-w-6xl font-display text-[clamp(4rem,8vw,9rem)] uppercase leading-[0.82] text-black">
+          Insurgent minds meet
+          <br />
+          <span className="text-[var(--antigen-red)]">provocation algorithms.</span>
+        </h2>
+        <p className="mt-8 max-w-5xl text-xl font-black leading-tight md:text-3xl">
+          An interdependent joint cognitive system that binds sovereign humans
+          with divergent engines.
         </p>
+
+        <div className="mt-12 grid items-stretch gap-5 md:grid-cols-[1fr_auto_1fr]">
+          <article className="border border-black/15 bg-[var(--antigen-paper)] p-6 shadow-[8px_8px_0_var(--antigen-smoke)]">
+            <p className="font-display text-6xl leading-none text-[var(--antigen-red)]">
+              01
+            </p>
+            <h3 className="mt-5 text-2xl font-black uppercase">{stackInputs[0].title}</h3>
+            <p className="mt-2 text-sm font-black uppercase tracking-[0.08em] text-neutral-500">
+              {stackInputs[0].body}
+            </p>
+            <p className="mt-5 text-sm font-semibold leading-relaxed text-neutral-600">
+              {stackInputs[0].detail}
+            </p>
+          </article>
+          <div className="flex items-center justify-center border border-black bg-black px-6 py-5 text-center font-display text-7xl leading-none text-[var(--antigen-yellow)]">
+            x
+          </div>
+          <article className="border border-black/15 bg-[var(--antigen-paper)] p-6 shadow-[8px_8px_0_var(--antigen-smoke)]">
+            <p className="font-display text-6xl leading-none text-[var(--antigen-red)]">
+              02
+            </p>
+            <h3 className="mt-5 text-2xl font-black uppercase">{stackInputs[1].title}</h3>
+            <p className="mt-2 text-sm font-black uppercase tracking-[0.08em] text-neutral-500">
+              {stackInputs[1].body}
+            </p>
+            <p className="mt-5 text-sm font-semibold leading-relaxed text-neutral-600">
+              {stackInputs[1].detail}
+            </p>
+          </article>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-xl border-2 border-black bg-white p-5 text-center shadow-[8px_8px_0_var(--antigen-yellow)]">
+          <p className="text-2xl font-black uppercase">The Human x AI Stack</p>
+        </div>
       </div>
 
       <div className="mt-24 bg-black px-page py-16 text-white md:py-20">
@@ -133,64 +124,42 @@ export function WhatModel() {
         </div>
       </div>
 
-      <div className="mt-24 grid gap-10 bg-[var(--antigen-paper)] p-8 md:grid-cols-[4fr_7fr] md:p-14">
-        <div>
-          <h2 className="font-display text-[clamp(4rem,7vw,7rem)] uppercase leading-[0.8]">
-            The <span className="text-[var(--antigen-red)]">cell</span>
-            <br />
-            model
-          </h2>
-          <p className="mt-4 text-sm font-black uppercase tracking-[0.1em] text-neutral-500">
-            Pure signal. No overhead. No legacy.
-          </p>
+      <div className="mt-24 overflow-hidden bg-black text-white">
+        <div className="grid gap-10 p-8 md:grid-cols-[4fr_7fr] md:p-14">
+          <div>
+            <p className="kicker text-[var(--antigen-yellow)]">Insurgent advantage</p>
+            <h2 className="mt-4 font-display text-[clamp(4rem,8vw,9rem)] uppercase leading-[0.82]">
+              For asymmetric
+              <br />
+              <span className="text-[var(--antigen-yellow)]">growth</span>
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-3xl text-2xl font-black leading-tight md:text-4xl">
+              The mechanism gains strength from volatility while legacy systems
+              fracture.
+            </p>
+            <div className="mt-10 grid gap-4">
+              {advantages.map(([legacy, antigen]) => (
+                <div
+                  key={legacy}
+                  className="grid gap-3 border border-white/15 bg-white/[0.04] p-4 md:grid-cols-[1fr_1fr]"
+                >
+                  <p className="text-sm font-black uppercase tracking-[0.08em] text-white/40">
+                    {legacy}
+                  </p>
+                  <p className="flex items-start gap-3 text-lg font-black text-[var(--antigen-yellow)]">
+                    <span className="mt-1 inline-block h-3 w-3 shrink-0 border-b-2 border-r-2 border-[var(--antigen-yellow)] rotate-45" />
+                    {antigen}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="space-y-4">
-          {cells.map((cell) => (
-            <article key={cell.mark} className="grid gap-4 border-t-2 border-black pt-5 md:grid-cols-[4rem_1fr]">
-              <div className="font-display text-6xl leading-none text-[var(--antigen-red)]">{cell.mark}</div>
-              <div>
-                <h3 className="text-lg font-black uppercase">{cell.title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-relaxed text-neutral-600">{cell.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-24">
-        <h2 className="font-display text-[clamp(4rem,8vw,9rem)] uppercase leading-[0.82] text-black">
-          The <span className="text-[var(--antigen-red)]">infrastructure</span>
-        </h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {infrastructure.map((item) => (
-            <article key={item.number} className="border-t-[5px] border-[var(--antigen-red)] bg-[var(--antigen-paper)] p-6">
-              <p className="font-display text-5xl leading-none text-[var(--antigen-red)]">{item.number}</p>
-              <h3 className="mt-5 text-xl font-black uppercase">{item.title}</h3>
-              <p className="mt-4 text-sm font-semibold leading-relaxed text-neutral-600">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-24 grid gap-8 bg-[var(--antigen-red)] p-8 text-white md:grid-cols-[4fr_7fr] md:p-14">
-        <h2 className="font-display text-[clamp(3.5rem,7vw,7rem)] uppercase leading-[0.8]">
-          A zero-
-          <br />
-          <span className="text-[var(--antigen-yellow)]">legacy</span>
-          <br />
-          model
-        </h2>
-        <div className="space-y-5 text-base font-semibold leading-relaxed md:text-lg">
-          <p>
-            Most attempts to fix agencies focus on surface-level change: flatter
-            hierarchies, better culture, flexible work, AI tools bolted on top.
-            These reforms fail because they do not address the underlying
-            structural problem.
-          </p>
-          <p className="text-2xl font-black leading-tight">
-            ANTIGEN is not a reform. It is a reconstruction from first principles.
-          </p>
-        </div>
+        <p className="bg-[var(--antigen-red)] p-6 text-2xl font-black leading-tight text-white md:px-14 md:text-4xl">
+          Where traditional firms sell effort, ANTIGEN compounds intelligence.
+        </p>
       </div>
     </section>
   );
