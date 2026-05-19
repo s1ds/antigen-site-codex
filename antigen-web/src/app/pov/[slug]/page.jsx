@@ -1,6 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/PageHero";
+import { BackHomeLink } from "@/components/site/BackHomeLink";
 import { getPost, getPosts } from "@/lib/sanity/queries";
 
 export async function generateStaticParams() {
@@ -21,6 +22,7 @@ export default async function PovPostPage({ params }) {
       <PageHero eyebrow={post.category || "POV"} title={post.title} body={post.excerpt} tone="light" />
       <article className="section-pad mx-auto max-w-4xl bg-white text-lg font-semibold leading-relaxed">
         {Array.isArray(post.body) ? <PortableText value={post.body} /> : <p>{post.body}</p>}
+        <BackHomeLink className="mt-12" />
       </article>
     </main>
   );

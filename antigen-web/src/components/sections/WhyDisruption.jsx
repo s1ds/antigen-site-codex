@@ -1,3 +1,5 @@
+import { BackHomeLink } from "@/components/site/BackHomeLink";
+
 const forces = [
   {
     kicker: "Force 01 / Sameness",
@@ -8,9 +10,9 @@ const forces = [
   },
   {
     kicker: "Force 02 / Stagnation",
-    stat: "29",
+    stat: "71",
     title: "Stagnation",
-    label: "Consumers who find advertising innovative",
+    label: "Consumers do not find advertising innovative",
     body: "The agency model was built for information scarcity, talent concentration, and high coordination costs. All three constraints have collapsed. The model hasn't.",
   },
   {
@@ -25,6 +27,7 @@ const forces = [
 export function WhyDisruption() {
   return (
     <section className="relative overflow-hidden bg-[var(--antigen-paper)] px-page pb-24 pt-36 md:pt-40">
+      <BackHomeLink className="mb-10" />
       <div className="mb-24 grid gap-10 md:grid-cols-[5fr_6fr] md:gap-20">
         <h1 className="font-display text-[clamp(4.4rem,8.4vw,9rem)] uppercase leading-[0.82] text-black">
           Forces of disruption have shifted growth to{" "}
@@ -56,13 +59,13 @@ export function WhyDisruption() {
             <p className="mb-3 text-[0.68rem] font-black uppercase tracking-[0.1em] text-[var(--antigen-red)]">
               {force.kicker}
             </p>
+            <h2 className="font-display text-[clamp(3.5rem,5vw,5rem)] uppercase leading-[0.82] text-[var(--antigen-red)]">
+              {force.title}
+            </h2>
             <p className="flex items-start font-display text-[clamp(5rem,8.5vw,8rem)] uppercase leading-[0.78] text-black">
               <span>{force.stat}</span>
               <span className="ml-1 mt-2 text-[0.38em] leading-none">%</span>
             </p>
-            <h2 className="mt-2 font-display text-[clamp(3.5rem,5vw,5rem)] uppercase leading-[0.82] text-[var(--antigen-red)]">
-              {force.title}
-            </h2>
             <div className="my-4">
               <div className="mb-1 flex justify-between gap-3 text-[0.62rem] font-black uppercase tracking-[0.08em] text-neutral-500">
                 <span>{force.label}</span>
@@ -115,6 +118,8 @@ export function WhyDisruption() {
           </p>
         </div>
       </div>
+
+      <BackHomeLink className="mt-16" />
     </section>
   );
 }

@@ -86,15 +86,47 @@ a {
 
 .home-link {
   color: var(--antigen-yellow) !important;
-  text-decoration-line: none;
-  transition: color 160ms ease, text-decoration-color 160ms ease;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.045em;
+  text-underline-offset: 0.1em;
+  transition: color 160ms ease, text-decoration-color 160ms ease, text-decoration-thickness 160ms ease;
 }
 
 .home-link:hover,
 .home-link:focus-visible {
   color: var(--antigen-white);
-  text-decoration-color: var(--antigen-yellow);
-  text-decoration-line: underline;
+  text-decoration-color: var(--antigen-white);
   text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.08em;
+}
+
+.home-link--yellow {
+  color: var(--antigen-yellow) !important;
+  text-decoration-color: rgba(255, 192, 0, 0.55);
+}
+
+.home-link--cyan {
+  color: #7edbff !important;
+  text-decoration-color: rgba(126, 219, 255, 0.58);
+}
+
+.home-link--white {
+  color: #111111 !important;
+  text-decoration-color: rgba(17, 17, 17, 0.62);
+}
+
+.home-link--gold {
+  color: #fff16f !important;
+  text-decoration-color: rgba(255, 241, 111, 0.62);
+}
+
+.home-link--paper {
+  color: #a8ffb0 !important;
+  text-decoration-color: rgba(168, 255, 176, 0.6);
+}
+
+.home-link--magenta-light {
+  color: #ffc7df !important;
+  text-decoration-color: rgba(255, 199, 223, 0.62);
 }

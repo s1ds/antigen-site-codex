@@ -1,3 +1,5 @@
+import { BackHomeLink } from "@/components/site/BackHomeLink";
+
 const channels = [
   ["B", "Brief Us", "sid@1antigen.com", "Hard problems. Stalled growth. Pitch challenges."],
   ["J", "Join the Network", "Partner@1antigen.com", "Strategists, creatives, specialist practitioners."],
@@ -7,6 +9,7 @@ export function ContactDossier() {
   return (
     <section className="relative overflow-hidden bg-black px-page pb-20 pt-36 text-white md:pt-40">
       <div className="absolute inset-y-0 left-0 w-1 bg-antigen-red" />
+      <BackHomeLink tone="dark" className="relative z-10 mb-10" />
       <h1 className="font-display text-[clamp(4.5rem,9vw,10rem)] uppercase leading-[0.82]">
         ANTIGEN
         <br />
@@ -63,6 +66,7 @@ export function ContactDossier() {
           </div>
         ))}
       </div>
+      <BackHomeLink tone="dark" className="mt-16" />
     </section>
   );
 }

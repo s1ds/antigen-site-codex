@@ -14,7 +14,7 @@ export function SiteHeader() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 flex min-h-20 items-center justify-between bg-black/90 px-page py-5 backdrop-blur-sm">
       <Link href="/" aria-label="ANTIGEN home">
-        <Image src="/logos/antigen-logo-white.png" alt="ANTIGEN" width={142} height={32} priority />
+        <Image src="/logos/antigen-logo-white.png" alt="ANTIGEN" width={1063} height={281} priority style={{ width: "142px", height: "auto" }} />
       </Link>
       <nav className="hidden items-center gap-5 text-xs font-black uppercase tracking-wide text-white md:flex">
         {nav.map(([label, href]) => (

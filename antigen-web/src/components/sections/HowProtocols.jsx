@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { BackHomeLink } from "@/components/site/BackHomeLink";
 
 const cells = [
   {
@@ -44,6 +45,7 @@ export function HowProtocols() {
 
   return (
     <section className="bg-white px-page pb-0 pt-32 text-black md:pt-40">
+      <BackHomeLink className="mb-10" />
       <section className="grid min-h-[28rem] items-center py-10 text-left md:min-h-[34rem]">
         <h1 className="max-w-6xl font-display text-[clamp(5rem,11vw,13rem)] uppercase leading-[0.78]">
           We structure
@@ -118,6 +120,7 @@ export function HowProtocols() {
           Brief Antigen
         </Link>
       </div>
+      <BackHomeLink className="my-16" />
     </section>
   );
 }
@@ -147,7 +150,29 @@ function VennSystem() {
 
 function CellDiagram({ cell }) {
   return (
-    <div className="relative min-h-[32rem] overflow-hidden border border-black/15 bg-[var(--antigen-paper)] p-6">
+    <>
+      <div className="border border-black/15 bg-[var(--antigen-paper)] p-5 md:hidden">
+        <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--antigen-red)]">Cell assembly</p>
+        <div className="mt-4 border border-black bg-black p-5 text-white">
+          <p className="font-display text-5xl uppercase leading-none">{cell.center}</p>
+          <p className="mt-3 text-sm font-bold leading-relaxed text-white/65">
+            Cell forms for the problem. Dissolves upon delivery.
+          </p>
+        </div>
+        <div className="mt-4 grid gap-3">
+          {cell.experts.map((expert, index) => (
+            <div key={expert} className="border border-black/15 bg-white p-4">
+              <p className="text-xs font-black uppercase tracking-[0.1em] text-neutral-500">{`Human node 0${index + 1}`}</p>
+              <p className="mt-2 text-2xl font-black uppercase leading-tight">{expert}</p>
+            </div>
+          ))}
+          <div className="border border-black bg-[var(--antigen-yellow)] p-4">
+            <p className="text-xs font-black uppercase tracking-[0.1em] text-black/55">Machine node</p>
+            <p className="mt-2 text-2xl font-black uppercase leading-tight">{cell.agent}</p>
+          </div>
+        </div>
+      </div>
+      <div className="relative hidden min-h-[32rem] overflow-hidden border border-black/15 bg-[var(--antigen-paper)] p-6 md:block">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:5rem_5rem]" />
       <div className="relative mx-auto aspect-square max-w-[30rem]">
         <div className="absolute inset-[4%] rounded-full border border-dashed border-black/25" />
@@ -164,6 +189,7 @@ function CellDiagram({ cell }) {
         </p>
       </div>
     </div>
+    </>
   );
 }
 

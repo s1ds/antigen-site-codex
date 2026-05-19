@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { BackHomeLink } from "@/components/site/BackHomeLink";
 
 const humanRoles = [
   {
@@ -88,6 +89,7 @@ export function WhoStack() {
 
   return (
     <section className="min-h-screen bg-white px-page pb-20 pt-32 text-black md:pt-40">
+      <BackHomeLink className="mb-10" />
       <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
         <div>
           <h1 className="font-display text-[clamp(4.75rem,11vw,12rem)] uppercase leading-[0.78]">
@@ -124,6 +126,7 @@ export function WhoStack() {
           selectedRole={selectedDiagramRole}
         />
       </div>
+      <BackHomeLink className="mt-16" />
     </section>
   );
 }

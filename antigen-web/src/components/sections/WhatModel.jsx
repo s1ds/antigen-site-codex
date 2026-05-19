@@ -1,4 +1,5 @@
 import { WhatMatrix } from "@/components/sections/WhatMatrix";
+import { BackHomeLink } from "@/components/site/BackHomeLink";
 
 const stackInputs = [
   {
@@ -24,6 +25,7 @@ const advantages = [
 export function WhatModel() {
   return (
     <section className="bg-white px-page pb-24 pt-36 md:pt-40">
+      <BackHomeLink className="mb-10" />
       <div className="grid gap-10 md:grid-cols-[7fr_4fr] md:gap-20">
         <div>
           <h1 className="font-display text-[clamp(4.2rem,9vw,10rem)] uppercase leading-[0.8] text-black">
@@ -161,6 +163,8 @@ export function WhatModel() {
           Where traditional firms sell effort, ANTIGEN compounds intelligence.
         </p>
       </div>
+
+      <BackHomeLink className="mt-16" />
     </section>
   );
 }

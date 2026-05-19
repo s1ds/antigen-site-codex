@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackHomeLink } from "@/components/site/BackHomeLink";
 
 const povs = [
   [
@@ -35,6 +36,7 @@ export function PovPerspectives() {
   return (
     <>
       <section className="bg-[var(--antigen-paper)] px-page pb-20 pt-36 md:pt-40">
+        <BackHomeLink className="mb-10" />
         <div className="grid gap-10 md:grid-cols-[6fr_5fr] md:items-end">
           <h1 className="font-display text-[clamp(4.5rem,9vw,10rem)] uppercase leading-[0.82]">
             ANTIGEN
@@ -80,9 +82,7 @@ export function PovPerspectives() {
         </div>
       </section>
       <section className="border-t-4 border-[var(--antigen-red)] bg-white px-page py-16">
-        <p className="max-w-5xl font-display text-[clamp(3rem,6vw,7rem)] uppercase leading-[0.84]">
-          Infinite <span className="text-[var(--antigen-red)]">capability</span>, finite <span className="text-[var(--antigen-red)]">courage.</span>
-        </p>
+        <BackHomeLink />
       </section>
     </>
   );
