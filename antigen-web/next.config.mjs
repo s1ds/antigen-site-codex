@@ -25,6 +25,14 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/planview",
+        destination: "/planview/index.html",
+      },
+    ];
+  },
   async redirects() {
     return [
       {
