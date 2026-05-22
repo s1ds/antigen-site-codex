@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTIGEN — India CXO Workshop Series</title>
+  
+  <!-- CSS Stylesheet Integration (Direct copy of the design system modified for immersive interactions) -->
+  <style>
+    /* ANTIGEN V3 Design System CSS
+       Derived from the ANTIGEN credentials deck: red/magenta manifesto fields, white evidence spreads,
+       brutal uppercase typography, insurgent overlays, and sharp diagnostic components.
+    */
+
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+    :root {
+      /* Brand colors */
+      --color-red: #e31d28;
+      --color-magenta: #e3195b;
+      --color-crimson: #b11226;
+      --color-black: #111111;
+      --color-ink: #1e1c17;
+      --color-white: #ffffff;
+      --color-paper: #f8f7f6;
+      --color-smoke: #e8e8e8;
+      --color-grey: #9fa2a4;
+      --color-blue: #08a7d8;
+      --color-yellow: #ffc000;
+
+      /* Semantic colors */
+      --bg-primary: var(--color-white);
+      --bg-paper: var(--color-paper);
+      --bg-insurgence: var(--color-red);
+      --text-primary: var(--color-black);
+      --text-muted: #6e6e6e;
+      --text-inverse: var(--color-white);
+      --accent-primary: var(--color-red);
+      --accent-secondary: var(--color-magenta);
+      --accent-signal: var(--color-yellow);
+
+      /* Gradients */
+      --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+      --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+      --gradient-evidence: linear-gradient(180deg, #ffffff 0%, #f8f7f6 100%);
+
+      /* Typography */
+      --font-display: 'Bebas Neue', 'Oswald', Impact, 'Arial Narrow', sans-serif;
+      --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      /* Type scale */
+      --type-hero: clamp(3.5rem, 10vw, 11rem);
+      --type-display: clamp(2.8rem, 7.5vw, 7.5rem);
+      --type-title: clamp(2rem, 5vw, 4.5rem);
+      --type-subtitle: clamp(1.2rem, 2.2vw, 2.4rem);
+      --type-body: clamp(0.95rem, 1.05vw, 1.1rem);
+      --type-small: .82rem;
+      --type-micro: .68rem;
+
+      /* Spacing */
+      --space-1: .25rem;
+      --space-2: .5rem;
+      --space-3: .75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --space-9: 6rem;
+      --space-10: 8rem;
+      --page-pad: clamp(1.5rem, 5vw, 4.5rem);
+
+      /* Layout */
+      --max-page: 1440px;
+      --grid-gap: clamp(1rem, 2vw, 2rem);
+      --rule: 1px solid rgba(17, 17, 17, .14);
+      --shadow-hard: 12px 12px 0 rgba(17, 17, 17, .95);
+      --shadow-red: 12px 12px 0 rgba(227, 29, 40, .95);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: var(--type-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    img, svg, video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: .08em;
+      text-underline-offset: .18em;
+    }
+
+    ::selection {
+      background: var(--color-yellow);
+      color: var(--color-black);
+    }
+
+    /* Typography */
+    .kicker,
+    .meta,
+    .section-nav,
+    .caption,
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: var(--type-micro);
+      font-weight: 800;
+      letter-spacing: .12em;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .display-hero,
+    .display-section,
+    .display-title,
+    .force-title,
+    .word-wall-statement {
+      font-family: var(--font-display);
+      font-weight: 400;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .display-hero {
+      font-size: var(--type-hero);
+      line-height: .8;
+      letter-spacing: -.03em;
+    }
+
+    .display-section {
+      font-size: var(--type-display);
+      line-height: .82;
+      letter-spacing: -.03em;
+    }
+
+    .display-title {
+      font-size: var(--type-title);
+      line-height: .9;
+      letter-spacing: -.025em;
+    }
+
+    .editorial-headline {
+      font-family: var(--font-sans);
+      font-size: var(--type-title);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .body-large {
+      font-size: clamp(1.1rem, 1.5vw, 1.65rem);
+      line-height: 1.35;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+
+    .body-copy {
+      max-width: 62ch;
+      font-weight: 500;
+    }
+
+    .text-red { color: var(--color-red); }
+    .text-magenta { color: var(--color-magenta); }
+    .text-blue { color: var(--color-blue); }
+    .text-yellow { color: var(--color-yellow); }
+    .text-white { color: var(--color-white); }
+    .text-muted { color: var(--text-muted); }
+    .text-black { color: var(--color-black) !important; }
+
+    .text-outline {
+      color: transparent;
+      -webkit-text-stroke: 1px currentColor;
+      -webkit-text-stroke-color: rgba(255, 255, 255, .55);
+    }
+
+    .text-outline-dark {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(17, 17, 17, .8);
+    }
+
+    /* Page layouts */
+    .page-shell {
+      width: min(100%, var(--max-page));
+      margin-inline: auto;
+      padding-inline: var(--page-pad);
+    }
+
+    .section {
+      position: relative;
+      padding: var(--space-8) var(--page-pad);
+      overflow: hidden;
+    }
+
+    .section-full {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+    }
+
+    .grid-12 {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .grid-evidence {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(320px, 7fr);
+      gap: clamp(2rem, 6vw, 7rem);
+      align-items: center;
+    }
+
+    .grid-triptych {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1.25rem, 3vw, 3rem);
+    }
+
+    /* Territories */
+    .territory-red {
+      background: var(--gradient-insurgence);
+      color: var(--text-inverse);
+    }
+
+    .territory-white {
+      background: var(--gradient-evidence);
+      color: var(--text-primary);
+    }
+
+    .territory-black {
+      background: var(--color-black);
+      color: var(--text-inverse);
+    }
+
+    .territory-paper {
+      background: var(--color-paper);
+    }
+
+    /* Section navigation */
+    .section-nav {
+      position: absolute;
+      top: clamp(1rem, 2vw, 1.75rem);
+      right: var(--page-pad);
+      z-index: 20;
+      display: flex;
+      gap: .9rem;
+      flex-wrap: wrap;
+      color: rgba(255, 255, 255, .45);
+    }
+
+    .section-nav.dark {
+      color: rgba(17, 17, 17, .38);
+    }
+
+    .section-nav .active {
+      color: var(--color-yellow);
+    }
+
+    .section-nav.dark .active {
+      color: var(--color-red);
+    }
+
+    /* Hero manifesto */
+    .hero-manifesto {
+      position: relative;
+      min-height: 100vh;
+      padding: var(--space-10) var(--page-pad) var(--space-8);
+      display: grid;
+      align-items: end;
+      background: var(--gradient-insurgence);
+      color: var(--color-white);
+      overflow: hidden;
+    }
+
+    .hero-manifesto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 72% 28%, rgba(0, 0, 0, .22), transparent 34%),
+        linear-gradient(90deg, rgba(0, 0, 0, .16), transparent 45%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+    }
+
+    .hero-subline {
+      max-width: 820px;
+      margin-top: var(--space-5);
+      font-weight: 700;
+      font-size: clamp(1.15rem, 2vw, 1.85rem);
+      line-height: 1.3;
+      letter-spacing: -.025em;
+    }
+
+    /* Evidence block */
+    .evidence-block {
+      background: var(--color-white);
+      border: var(--rule);
+      padding: clamp(1rem, 2.5vw, 2rem);
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .evidence-block:hover {
+      transform: translateY(-4px);
+    }
+
+    .evidence-block.is-pinned::before {
+      content: '';
+      position: absolute;
+      top: -.5rem;
+      left: 1.5rem;
+      width: 4rem;
+      height: .8rem;
+      background: rgba(227, 29, 40, .82);
+      transform: rotate(-2deg);
+    }
+
+    .evidence-number {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 9.5rem);
+      line-height: .8;
+      letter-spacing: -.03em;
+      color: var(--color-black);
+    }
+
+    .evidence-caption {
+      margin-top: var(--space-3);
+      color: var(--color-red);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+    }
+
+    /* Force cards */
+    .force-card {
+      border-top: 6px solid var(--color-red);
+      padding-top: var(--space-4);
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .force-card .kicker {
+      color: var(--color-red);
+      margin-bottom: var(--space-2);
+    }
+
+    .force-title {
+      font-size: clamp(3rem, 6vw, 6.5rem);
+      line-height: .78;
+      color: var(--color-red);
+      letter-spacing: -.035em;
+      margin-bottom: var(--space-3);
+    }
+
+    .force-card p {
+      font-weight: 700;
+      max-width: 34ch;
+      margin-top: auto;
+    }
+
+    /* Torn signal */
+    .torn-signal {
+      background: var(--color-yellow);
+      color: var(--color-black);
+      padding: clamp(1.5rem, 4vw, 3.5rem);
+      clip-path: polygon(3% 0, 100% 6%, 97% 100%, 0 94%, 4% 48%);
+      box-shadow: var(--shadow-hard);
+      margin-block: var(--space-5);
+    }
+
+    .torn-signal .signal-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 5rem);
+      line-height: .85;
+      text-transform: uppercase;
+      margin: 0 0 var(--space-3);
+    }
+
+    /* Word wall */
+    .word-wall {
+      position: relative;
+      min-height: 70vh;
+      display: grid;
+      align-items: center;
+      background: var(--gradient-insurgence);
+      color: var(--color-white);
+      padding: var(--space-8) var(--page-pad);
+      overflow: hidden;
+    }
+
+    .word-wall-terms {
+      position: absolute;
+      inset: var(--space-6) var(--page-pad);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .6rem 2rem;
+      opacity: .2;
+      font-weight: 800;
+      font-size: clamp(.7rem, 1vw, 1rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+      pointer-events: none;
+    }
+
+    .word-wall-statement {
+      position: relative;
+      z-index: 2;
+      color: var(--color-white);
+      font-size: clamp(4.5rem, 12vw, 13rem);
+      line-height: .75;
+      letter-spacing: -.05em;
+      max-width: 1180px;
+    }
+
+    /* Legacy panel */
+    .legacy-panel {
+      background: var(--color-white);
+      min-height: 80vh;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(320px, 6fr);
+      gap: clamp(2rem, 5vw, 6rem);
+      align-items: center;
+      padding: var(--space-9) var(--page-pad);
+    }
+
+    .legacy-panel h2 {
+      color: var(--color-red);
+    }
+
+    .diagram-frame {
+      border: var(--rule);
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(rgba(17, 17, 17, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 17, 17, .05) 1px, transparent 1px),
+        var(--color-white);
+      background-size: 24px 24px;
+    }
+
+    /* Cards and buttons */
+    .card {
+      background: var(--color-white);
+      border: var(--rule);
+      padding: var(--space-5);
+    }
+
+    .card-red {
+      background: var(--gradient-insurgence);
+      color: var(--white);
+      border: 0;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: .85rem 1.1rem;
+      border: 2px solid currentColor;
+      background: transparent;
+      color: currentColor;
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .button:hover {
+      background: var(--color-black);
+      border-color: var(--color-black);
+      color: var(--color-white);
+    }
+
+    .button-red {
+      background: var(--color-red);
+      border-color: var(--color-red);
+      color: var(--color-white);
+    }
+
+    .button-red:hover {
+      background: var(--color-black);
+      border-color: var(--color-black);
+    }
+
+    .button-yellow {
+      background: var(--color-yellow);
+      border-color: var(--color-yellow);
+      color: var(--color-black);
+    }
+    .button-yellow:hover {
+      background: var(--color-black);
+      border-color: var(--color-black);
+      color: var(--color-white);
+    }
+
+    /* Utility classes */
+    .stack-sm > * + * { margin-top: var(--space-3); }
+    .stack-md > * + * { margin-top: var(--space-5); }
+    .stack-lg > * + * { margin-top: var(--space-7); }
+
+    .bleed-left { margin-left: calc(var(--page-pad) * -1); }
+    .bleed-right { margin-right: calc(var(--page-pad) * -1); }
+    .crop-edge { overflow: hidden; }
+    .uppercase { text-transform: uppercase; }
+    .no-margin { margin: 0; }
+    .max-50 { max-width: 50ch; }
+    .max-70 { max-width: 70ch; }
+
+    /* Custom Responsive Adjustments */
+    @media (max-width: 900px) {
+      .grid-evidence,
+      .grid-triptych,
+      .legacy-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .section-nav {
+        position: relative;
+        inset: auto;
+        margin-bottom: var(--space-4);
+        justify-content: flex-start;
+      }
+
+      .hero-manifesto {
+        min-height: 82vh;
+        padding-top: var(--space-8);
+      }
+      
+      .word-wall-terms {
+        grid-template-columns: repeat(2, 1fr);
+        opacity: .15;
+      }
+    }
+
+    @media (max-width: 560px) {
+      :root {
+        --page-pad: 1.1rem;
+      }
+
+      .display-hero {
+        font-size: clamp(3.5rem, 20vw, 7.5rem);
+      }
+
+      .section {
+        padding-block: var(--space-6);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       Interactive Custom additions for the Antigen Portal
+    ---------------------------------------------------------------- */
+    .pulsing-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-red);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.3; transform: scale(0.9); }
+    }
+
+    /* Interactive diagnostic scanner */
+    .diagnostic-container {
+      background: var(--color-ink);
+      color: var(--color-white);
+      border: 3px solid var(--color-red);
+      box-shadow: var(--shadow-red);
+      padding: clamp(1.25rem, 3.5vw, 2.5rem);
+    }
+
+    .diagnostic-question {
+      display: none;
+    }
+
+    .diagnostic-question.active {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .diag-option {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--color-white);
+      padding: var(--space-3) var(--space-4);
+      margin-top: var(--space-3);
+      cursor: pointer;
+      text-align: left;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: block;
+      width: 100%;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+    }
+
+    .diag-option:hover {
+      background: var(--color-red);
+      border-color: var(--color-red);
+    }
+
+    .diag-progress {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      width: 100%;
+      margin-bottom: var(--space-5);
+    }
+
+    .diag-progress-bar {
+      height: 100%;
+      background: var(--color-magenta);
+      width: 25%;
+      transition: width 0.3s ease;
+    }
+
+    /* Sleek, Thinner Vertical Sidebar (220px) for Desktop Workshop Hub Dashboard */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: var(--grid-gap);
+      border: 2px solid var(--color-black);
+      min-height: 650px;
+      background: var(--color-white);
+    }
+
+    .dashboard-sidebar {
+      background: var(--color-black);
+      padding: var(--space-4) var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .dashboard-tab-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--color-grey);
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+      line-height: 1.3;
+    }
+
+    .dashboard-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-white);
+    }
+
+    .dashboard-tab-btn.active {
+      background: var(--color-red);
+      border-color: var(--color-red);
+      color: var(--color-white);
+    }
+
+    .dashboard-content-pane {
+      display: none;
+      padding: clamp(1.25rem, 3.5vw, 2.5rem);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .dashboard-content-pane.active {
+      display: block;
+    }
+
+    /* Mobile custom select design */
+    .workshop-selector-mobile-container {
+      display: none;
+      background: var(--color-black);
+      padding: var(--space-4);
+      border: 2px solid var(--color-red);
+      margin-bottom: var(--space-4);
+    }
+
+    .custom-mobile-select {
+      width: 100%;
+      background: var(--color-ink);
+      color: var(--color-white);
+      border: 1px solid var(--color-red);
+      padding: var(--space-3);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      outline: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+      .dashboard-sidebar {
+        display: none; /* Hide standard left nav tabs on tablet/mobile */
+      }
+      .workshop-selector-mobile-container {
+        display: block; /* Show visual drop-down switcher instead */
+      }
+    }
+
+    /* Interactive Provocation Generator Widget with Absoluted Contrast Fixes */
+    .provocation-widget {
+      background: var(--color-paper);
+      border: 2px dashed var(--color-red);
+      padding: var(--space-5);
+      text-align: center;
+      margin-top: var(--space-4);
+      color: var(--color-black) !important; /* Force black base text color inside container */
+    }
+
+    .vector-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .vector-pill {
+      background: var(--color-white);
+      border: 1px solid var(--color-smoke);
+      color: var(--color-black) !important; /* Force high-contrast black text on white backgrounds */
+      padding: var(--space-2) var(--space-3);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+    }
+
+    .vector-pill:hover, .vector-pill.active {
+      background: var(--color-black) !important;
+      color: var(--color-white) !important;
+      border-color: var(--color-black) !important;
+    }
+
+    @media (max-width: 600px) {
+      .vector-pill-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Question index sub-control */
+    .question-indexer {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .indexer-btn {
+      background: var(--color-white);
+      border: 1px solid var(--color-grey);
+      color: var(--color-black) !important; /* Force high-contrast black text on white backgrounds */
+      width: 28px;
+      height: 28px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .indexer-btn:hover, .indexer-btn.active {
+      background: var(--color-red) !important;
+      color: var(--color-white) !important;
+      border-color: var(--color-red) !important;
+    }
+
+    .indexer-btn.is-detonation {
+      border-color: var(--color-magenta) !important;
+      color: var(--color-magenta) !important;
+    }
+    .indexer-btn.is-detonation.active {
+      background: var(--color-magenta) !important;
+      color: var(--color-white) !important;
+      border-color: var(--color-magenta) !important;
+    }
+
+    /* Confession booth card animation */
+    .confession-paper {
+      background: #fffae6;
+      border-left: 5px solid var(--color-yellow);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: #333;
+      margin-top: var(--space-4);
+      position: relative;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .confession-stamp {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      border: 2px solid var(--color-red);
+      color: var(--color-red);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      padding: 2px 8px;
+      text-transform: uppercase;
+      transform: rotate(15deg);
+      opacity: 0.7;
+      font-weight: bold;
+    }
+
+    /* Fix Collisional grid visibility bug (Absolute contrast control) */
+    .collisional-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--grid-gap);
+      margin-top: var(--space-4);
+    }
+
+    .collisional-card {
+      border: var(--rule);
+      padding: var(--space-5);
+      border-radius: 0px;
+    }
+
+    .collisional-card.traditional {
+      background: var(--color-white) !important;
+      border-top: 5px solid var(--color-grey) !important;
+    }
+
+    .collisional-card.traditional * {
+      color: var(--color-black) !important; /* Force high-contrast black text on traditional block */
+    }
+
+    .collisional-card.insurgent {
+      background: #fff8f8 !important;
+      border-top: 5px solid var(--color-red) !important;
+    }
+
+    .collisional-card.insurgent * {
+      color: var(--color-black) !important; /* Force complete high-contrast black text on insurgent block */
+    }
+
+    .collisional-card p {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .collisional-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Responsive Comparative Table Wrapper */
+    .table-responsive-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: var(--space-4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .table-responsive-wrapper table {
+      width: 100%;
+      min-width: 600px; /* Protect formatting column layouts */
+      border-collapse: collapse;
+    }
+
+    /* System notification overlay toast */
+    .system-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--color-black);
+      color: var(--color-white);
+      border-left: 6px solid var(--color-red);
+      padding: var(--space-4) var(--space-5);
+      z-index: 1000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateY(150%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .system-notification.show {
+      transform: translateY(0);
+    }
+
+    /* Simple structural diagram */
+    .grammar-pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+
+    .grammar-step {
+      background: var(--color-paper);
+      padding: var(--space-3);
+      border-left: 3px solid var(--color-grey);
+    }
+
+    .grammar-step.active {
+      border-left-color: var(--color-red);
+      background: #fff0f0;
+    }
+
+    .grammar-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .grammar-pipeline {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section 00: Hero Manifesto -->
+  <section class="hero-manifesto text-white">
+    <div class="hero-content">
+      <span class="kicker text-yellow">INDIA CXO WORKSHOP SERIES</span>
+      <h1 class="display-hero">
+        THE ROOM THAT <br><span class="text-outline">REFUSES TO AGREE.</span>
+      </h1>
+      <p class="hero-subline">
+        Five insurgent experiences for India's senior leadership cohort targeting the sameness trap, the consensus reflex, the post-algorithm paralysis, and the uncrackable growth problem.
+      </p>
+      
+      <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+        <a href="#workshops" class="button button-yellow">Explore The 5 Workshops</a>
+        <a href="#diagnostic" class="button">Measure Your Sameness Risk</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 01: Core Philosophy & Metrics -->
+  <section class="section territory-white dark-nav">
+    <div class="page-shell">
+      <div class="grid-evidence">
+        
+        <div class="stack-md">
+          <span class="kicker text-red">WHO WE ARE</span>
+          <h2 class="editorial-headline text-red">A Foreign Substance.</h2>
+          <p class="body-large text-muted">
+            ANTIGEN is a post-algorithm intelligence collective built to tackle the three forces quietly killing growth in India today: <strong class="text-red">Sameness</strong>, <strong class="text-red">Stagnation</strong>, and <strong class="text-red">Suppression</strong>.
+          </p>
+          <p class="body-copy">
+            We are not an agency. We are not a traditional consulting firm. We are a distributed network of sovereign, insurgent minds individually averaging 20+ years of global, multi-sector experience—augmented by AI provocation engines and assembled with zero fixed overhead.
+          </p>
+          <div class="torn-signal">
+            <h3 class="signal-title">The Insurgent Formula</h3>
+            <p style="font-weight: 700; margin: 0;">
+              The machine provides memory and pattern detection. <br>The human provides moral courage, taste, and framing.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-12" style="grid-column: span 1;">
+          <div class="evidence-block is-pinned" style="grid-column: span 12;">
+            <div class="evidence-number">79%</div>
+            <div class="evidence-caption">Of brands have no meaningful difference vs. their category</div>
+            <p class="meta" style="margin-top: var(--space-2); color: var(--text-muted);">The post-algorithm sameness trap at scale.</p>
+          </div>
+          <div class="evidence-block" style="grid-column: span 6; margin-top: var(--space-3);">
+            <div class="evidence-number" style="font-size: clamp(3rem, 6vw, 6rem);">47%</div>
+            <div class="evidence-caption" style="font-size: 0.75rem;">CMOs Rank Blandness as Primary Threat</div>
+          </div>
+          <div class="evidence-block" style="grid-column: span 6; margin-top: var(--space-3);">
+            <div class="evidence-number" style="font-size: clamp(3rem, 6vw, 6rem);">86%</div>
+            <div class="evidence-caption" style="font-size: 0.75rem;">Better outcomes via structured dissent</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 02: Word Wall / Cognitive Detonation -->
+  <section class="word-wall">
+    <div class="word-wall-terms">
+      <span>Consensus</span><span>Benchmarking</span><span>KPI Comfort</span><span>Optimized Blandness</span>
+      <span>Agile Alignment</span><span>Committee Safe</span><span>Market Copying</span><span>Post-Algo Paralysis</span>
+      <span>No Playbook</span><span>Zero Conviction</span>
+    </div>
+    <div class="word-wall-statement">
+      YOU CANNOT OPTIMISE YOUR WAY TO AN <span class="text-outline text-red">INSURGENT POSITION.</span>
+    </div>
+  </section>
+
+  <!-- Section 03: The Three Forces Killing Growth -->
+  <section class="section territory-paper">
+    <div class="page-shell">
+      <div style="text-align: center; margin-bottom: var(--space-7);">
+        <span class="kicker text-red">THE ROOT ISSUES</span>
+        <h2 class="display-title">Three Forces Crushing Value</h2>
+        <p class="body-large text-muted">Why traditional agencies and standard advisory processes repeatedly fail to generate alpha.</p>
+      </div>
+
+      <div class="grid-triptych">
+        <div class="force-card">
+          <div>
+            <span class="kicker">Force 01</span>
+            <h3 class="force-title">SAMENESS</h3>
+          </div>
+          <p>Convergence engines moneyball-ing everything to absolute homogeneity. Good people making individually rational decisions that are collectively catastrophic.</p>
+        </div>
+        <div class="force-card">
+          <div>
+            <span class="kicker">Force 02</span>
+            <h3 class="force-title">STAGNATION</h3>
+          </div>
+          <p>The traditional agency model was built for a world of information scarcity and talent concentration. Both barriers have fully collapsed. The model has not.</p>
+        </div>
+        <div class="force-card" style="border-top-color: var(--color-magenta);">
+          <div>
+            <span class="kicker" style="color: var(--color-magenta);">Force 03</span>
+            <h3 class="force-title" style="color: var(--color-magenta);">SUPPRESSION</h3>
+          </div>
+          <p>Only 4% of traditional agencies tie their fees directly to business results. Bland metrics and performance-theatrics replace actual market courage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Section: The Provocation Engine & Diagnostic -->
+  <section class="section territory-black" id="diagnostic">
+    <div class="page-shell">
+      <div class="grid-evidence">
+        
+        <div class="stack-md">
+          <span class="kicker text-magenta">THE INSURGENT TEST</span>
+          <h2 class="display-title text-white">ARE YOU LEADING, <br>OR <span class="text-outline">COMPLYING?</span></h2>
+          <p class="body-large text-muted">Most senior leadership cohorts in India have swapped strategic bets for benchmarked security. Our diagnostic calculates your Blandness Risk Profile.</p>
+          
+          <!-- Interactive Diagnostic Portal -->
+          <div class="diagnostic-container">
+            <div class="diag-progress">
+              <div class="diag-progress-bar" id="progressBar"></div>
+            </div>
+            
+            <!-- Question 1 -->
+            <div class="diagnostic-question active" id="q1">
+              <span class="kicker text-magenta">Question 01 of 04</span>
+              <h4 class="body-large text-white" style="margin-block: var(--space-3);">How are your major brand and growth decisions typically produced?</h4>
+              <button class="diag-option" onclick="selectOption(1, 25)">A) Extensive committee alignment sessions and iterative internal approvals to minimize exposure.</button>
+              <button class="diag-option" onclick="selectOption(1, 15)">B) Standard competitor benchmarks, market research, and trusted agency validation models.</button>
+              <button class="diag-option" onclick="selectOption(1, 0)">C) High-conviction bets backed by internal champions ready to risk structured failure.</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="diagnostic-question" id="q2">
+              <span class="kicker text-magenta">Question 02 of 04</span>
+              <h4 class="body-large text-white" style="margin-block: var(--space-3);">What happens when someone raises a fundamental, uncomfortable disagreement?</h4>
+              <button class="diag-option" onclick="selectOption(2, 25)">A) They are quietly moderated or sidelined to keep major project launch timelines on track.</button>
+              <button class="diag-option" onclick="selectOption(2, 15)">B) We schedule a secondary alignment session to find intermediate common ground.</button>
+              <button class="diag-option" onclick="selectOption(2, 0)">C) We pause to isolate the dissenting argument and evaluate it as a potential Orphan Truth.</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="diagnostic-question" id="q3">
+              <span class="kicker text-magenta">Question 03 of 04</span>
+              <h4 class="body-large text-white" style="margin-block: var(--space-3);">How does your leadership structure treat generative AI and analytics systems?</h4>
+              <button class="diag-option" onclick="selectOption(3, 25)">A) We delegate content, research summaries, and operational strategy creation to them wholesale.</button>
+              <button class="diag-option" onclick="selectOption(3, 15)">B) We use algorithms strictly for standard channel optimization, and consult experts for interpretations.</button>
+              <button class="diag-option" onclick="selectOption(3, 0)">C) We treat algorithm as the core utility, maintaining strict human judgment and moral taste.</button>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="diagnostic-question" id="q4">
+              <span class="kicker text-magenta">Question 04 of 04</span>
+              <h4 class="body-large text-white" style="margin-block: var(--space-3);">If your main competitor completely duplicated your entire Q3 roadmap, how would it affect you?</h4>
+              <button class="diag-option" onclick="selectOption(4, 25)">A) Minimally. Our roadmaps already look incredibly identical because we share the same insights.</button>
+              <button class="diag-option" onclick="selectOption(4, 15)">B) Moderately. It would pressure our margins, but our media execution and distribution cover us.</button>
+              <button class="diag-option" onclick="selectOption(4, 0)">C) Extremely. Our bets are highly polarized and specific, built purely on differentiated conviction.</button>
+            </div>
+
+            <!-- Result Panel -->
+            <div class="diagnostic-question" id="diagResult">
+              <span class="kicker text-yellow">Diagnostic Complete</span>
+              <h3 class="display-title text-white" style="margin-top:var(--space-2);" id="resultPercentage">Blandness Index: 0%</h3>
+              <p class="body-copy" id="resultExplanation" style="margin-bottom:var(--space-4);"></p>
+              <button class="button button-red" onclick="resetDiagnostic()">Restart Diagnostic Scan</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Six Vectors of Cognitive Provocation — RESTORED CORE DATA ENGINE -->
+        <div class="stack-md">
+          <span class="kicker text-yellow">THE SIX VECTORS METHODOLOGY</span>
+          <h3 class="editorial-headline text-white" style="font-size: 2.25rem;">THE COGNITIVE IED GENERATOR</h3>
+          <p class="body-copy text-muted">A comprehensive, live tactical library of all 42 standard category-agnostic insurgent questions. Target your primary corporate blindspot.</p>
+          
+          <div class="provocation-widget">
+            <span class="meta text-red" style="display:block; margin-bottom:var(--space-2); font-weight:800;">01. Select Active Vector:</span>
+            <div class="vector-pill-grid">
+              <button class="vector-pill active" onclick="setVector('v1', this)">V1: Assumption Archaeology</button>
+              <button class="vector-pill" onclick="setVector('v2', this)">V2: Consensus Forensics</button>
+              <button class="vector-pill" onclick="setVector('v3', this)">V3: Audience Inversion</button>
+              <button class="vector-pill" onclick="setVector('v4', this)">V4: Category Heresy</button>
+              <button class="vector-pill" onclick="setVector('v5', this)">V5: Future Blindness</button>
+              <button class="vector-pill" onclick="setVector('v6', this)">V6: Measurement Theater</button>
+            </div>
+
+            <span class="meta text-red" style="display:block; margin-bottom:var(--space-1); font-weight:800;">02. Select Question Probe (1 - 7):</span>
+            <!-- Question Index selector (1 through 7) -->
+            <div class="question-indexer">
+              <button class="indexer-btn active" onclick="setQuestionIndex(0, this)">01</button>
+              <button class="indexer-btn" onclick="setQuestionIndex(1, this)">02</button>
+              <button class="indexer-btn" onclick="setQuestionIndex(2, this)">03</button>
+              <button class="indexer-btn" onclick="setQuestionIndex(3, this)">04</button>
+              <button class="indexer-btn" onclick="setQuestionIndex(4, this)">05</button>
+              <button class="indexer-btn" onclick="setQuestionIndex(5, this)">06</button>
+              <button class="indexer-btn is-detonation" onclick="setQuestionIndex(6, this)">07 [D]</button>
+            </div>
+            
+            <div style="min-height: 120px; display:flex; flex-direction:column; justify-content:center; background: var(--color-white); padding: var(--space-4); border: 1px solid rgba(17,17,17,0.1);">
+              <p id="vectorDescription" class="meta text-muted" style="margin-bottom: 8px; color: var(--color-magenta); font-size: 0.68rem;"></p>
+              <h4 id="provocationText" class="body-large text-black" style="font-style: italic; font-weight:700; margin:0; line-height: 1.3;"></h4>
+            </div>
+
+            <button class="button button-red" style="margin-top: var(--space-4); width:100%;" onclick="detonateRandom()">Deploy Random Cognitive Detonator</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 04: The 5 Workshops Interactive Dashboard -->
+  <section class="section territory-paper" id="workshops">
+    <div class="page-shell">
+      <div style="text-align: center; margin-bottom: var(--space-7);">
+        <span class="kicker text-red">THE COGNITIVE DETONATIONS</span>
+        <h2 class="display-title">Five Insurgent Workshops</h2>
+        <p class="body-large text-muted">Built for Indian leaders ready to stop delegating strategy and resume making highly-contested bets.</p>
+      </div>
+
+      <!-- TABLET/MOBILE RESPONSIVE SELECT SWITCHER -->
+      <div class="workshop-selector-mobile-container">
+        <select class="custom-mobile-select" id="mobileWorkshopSelect" onchange="switchWorkshopMobile(this.value)">
+          <option value="ws1">WS 01: The Sameness Autopsy</option>
+          <option value="ws2">WS 02: Consensus Forensics</option>
+          <option value="ws3">WS 03: The Post-Algorithm CXO</option>
+          <option value="ws4">WS 04: Insurgent Questions Session</option>
+          <option value="ws5">WS 05: The RTC Collisional Sprint (2-DAY)</option>
+        </select>
+      </div>
+
+      <div class="dashboard-layout">
+        <!-- Sleek and Thinner Sidebar Selection tabs (220px on desktop) -->
+        <div class="dashboard-sidebar">
+          <span class="meta" style="color: var(--color-grey); margin-bottom: var(--space-2); padding-left: var(--space-2);">Select Program:</span>
+          <button class="dashboard-tab-btn active" id="btn-ws1" onclick="switchWorkshop('ws1', this)">
+            <span style="font-size:0.65rem; opacity:0.6; display:block;">WS 01</span>
+            The Sameness Autopsy
+          </button>
+          <button class="dashboard-tab-btn" id="btn-ws2" onclick="switchWorkshop('ws2', this)">
+            <span style="font-size:0.65rem; opacity:0.6; display:block;">WS 02</span>
+            Consensus Forensics
+          </button>
+          <button class="dashboard-tab-btn" id="btn-ws3" onclick="switchWorkshop('ws3', this)">
+            <span style="font-size:0.65rem; opacity:0.6; display:block;">WS 03</span>
+            The Post-Algorithm CXO
+          </button>
+          <button class="dashboard-tab-btn" id="btn-ws4" onclick="switchWorkshop('ws4', this)">
+            <span style="font-size:0.65rem; opacity:0.6; display:block;">WS 04</span>
+            Insurgent Questions
+          </button>
+          <button class="dashboard-tab-btn" id="btn-ws5" onclick="switchWorkshop('ws5', this)" style="border-color: var(--color-red);">
+            <span style="font-size:0.65rem; color: var(--color-red); display:block;">WS 05 (2-DAY)</span>
+            The RTC Sprint
+          </button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="dashboard-body">
+          
+          <!-- WS 01 -->
+          <div class="dashboard-content-pane active" id="ws1">
+            <span class="kicker text-red">WORKSHOP 01</span>
+            <h3 class="editorial-headline text-black" style="font-size: clamp(1.8rem, 3.5vw, 3.5rem); margin-block: 5px 15px;">The Sameness Autopsy</h3>
+            <p class="body-large text-red">"How consensus strategy quietly killed your growth, and what insurgent thinking looks like from the inside."</p>
+            
+            <div class="grammar-pipeline">
+              <div class="grammar-step active">
+                <div class="grammar-title">Rupture</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Vector deployment (Assumption Archaeology) in competitive context.</p>
+              </div>
+              <div class="grammar-step active">
+                <div class="grammar-title">Descent</div>
+                <span class="caption">25 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The Confession Booth: unattributed reading of safe compromises.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Forge</div>
+                <span class="caption">40 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Build the Insurgent Alternative: Human Truth &rarr; Friction &rarr; Brave Version.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Surface</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Each writes a 1-sentence bet based on pure conviction.</p>
+              </div>
+            </div>
+
+            <div class="grid-12">
+              <div style="grid-column: span 7;">
+                <h4 class="meta text-black">THE DESCENT EXPEDITION: THE CONFESSION BOOTH</h4>
+                <p style="font-size:0.95rem; margin-top:5px;">Written, anonymous, on paper. Each participant names the strategic choice made in the last 12 months they privately recognize was consensual, benchmarked, and safe. The move right by metrics but fully wrong by conviction. Read aloud unattributed. 30 seconds of pure silence after each. Sitting with the actual structural cost of cowardice before reconstruction begins.</p>
+                
+                <div class="confession-paper" id="confessionBox">
+                  <div class="confession-stamp">COMPROMISED</div>
+                  <p id="confessionText" style="margin:0; font-style: italic;">"We backed down from changing our brand identity because standard user screening groups said the new red felt too loud. We launched a soft blue instead, and became completely invisible."</p>
+                </div>
+                <button class="button" style="margin-top: 10px; min-height: 38px; padding: 0.5rem 1rem;" onclick="cycleConfession()">Examine Another Confession</button>
+              </div>
+              
+              <div style="grid-column: span 5;" class="stack-sm">
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">Primary Audience</span>
+                  <p style="font-weight:700; margin:0;">CEOs, CMOs, Chief Strategy Officers</p>
+                </div>
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">Cohort Rule</span>
+                  <p style="font-weight:700; margin:0;">Same-seniority only. Anonymity guarantee is strictly load-bearing.</p>
+                </div>
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">What You Will Forge</span>
+                  <p style="font-weight:700; margin:0; color:var(--color-red);">The Insurgent Position: a specific, dated, and signed growth bet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WS 02 -->
+          <div class="dashboard-content-pane" id="ws2">
+            <span class="kicker text-red">WORKSHOP 02</span>
+            <h3 class="editorial-headline text-black" style="font-size: clamp(1.8rem, 3.5vw, 3.5rem); margin-block: 5px 15px;">The Consensus Forensics Session</h3>
+            <p class="body-large text-red">"Investigating how alignment became an escape from individual accountability, and what it costs."</p>
+            
+            <div class="grammar-pipeline">
+              <div class="grammar-step active">
+                <div class="grammar-title">Rupture</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Consensus Forensics and Category Heresy vector questions.</p>
+              </div>
+              <div class="grammar-step active">
+                <div class="grammar-title">Descent</div>
+                <span class="caption">25 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The Devil's Audit: Groups defend positions they instinctively hate.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Forge</div>
+                <span class="caption">40 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The Fishbowl Brief: Inner circle designs an intense recommended position.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Surface</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Isolating the explicit, signed contrarian recommendation.</p>
+              </div>
+            </div>
+
+            <div class="grid-12">
+              <div style="grid-column: span 7;">
+                <h4 class="meta text-black">THE DESCENT DEVIATION: THE DEVIL'S AUDIT</h4>
+                <p style="font-size:0.95rem; margin-top:5px;">Each group receives a core strategic position they actively despise—a competitor's model, a category dogma, or an approach they historically rejected. Task: Build the absolute strongest case for it. No sarcasm, no irony. Disorientation is cognitive: the instant the team realizes they can build pristine arguments for things they thought were 'incorrect' is when actual strategic thinking begins.</p>
+                
+                <div style="background: var(--color-black); color: var(--color-white); padding: var(--space-4); margin-top: var(--space-4); border: 2px solid var(--color-red);">
+                  <span class="meta text-red">Active Audit Target:</span>
+                  <p id="auditOrthodoxy" style="font-family: var(--font-mono); margin-block: 5px; font-weight:bold;">Orthodoxy: "Always wait for market validation before introducing a new product class."</p>
+                  <p id="auditCounter" style="font-size: 0.85rem; color: var(--color-grey); margin: 0; line-height:1.3;">The Insurgent Challenge: "Waiting is merely paying high tuition fees to let your competitors optimize their positioning first while branding you as an unoriginal fast-follower."</p>
+                </div>
+                <button class="button button-yellow" style="margin-top: 10px; min-height: 38px;" onclick="cycleDevilAudit()">Inspect Next Orthodoxy</button>
+              </div>
+
+              <div style="grid-column: span 5;" class="stack-sm">
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">Primary Audience</span>
+                  <p style="font-weight:700; margin:0;">Full CXO executive suite, same organisation.</p>
+                </div>
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">What You Will Forge</span>
+                  <p style="font-weight:700; margin:0; color:var(--color-red);">The Contrarian Position: A powerful strategic plan that your standard committee structures would never have tolerated.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WS 03 -->
+          <div class="dashboard-content-pane" id="ws3">
+            <span class="kicker text-red">WORKSHOP 03</span>
+            <h3 class="editorial-headline text-black" style="font-size: clamp(1.8rem, 3.5vw, 3.5rem); margin-block: 5px 15px;">The Post-Algorithm CXO</h3>
+            <p class="body-large text-red">"Leading in a world where optimization is a commoditized utility, and original judgment is the only luxury."</p>
+            
+            <div class="grammar-pipeline">
+              <div class="grammar-step active">
+                <div class="grammar-title">Rupture</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Future Blindness vectors deployed to map the strategic knowledge gap.</p>
+              </div>
+              <div class="grammar-step active">
+                <div class="grammar-title">Descent</div>
+                <span class="caption">25 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The Judgment Test: Written decision formulated under complete isolation.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Forge</div>
+                <span class="caption">40 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Signal Separation: Detonating every confident consultant conclusion.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Surface</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The Post-Algorithm Decision Map: Naming outsourced judgment zones.</p>
+              </div>
+            </div>
+
+            <div class="grid-12">
+              <div style="grid-column: span 7;">
+                <h4 class="meta text-black">THE DESCENT TIMING: THE JUDGMENT TEST</h4>
+                <p style="font-size:0.95rem; margin-top:5px;">Participants are handed a live, high-complexity competitor threat. No search engines, no analyst briefs, no team delegation. Just the raw intelligence in the room. You have exactly 5 minutes of complete silence to commit a high-stakes recommendation to paper. Most leaders find this raw exercise remarkably clarifying—and deeply disorienting.</p>
+                
+                <div style="background: var(--color-ink); color: var(--color-white); padding: var(--space-4); margin-top: var(--space-4); text-align: center; border-left: 4px solid var(--color-magenta);">
+                  <div id="timerDisplay" style="font-family: var(--font-mono); font-size: 2.25rem; font-weight: bold; color: var(--color-yellow);">05:00</div>
+                  <span class="meta" style="font-size: 0.65rem;">SCENARIO DEPLOYMENT CLOCK</span>
+                  <div style="margin-top: 10px;">
+                    <button class="button button-red" style="min-height:32px; padding:2px 12px; font-size:10px;" id="timerBtn" onclick="toggleTimer()">Start Test Silence</button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="grid-column: span 5;" class="stack-sm">
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">Primary Audience</span>
+                  <p style="font-weight:700; margin:0;">CEOs, MDs, Board Directors, Transformation Leaders</p>
+                </div>
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">What You Will Forge</span>
+                  <p style="font-weight:700; margin:0; color:var(--color-red);">The Post-Algorithm Decision Map: A custom diagnostic mapping exactly where outsourced data has compromised core leadership judgment.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WS 04 -->
+          <div class="dashboard-content-pane" id="ws4">
+            <span class="kicker text-red">WORKSHOP 04</span>
+            <h3 class="editorial-headline text-black" style="font-size: clamp(1.8rem, 3.5vw, 3.5rem); margin-block: 5px 15px;">The Insurgent Questions Session</h3>
+            <p class="body-large text-red">"Forensic deconstruction of your organization's single most critical growth block."</p>
+            
+            <div class="grammar-pipeline">
+              <div class="grammar-step active">
+                <div class="grammar-title">Rupture</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Problem statement as submitted vs. the immediate real problem exposed.</p>
+              </div>
+              <div class="grammar-step active">
+                <div class="grammar-title">Descent</div>
+                <span class="caption">30 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">Five-Vector Protocol: Deploying curated question pairs under tension.</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Forge</div>
+                <span class="caption">35 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The War Room Reframe: Extracting 3-5 suppressed "Orphan Truths".</p>
+              </div>
+              <div class="grammar-step">
+                <div class="grammar-title">Surface</div>
+                <span class="caption">15 min</span>
+                <p style="font-size:0.75rem; margin:0; line-height:1.2;">The Honest Brief: Forging one high-conviction alternate path.</p>
+              </div>
+            </div>
+
+            <div class="grid-12">
+              <div style="grid-column: span 7;">
+                <h4 class="meta text-black">THE REFRAMING DISCORD: SUBMITTED VS. REVEALED</h4>
+                <p style="font-size:0.95rem; margin-top:5px;">Teams submit their target problem 5 days early. During the first 5 minutes, we read it verbatim, then apply targeted pressure. In almost every session, the leadership team abandons their written document inside five minutes to declare an entirely different primary challenge.</p>
+                
+                <div style="border: 1px solid var(--color-smoke); padding: var(--space-4); margin-top: var(--space-4); background: #fafafa;">
+                  <span class="meta text-muted">Traditional Corporate Submission:</span>
+                  <p style="font-size: 0.85rem; font-style: italic; margin-block: 4px 10px;">"We must execute an integrated cross-channel campaign to increase our Brand Health index and Tier-1 category saliency by 12% among millennials..."</p>
+                  
+                  <span class="meta text-red">Antigen Forensic Reframe:</span>
+                  <p style="font-size: 0.9rem; font-weight: bold; color: var(--color-red); margin: 0;">"Our product experience has fallen behind modern D2C challengers, and our core audience is literally dying out. We are using vanity media spends to cover up product irrelevance."</p>
+                </div>
+              </div>
+
+              <div style="grid-column: span 5;" class="stack-sm">
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">Audience Requirement</span>
+                  <p style="font-weight:700; margin:0;">Same-org cohort with direct strategic ownership of the submitted brief.</p>
+                </div>
+                <div class="card" style="border-left:4px solid var(--color-black);">
+                  <span class="meta text-muted">What You Will Forge</span>
+                  <p style="font-weight:700; margin:0; color:var(--color-red);">The Honest Brief: Exposing 3-5 suppressed Orphan Truths alongside one legitimate strategy to pursue.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WS 05 -->
+          <div class="dashboard-content-pane" id="ws5">
+            <span class="kicker text-magenta">WORKSHOP 05 — THE PINNACLE INTERVENTION</span>
+            <h3 class="editorial-headline text-black" style="font-size: clamp(1.8rem, 3.5vw, 3.5rem); margin-block: 5px 15px;">The RTC Sprint (48-Hour Collational Sprint)</h3>
+            <p class="body-large text-red">"48 Hours to bypass the committee-compromise loops, execute a Cannes-level breakthrough, and receive a verdict from an actual Cannes Jury."</p>
+            
+            <div style="background: var(--color-black); padding: var(--space-4); margin-bottom: var(--space-5);">
+              <h4 class="meta text-yellow" style="margin-bottom: var(--space-3); font-weight: 800;">UPGRADE: FROM LINEAR TO COLLISIONAL</h4>
+              
+              <!-- HIGH-CONTRAST PRISTINE TEXT CARD REPRESENTATIONS -->
+              <div class="collisional-grid">
+                <div class="collisional-card traditional">
+                  <h5 class="meta" style="font-size: 0.85rem; font-weight: 900; margin-bottom: 8px;">TRADITIONAL APPROACH</h5>
+                  <p><strong>Process:</strong> Linear organizational handover (Brief &rarr; Creative Briefing &rarr; Media Allocation &rarr; Internal Moderation cycles &rarr; Delayed Activation).</p>
+                  <p><strong>Result:</strong> Highly optimized but utterly standardized assets that survive stakeholder committees but fail to earn category attention.</p>
+                </div>
+                <div class="collisional-card insurgent">
+                  <h5 class="meta text-red" style="font-size: 0.85rem; font-weight: 900; margin-bottom: 8px;">THE RTC SPRINT PROTOCOL</h5>
+                  <p><strong>Process:</strong> Collapsed organizational boundaries. All vital components in one physical room (Brand + Creative + Media + PR + Platforms) working collaboratively alongside the core decision-maker for 48 consecutive hours.</p>
+                  <p><strong>Result:</strong> Commercially anchored, earned-first creative disruptions developed in real-time and configured for immediate, high-impact cultural integration.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-12">
+              <div style="grid-column: span 7;">
+                <h4 class="meta text-black">THE MOBILISATION &amp; SPRINT PROTOCOL</h4>
+                <div class="stack-sm" style="margin-top: 10px; font-size: 0.9rem;">
+                  <p><strong>T-Minus 3 Weeks Mobilisation:</strong> Complete alignment on real business barriers. High-intensity data mining to isolate the consumer and cultural Friction.</p>
+                  <p><strong>Day 1: Collision &amp; Deconstruction:</strong> The brief is aggressively interrogated. PR and Media collaborate directly on creative conceptualization from minute one.</p>
+                  <p><strong>Day 2: Rapid Prototyping &amp; Real Judgment:</strong> Concepts are fully visualized, copy is committed, and real-channel roadmaps are drafted. The Decision Maker approves live in the room.</p>
+                  <p><strong>The Cannes Jury Verdict:</strong> An external jury of verified Cannes Lions practitioners critiques and rates the final output. The benchmark isn't an award—it is the operational standard.</p>
+                </div>
+              </div>
+
+              <div style="grid-column: span 5;" class="stack-sm">
+                <div class="card" style="border-left:4px solid var(--color-red); background: #fffafb;">
+                  <span class="meta text-red">THE 3 VICTORY CONDITIONS</span>
+                  <p style="font-size: 0.82rem; margin-top: 5px; line-height: 1.3; color: var(--color-black);">
+                    <strong>1. Earned-First:</strong> Must build rapid consumer conversation without requiring major paid media support.<br>
+                    <strong>2. Cross-Pollinated:</strong> Uses media, PR, and tech as active components of the idea itself.<br>
+                    <strong>3. Growth-Anchored:</strong> Directly targets and cracks the named commercial friction.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Section: Traditional Agency vs Antigen Collisional Model -->
+  <section class="section territory-black">
+    <div class="page-shell">
+      <div class="legacy-panel" style="background:transparent; color:white; padding:0; min-height:auto;">
+        
+        <div class="stack-md">
+          <span class="kicker text-red">THE COMPARATIVE TRUTH</span>
+          <h2 class="display-title text-white">THE ANTIDOTE TO <br><span class="text-outline">COMMITTEE DECAY</span></h2>
+          <p class="body-large text-muted">Why traditional agencies sell hours and compromise ambition, while ANTIGEN works to trigger systemic immune responses.</p>
+          
+          <!-- Responsive Table Wrapper with explicitly forced contrast colors -->
+          <div class="table-responsive-wrapper">
+            <table>
+              <thead>
+                <tr style="border-bottom: 2px solid var(--color-red); text-align: left;">
+                  <th style="padding: var(--space-3); text-transform: uppercase; color: var(--color-white);" class="meta">Dimension</th>
+                  <th style="padding: var(--space-3); text-transform: uppercase; color: var(--color-grey);" class="meta">Legacy Model</th>
+                  <th style="padding: var(--space-3); text-transform: uppercase; color: var(--color-yellow);" class="meta">Antigen Protocol</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <td style="padding: var(--space-3); font-weight:700; color: var(--color-white);">Ownership</td>
+                  <td style="padding: var(--space-3); color: var(--color-grey);">Siloed creative departments</td>
+                  <td style="padding: var(--space-3); font-weight:bold; color:var(--color-yellow);">Integrated ecosystem</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <td style="padding: var(--space-3); font-weight:700; color: var(--color-white);">Timeline</td>
+                  <td style="padding: var(--space-3); color: var(--color-grey);">Several months of feedback loops</td>
+                  <td style="padding: var(--space-3); font-weight:bold; color:var(--color-yellow);">48 hours flat</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <td style="padding: var(--space-3); font-weight:700; color: var(--color-white);">Media Role</td>
+                  <td style="padding: var(--space-3); color: var(--color-grey);">Placement and post-idea delivery</td>
+                  <td style="padding: var(--space-3); font-weight:bold; color:var(--color-yellow);">The creative driver of the idea</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <td style="padding: var(--space-3); font-weight:700; color: var(--color-white);">Approvals</td>
+                  <td style="padding: var(--space-3); color: var(--color-grey);">Multi-stage slide decks and reviews</td>
+                  <td style="padding: var(--space-3); font-weight:bold; color:var(--color-yellow);">Decided in the room together</td>
+                </tr>
+                <tr style="border-bottom: 2px solid var(--color-red);">
+                  <td style="padding: var(--space-3); font-weight:700; color: var(--color-white);">Fees Structure</td>
+                  <td style="padding: var(--space-3); color: var(--color-grey);">Fixed monthly hours/overhead retainer</td>
+                  <td style="padding: var(--space-3); font-weight:bold; color:var(--color-yellow);">Directly tied to commercial growth</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="diagram-frame text-black" style="border-color: rgba(255,255,255,0.15); background: var(--color-ink); min-height: 440px;">
+          <div style="padding: var(--space-5); text-align: center; color: white;" class="stack-sm">
+            <span class="meta text-yellow">THE CANNES LIONS METRIC</span>
+            <h4 class="display-title" style="font-size: 2.25rem; line-height: 1;">THE ACCREDITED BENCHMARK</h4>
+            <p style="font-size:0.85rem; color: var(--color-grey); max-width: 38ch; margin-inline:auto;">The sprint concludes with a blind critique by practicing industry experts. We do not evaluate for creative vanity. We evaluate to confirm whether your output is original enough to generate earned cultural conversation or if it is merely average category decoration.</p>
+            <div style="border: 2px dashed var(--color-red); padding: var(--space-3); margin-top: var(--space-3);">
+              <span class="meta text-red" style="display: block;">The Jury Core Criteria:</span>
+              <p style="font-size: 0.82rem; font-weight:bold; color: white; margin:0;">Earned-First Potential | Clear Business Objective | Cross-Discipline Execution</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 05: Submit the Uncrackable Brief -->
+  <section class="section territory-white" id="brief">
+    <div class="page-shell" style="max-width: 860px; margin-inline: auto;">
+      <div style="text-align: center; margin-bottom: var(--space-6);">
+        <span class="kicker text-red">TAKE COGNITIVE ACTION</span>
+        <h2 class="display-title">Submit Your Uncrackable Brief</h2>
+        <p class="body-large text-muted">Identify your core commercial threat. We will formulate twelve insurgent questions calibrated to challenge and reframe your primary assumptions.</p>
+      </div>
+
+      <!-- Live Simulated Reframing Application Portal -->
+      <div class="card" style="box-shadow: var(--shadow-hard); border: 2px solid var(--color-black); background: var(--color-paper);">
+        <form id="briefForm" onsubmit="handleBriefSubmission(event)" class="stack-md">
+          
+          <div>
+            <label class="meta text-black" style="display:block; margin-bottom: 5px;">01. Your Business Objective (Strictly maximum two sentences)</label>
+            <textarea id="briefObj" required rows="3" class="body-copy" style="width:100%; padding: var(--space-3); font-family:var(--font-sans); border: 1px solid var(--color-grey); font-size:0.9rem;" placeholder="e.g. 'We need to scale our premium beverage line in Tier-1 regional markets. Our target goal is 15% volume growth by Q4'"></textarea>
+          </div>
+
+          <div>
+            <label class="meta text-black" style="display:block; margin-bottom: 5px;">02. The Tactical Solution Currently Being Backed</label>
+            <input type="text" id="briefSol" required style="width:100%; padding: var(--space-3); font-family:var(--font-sans); border: 1px solid var(--color-grey); font-size:0.9rem;" placeholder="e.g. 'Executing celebrity brand endorsements and running performance optimization campaigns.'">
+          </div>
+
+          <div>
+            <label class="meta text-black" style="display:block; margin-bottom: 5px;">03. Core Strategic Assumptions Shared By Your Leadership Team</label>
+            <textarea id="briefAssump" required rows="3" style="width:100%; padding: var(--space-3); font-family:var(--font-sans); border: 1px solid var(--color-grey); font-size:0.9rem;" placeholder="e.g. 'Consumers prioritize organic heritage; celebrity associations boost premium brand value'"></textarea>
+          </div>
+
+          <div style="border-top: 1px solid rgba(17,17,17,0.1); padding-top: var(--space-4);">
+            <button type="submit" class="button button-red" style="width:100%;">Initiate Forensic Reframe Analysis</button>
+          </div>
+        </form>
+
+        <!-- Simulated Forensic Output Screen -->
+        <div id="reframeResult" style="display: none; margin-top: var(--space-4); border-top: 2px solid var(--color-red); padding-top: var(--space-4);" class="stack-sm">
+          <span class="kicker text-red" style="display:flex; align-items:center; gap:5px;">
+            <span class="pulsing-dot"></span> ANTIGEN FORENSIC DIAGNOSTIC DEPLOYED &amp; EMAIL INITIALIZED
+          </span>
+          <h4 class="editorial-headline text-black" style="font-size:1.5rem; margin:0;">THE ORPHAN TRUTH REVEALED</h4>
+          
+          <div style="background: var(--color-black); color: var(--color-white); padding: var(--space-4); font-family: var(--font-mono); font-size: 0.85rem; border-left: 5px solid var(--color-yellow);">
+            <p><strong>[Forensic Reframe]:</strong> Your objective assumes a volume-scaling challenge, but your core structural failure is category-indistinctness. By relying on typical celebrity endorsement shortcuts, you are moneyballing your brand into category sameness.</p>
+            <p style="margin-top:10px; color: var(--color-yellow);"><strong>[Insurgent Action]:</strong> Abandon standard validation focus groups. Deploy WS 04: The Insurgent Questions to reframe your business assumptions before executing further media investments.</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 10px;">
+            <button class="button" onclick="resetBriefForm()" style="font-size:0.7rem; min-height:35px; padding: 4px 12px;">Submit Another Brief</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: var(--color-black); color: var(--color-white); padding: var(--space-8) var(--page-pad); border-top: 5px solid var(--color-red);">
+    <div class="page-shell">
+      <div class="grid-evidence" style="align-items: flex-start;">
+        
+        <div class="stack-sm">
+          <h3 class="display-title text-white">ANTIGEN</h3>
+          <p class="meta text-muted" style="margin-top:0;">POST-ALGORITHM INTELLIGENCE COLLECTIVE</p>
+          <p style="font-size: 0.85rem; color: var(--color-grey); max-width: 32ch;">
+            Built to tackle the three quiet killers of brand value: Sameness, Stagnation, and Suppression.
+          </p>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-5);">
+          <div>
+            <span class="meta text-red">WORKSHOP PLATFORMS</span>
+            <ul style="list-style:none; padding:0; margin:10px 0 0; font-size:0.85rem; line-height:1.8;" class="text-muted">
+              <li>WS 01: The Sameness Autopsy</li>
+              <li>WS 02: Consensus Forensics</li>
+              <li>WS 03: The Post-Algorithm CXO</li>
+              <li>WS 04: Insurgent Questions</li>
+              <li>WS 05: The RTC 48-Hour Sprint</li>
+            </ul>
+          </div>
+          <div>
+            <span class="meta text-red">CONTACT INFORMATION</span>
+            <p style="font-size:0.85rem; margin: 10px 0 0;" class="text-muted">
+              Sid Singh<br>
+              <a href="mailto:sid@1antigen.com" style="color:var(--color-yellow); text-decoration:underline;">sid@1antigen.com</a><br>
+              <a href="https://1antigen.com" target="_blank" style="color:var(--color-white);">1antigen.com</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: var(--space-6); padding-top: var(--space-4); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size: 0.72rem; color: var(--color-grey);">
+        <span>&copy; 2026 ANTIGEN — Insurgent Strategy Collective. All rights reserved.</span>
+        <span class="meta">ESTABLISHED INDIA 2025</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- System Notification Toast Component -->
+  <div class="system-notification" id="sysNotification">
+    <div style="display:inline-block; width:10px; height:10px; background:var(--color-yellow); border-radius:50%;"></div>
+    <span id="sysNotificationText" class="meta" style="font-size:0.72rem; letter-spacing:0.05em;"></span>
+  </div>
+
+  <!-- JavaScript Programmatic Interactions -->
+  <script>
+    // 1. Tab switching logic for the 5 Workshops Interactive Dashboard
+    function switchWorkshop(paneId, button) {
+      // Deactivate all panes
+      const panes = document.querySelectorAll('.dashboard-content-pane');
+      panes.forEach(pane => pane.classList.remove('active'));
+
+      // Deactivate all sidebar buttons
+      const buttons = document.querySelectorAll('.dashboard-tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Activate target pane and tab button
+      document.getElementById(paneId).classList.add('active');
+      if (button) {
+        button.classList.add('active');
+      } else {
+        // Fallback to highlight button when triggered via mobile switcher
+        const correspondingBtn = document.getElementById(`btn-${paneId}`);
+        if (correspondingBtn) correspondingBtn.classList.add('active');
+      }
+
+      // Sync the mobile dropdown selector if needed
+      const mobileSelect = document.getElementById('mobileWorkshopSelect');
+      if (mobileSelect && mobileSelect.value !== paneId) {
+        mobileSelect.value = paneId;
+      }
+
+      // System notification tracking
+      const cleanLabel = paneId.toUpperCase().replace('WS', 'WS 0');
+      showNotification(`LOADED WORKSHOP TEMPLATE: ${cleanLabel}`);
+    }
+
+    // 1b. Mobile drop-down switch proxy
+    function switchWorkshopMobile(paneId) {
+      switchWorkshop(paneId, null);
+    }
+
+    // 2. Interactive Diagnostic Scanner Score Calculations & Logic
+    let currentDiagScores = { q1: 0, q2: 0, q3: 0, q4: 0 };
+
+    function selectOption(questionNum, score) {
+      currentDiagScores[`q` + questionNum] = score;
+
+      // Progress bar updates
+      const progressPercent = (questionNum) * 25;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+      // Active panel state transitions
+      document.getElementById(`q` + questionNum).classList.remove('active');
+
+      if (questionNum < 4) {
+        document.getElementById(`q` + (questionNum + 1)).classList.add('active');
+      } else {
+        // Complete diagnostic, calculate aggregate profile
+        displayDiagResult();
+      }
+    }
+
+    // Diagnostic interpretation outputs
+    function displayDiagResult() {
+      const totalScore = currentDiagScores.q1 + currentDiagScores.q2 + currentDiagScores.q3 + currentDiagScores.q4;
+      const resultBox = document.getElementById('diagResult');
+      const percentageText = document.getElementById('resultPercentage');
+      const explanationText = document.getElementById('resultExplanation');
+
+      percentageText.innerText = `Blandness Index: ${totalScore}%`;
+
+      if (totalScore >= 80) {
+        explanationText.innerHTML = `<strong>Status: Severe Committee Coma.</strong> Your organization is completely trapped in the safe consensus loop. You are paying high agency retainers for commoditized strategies that make you entirely invisible to your target consumer. We recommend immediate intervention with <em>WS 01: The Sameness Autopsy</em>.`;
+      } else if (totalScore >= 40) {
+        explanationText.innerHTML = `<strong>Status: Standard Utility Operator.</strong> You utilize performance metrics to survive, but you have substituted independent, high-conviction judgment with outsourced consultant recommendations. Your risk profile is moderate, but you lack true category distinctiveness. Consider deploying <em>WS 03: The Post-Algorithm CXO</em>.`;
+      } else {
+        explanationText.innerHTML = `<strong>Status: High-Conviction Insurgent.</strong> You routinely support structured dissent, challenge category dogmas, and value original human taste over algorithmic utilities. Your Blandness Index is optimally low. Secure your trajectory by looking into <em>WS 05: The RTC Collisional Sprint</em>.`;
+      }
+
+      resultBox.classList.add('active');
+      showNotification("Calculated Brand Blandness Profile Diagnostic Metric");
+    }
+
+    function resetDiagnostic() {
+      currentDiagScores = { q1: 0, q2: 0, q3: 0, q4: 0 };
+      document.getElementById('progressBar').style.width = '25%';
+      
+      document.getElementById('diagResult').classList.remove('active');
+      document.getElementById('q1').classList.add('active');
+      showNotification("Reset Diagnostic Core Diagnostic Matrices");
+    }
+
+    // 3. INTEGRATED INSURGENT QUESTIONS DIRECTLY FROM Neutral Dataset (InsurgentQs.md)
+    const vectorQuestions = {
+      v1: {
+        title: "V1: Assumption Archaeology",
+        desc: "Targeting beliefs that have become invisible—decisions made so long ago they operate as natural law.",
+        questions: [
+          { text: "What would have to be true for your foundational premise about this challenge to be completely wrong?", det: false },
+          { text: "Who originally decided the core constraints of this situation, and what information were they working from that is now obsolete?", det: false },
+          { text: "What evidence would conclusively disprove your current strategy—and why isn't anyone actively looking for it?", det: false },
+          { text: "What is the most expensive assumption embedded in your current operational approach?", det: false },
+          { text: "What part of your current strategy exists purely because it existed last quarter?", det: false },
+          { text: "If you were forced to abandon your primary competitive advantage tomorrow, what would you build in its place?", det: false },
+          { text: "What is the one thing about your current strategy that you would be terrified to defend honestly in front of your board or investors?", det: true }
+        ]
+      },
+      v2: {
+        title: "V2: Consensus Forensics",
+        desc: "Targeting how agreement was manufactured—distinguishing genuine alignment from suppressed dissent.",
+        questions: [
+          { text: "Who was conspicuously absent from the room when the definitive decision on this direction was made?", det: false },
+          { text: "What is the actual career or reputational risk for an employee who openly disagrees with the current direction?", det: false },
+          { text: "How many times has 'alignment' on this topic been manufactured through pre-meeting lobbying rather than open debate?", det: false },
+          { text: "If everyone involved wrote their true diagnosis of this problem on paper before discussing it, how many different versions would you find?", det: false },
+          { text: "What is the compromise or concession that was made to get this initiative approved, and how did it kill the original intent?", det: false },
+          { text: "Which leader’s personal legacy or ego is most deeply tied to maintaining the current course of action?", det: false },
+          { text: "Is the current consensus driven by shared conviction, or is it driven by collective exhaustion and the desire to move on?", det: true }
+        ]
+      },
+      v3: {
+        title: "V3: Audience Inversion",
+        desc: "Targeting who has been excluded from consideration—deliberately or through accumulated neglect.",
+        questions: [
+          { text: "Who is currently solving this exact problem without your product or service—and why don't they know or care that you exist?", det: false },
+          { text: "Which subset of your customers is buying from you despite your marketing and positioning, not because of it?", det: false },
+          { text: "What would your most valuable churned customers say about your organization if they were guaranteed total anonymity?", det: false },
+          { text: "Who have you decided can never be your customer, and when was that decision last rigorously tested?", det: false },
+          { text: "If a competitor wanted to steal your most loyal user base, what specific vulnerability would they exploit?", det: false },
+          { text: "What is the unstated user frustration that your team has dismissed as 'user error' or an outlier?", det: false },
+          { text: "Which segment of your market are you deliberately avoiding talking to because their feedback would force you to change your entire operating model?", det: true }
+        ]
+      },
+      v4: {
+        title: "V4: Category Heresy",
+        desc: "Targeting industry conventions being followed without examination—the 'everyone does it this way' invisible rules.",
+        questions: [
+          { text: "What would your category look like if it were invented today from scratch, with absolutely no legacy constraints?", det: false },
+          { text: "What industry convention actively protects incumbents but serves no actual end-customer need?", det: false },
+          { text: "What behavior or process is considered 'professional' in your space that customers actually find annoying or unnecessary?", det: false },
+          { text: "What strategic move would get you laughed out of an industry conference—and why is that exactly what you should do?", det: false },
+          { text: "Which of your competitors' practices are you copying or mimicking without realizing it?", det: false },
+          { text: "What is the 'gold standard' metric in your industry that is actually a lagging indicator of decay?", det: false },
+          { text: "If your biggest competitor adopted your exact strategy tomorrow, would you view it as a threat or a gift?", det: true }
+        ]
+      },
+      v5: {
+        title: "V5: Future Blindness",
+        desc: "Targeting the organization's relationship with time, change, and disruption—especially signals being dismissed.",
+        questions: [
+          { text: "What technology, regulatory shift, or cultural trend are you explicitly ignoring because adapting to it is too painful?", det: false },
+          { text: "Which of your current long-term capital or resource investments would a company founded next year never make?", det: false },
+          { text: "What is happening at the absolute margin or edge of your market that you have decided does not matter to your core business?", det: false },
+          { text: "What would you do completely differently starting tomorrow if you had to bet your own job on the five-year outcome?", det: false },
+          { text: "What is the slow-moving crisis in your pipeline or operations that everyone is treating as a temporary blip?", det: false },
+          { text: "If your organization went out of business in three years, what would the post-mortem say was the definitive cause?", det: false },
+          { text: "What is the weak signal or data point you saw this week that you are actively suppressing because responding to it wrecks your current roadmap?", det: true }
+        ]
+      },
+      v6: {
+        title: "V6: Measurement Theater",
+        desc: "Targeting metrics designed to validate rather than inform—the KPIs that make everyone feel good but change nothing.",
+        questions: [
+          { text: "What specific internal metric would kill this entire initiative tomorrow if you actually took it seriously?", det: false },
+          { text: "What is the fundamental difference between what you report upwards and what your team discusses behind closed doors?", det: false },
+          { text: "What is the one number or data point within the organization that you are most afraid to know the true answer to?", det: false },
+          { text: "What would you stop measuring entirely tomorrow if no stakeholder or executive asked you about it?", det: false },
+          { text: "Which vanity metric is currently masking a foundational flaw in your unit economics or operational health?", det: false },
+          { text: "How much time and energy is spent optimizing metrics that have no direct correlation to strategic success?", det: false },
+          { text: "What is the number you are actively manipulating or framing creatively to avoid having a difficult conversation with leadership?", det: true }
+        ]
+      }
+    };
+
+    let activeVector = 'v1';
+    let activeQuestionIndex = 0;
+
+    function setVector(vectorId, element) {
+      activeVector = vectorId;
+      activeQuestionIndex = 0; // reset to first question on tab swap
+      
+      // Update pills active state
+      const pills = document.querySelectorAll('.vector-pill');
+      pills.forEach(pill => pill.classList.remove('active'));
+      element.classList.add('active');
+
+      // Update question indicator button highlights
+      updateIndexerButtons();
+      renderActiveQuestion();
+
+      showNotification(`Focused Vector Protocol: ${element.innerText}`);
+    }
+
+    function setQuestionIndex(index, element) {
+      activeQuestionIndex = index;
+      
+      // Update index buttons
+      const indexButtons = document.querySelectorAll('.indexer-btn');
+      indexButtons.forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+
+      renderActiveQuestion();
+    }
+
+    function updateIndexerButtons() {
+      const indexButtons = document.querySelectorAll('.indexer-btn');
+      indexButtons.forEach((btn, idx) => {
+        btn.classList.remove('active');
+        if (idx === 0) btn.classList.add('active');
+      });
+    }
+
+    function renderActiveQuestion() {
+      const vectorData = vectorQuestions[activeVector];
+      const qData = vectorData.questions[activeQuestionIndex];
+
+      document.getElementById('vectorDescription').innerText = vectorData.desc;
+
+      // Render detonation badge styling dynamically
+      if (qData.det) {
+        document.getElementById('provocationText').innerHTML = `<span style="color: var(--color-magenta); font-weight:900;">[DETONATION]</span> "${qData.text}"`;
+      } else {
+        document.getElementById('provocationText').innerText = `"${qData.text}"`;
+      }
+    }
+
+    function detonateRandom() {
+      const vectorKeys = Object.keys(vectorQuestions);
+      const randomVecKey = vectorKeys[Math.floor(Math.random() * vectorKeys.length)];
+      const randomVec = vectorQuestions[randomVecKey];
+      const randomQIdx = Math.floor(Math.random() * randomVec.questions.length);
+      
+      activeVector = randomVecKey;
+      activeQuestionIndex = randomQIdx;
+
+      // Sync active state UI vector pills
+      const pills = document.querySelectorAll('.vector-pill');
+      pills.forEach(pill => {
+        pill.classList.remove('active');
+        if (pill.getAttribute('onclick').includes(`'${randomVecKey}'`)) {
+          pill.classList.add('active');
+        }
+      });
+
+      // Sync active state indexer buttons
+      const indexButtons = document.querySelectorAll('.indexer-btn');
+      indexButtons.forEach((btn, idx) => {
+        btn.classList.remove('active');
+        if (idx === randomQIdx) btn.classList.add('active');
+      });
+
+      renderActiveQuestion();
+      showNotification("DETONATED COGNITIVE PROVOCATION MATRIX");
+    }
+
+    // Initialize Provocation Module on startup
+    function initProvocations() {
+      renderActiveQuestion();
+    }
+
+    // 4. Confession Booth sample confessions cycler
+    const sampleConfessions = [
+      "\"We knew our core product's differentiator was a complete fabrication, but we approved the Rs. 80 Crore rollout because the marketing roadmap committed us to Q2 launch targets.\"",
+      "\"We hired a Tier-1 advisory consultancy for $1M simply to have a corporate shield to point to when our strategy inevitably fails in front of the board next year.\"",
+      "\"We launched a major brand identity shift that was watered down over six consecutive stakeholder alignment reviews until it looked identical to our primary competitor's design.\"",
+      "\"We spend 60% of our marketing budget on vanity programmatic channels because the dashboard reports 10x ROI, even though our actual sales volumes have remained flat for three years.\""
+    ];
+    let confessionIndex = 0;
+
+    function cycleConfession() {
+      confessionIndex = (confessionIndex + 1) % sampleConfessions.length;
+      document.getElementById('confessionText').innerText = sampleConfessions[confessionIndex];
+      showNotification("Loaded Next Anonymous Indian C-Suite Confession");
+    }
+
+    // 5. Devil's Audit orthoxody cycler
+    const sampleOrthodoxies = [
+      {
+        ortho: "Orthodoxy: 'Optimize every digital media channel down to lowest possible CPA.'",
+        counter: "The Insurgent Challenge: 'This optimizes you directly into regional irrelevance. Lower CPA usually buys lower-quality inventory, ensuring you become completely invisible to premium consumers who ignore generic programmatic ad spots.'"
+      },
+      {
+        ortho: "Orthodoxy: 'Always protect the existing legacy brand heritage over distinctiveness.'",
+        counter: "The Insurgent Challenge: 'Heritage is often used as a polite word for historical decay. If modern consumers find your heritage irrelevant, you are simply spending capital to celebrate your own slow demise.'"
+      },
+      {
+        ortho: "Orthodoxy: 'Never take a polarizing public stance to prevent brand risk.'",
+        counter: "The Insurgent Challenge: 'Being universally liked is structurally identical to being completely ignored. An idea that doesn't risk disagreement lacks the friction required to earn cultural conversation.'"
+      }
+    ];
+    let auditIndex = 0;
+
+    function cycleDevilAudit() {
+      auditIndex = (auditIndex + 1) % sampleOrthodoxies.length;
+      document.getElementById('auditOrthodoxy').innerText = sampleOrthodoxies[auditIndex].ortho;
+      document.getElementById('auditCounter').innerText = sampleOrthodoxies[auditIndex].counter;
+      showNotification("Loaded Alternate Category Orthodoxy Diagnostic");
+    }
+
+    // 6. Immersive Timer Simulation for Judgment Test (WS 03)
+    let timerInterval = null;
+    let timerSeconds = 300; // 5 minutes
+
+    function toggleTimer() {
+      const btn = document.getElementById('timerBtn');
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.innerText = "Resume Test Silence";
+        showNotification("Paused Judgment Test Timer");
+      } else {
+        showNotification("Initiated 5 Minutes of Absolute Judgment Silence");
+        btn.innerText = "Pause Test Silence";
+        timerInterval = setInterval(() => {
+          timerSeconds--;
+          const minutes = Math.floor(timerSeconds / 60);
+          const seconds = timerSeconds % 60;
+          document.getElementById('timerDisplay').innerText = 
+            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+          if (timerSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('timerDisplay').innerText = "00:00";
+            btn.innerText = "Silence Complete";
+            showNotification("Test Complete. Now commit your recommendation to paper.");
+          }
+        }, 1000);
+      }
+    }
+
+    // 7. Interactive Brief Submission Reframer & DIRECT EMAIL MAILTO TRIGGER (Enhanced)
+    function handleBriefSubmission(e) {
+      e.preventDefault();
+      
+      const objective = document.getElementById('briefObj').value;
+      const solution = document.getElementById('briefSol').value;
+      const assumptions = document.getElementById('briefAssump').value;
+
+      // Build structured email body
+      const recipient = 'contact@1antigen.com';
+      const subject = "ANTIGEN Brief Submission: Uncrackable Growth Problem";
+      const body = 
+`ANTIGEN SPRINT INTAKE PORTAL
+----------------------------------------------------------------------
+01. BUSINESS OBJECTIVE:
+${objective}
+
+02. TACTICAL SOLUTION CURRENTLY BACKED:
+${solution}
+
+03. CORE STRATEGIC ASSUMPTIONS IN PLAY:
+${assumptions}
+
+----------------------------------------------------------------------
+Sent via ANTIGEN Interactive CXO Workshop Portal.`;
+
+      // Construct and execute mailto
+      const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Update UI panels
+      document.getElementById('briefForm').style.display = 'none';
+      document.getElementById('reframeResult').style.display = 'block';
+
+      showNotification("GENERATED SUBMISSION EMAIL PACKET");
+
+      // Attempt to trigger mailto client in window background context
+      window.location.href = mailtoUrl;
+    }
+
+    function resetBriefForm() {
+      document.getElementById('briefForm').reset();
+      document.getElementById('briefForm').style.display = 'block';
+      document.getElementById('reframeResult').style.display = 'none';
+      showNotification("Reset Brief Submission System");
+    }
+
+    // 8. Custom non-obstructive toast notifications
+    function showNotification(text) {
+      const notification = document.getElementById('sysNotification');
+      const notifText = document.getElementById('sysNotificationText');
+      
+      notifText.innerText = text.toUpperCase();
+      notification.classList.add('show');
+
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3500);
+    }
+
+    // Pre-flight setup notification
+    window.onload = function() {
+      initProvocations();
+      showNotification("Antigen CXO Portal Loaded. Interactive Diagnostics Active.");
+    };
+  </script>
+</body>
+</html>
