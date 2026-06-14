@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Insurgent Questions · Maje · Physical Retail</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ───────────────────────────────────────────────── */
+:root {
+  --color-red: #e31d28;
+  --color-magenta: #e3195b;
+  --color-crimson: #b11226;
+  --color-black: #111111;
+  --color-ink: #1e1c17;
+  --color-white: #ffffff;
+  --color-paper: #f8f7f6;
+  --color-smoke: #e8e8e8;
+  --color-grey: #9fa2a4;
+  --color-blue: #08a7d8;
+  --color-yellow: #ffc000;
+  --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-display: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+  --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+  --rule: 1px solid rgba(17,17,17,.14);
+  --shadow-hard: 8px 8px 0 rgba(17,17,17,.95);
+  --shadow-red: 8px 8px 0 rgba(227,29,40,.95);
+  --page-pad: clamp(1.25rem, 4vw, 3.5rem);
+
+  --v1: #e31d28;
+  --v2: #e3195b;
+  --v3: #08a7d8;
+  --v4: #b11226;
+  --v5: #e31d28;
+  --v6: #1e1c17;
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-paper);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  font-size: clamp(.95rem, 1.1vw, 1.1rem);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+::selection { background: var(--color-yellow); color: var(--color-black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--color-red); }
+
+/* ── HEADER ──────────────────────────────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--gradient-insurgence);
+  padding: 2.5rem var(--page-pad) 2rem;
+  color: var(--color-white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(0,0,0,.22), transparent 36%),
+    linear-gradient(90deg, rgba(0,0,0,.14), transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .5rem;
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: .85;
+  letter-spacing: -.01em;
+  color: var(--color-white);
+  margin-bottom: .4rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.header-badge {
+  text-align: right;
+  border-left: 4px solid var(--color-yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.badge-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: .2rem;
+}
+.badge-count {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-yellow);
+  letter-spacing: .03em;
+}
+.badge-note {
+  font-size: .68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  margin-top: .2rem;
+}
+
+/* ── PHASE 01 BLOCK ──────────────────────────────────────────────────── */
+.phase-section {
+  background: var(--color-ink);
+  padding: 3rem var(--page-pad);
+}
+.phase-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase-eyebrow {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: .75rem;
+}
+.phase-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.02em;
+  color: var(--color-white);
+  margin-bottom: 2.5rem;
+}
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  border-color: rgba(255,255,255,.1);
+}
+.phase-block {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.phase-block:last-child { border-right: none; }
+.phase-block-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.phase-block-body {
+  font-size: .88rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.78);
+  line-height: 1.7;
+}
+.phase-block-body strong {
+  color: var(--color-white);
+  font-weight: 800;
+}
+.phase-block.gap-block {
+  border-left: 4px solid var(--color-red);
+  padding-left: calc(2rem - 4px);
+}
+.phase-block.gap-block .phase-block-label { color: var(--color-red); }
+
+/* ── VECTOR NAV ──────────────────────────────────────────────────────── */
+.vector-nav {
+  background: var(--color-white);
+  border-bottom: var(--rule);
+  padding: 0 var(--page-pad);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.vector-nav::-webkit-scrollbar { display: none; }
+.vnav-btn {
+  padding: .75rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--color-grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  flex-shrink: 0;
+}
+.vnav-btn:hover { color: var(--color-black); }
+.vnav-btn.active { color: var(--color-red); border-bottom-color: var(--color-red); }
+
+/* ── MAIN ────────────────────────────────────────────────────────────── */
+.main {
+  padding: 3rem var(--page-pad) 5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ── VECTOR SECTION ──────────────────────────────────────────────────── */
+.vector-section { margin-bottom: 4rem; }
+
+.vector-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-black);
+  flex-wrap: wrap;
+}
+.vector-number {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  flex-shrink: 0;
+}
+.vector-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--color-black);
+}
+.vector-tagline {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-grey);
+  margin-left: auto;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* ── CARD GRID ───────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ── FLIP CARD ───────────────────────────────────────────────────────── */
+.flip-card {
+  perspective: 1200px;
+  height: 360px;
+  cursor: pointer;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .5s cubic-bezier(.45,.05,.55,.95);
+  transform-style: preserve-3d;
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* FRONT */
+.flip-front {
+  background: var(--color-white);
+  border: var(--rule);
+  border-top: 6px solid var(--v-accent, var(--color-red));
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.card-vector-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 1rem;
+}
+.card-question {
+  font-family: var(--font-sans);
+  font-size: clamp(.88rem, 1.2vw, 1rem);
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.5;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: var(--rule);
+}
+.antigen-wordmark {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+.flip-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.flip-hint svg { width: 11px; height: 11px; }
+
+/* BACK */
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--gradient-insurgence);
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.back-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.back-context {
+  font-size: clamp(.85rem, 1.1vw, .95rem);
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1.65;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.back-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+.back-vector-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  color: var(--color-yellow);
+}
+.back-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--color-ink);
+  padding: .75rem var(--page-pad);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+}
+.progress-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  white-space: nowrap;
+}
+.progress-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.1);
+}
+.progress-fill {
+  height: 100%;
+  background: var(--color-yellow);
+  transition: width .4s ease;
+}
+.progress-count {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-yellow);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.reset-btn {
+  padding: .35rem .9rem;
+  border: 1.5px solid rgba(255,255,255,.2);
+  background: none;
+  color: rgba(255,255,255,.4);
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .15s;
+}
+.reset-btn:hover { border-color: var(--color-yellow); color: var(--color-yellow); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .phase-grid { grid-template-columns: 1fr; }
+  .phase-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .phase-block:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .main { padding: 2rem 1.25rem 5rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .flip-card { height: 320px; }
+  .vector-tagline { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN — Insurgent Questions Protocol · Maje · Physical Retail Conversion · Phase 01</div>
+      <h1 class="header-title">Assumption<br>Detonation<br>Deck</h1>
+      <div class="header-sub">6 Vectors · 18 Questions · Click to reveal strategic context</div>
+    </div>
+    <div class="header-badge">
+      <div class="badge-label">Insurgent Questions™</div>
+      <div class="badge-count">18</div>
+      <div class="badge-note">Maje · Physical Retail Conversion</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 01 -->
+<section class="phase-section">
+  <div class="phase-inner">
+    <div class="phase-eyebrow">Phase 01 · Naive Enquiry</div>
+    <h2 class="phase-title">Naive<br>Enquiry</h2>
+    <div class="phase-grid">
+      <div class="phase-block">
+        <div class="phase-block-label">What you told me</div>
+        <p class="phase-block-body">Maje operates high-footfall boutiques in premium retail locations yet suffers from a persistent and structurally unresolved <strong>gap between traffic and conversion.</strong> The stores attract browsers in volume but fail to close sales at a rate commensurate with the investment in location, fitout, and brand equity. The problem is framed as a sales execution issue.</p>
+      </div>
+      <div class="phase-block">
+        <div class="phase-block-label">What I heard</div>
+        <p class="phase-block-body">You are assuming that <strong>foot traffic is demand</strong>, that the physical store experience faithfully mirrors Maje's aspirational brand positioning, and that the friction preventing conversion lives in the sales conversation rather than in the structural design of the space, the service model, or the measurement system itself. You assume the problem is <strong>a skill gap, not a system gap.</strong></p>
+      </div>
+      <div class="phase-block gap-block">
+        <div class="phase-block-label">The Gap</div>
+        <p class="phase-block-body">High traffic at a premium mall location may be <strong>logistical spillover, not brand gravity.</strong> If the traffic is structurally mismatched to the price point, conversion will always disappoint — regardless of staff skill. There is also a deeper possibility: that the store itself, optimized for a pre-smartphone era of purchase, is <strong>now architecturally designed to lose customers</strong> who arrive ready to buy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VECTOR NAV -->
+<nav class="vector-nav" id="vectorNav">
+  <button class="vnav-btn active" onclick="filterVector('all',this)">All Vectors</button>
+  <button class="vnav-btn" onclick="filterVector('v1',this)">V1 · Assumption Archaeology</button>
+  <button class="vnav-btn" onclick="filterVector('v2',this)">V2 · Consensus Forensics</button>
+  <button class="vnav-btn" onclick="filterVector('v3',this)">V3 · Audience Inversion</button>
+  <button class="vnav-btn" onclick="filterVector('v4',this)">V4 · Category Heresy</button>
+  <button class="vnav-btn" onclick="filterVector('v5',this)">V5 · Future Blindness</button>
+  <button class="vnav-btn" onclick="filterVector('v6',this)">V6 · Measurement Theater</button>
+</nav>
+
+<!-- CARDS -->
+<main class="main" id="main"></main>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <span class="progress-label">Revealed</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="progress-count" id="progressCount">0 / 18</span>
+  <button class="reset-btn" onclick="resetAll()">Reset</button>
+</div>
+
+<script>
+const VECTORS = [
+  {
+    id:"v1", number:"Vector 01", name:"Assumption Archaeology",
+    tagline:"Exhuming the beliefs that have become invisible.",
+    accent:"#e31d28",
+    cards:[
+      {
+        q:"Is the organisation operating under the invisible belief that high foot traffic is a proxy for brand health, rather than a logistical byproduct of premium real estate that attracts the wrong audience?",
+        ctx:"If traffic is accidental or poorly matched to price points, conversion struggles are a targeting issue, not a sales skill issue."
+      },
+      {
+        q:"Do we treat the 'high-touch' luxury service model as an unassailable law, even if it creates a social friction that drives modern, time-poor customers to seek the anonymity of online checkout?",
+        ctx:"Traditional service norms can become barriers to purchase if they conflict with the customer's desire for speed and self-service."
+      },
+      {
+        q:"Have we institutionalised the assumption that the fitting room is for decision-making, when it may have transitioned into a site for content creation or 'showrooming' without a clear path to purchase?",
+        ctx:"If the most high-intent area of the store is serving a non-commercial purpose, the physical layout is working against the bottom line."
+      },
+      {
+        q:"Why is it an unquestioned standard that conversion must happen at a physical register, and how does this 'natural law' prevent us from capturing sales the moment a customer loses interest?",
+        ctx:"Rigid adherence to the legacy point-of-sale model creates a bottleneck that allows browsing momentum to evaporate before a transaction occurs."
+      }
+    ]
+  },
+  {
+    id:"v2", number:"Vector 02", name:"Consensus Forensics",
+    tagline:"Identifying where agreement masks a lack of conviction.",
+    accent:"#e3195b",
+    cards:[
+      {
+        q:"Which specific frontline observations regarding customer friction are systematically edited out of store-to-corporate reporting to maintain a narrative of brand desirability?",
+        ctx:"Unfiltered feedback is often sanitised by management layers, obscuring the practical, gritty reasons why high traffic fails to translate into transactions."
+      },
+      {
+        q:"When was the last time the executive team incentivised a 'red team' to challenge the internal consensus that Maje's in-store experience perfectly mirrors its aspirational brand prestige?",
+        ctx:"Groupthink regarding brand image can blind an organisation to a deteriorating physical retail reality that repels even high-intent shoppers."
+      },
+      {
+        q:"In strategy meetings, what common customer complaints are consistently dismissed as 'not our target demographic' despite these individuals making up the majority of store traffic?",
+        ctx:"Labelling high-volume traffic as 'the wrong audience' is a manufactured consensus that protects the status quo from having to adapt to actual consumer behaviour."
+      },
+      {
+        q:"What internal KPIs have been prioritised to frame high foot traffic as a primary success, effectively silencing dissent regarding the lack of sales conversion?",
+        ctx:"Leaning on vanity metrics creates a false sense of security and suppresses the urgency needed to fix the structural disconnect between browsing and buying."
+      }
+    ]
+  },
+  {
+    id:"v3", number:"Vector 03", name:"Audience Inversion",
+    tagline:"Focusing on the voices you've filtered out.",
+    accent:"#08a7d8",
+    cards:[
+      {
+        q:"Which specific demographic of high-traffic visitors are we consciously ignoring because they do not fit the 'ideal' Maje persona, and what is the measurable cost of that exclusion?",
+        ctx:"Brands often design for a 'muse' while ignoring the actual demographic entering the store, leading to a disconnect between brand image and the reality of the local foot traffic."
+      },
+      {
+        q:"How would our store layout and service model change if we designed it specifically for the 'showroomer' — the customer who visits to touch the fabric but intends to buy elsewhere?",
+        ctx:"Acknowledging and optimising for the showroomer can convert them into loyalists through service or digital integration rather than treating them as a lost lead or a nuisance."
+      },
+      {
+        q:"What insights are we losing by failing to treat the 'looky-loo' — the high-frequency browser who never buys — as a primary data source for product and pricing friction?",
+        ctx:"High traffic without conversion is a symptom of a specific barrier like price-to-value perception or fit issues that remain invisible if we only analyse successful transactions."
+      },
+      {
+        q:"If we empowered our store staff to pivot the store's purpose to a service and styling hub for online-only customers, how would that redefine the 'failed' visit?",
+        ctx:"Viewing the store as an extension of the digital journey rather than a standalone transaction point captures the value of audiences who prefer to transact in a lower-friction environment."
+      }
+    ]
+  },
+  {
+    id:"v4", number:"Vector 04", name:"Category Heresy",
+    tagline:"Challenging the unwritten rules of the category.",
+    accent:"#b11226",
+    cards:[
+      {
+        q:"Why do we maintain the industry standard of measuring store success by same-day transactions rather than its role as a high-fidelity acquisition funnel for the total digital ecosystem?",
+        ctx:"Traditional retail KPIs ignore the 'showrooming' reality where high traffic is a lead-generation asset, not just a missed transaction opportunity."
+      },
+      {
+        q:"What if we abandoned the requirement of immediate inventory availability to transform the floor space from a storage warehouse into a pure curation and styling laboratory?",
+        ctx:"Density of stock often suppresses the premium brand experience. Removing the 'warehouse' constraint allows for higher engagement which leads to higher brand affinity and eventual conversion."
+      },
+      {
+        q:"Why do we adhere to the convention that the 'selling floor' is the primary space, when conversion data suggests the fitting room is where the actual value is created or lost?",
+        ctx:"Industry norms prioritise the display of goods over the experience of the goods. Reallocating square footage to the fitting experience addresses the specific friction point of conversion."
+      },
+      {
+        q:"Why do we assume the 'customer journey' must conclude within the physical boutique to be considered a successful visit?",
+        ctx:"By forcing a localised transaction, we ignore the high-traffic behaviour of modern consumers who use stores for tactile verification but prefer the logistical ease of online fulfilment at home."
+      }
+    ]
+  },
+  {
+    id:"v5", number:"Vector 05", name:"Future Blindness",
+    tagline:"Signals from the future being treated as noise.",
+    accent:"#e31d28",
+    cards:[
+      {
+        q:"If the physical store has evolved into a high-fidelity showroom for digital finalisation, why are we still measuring retail staff primarily on localised POS conversion rather than cross-channel attribution?",
+        ctx:"Success metrics are anchored in a legacy model. If the customer uses the store to validate a purchase they finish on their phone, the store's 'failure' to convert is actually a data attribution error that ignores changing habits."
+      },
+      {
+        q:"What emerging signals suggest that the 'friction of the physical' — queues, stock-outs, and manual lookups — has become a total deal-breaker for a demographic now accustomed to algorithmic instant gratification?",
+        ctx:"Ignoring the rising intolerance for physical inconvenience means the brand is optimised for a patient customer who no longer exists. High traffic without conversion signals a fundamental breakdown in the service-to-effort ratio."
+      },
+      {
+        q:"Are we ignoring the shift toward 'circularity' and 'resale' as primary drivers of initial purchase confidence, failing to offer these services at the moment of the in-store decision?",
+        ctx:"If shoppers are checking resale value or looking for 'buy-back' signals while in the fitting room, a lack of visible circularity integration makes a premium purchase feel like a high-risk financial liability rather than an investment."
+      },
+      {
+        q:"How much of our conversion gap is due to a refusal to acknowledge that the smartphone, not the sales associate, is now the primary influencer and authority on the store floor?",
+        ctx:"By ignoring the 'second screen' during the in-store journey, Maje fails to capture the shopper at their peak moment of intent, allowing them to drift toward third-party aggregators or competitors while standing in our own aisles."
+      }
+    ]
+  },
+  {
+    id:"v6", number:"Vector 06", name:"Measurement Theater",
+    tagline:"Metrics that validate rather than inform.",
+    accent:"#1e1c17",
+    cards:[
+      {
+        q:"If we removed mall-driven foot traffic from our reports, does our 'destination traffic' actually exist, or are we simply overestimating brand pull based on proximity?",
+        ctx:"Maje may be mistaking passive footfall for active brand interest, leading to a false sense of security regarding the brand's actual market demand."
+      },
+      {
+        q:"Does our focus on 'Units Per Transaction' (UPT) reward staff for upselling a small group of existing fans while ignoring the friction that prevents the broader crowd from making an initial purchase?",
+        ctx:"KPIs that prioritise depth over breadth can mask a fundamental failure to convert new customers, creating a narrowing and unsustainable customer base."
+      },
+      {
+        q:"Are we counting foot traffic to celebrate 'reach' while ignoring that our high traffic numbers might actually be a signal of poor filtering in our marketing and window displays?",
+        ctx:"High traffic with low conversion suggests a mismatch between the brand promise communicated outside and the reality experienced inside the store."
+      },
+      {
+        q:"Does our conversion metric exclude visitors who leave within the first two minutes, thereby hiding the most critical data regarding immediate brand rejection?",
+        ctx:"By sanitising the data to exclude 'bounces,' the organisation avoids confronting the reasons why a vast majority of potential customers find the store environment unappealing."
+      }
+    ]
+  }
+];
+
+let flipped = new Set();
+let currentFilter = 'all';
+
+function totalVisible() {
+  if (currentFilter === 'all') return VECTORS.reduce((a,v) => a + v.cards.length, 0);
+  return VECTORS.find(v => v.id === currentFilter)?.cards.length ?? 0;
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  VECTORS.forEach(vec => {
+    if (currentFilter !== 'all' && currentFilter !== vec.id) return;
+
+    const section = document.createElement('div');
+    section.className = 'vector-section';
+
+    const header = document.createElement('div');
+    header.className = 'vector-header';
+    header.innerHTML = `
+      <span class="vector-number">${vec.number}</span>
+      <h2 class="vector-name">${vec.name}</h2>
+      <span class="vector-tagline">${vec.tagline}</span>
+    `;
+    section.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+
+    vec.cards.forEach((card, idx) => {
+      const cardId = `${vec.id}-${idx}`;
+      const isFlipped = flipped.has(cardId);
+
+      const el = document.createElement('div');
+      el.className = `flip-card${isFlipped ? ' flipped' : ''}`;
+      el.style.setProperty('--v-accent', vec.accent);
+
+      el.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="border-top-color:${vec.accent}">
+            <div>
+              <div class="card-vector-label" style="color:${vec.accent}">${vec.number} · ${vec.name}</div>
+              <div class="card-question">${card.q}</div>
+            </div>
+            <div class="card-footer">
+              <span class="antigen-wordmark">antigen</span>
+              <span class="flip-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0 1 16-3.3M20 15a9 9 0 0 1-16 3.3"/></svg>
+                Reveal
+              </span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <div>
+              <div class="back-label">Strategic Context</div>
+              <div class="back-context">${card.ctx}</div>
+            </div>
+            <div class="back-footer">
+              <span class="back-vector-name">${vec.name}</span>
+              <span class="back-hint">Flip back</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      el.addEventListener('click', () => {
+        el.classList.toggle('flipped');
+        flipped[el.classList.contains('flipped') ? 'add' : 'delete'](cardId);
+        updateProgress();
+      });
+
+      grid.appendChild(el);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  updateProgress();
+}
+
+function filterVector(id, btn) {
+  currentFilter = id;
+  document.querySelectorAll('.vnav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function updateProgress() {
+  const total = totalVisible();
+  const revealed = [...flipped].filter(id =>
+    currentFilter === 'all' || id.startsWith(currentFilter)
+  ).length;
+  document.getElementById('progressFill').style.width = total > 0 ? (revealed/total*100)+'%' : '0%';
+  document.getElementById('progressCount').textContent = `${revealed} / ${total}`;
+}
+
+function resetAll() { flipped.clear(); render(); }
+
+render();
+</script>
+</body>
+</html>
