@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ANTIGEN — Maje In-Store Conversion Bottleneck Map</title>
+<style>*,:before,:after{box-sizing:border-box;border:0 solid #e5e7eb}html{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.5}body{line-height:inherit;margin:0}button,input{font-family:inherit;font-size:100%;margin:0;padding:0}button{cursor:pointer}img,svg,video,canvas{vertical-align:middle;display:block}[hidden]{display:none}</style>
+</head>
+<body><div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+const { useState, useRef, useCallback, createElement: h, Fragment, StrictMode } = React;
+const { createRoot } = ReactDOM;
+
+// ─── SYSTEM DATA ────────────────────────────────────────────────────────────
+
+const NODES = [
+  {
+    id: "IC", label: "In-Store", sub: "Conversion Rate", group: "revenue",
+    state: "failing", typo: "changing", x: 140, y: 170,
+    ins: {
+      headline: "THE PRIMARY FAILING NODE — Shoppers Not Becoming Buyers",
+      body: "In-Store Conversion Rate is critically failing. High foot traffic enters Maje stores but transactions are not occurring. The system is locked in a legacy transactional paradigm where the physical visit is decoupled from the purchase trigger. Showrooming — shoppers using the store as a product discovery channel and purchasing elsewhere online — is the dominant behaviour pattern.",
+      implication: "This is not a customer experience problem. It is a systems architecture problem. Every other node in this system contributes to or prevents this conversion — and the connections between them are broken."
+    }
+  },
+  {
+    id: "LM", label: "Legacy Margin", sub: "Model", group: "revenue",
+    state: "stressed", typo: "unchanged", x: 95, y: 80,
+    ins: {
+      headline: "The Commercial Constraint Preventing Architectural Change",
+      body: "The Legacy Margin Model — fixed lease costs in premium mall locations, traditional markdown calendars, gross margin targets tied to full-price sell-through — is stressed because its logic requires high conversion rates that the current system cannot produce. It is structurally incompatible with the investment profile required to restructure the conversion architecture.",
+      implication: "Margin pressure is the consequence of a system optimised for the wrong conversion trigger. Architectural change is margin-accretive at the 2–4 year horizon; it appears dilutive at the 12-month horizon."
+    }
+  },
+  {
+    id: "FT", label: "Foot Traffic", sub: "Store Visitors", group: "revenue",
+    state: "healthy", typo: "unchanged", x: 235, y: 80,
+    ins: {
+      headline: "The Unmonetised Asset — Visits Without Conversion",
+      body: "Foot Traffic is the one fully healthy revenue node. Visitor volumes into Maje stores are strong. The problem is not reach — it is conversion. The store is functioning as a high-cost showroom rather than a sales environment. High traffic entering a non-converting environment is a resource drain, not an asset.",
+      implication: "Foot traffic is the most important precondition in the system. Every architectural intervention should ask: how does this visit become a transaction? That is the only question that matters."
+    }
+  },
+  {
+    id: "SI", label: "Staff Incentives", sub: "Commission Structure", group: "ops",
+    state: "stressed", typo: "unchanged", x: 390, y: 120,
+    ins: {
+      headline: "THE CRITICAL STRESSED NODE — Incentives Decoupled from Digital-Assisted Conversion",
+      body: "Staff Incentives — commission structures, performance metrics, and recognition frameworks — are stressed because they are calibrated entirely to in-store cash transactions. When a customer enters the store, uses staff assistance to discover and fit product, and then purchases via the brand's own e-commerce on their phone, the staff member receives zero commission credit. This is the primary behavioural disincentive to cross-channel conversion assistance.",
+      implication: "The commission structure is actively incentivising staff to resist the customer behaviour they should be facilitating. Restructuring incentives to include digital-assisted sales and omnichannel conversion is the highest-leverage operational change available."
+    }
+  },
+  {
+    id: "CF", label: "Checkout Friction", sub: "Queue & POS Latency", group: "ops",
+    state: "failing", typo: "unchanged", x: 510, y: 200,
+    ins: {
+      headline: "The Operational Failure Point at the Moment of Decision",
+      body: "Checkout Friction — queue lengths, POS hardware latency, payment terminal failures, and the absence of mobile checkout capabilities — is failing at the critical moment when a customer has decided to purchase. Decision reversal at the checkout queue is a documented conversion killer. Staff are not equipped with mobile POS to close sales on the floor where the decision is made.",
+      implication: "This is the most immediate and lowest-cost conversion fix. Mobile POS deployment on existing staff devices eliminates queue-driven abandonment with minimal capital investment."
+    }
+  },
+  {
+    id: "IM", label: "Inventory", sub: "Management", group: "ops",
+    state: "misrouted", typo: "changing", x: 390, y: 230,
+    ins: {
+      headline: "MISROUTED — Stock Accuracy Not Connected to Conversion Moments",
+      body: "Inventory Management is misrouted. Stock accuracy data exists — the system knows what is on the floor and what is in back-of-house. This information is not surfaced to staff during customer interactions. When a customer asks for a size that isn't on display, staff cannot confidently answer. Lost sales due to perceived stock absence — when the item is actually in the stockroom or available for next-day store fulfilment — are a significant, invisible conversion gap.",
+      implication: "The data exists. The connection between inventory intelligence and customer-facing conversion moments does not. Integrating CRM and stock data with staff tablets closes this gap without capital investment in new systems."
+    }
+  },
+  {
+    id: "DA", label: "Digital-Physical", sub: "Alignment", group: "client",
+    state: "collapsed", typo: "changed", x: 670, y: 130,
+    ins: {
+      headline: "THE COLLAPSED NODE — Omnichannel Profile Architecture Broken",
+      body: "Digital-Physical Alignment — the integration of customer digital behaviour, CRM data, loyalty profiles, and in-store staff access — has collapsed. Customers with rich online browsing histories, wish lists, and purchase patterns walk into Maje stores and are treated as anonymous first-time visitors. Staff have no access to this profile. The CRM data that should personalise the in-store interaction is siloed in a digital system with no physical interface.",
+      implication: "This is the architectural failure behind every other conversion gap. A staff member with access to a customer's digital profile — what they've viewed, saved, and purchased — can personalise the encounter in ways that convert. Without this integration, the in-store experience competes on generic service quality alone."
+    }
+  },
+  {
+    id: "MB", label: "Mobile-First", sub: "Demographics", group: "client",
+    state: "disruption", typo: "changed", x: 720, y: 240,
+    ins: {
+      headline: "🔴 The Consumer Architecture That Has Changed the Conversion Contract",
+      body: "Mobile-First Demographics — the dominant customer profile carrying a smartphone into the store, comparing prices in real time, checking reviews, and having previously browsed online before visiting — has permanently restructured the conditions under which in-store conversion occurs. This is not a segment. It is the majority of Maje's core customer.",
+      implication: "Conversion architecture built for the pre-smartphone customer will not succeed. Every touchpoint — from staff interaction to checkout — must be redesigned for a customer who has already been partially sold online before entering the store."
+    }
+  },
+  {
+    id: "EC", label: "E-Commerce", sub: "Cannibalization", group: "disruption",
+    state: "disruption", typo: "changed", x: 380, y: 400,
+    ins: {
+      headline: "🔴 Own E-Commerce Competing with Own Stores",
+      body: "E-Commerce Cannibalization — the brand's own digital channel capturing purchase intent that was created in the physical store — is restructuring the revenue attribution between channels. Showrooming into the brand's own e-commerce is, in isolation, not a revenue loss. The problem is that it erodes the commercial justification for the physical footprint and the staff commission model simultaneously.",
+      implication: "E-commerce cannibalization is only a problem if the physical store is not credited for the conversion it enables. Unified commerce attribution — giving stores credit for sales they influence regardless of where they close — transforms this from a threat into a reinforcement."
+    }
+  }
+];
+
+const EDGES = [
+  {
+    from: "LM", to: "IC", label: "constrains investment in", state: "active", typo: "unchanged",
+    ins: {
+      headline: "Margin Logic Preventing the Investment Required to Fix Conversion",
+      body: "Legacy Margin Model constrains the capital and operational changes required to restructure In-Store Conversion. Every intervention that would raise conversion — mobile POS, CRM integration, staff retraining — reads as a cost increase before it reads as a revenue multiplier.",
+      implication: "The constraint is the measurement framework, not the capital availability. Recasting conversion investments as revenue interventions changes the financial case."
+    }
+  },
+  {
+    from: "FT", to: "IC", label: "should convert to", state: "distorted", typo: "unchanged",
+    ins: {
+      headline: "Traffic Entering a Non-Converting System",
+      body: "Foot Traffic should be converting to In-Store Conversion at rates consistent with premium fashion retail benchmarks (typically 18–28%). The current architecture is converting at a fraction of this. The connection exists but is severely distorted — the volume is there, the conversion mechanism is not.",
+      implication: "Even a 5-point conversion rate improvement on existing traffic translates directly to top-line growth without a single additional visitor."
+    }
+  },
+  {
+    from: "SI", to: "IC", label: "incentive gap blocks", state: "distorted", typo: "unchanged",
+    ins: {
+      headline: "The Incentive Structure Actively Undermining Conversion",
+      body: "Staff Incentives connect to In-Store Conversion through the behaviours they produce. When commission is tied only to in-store transactions, staff unconsciously deprioritise customers who show signs of showrooming behaviour — the very customers who most need assisted conversion into the brand's own channels.",
+      implication: "Extending commission credit to digital-assisted sales immediately aligns staff behaviour with cross-channel conversion."
+    }
+  },
+  {
+    from: "SI", to: "DA", label: "should leverage", state: "missing", typo: "changed",
+    ins: {
+      headline: "THE CRITICAL MISSING CONNECTION — Staff Not Using Digital Profile Data",
+      body: "Staff Incentives should be structured to reward the use of Digital-Physical Alignment data in customer interactions. This connection is structurally absent. Staff have no incentive to access or use CRM data because the commission structure does not reward the personalised conversion that this data enables.",
+      implication: "Creating a commission component tied to digital-assisted personalised conversion builds this connection without requiring new infrastructure."
+    }
+  },
+  {
+    from: "CF", to: "IC", label: "abandonment at", state: "active", typo: "unchanged",
+    ins: {
+      headline: "The Last-Mile Failure — Decided Buyers Not Converting",
+      body: "Checkout Friction directly causes In-Store Conversion failures at the final moment. A customer who has decided to purchase and encounters a queue, a broken terminal, or a card payment delay has every incentive to leave and complete the purchase on their phone. This is the most preventable conversion loss in the system.",
+      implication: "Mobile POS deployment is the single fastest payback intervention in the system — days to deploy, immediate revenue recovery."
+    }
+  },
+  {
+    from: "IM", to: "IC", label: "stock gaps kill", state: "distorted", typo: "changing",
+    ins: {
+      headline: "Invisible Stock Killing Visible Demand",
+      body: "Inventory Management connects to In-Store Conversion through the staff's ability to answer the most common conversion-blocking question: do you have this in my size? When inventory data is not surfaced to staff in real time, the answer defaults to 'no' — even when the answer is 'yes, but it's in the stockroom' or 'yes, it's available for next-day collection.'",
+      implication: "Real-time stock visibility on a staff device is a conversion tool, not just an operational efficiency."
+    }
+  },
+  {
+    from: "IM", to: "SI", label: "should inform", state: "missing", typo: "changing",
+    ins: {
+      headline: "MISSING FEEDBACK — Inventory Intelligence Not Reaching Staff",
+      body: "Inventory Management should be informing Staff Incentives through a system where staff are empowered — and rewarded — for using stock data to convert customers to omnichannel fulfilment. This connection is absent. The data system and the human incentive system operate independently.",
+      implication: "Connecting inventory intelligence to staff conversion tools and commission metrics creates a new conversion pathway: staff offer next-day delivery or reserve-in-store as a conversion close."
+    }
+  },
+  {
+    from: "DA", to: "IC", label: "should enable personalised", state: "missing", typo: "changed",
+    ins: {
+      headline: "THE PRIMARY MISSING CONNECTION — CRM Data Not Enabling In-Store Conversion",
+      body: "Digital-Physical Alignment should be enabling personalised In-Store Conversion through staff access to customer profiles. This is the most structurally important missing connection in the system. The data exists. The interface does not. The training does not. The incentive does not.",
+      implication: "Building this connection — CRM integration with staff tablet interface — is the architectural intervention with the highest long-term conversion uplift potential."
+    }
+  },
+  {
+    from: "DA", to: "SI", label: "should personalise", state: "missing", typo: "changed",
+    curved: true,
+    ins: {
+      headline: "MISSING LOOP — Customer Data Not Shaping Staff Engagement",
+      body: "Digital-Physical Alignment should be informing Staff Incentives by providing staff with the contextual intelligence that makes personalised conversion possible. When a customer's browsing history is visible to staff, the interaction changes from generic selling to personalised recommendation. This loop does not exist.",
+      implication: "This connection makes the incentive restructuring self-reinforcing: staff with better data produce better conversions and earn higher commission."
+    }
+  },
+  {
+    from: "MB", to: "IC", label: "reshapes conversion moment", state: "disruption", typo: "changed",
+    ins: {
+      headline: "The Mobile Customer Restructuring What Conversion Requires",
+      body: "Mobile-First Demographics is permanently restructuring the In-Store Conversion moment. The customer is not choosing between buying in-store or online — they are doing both simultaneously. The smartphone is part of the in-store experience. Conversion architecture that ignores this is operating in a context that no longer exists.",
+      implication: "Every staff training programme and conversion metric must be redesigned for the customer who is browsing on their phone while standing in front of the fixture."
+    }
+  },
+  {
+    from: "MB", to: "DA", label: "demands integration with", state: "disruption", typo: "changed",
+    ins: {
+      headline: "Mobile Behaviour Creating the Requirement for Digital-Physical Integration",
+      body: "Mobile-First Demographics creates the customer-side demand for Digital-Physical Alignment. Customers expect staff to know what they've been looking at online. The expectation of personalisation is already set by the digital experience — the physical store fails when it cannot match it.",
+      implication: "The customer is already doing digital-physical integration on their own device. The store needs to meet that expectation from the staff side."
+    }
+  },
+  {
+    from: "EC", to: "IC", label: "competes with", state: "disruption", typo: "changed",
+    ins: {
+      headline: "Own E-Commerce Capturing Conversions the Store Created",
+      body: "E-Commerce Cannibalization competes with In-Store Conversion by capturing the purchase decisions that the physical visit has triggered. This is the showrooming effect: the store does the discovery and fitting work; the brand's own website receives the transaction. Under current attribution models, the store is recorded as a cost centre for that visit.",
+      implication: "Unified commerce attribution transforms this dynamic. If the store is credited for the digital sale it influenced, the commercial case for the physical footprint is restored."
+    }
+  },
+  {
+    from: "EC", to: "DA", label: "requires unified attribution via", state: "disruption", typo: "changed",
+    ins: {
+      headline: "Fixing E-Commerce Cannibalization Requires Building Digital-Physical Alignment",
+      body: "The only structural solution to E-Commerce Cannibalization's impact on the physical store model is Digital-Physical Alignment — a system that tracks cross-channel customer journeys, attributes physical store influence to digital conversions, and credits staff accordingly.",
+      implication: "E-commerce cannibalization is not the problem. The absence of unified attribution is the problem. Building DA solves both simultaneously."
+    }
+  }
+];
+
+// ─── DESIGN SYSTEM ──────────────────────────────────────────────────────────
+const RED = "#e31d28", DARK = "#1e1c17", WHITE = "#ffffff", PAPER = "#f8f7f6";
+const BORDER = "#e8e8e8", MUTED = "#9fa2a4", TEAL = "#08a7d8", YELLOW = "#ffc000";
+
+const NODE_STYLES = {
+  healthy:    { fill: "#eef7f2", stroke: "#2a9d5c", text: "#1a6e3c", label: "Healthy" },
+  stressed:   { fill: "#fff8e6", stroke: "#d4930a", text: "#7a5700", label: "Stressed" },
+  failing:    { fill: "#fde8e9", stroke: "#e31d28", text: "#b11226", label: "Failing" },
+  misrouted:  { fill: "#e6f4fb", stroke: "#08a7d8", text: "#065a7a", label: "Misrouted" },
+  disruption: { fill: "#f3e8f9", stroke: "#8e44ad", text: "#5b2c6f", label: "Disruption" },
+  collapsed:  { fill: "#fce4ec", stroke: "#c62828", text: "#7b1a1a", label: "Collapsed" }
+};
+
+const EDGE_STYLES = {
+  active:     { stroke: "#aaaaaa", dash: "none",  label: "Active" },
+  distorted:  { stroke: "#d4930a", dash: "6 3",   label: "Distorted" },
+  missing:    { stroke: "#e31d28", dash: "7 4",    label: "Missing" },
+  disruption: { stroke: "#8e44ad", dash: "4 4",    label: "Disruption" }
+};
+
+const TYPO_STYLES = {
+  unchanged: { bg: "#e8e8e8", text: "#6e6e6e", border: "#9fa2a4", label: "UNCHANGED", desc: "No structural change" },
+  changing:  { bg: "#fff3cc", text: "#7a5700", border: "#d4930a", label: "CHANGING",  desc: "Under pressure / transitioning" },
+  changed:   { bg: "#fde8e9", text: "#b11226", border: "#e31d28", label: "CHANGED",   desc: "Already fundamentally altered" }
+};
+
+const GROUPS = {
+  revenue:    { label: "COMMERCIAL ARCHITECTURE", color: RED },
+  ops:        { label: "OPERATIONAL SYSTEMS",     color: TEAL },
+  client:     { label: "CLIENT & CHANNEL",        color: "#2a9d5c" },
+  disruption: { label: "DISRUPTION OVERLAY",      color: "#8e44ad" }
+};
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────
+function findNode(id) { return NODES.find(n => n.id === id); }
+
+function arcPath(from, to, curved) {
+  if (!curved) {
+    const mx = from.x + 0.5*(to.x-from.x), my = from.y + 0.5*(to.y-from.y) - 0.06*Math.abs(to.x-from.x);
+    return `M ${from.x} ${from.y} Q ${mx} ${my} ${to.x} ${to.y}`;
+  }
+  const dx = to.x-from.x, dy = to.y-from.y, r = 0.72*Math.sqrt(dx*dx+dy*dy);
+  return `M ${from.x} ${from.y} A ${r} ${r} 0 0 0 ${to.x} ${to.y}`;
+}
+
+// ─── CALLOUT PANEL ──────────────────────────────────────────────────────────
+function Callout({ d, onClose, containerWidth }) {
+  const ns = NODE_STYLES[d.state] || {};
+  const es = EDGE_STYLES[d.state];
+  const isEdge = !!es && !ns.fill;
+  const strokeColor = isEdge ? es.stroke : (ns.stroke || RED);
+  const stateLabel  = isEdge ? es.label  : (ns.label  || d.state);
+  const typo = TYPO_STYLES[d.typo];
+  const cx = d.pos.x + 326 + 32 > containerWidth
+    ? Math.max(8, d.pos.x - 326 - 12)
+    : d.pos.x + 12;
+
+  return h("div", {
+    style: {
+      position: "absolute", left: cx, top: Math.max(8, d.pos.y - 36),
+      width: 326, zIndex: 200, background: WHITE,
+      border: `2px solid ${strokeColor}`,
+      boxShadow: `6px 6px 0 ${strokeColor}33`,
+      fontFamily: "'Montserrat',sans-serif",
+      animation: "calloutIn .16s ease"
+    }
+  },
+    h("div", { style: { background: strokeColor, padding: "10px 14px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" } },
+      h("div", null,
+        h("div", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: 19, color: WHITE, lineHeight: 1, letterSpacing: "0.05em" } }, d.title),
+        d.sub && h("div", { style: { fontSize: 9, color: "rgba(255,255,255,.72)", marginTop: 2, fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase" } }, d.sub)
+      ),
+      h("button", { onClick: onClose, style: { background: "none", border: "none", color: WHITE, cursor: "pointer", fontSize: 17, lineHeight: 1, padding: "0 2px", marginLeft: 8, opacity: .8 } }, "×")
+    ),
+    h("div", { style: { display: "flex", gap: 6, padding: "7px 12px", borderBottom: `1px solid ${BORDER}`, background: PAPER } },
+      h("span", { style: { fontSize: 9, fontWeight: 800, letterSpacing: "0.09em", padding: "3px 8px", background: ns.fill || WHITE, border: `1.5px solid ${strokeColor}`, color: strokeColor, textTransform: "uppercase" } }, stateLabel),
+      typo && h("span", { style: { fontSize: 9, fontWeight: 800, letterSpacing: "0.09em", padding: "3px 8px", background: typo.bg, border: `1.5px solid ${typo.border}`, color: typo.text, textTransform: "uppercase" } }, typo.label)
+    ),
+    h("div", { style: { padding: "12px 14px" } },
+      h("div", { style: { fontSize: 10.5, fontWeight: 800, color: strokeColor, marginBottom: 6, lineHeight: 1.3, textTransform: "uppercase", letterSpacing: "0.02em" } }, d.ins.headline),
+      h("div", { style: { fontSize: 11.5, color: "#444", lineHeight: 1.65, marginBottom: 10, fontWeight: 500 } }, d.ins.body),
+      h("div", { style: { padding: "8px 10px", background: `${strokeColor}12`, borderLeft: `3px solid ${strokeColor}`, fontSize: 11, color: strokeColor, lineHeight: 1.5, fontWeight: 700, fontStyle: "italic" } }, d.ins.implication)
+    )
+  );
+}
+
+// ─── FILTER BUTTONS ─────────────────────────────────────────────────────────
+function NodeBtn({ label, fill, stroke, text, active, onClick }) {
+  return h("button", {
+    onClick, style: { display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px",
+      border: `1.5px solid ${active ? stroke : BORDER}`, background: active ? fill : WHITE,
+      cursor: "pointer", fontFamily: "'Montserrat',sans-serif", fontSize: 9, fontWeight: 800,
+      letterSpacing: "0.1em", textTransform: "uppercase", color: active ? text : MUTED, transition: "all .15s" }
+  }, label);
+}
+
+function EdgeBtn({ es, active, onClick }) {
+  return h("button", {
+    onClick, style: { display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 10px",
+      border: `1.5px solid ${active ? es.stroke : BORDER}`, background: active ? `${es.stroke}14` : WHITE,
+      cursor: "pointer", fontFamily: "'Montserrat',sans-serif", fontSize: 9, fontWeight: 800,
+      letterSpacing: "0.1em", textTransform: "uppercase", color: active ? es.stroke : MUTED, transition: "all .15s" }
+  },
+    h("svg", { width: 22, height: 10 },
+      h("line", { x1: 0, y1: 5, x2: 22, y2: 5, stroke: es.stroke, strokeWidth: 2, strokeDasharray: es.dash === "none" ? undefined : es.dash }),
+      h("polygon", { points: "18,2 22,5 18,8", fill: es.stroke })
+    ),
+    es.label
+  );
+}
+
+function TypoBtn({ t, active, onClick }) {
+  const ts = TYPO_STYLES[t];
+  return h("button", {
+    onClick, style: { display: "inline-flex", flexDirection: "column", padding: "5px 10px",
+      border: `2px solid ${active ? ts.border : BORDER}`, background: active ? ts.bg : WHITE,
+      cursor: "pointer", fontFamily: "'Montserrat',sans-serif", transition: "all .15s", textAlign: "left" }
+  },
+    h("span", { style: { fontSize: 9, fontWeight: 900, letterSpacing: "0.14em", color: active ? ts.text : MUTED, textTransform: "uppercase" } }, ts.label),
+    h("span", { style: { fontSize: 8.5, color: active ? ts.text : "#ccc", fontWeight: 500, marginTop: 2 } }, ts.desc)
+  );
+}
+
+// ─── MAIN APP ────────────────────────────────────────────────────────────────
+function App() {
+  const [callout, setCallout] = useState(null);
+  const [filter, setFilter] = useState("all");
+  const [hoverNode, setHoverNode] = useState(null);
+  const [hoverEdge, setHoverEdge] = useState(null);
+  const [tab, setTab] = useState("map");
+  const containerRef = useRef(null);
+  const svgRef = useRef(null);
+
+  const toggleFilter = (v) => setFilter(f => f === v ? "all" : v);
+  const isEdgeFilter = Object.keys(EDGE_STYLES).includes(filter);
+
+  const activeEdgeNodes = new Set();
+  if (isEdgeFilter) {
+    EDGES.forEach(e => { if (filter === e.state) { activeEdgeNodes.add(e.from); activeEdgeNodes.add(e.to); } });
+  }
+
+  const visibleNodes = new Set([
+    ...NODES.filter(n =>
+      filter === "all" || filter === n.state || filter === n.typo || filter === n.group
+    ).map(n => n.id),
+    ...activeEdgeNodes
+  ]);
+
+  const openNode = useCallback((node, ev) => {
+    const rect = ev.currentTarget.getBoundingClientRect();
+    const container = containerRef.current?.getBoundingClientRect();
+    if (!container) return;
+    setCallout({ title: node.label, sub: node.sub || "", state: node.state, typo: node.typo, ins: node.ins, pos: { x: rect.left - container.left + rect.width / 2, y: rect.top - container.top } });
+  }, []);
+
+  const openEdge = useCallback((edge, ev) => {
+    const from = findNode(edge.from), to = findNode(edge.to);
+    if (!from || !to || !svgRef.current || !containerRef.current) return;
+    const svgR = svgRef.current.getBoundingClientRect();
+    const conR = containerRef.current.getBoundingClientRect();
+    const scaleX = svgR.width / 900, scaleY = svgR.height / 540;
+    setCallout({
+      title: `${from.label} → ${to.label}`, sub: edge.label,
+      state: edge.state, typo: edge.typo, ins: edge.ins,
+      pos: { x: svgR.left - conR.left + (from.x + to.x) / 2 * scaleX, y: svgR.top - conR.top + (from.y + to.y) / 2 * scaleY }
+    });
+  }, []);
+
+  const LOCK_INS = [
+    "Fixed long-term retail leases in premium mall locations",
+    "Legacy POS hardware contracts with multi-year replacement cycles",
+    "Traditional commission structures tied exclusively to in-store cash transactions"
+  ];
+  const HARD_CONSTRAINTS = [
+    "Cannot reduce physical store footprint immediately due to lease penalties",
+    "Cannot increase overall labour budget in the short term"
+  ];
+
+  return h("div", { style: { background: PAPER, minHeight: "100vh", fontFamily: "'Montserrat',sans-serif" } },
+    h("style", null, `
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+      *{box-sizing:border-box;margin:0;padding:0;}
+      @keyframes calloutIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+      button{cursor:pointer;}
+      ::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-thumb{background:${RED};}
+      .ng{cursor:pointer;}.eg{cursor:pointer;}
+      .ng:hover .nr{filter:brightness(0.93);}.eg:hover .ep{stroke-width:2.5px!important;}
+    `),
+
+    /* ── HEADER ── */
+    h("div", { style: { background: `linear-gradient(135deg,${RED} 0%,#c0143f 72%,#9b0030 100%)`, padding: "18px 28px 16px", color: WHITE } },
+      h("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 10 } },
+        h("div", null,
+          h("div", { style: { fontSize: 9, fontWeight: 900, letterSpacing: "0.2em", textTransform: "uppercase", opacity: .72, marginBottom: 5 } },
+            "ANTIGEN — Phase II / Define · System Interrogator · MAP-1781466276072"
+          ),
+          h("h1", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(22px,4vw,46px)", letterSpacing: "0.04em", lineHeight: 1, marginBottom: 4 } },
+            "Maje In-Store Conversion Bottleneck Map"
+          ),
+          h("div", { style: { fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", opacity: .68 } },
+            "North Star: Shoppers to Buyers · Diagnosis: June 15, 2026"
+          )
+        ),
+        h("div", { style: { textAlign: "right", background: "rgba(0,0,0,.18)", padding: "10px 14px", borderLeft: `4px solid ${YELLOW}` } },
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", textTransform: "uppercase", opacity: .68, marginBottom: 2 } }, "Structural Typology"),
+          h("div", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, color: YELLOW, letterSpacing: "0.08em" } }, "ARCHITECTURAL"),
+          h("div", { style: { fontSize: 9, fontWeight: 700, opacity: .65, marginTop: 2 } }, "Components viable · Relationships broken")
+        )
+      )
+    ),
+
+    /* ── TAB BAR ── */
+    h("div", { style: { background: WHITE, borderBottom: `1px solid ${BORDER}`, padding: "0 24px", display: "flex", gap: 0 } },
+      [["map", "System Map"], ["mandate", "Shift Mandate"], ["payload", "Phase III Payload"]].map(([id, label]) =>
+        h("button", {
+          key: id, onClick: () => setTab(id),
+          style: { padding: "11px 18px", fontFamily: "'Montserrat',sans-serif", fontSize: 10, fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase", border: "none", borderBottom: `3px solid ${tab === id ? RED : "transparent"}`, background: "none", color: tab === id ? RED : MUTED, transition: "all .15s" }
+        }, label)
+      )
+    ),
+
+    /* ── MAP TAB ── */
+    tab === "map" && h(Fragment, null,
+      /* Filter Bar */
+      h("div", { style: { background: WHITE, borderBottom: `1px solid ${BORDER}`, padding: "9px 20px", display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "flex-start" } },
+        h("div", null,
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.16em", color: MUTED, marginBottom: 4, textTransform: "uppercase" } }, "Node State"),
+          h("div", { style: { display: "flex", gap: 4, flexWrap: "wrap" } },
+            Object.entries(NODE_STYLES).map(([k, v]) =>
+              h(NodeBtn, { key: k, label: v.label, fill: v.fill, stroke: v.stroke, text: v.text, active: filter === k, onClick: () => toggleFilter(k) })
+            )
+          )
+        ),
+        h("div", { style: { width: 1, background: BORDER, alignSelf: "stretch" } }),
+        h("div", null,
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.16em", color: MUTED, marginBottom: 4, textTransform: "uppercase" } }, "Connection Type"),
+          h("div", { style: { display: "flex", gap: 4, flexWrap: "wrap" } },
+            Object.entries(EDGE_STYLES).map(([k, v]) =>
+              h(EdgeBtn, { key: k, es: v, active: filter === k, onClick: () => toggleFilter(k) })
+            )
+          )
+        ),
+        h("div", { style: { width: 1, background: BORDER, alignSelf: "stretch" } }),
+        h("div", null,
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.16em", color: MUTED, marginBottom: 4, textTransform: "uppercase" } }, "Typology Layer"),
+          h("div", { style: { display: "flex", gap: 4, flexWrap: "wrap" } },
+            ["unchanged", "changing", "changed"].map(t => h(TypoBtn, { key: t, t, active: filter === t, onClick: () => toggleFilter(t) }))
+          )
+        ),
+        h("button", {
+          onClick: () => setFilter("all"),
+          style: { marginLeft: "auto", alignSelf: "flex-end", padding: "5px 12px", border: `1.5px solid ${filter === "all" ? RED : BORDER}`, background: filter === "all" ? RED : WHITE, color: filter === "all" ? WHITE : MUTED, fontFamily: "'Montserrat',sans-serif", fontSize: 9, fontWeight: 900, letterSpacing: "0.12em", textTransform: "uppercase", transition: "all .15s" }
+        }, "RESET")
+      ),
+
+      /* SVG Map */
+      h("div", {
+        ref: containerRef,
+        style: { position: "relative", overflowX: "auto", background: WHITE, borderBottom: `1px solid ${BORDER}` }
+      },
+        h("svg", {
+          ref: svgRef,
+          viewBox: "0 0 900 540",
+          style: { display: "block", width: "100%", minWidth: 680, height: "auto", maxHeight: "62vh" },
+          onClick: e => { if (e.target.tagName === "svg") setCallout(null); }
+        },
+          /* Defs */
+          h("defs", null,
+            Object.entries(EDGE_STYLES).map(([k, v]) =>
+              h("marker", { key: k, id: `ar-${k}`, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto-start-reverse" },
+                h("path", { d: "M 0 0 L 10 5 L 0 10 z", fill: v.stroke, opacity: .9 })
+              )
+            ),
+            Object.entries(GROUPS).map(([k, v]) =>
+              h("radialGradient", { key: k, id: `gf-${k}`, cx: "50%", cy: "50%", r: "50%" },
+                h("stop", { offset: "0%", stopColor: v.color, stopOpacity: "0.07" }),
+                h("stop", { offset: "100%", stopColor: v.color, stopOpacity: "0.01" })
+              )
+            )
+          ),
+
+          /* Group zones */
+          [
+            { g: "revenue",    x: 40,  y: 30, w: 290, h: 230 },
+            { g: "ops",        x: 305, y: 50, w: 310, h: 270 },
+            { g: "client",     x: 590, y: 35, w: 270, h: 280 },
+            { g: "disruption", x: 275, y: 360, w: 540, h: 120 }
+          ].map(z =>
+            h("g", { key: z.g },
+              h("rect", { x: z.x, y: z.y, width: z.w, height: z.h, rx: 2, fill: `url(#gf-${z.g})`, stroke: GROUPS[z.g].color, strokeWidth: .6, strokeOpacity: .25, strokeDasharray: "5 4" }),
+              h("text", { x: z.x + 7, y: z.y - 2, fontFamily: "'Montserrat',sans-serif", fontSize: 7.5, fontWeight: 900, fill: GROUPS[z.g].color, opacity: .7, letterSpacing: "2" }, GROUPS[z.g].label)
+            )
+          ),
+
+          /* Edges */
+          EDGES.map(edge => {
+            const from = findNode(edge.from), to = findNode(edge.to);
+            if (!from || !to) return null;
+            const es = EDGE_STYLES[edge.state] || EDGE_STYLES.active;
+            const key = `${edge.from}-${edge.to}`;
+            const hovered = hoverEdge === key;
+            const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2;
+
+            let opacity;
+            if (filter === "all") opacity = .82;
+            else if (filter === edge.state || filter === edge.typo) opacity = 1;
+            else if (isEdgeFilter) opacity = .05;
+            else {
+              const fn = findNode(edge.from), tn = findNode(edge.to);
+              opacity = (fn && tn && visibleNodes.has(fn.id) && visibleNodes.has(tn.id)) ? .45 : .05;
+            }
+
+            return h("g", { key, className: "eg", opacity, onClick: ev => { ev.stopPropagation(); openEdge(edge, ev); }, onMouseEnter: () => setHoverEdge(key), onMouseLeave: () => setHoverEdge(null) },
+              h("path", { d: arcPath(from, to, edge.curved), fill: "none", stroke: "transparent", strokeWidth: 14 }),
+              h("path", { className: "ep", d: arcPath(from, to, edge.curved), fill: "none", stroke: es.stroke, strokeWidth: hovered ? 2.5 : 1.5, strokeDasharray: es.dash === "none" ? undefined : es.dash, markerEnd: `url(#ar-${edge.state})` }),
+              hovered && h("text", { x: mx, y: my - 7, textAnchor: "middle", fontFamily: "'Montserrat',sans-serif", fontSize: 8, fontWeight: 800, fill: es.stroke, style: { pointerEvents: "none" } }, edge.label)
+            );
+          }),
+
+          /* Nodes */
+          NODES.map(node => {
+            const ns = NODE_STYLES[node.state] || NODE_STYLES.stressed;
+            const ts = TYPO_STYLES[node.typo];
+            const hov = hoverNode === node.id;
+            const x = node.x - 48, y = node.y - 24;
+            const visible = filter === "all" || visibleNodes.has(node.id);
+
+            return h("g", {
+              key: node.id, className: "ng",
+              opacity: visible ? 1 : .07,
+              onClick: ev => { ev.stopPropagation(); openNode(node, ev); },
+              onMouseEnter: () => setHoverNode(node.id),
+              onMouseLeave: () => setHoverNode(null),
+              style: { transition: "opacity .2s" }
+            },
+              h("rect", { className: "nr", x, y, width: 96, height: 48, rx: 1, fill: ns.fill, stroke: ns.stroke, strokeWidth: hov ? 2 : 1.2 }),
+              h("rect", { x, y, width: 96, height: 4, rx: 1, fill: ts.border, opacity: .85 }),
+              h("text", { x: node.x, y: node.y - (node.sub ? 5.5 : 1), textAnchor: "middle", fontFamily: "'Montserrat',sans-serif", fontSize: 9, fontWeight: 800, fill: ns.text, style: { pointerEvents: "none" } }, node.label),
+              node.sub && h("text", { x: node.x, y: node.y + 9, textAnchor: "middle", fontFamily: "'Montserrat',sans-serif", fontSize: 8, fontWeight: 600, fill: ns.text, opacity: .75, style: { pointerEvents: "none" } }, node.sub)
+            );
+          })
+        ),
+
+        /* Callout */
+        callout && h(Callout, { d: callout, onClose: () => setCallout(null), containerWidth: containerRef.current?.clientWidth || 900 })
+      ),
+
+      /* Mandate Bar */
+      h("div", { style: { backgroundColor: DARK, padding: "18px 24px", display: "flex", flexWrap: "wrap", gap: 24, alignItems: "flex-start" } },
+        h("div", { style: { flex: "1 1 400px" } },
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.2em", color: YELLOW, textTransform: "uppercase", marginBottom: 8, fontFamily: "'Montserrat',sans-serif" } }, "▸ Systemic Shift Mandate — Locked"),
+          h("div", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(14px,2vw,20px)", color: WHITE, lineHeight: 1.35, letterSpacing: "0.04em" } },
+            "Architectural — The primary growth constraint is the structural decoupling of physical store operations from digital customer profiles. The critical failure exists between Staff Incentives and Digital-Physical Alignment. The organisation must redesign the relational architecture connecting physical labour incentives to cross-channel conversion metrics."
+          )
+        ),
+        h("div", { style: { borderLeft: "2px solid rgba(255,255,255,.15)", paddingLeft: 22, minWidth: 260 } },
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.16em", color: "rgba(255,255,255,.5)", textTransform: "uppercase", marginBottom: 10, fontFamily: "'Montserrat',sans-serif" } }, "Critical Missing Connections"),
+          [
+            ["SI", "DA", "Staff not using digital profile data"],
+            ["DA", "IC", "CRM not enabling in-store conversion"],
+            ["DA", "SI", "Customer data not shaping staff engagement"],
+            ["IM", "SI", "Inventory intelligence not reaching staff"]
+          ].map(([from, to, label]) =>
+            h("div", { key: from + to, style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 7 } },
+              h("span", { style: { fontSize: 10, fontWeight: 800, color: WHITE, fontFamily: "'Montserrat',sans-serif", minWidth: 22 } }, from),
+              h("svg", { width: 28, height: 10, style: { flexShrink: 0 } },
+                h("line", { x1: 0, y1: 5, x2: 22, y2: 5, stroke: RED, strokeWidth: 1.5, strokeDasharray: "5 3" }),
+                h("polygon", { points: "18,2 22,5 18,8", fill: RED })
+              ),
+              h("span", { style: { fontSize: 10, fontWeight: 800, color: WHITE, fontFamily: "'Montserrat',sans-serif", minWidth: 22 } }, to),
+              h("span", { style: { fontSize: 8, fontWeight: 600, color: "rgba(255,255,255,.38)", letterSpacing: "0.04em", fontFamily: "'Montserrat',sans-serif" } }, label)
+            )
+          )
+        )
+      ),
+
+      /* Legend Bar */
+      h("div", { style: { background: PAPER, padding: "9px 22px", borderTop: `1px solid ${BORDER}`, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" } },
+        h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", color: MUTED, textTransform: "uppercase", marginRight: 3 } }, "Node band →"),
+        ["unchanged", "changing", "changed"].map(t => {
+          const ts = TYPO_STYLES[t];
+          return h("div", { key: t, style: { display: "flex", alignItems: "center", gap: 5 } },
+            h("div", { style: { width: 18, height: 4, background: ts.border, borderRadius: 1 } }),
+            h("span", { style: { fontSize: 9, fontWeight: 700, color: ts.text, letterSpacing: "0.06em", textTransform: "uppercase" } }, ts.label)
+          );
+        }),
+        h("div", { style: { marginLeft: "auto", fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: "0.06em" } }, "Click nodes or connections · Click legend to filter")
+      )
+    ),
+
+    /* ── MANDATE TAB ── */
+    tab === "mandate" && h("div", { style: { padding: "32px 28px", maxWidth: 860, background: PAPER, minHeight: "70vh" } },
+      h("div", { style: { fontSize: 9, fontWeight: 900, letterSpacing: "0.22em", color: RED, textTransform: "uppercase", marginBottom: 14, fontFamily: "'Montserrat',sans-serif" } }, "Architectural Typology — Henderson & Clark Classification"),
+      h("div", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(28px,5vw,52px)", color: DARK, lineHeight: .95, letterSpacing: "0.03em", marginBottom: 24 } }, "Systemic Shift Mandate"),
+
+      h("div", { style: { backgroundColor: DARK, padding: "24px 28px", borderLeft: `6px solid ${YELLOW}`, marginBottom: 28 } },
+        h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", color: YELLOW, textTransform: "uppercase", marginBottom: 10, fontFamily: "'Montserrat',sans-serif" } }, "Locked Statement"),
+        h("div", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(16px,2.5vw,24px)", color: WHITE, lineHeight: 1.3, letterSpacing: "0.04em" } },
+          "Architectural — The primary growth constraint is the structural decoupling of physical store operations from digital customer profiles. The critical failure exists between Staff Incentives and Digital-Physical Alignment. The organisation must redesign the relational architecture connecting physical labour incentives to cross-channel conversion metrics."
+        )
+      ),
+
+      h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 24 } },
+        h("div", { style: { background: WHITE, border: `1px solid ${BORDER}`, padding: "18px 20px" } },
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", color: "#2a9d5c", textTransform: "uppercase", marginBottom: 12, fontFamily: "'Montserrat',sans-serif" } }, "✓ Authorised Systemic Actions"),
+          [
+            "Restructuring commission models to include digital-assisted sales",
+            "Deploying mobile POS software on existing staff devices",
+            "Integrating CRM data with store associate tablets"
+          ].map((txt, i) =>
+            h("div", { key: i, style: { display: "flex", gap: 10, marginBottom: 10, alignItems: "flex-start" } },
+              h("span", { style: { color: "#2a9d5c", fontWeight: 900, fontSize: 13, flexShrink: 0 } }, "↗"),
+              h("div", { style: { fontSize: 12, color: "#333", lineHeight: 1.55, fontWeight: 500, fontFamily: "'Montserrat',sans-serif" } }, txt)
+            )
+          )
+        ),
+        h("div", { style: { background: "#fde8e9", border: `1px solid ${RED}20`, padding: "18px 20px" } },
+          h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", color: RED, textTransform: "uppercase", marginBottom: 12, fontFamily: "'Montserrat',sans-serif" } }, "✗ Forbidden System Actions"),
+          [
+            "Closing physical stores",
+            "Increasing base salaries across the board",
+            "Launching separate, unintegrated digital-only loyalty apps"
+          ].map((txt, i) =>
+            h("div", { key: i, style: { display: "flex", gap: 10, marginBottom: 10, alignItems: "flex-start" } },
+              h("span", { style: { color: RED, fontWeight: 900, fontSize: 13, flexShrink: 0 } }, "✗"),
+              h("div", { style: { fontSize: 12, color: "#b11226", lineHeight: 1.55, fontWeight: 500, fontFamily: "'Montserrat',sans-serif" } }, txt)
+            )
+          )
+        )
+      ),
+
+      h("div", { style: { background: WHITE, border: `1px solid ${BORDER}`, padding: "18px 20px", marginBottom: 20 } },
+        h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", color: "#d4930a", textTransform: "uppercase", marginBottom: 12, fontFamily: "'Montserrat',sans-serif" } }, "⚠ Legacy Lock-In Indices"),
+        LOCK_INS.map((txt, i) =>
+          h("div", { key: i, style: { display: "flex", gap: 12, marginBottom: 8, alignItems: "flex-start", paddingBottom: 8, borderBottom: i < LOCK_INS.length - 1 ? `1px solid ${BORDER}` : "none" } },
+            h("span", { style: { color: "#d4930a", fontWeight: 900, fontSize: 11, flexShrink: 0, fontFamily: "'Montserrat',monospace" } }, String(i + 1).padStart(2, "0")),
+            h("div", { style: { fontSize: 12, color: "#555", lineHeight: 1.55, fontWeight: 500, fontFamily: "'Montserrat',sans-serif" } }, txt)
+          )
+        )
+      ),
+
+      h("div", { style: { background: WHITE, border: `1px solid ${BORDER}`, padding: "18px 20px" } },
+        h("div", { style: { fontSize: 8, fontWeight: 900, letterSpacing: "0.18em", color: TEAL, textTransform: "uppercase", marginBottom: 12, fontFamily: "'Montserrat',sans-serif" } }, "◼ Hard System Constraints"),
+        HARD_CONSTRAINTS.map((txt, i) =>
+          h("div", { key: i, style: { display: "flex", gap: 12, marginBottom: 8, alignItems: "flex-start", paddingBottom: 8, borderBottom: i < HARD_CONSTRAINTS.length - 1 ? `1px solid ${BORDER}` : "none" } },
+            h("span", { style: { color: TEAL, fontWeight: 900, fontSize: 11, flexShrink: 0, fontFamily: "'Montserrat',monospace" } }, String(i + 1).padStart(2, "0")),
+            h("div", { style: { fontSize: 12, color: "#555", lineHeight: 1.55, fontWeight: 500, fontFamily: "'Montserrat',sans-serif" } }, txt)
+          )
+        )
+      )
+    ),
+
+    /* ── PAYLOAD TAB ── */
+    tab === "payload" && h("div", { style: { padding: "32px 28px", maxWidth: 880, background: PAPER, minHeight: "70vh" } },
+      h("div", { style: { fontSize: 9, fontWeight: 900, letterSpacing: "0.22em", color: RED, textTransform: "uppercase", marginBottom: 14, fontFamily: "'Montserrat',sans-serif" } }, "Phase III Handoff — Strategy Sidekick Payload"),
+      h("div", { style: { fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(24px,4vw,44px)", color: DARK, lineHeight: .95, letterSpacing: "0.03em", marginBottom: 24 } }, "Machine Key Registry — JSON Export"),
+      h("div", { style: { backgroundColor: DARK, padding: "20px 22px", borderLeft: `4px solid ${YELLOW}`, overflowX: "auto" } },
+        h("pre", { style: { margin: 0, whiteSpace: "pre-wrap", fontFamily: "'IBM Plex Mono',ui-monospace,monospace", fontSize: 11, color: "#a5d6a7", lineHeight: 1.7 } },
+          JSON.stringify({
+            typology: "architectural",
+            north_star: "Shoppers to Buyers",
+            diagnosis_date: "2026-06-15",
+            map_id: "MAP-1781466276072",
+            stressed_components: ["Legacy Margin Model", "Staff Incentives"],
+            failing_components: ["In-Store Conversion Rate", "Checkout Friction"],
+            misrouted_components: ["Inventory Management"],
+            collapsed_components: ["Digital-Physical Alignment"],
+            healthy_components: ["Foot Traffic"],
+            disruption_nodes: ["Mobile-First Demographics", "E-Commerce Cannibalization"],
+            broken_relationships: [
+              { from: "SI", to: "DA", reason: "Staff commission structure provides no incentive to leverage CRM profile data — primary architectural failure" },
+              { from: "DA", to: "IC", reason: "CRM data not surfaced to staff during customer interactions — digital-physical integration absent" },
+              { from: "DA", to: "SI", reason: "Customer digital behaviour not informing staff engagement protocols — missing personalisation loop" },
+              { from: "IM", to: "SI", reason: "Inventory intelligence not connected to staff conversion tools or commission reward mechanics" }
+            ],
+            feedback_loops: [
+              "Staff Commission → In-Store Transaction Only → Resistance to Cross-Channel Assistance → Lower Omnichannel Conversion (REINFORCING — prevents architectural adaptation)",
+              "POS Hardware → Queue Formation → Decision Reversal → Lost Conversion (REINFORCING — misaligned with mobile-first customer behaviour)"
+            ],
+            legacy_lockins: [
+              "Fixed long-term retail leases in premium mall locations",
+              "Legacy POS hardware contracts with multi-year replacement cycles",
+              "Traditional commission structures tied exclusively to in-store cash transactions"
+            ],
+            hard_constraints: [
+              "Cannot reduce physical store footprint immediately due to lease penalties",
+              "Cannot increase overall labour budget in the short term"
+            ],
+            permitted_interventions: [
+              "Restructuring commission models to include digital-assisted sales",
+              "Deploying mobile POS software on existing staff devices",
+              "Integrating CRM data with store associate tablets"
+            ],
+            forbidden_interventions: [
+              "Closing physical stores",
+              "Increasing base salaries across the board",
+              "Launching separate, unintegrated digital-only loyalty apps"
+            ],
+            sidekick_constraint: "What-If provocations must operate at the connection level. The permitted intervention space is how Staff Incentives and Digital-Physical Alignment connect to In-Store Conversion Rate through cross-channel commission mechanics and CRM integration. Component-level solutions are out of scope."
+          }, null, 2)
+        )
+      )
+    )
+  );
+}
+
+createRoot(document.getElementById("root")).render(h(StrictMode, null, h(App)));
+</script>
+</body>
+</html>
