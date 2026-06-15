@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Strategy · Coca-Cola × Gen Z · India / APAC</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ─────────────────────────────────────────────── */
+:root {
+  --red:        #e31d28;
+  --magenta:    #e3195b;
+  --crimson:    #b11226;
+  --black:      #111111;
+  --ink:        #1e1c17;
+  --white:      #ffffff;
+  --paper:      #f8f7f6;
+  --smoke:      #e8e8e8;
+  --grey:       #9fa2a4;
+  --yellow:     #ffc000;
+  --blue:       #08a7d8;
+  --grad-ins:   linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --grad-dark:  linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-d:     'Bebas Neue', Impact, sans-serif;
+  --font-s:     'Montserrat', Arial, sans-serif;
+  --rule:       1px solid rgba(17,17,17,.13);
+  --rule-w:     1px solid rgba(255,255,255,.1);
+  --shadow:     8px 8px 0 rgba(17,17,17,.92);
+  --shadow-r:   8px 8px 0 rgba(227,29,40,.88);
+  --pad:        clamp(1.25rem, 4vw, 3.5rem);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--font-s);
+  font-size: clamp(.93rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ─── STICKY PHASE NAV ─────────────────────────────────────────────── */
+.phase-nav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: var(--white);
+  border-bottom: var(--rule);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 var(--pad);
+}
+.phase-nav::-webkit-scrollbar { display: none; }
+.pnav-btn {
+  flex-shrink: 0;
+  padding: .7rem 1rem;
+  font-family: var(--font-s);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.pnav-btn:hover { color: var(--black); }
+.pnav-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+/* ─── HEADER ───────────────────────────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--grad-ins);
+  padding: 3rem var(--pad) 2.5rem;
+  color: var(--white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0,0,0,.22), transparent 38%),
+    linear-gradient(90deg, rgba(0,0,0,.16), transparent 52%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative; z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.56);
+  margin-bottom: .6rem;
+}
+.header-title {
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: .83;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: .5rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.48);
+  margin-top: .75rem;
+}
+.header-kicker {
+  border-left: 4px solid var(--yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.kicker-label {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.46);
+  margin-bottom: .3rem;
+}
+.kicker-value {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1;
+  color: var(--yellow);
+  letter-spacing: .04em;
+}
+.kicker-note {
+  font-size: .64rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.36);
+  margin-top: .25rem;
+}
+
+/* ─── PHASE WRAPPER ────────────────────────────────────────────────── */
+.phase {
+  padding: 3.5rem var(--pad);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase + .phase { padding-top: 0; }
+
+/* ─── PHASE LABEL ──────────────────────────────────────────────────── */
+.phase-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--black);
+}
+.phase-number {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.phase-name {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--black);
+}
+.phase-tagline {
+  font-size: .8rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--grey);
+  margin-left: auto;
+}
+
+/* ─── GET-TO-BY ────────────────────────────────────────────────────── */
+.gtb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+}
+.gtb-cell {
+  padding: 1.75rem 2rem;
+  border-right: var(--rule);
+}
+.gtb-cell:last-child { border-right: none; }
+.gtb-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.gtb-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* ─── METRICS ROW ──────────────────────────────────────────────────── */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.metric-card {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 6px solid var(--red);
+  padding: 1.5rem;
+  text-align: center;
+}
+.metric-value {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: .4rem;
+}
+.metric-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+
+/* ─── CRITIQUE BOX ─────────────────────────────────────────────────── */
+.critique-box {
+  background: var(--black);
+  padding: 1.75rem 2rem;
+  margin-top: 2rem;
+  border-left: 6px solid var(--yellow);
+}
+.critique-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.critique-body {
+  font-size: .88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  line-height: 1.65;
+}
+
+/* ─── DARK SECTION ─────────────────────────────────────────────────── */
+.dark-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.dark-section .phase-label {
+  border-bottom-color: rgba(255,255,255,.15);
+}
+.dark-section .phase-number { color: var(--yellow); }
+.dark-section .phase-name { color: var(--white); }
+.dark-section .phase-tagline { color: rgba(255,255,255,.4); }
+
+/* ─── INSIGHT / FRICTION ───────────────────────────────────────────── */
+.insight-inner { max-width: 1440px; margin: 0 auto; }
+
+.insight-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4.5vw, 4.5rem);
+  line-height: .88;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 2.5rem;
+  max-width: 900px;
+}
+.insight-headline em {
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.truth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2.5rem;
+}
+.truth-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.truth-cell:last-child { border-right: none; }
+.truth-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.truth-body {
+  font-size: .88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  line-height: 1.65;
+}
+
+.tension-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.tension-card {
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.tension-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.tension-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.tension-sub {
+  font-size: .82rem;
+  font-style: italic;
+  color: rgba(255,255,255,.5);
+}
+.tension-vs {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  color: var(--red);
+  text-align: center;
+}
+
+.insight-pull {
+  border-left: 6px solid var(--red);
+  padding: 1.5rem 2rem;
+  background: rgba(227,29,40,.08);
+}
+.insight-pull p {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+  line-height: 1.1;
+  color: var(--white);
+  letter-spacing: .01em;
+}
+.insight-pull span { color: var(--yellow); }
+
+/* ─── PROVOCATION ──────────────────────────────────────────────────── */
+.prov-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.prov-sub {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--grey);
+  margin-bottom: 2.5rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.rule-break {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: var(--rule);
+  margin-bottom: 2rem;
+}
+.rule-cell {
+  padding: 1.75rem 2rem;
+}
+.rule-cell:first-child {
+  border-right: var(--rule);
+  background: var(--smoke);
+}
+.rule-cell:last-child { background: var(--white); }
+.rule-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.rule-cell:first-child .rule-tag { color: var(--grey); }
+.rule-cell:last-child .rule-tag { color: var(--red); }
+.rule-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.provocation-q {
+  background: var(--black);
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+  border-left: 8px solid var(--red);
+}
+.provocation-q p {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: .015em;
+}
+.provocation-q span { color: var(--yellow); }
+.provocation-q small {
+  display: block;
+  font-family: var(--font-s);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+
+.earn-box {
+  background: var(--white);
+  border: var(--rule);
+  padding: 1.75rem 2rem;
+  border-left: 6px solid var(--yellow);
+}
+.earn-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .75rem;
+}
+.earn-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* ─── TERRITORY ────────────────────────────────────────────────────── */
+.territory-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--white);
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+.territory-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  line-height: 1.7;
+  max-width: 800px;
+  margin-bottom: 2.5rem;
+}
+
+.pillar-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2rem;
+}
+.pillar-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.pillar-cell:last-child { border-right: none; }
+.pillar-num {
+  font-family: var(--font-d);
+  font-size: 3.5rem;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.pillar-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  color: var(--white);
+  margin-bottom: .75rem;
+  line-height: 1;
+}
+.pillar-body {
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.65;
+}
+.pillar-body strong { color: var(--yellow); font-weight: 800; }
+
+.battle-cry {
+  padding: 2rem;
+  border: 2px solid var(--yellow);
+  text-align: center;
+}
+.battle-cry p {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 3vw, 2.8rem);
+  color: var(--yellow);
+  letter-spacing: .04em;
+  line-height: 1.1;
+}
+
+/* ─── BIG IDEA ─────────────────────────────────────────────────────── */
+.big-idea-hero {
+  background: var(--black);
+  padding: 3rem var(--pad);
+}
+.bi-inner { max-width: 1440px; margin: 0 auto; }
+.bi-eyebrow {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+.bi-title {
+  font-family: var(--font-d);
+  font-size: clamp(4rem, 9vw, 10rem);
+  line-height: .82;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.bi-title span { color: var(--red); }
+.bi-descriptor {
+  font-size: clamp(.9rem, 1.2vw, 1.1rem);
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 3rem;
+}
+
+.idea-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.idea-pillar {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.idea-pillar:last-child { border-right: none; }
+.idea-pillar-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.idea-pillar-name {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.idea-pillar-body {
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.62);
+  line-height: 1.65;
+}
+
+/* ─── EXECUTION SYSTEM ─────────────────────────────────────────────── */
+.exec-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.exec-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--grey);
+  line-height: 1.7;
+  max-width: 760px;
+  margin-bottom: 2.5rem;
+}
+
+.exec-hero {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 8px solid var(--red);
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.exec-hero-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+}
+.exec-hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.exec-hero-body {
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.exec-hero-body em { font-style: italic; color: var(--red); font-weight: 700; }
+
+.exec-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.exec-step {
+  background: var(--white);
+  border: var(--rule);
+  padding: 1.75rem 2rem;
+  position: relative;
+}
+.exec-step-num {
+  font-family: var(--font-d);
+  font-size: 4rem;
+  color: var(--smoke);
+  line-height: 1;
+  position: absolute;
+  top: 1rem; right: 1.25rem;
+}
+.exec-step-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .5rem;
+}
+.exec-step-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.exec-step-body {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.exec-step-body strong { font-weight: 800; color: var(--red); }
+.exec-step-body em { font-style: italic; }
+
+.media-role {
+  background: var(--ink);
+  padding: 1.75rem 2rem;
+  border-left: 6px solid var(--red);
+}
+.media-role-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+}
+.media-role-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  line-height: 1.7;
+}
+
+/* ─── SYNTHESIS ────────────────────────────────────────────────────── */
+.synth-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.synth-inner { max-width: 1440px; margin: 0 auto; }
+
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.slide-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  padding: 1.75rem;
+  position: relative;
+}
+.slide-num {
+  font-family: var(--font-d);
+  font-size: 5rem;
+  color: rgba(255,255,255,.05);
+  line-height: 1;
+  position: absolute;
+  top: .5rem; right: 1rem;
+}
+.slide-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .6rem;
+}
+.slide-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 1.25rem;
+}
+.slide-bullets {
+  list-style: none;
+}
+.slide-bullets li {
+  display: flex;
+  gap: .75rem;
+  padding: .6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.55;
+}
+.slide-bullets li:last-child { border-bottom: none; padding-bottom: 0; }
+.slide-bullets li::before {
+  content: '\2192';
+  color: var(--yellow);
+  flex-shrink: 0;
+  margin-top: .05rem;
+}
+.slide-bullets li strong { font-weight: 800; color: rgba(255,255,255,.88); }
+.slide-bullets li em { color: var(--yellow); font-style: normal; }
+
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
+.page-footer {
+  background: var(--black);
+  padding: 2.5rem var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-wordmark {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: .25em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.footer-meta {
+  font-size: .65rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .gtb-grid, .truth-grid, .pillar-list { grid-template-columns: 1fr; }
+  .gtb-cell { border-right: none; border-bottom: var(--rule); }
+  .gtb-cell:last-child { border-bottom: none; }
+  .truth-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .truth-cell:last-child { border-bottom: none; }
+  .pillar-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .pillar-cell:last-child { border-bottom: none; }
+  .tension-row { grid-template-columns: 1fr; }
+  .tension-vs { display: none; }
+  .metrics-row { grid-template-columns: 1fr; gap: 1rem; }
+  .rule-break { grid-template-columns: 1fr; }
+  .rule-cell:first-child { border-right: none; border-bottom: var(--rule); }
+  .exec-steps { grid-template-columns: 1fr; }
+  .idea-pillars { grid-template-columns: 1fr; }
+  .idea-pillar { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .idea-pillar:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="phase-nav">
+  <a href="#phase1" class="pnav-btn active">01 &middot; Growth Brief</a>
+  <a href="#phase2" class="pnav-btn">02 &middot; Friction &amp; Insight</a>
+  <a href="#phase3" class="pnav-btn">03 &middot; Provocation</a>
+  <a href="#phase4" class="pnav-btn">04 &middot; Territory</a>
+  <a href="#phase5" class="pnav-btn">05 &middot; Big Idea</a>
+  <a href="#phase6" class="pnav-btn">06 &middot; Execution</a>
+  <a href="#phase7" class="pnav-btn">07 &middot; Synthesis</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN Intelligence Stack &middot; Strategy Sidekick Output</div>
+      <div class="header-title">Drop<br>the Act.</div>
+      <div class="header-sub">Coca-Cola &times; Gen Z &middot; India / APAC &middot; Brand Love to Purchase Behaviour</div>
+    </div>
+    <div class="header-kicker">
+      <div class="kicker-label">Campaign Window</div>
+      <div class="kicker-value">6 Months</div>
+      <div class="kicker-note">India + APAC &middot; Multi-Market</div>
+      <div class="kicker-label" style="margin-top:1.5rem;">Target Shift</div>
+      <div class="kicker-value">+12%</div>
+      <div class="kicker-note">Weekly Purchase Frequency</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 1: GROWTH BRIEF -->
+<section id="phase1">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 01</span>
+      <h2 class="phase-name">Growth Brief</h2>
+      <span class="phase-tagline">GET&ndash;TO&ndash;BY &middot; The Strategic Mandate</span>
+    </div>
+
+    <div class="gtb-grid">
+      <div class="gtb-cell">
+        <div class="gtb-tag">GET</div>
+        <p class="gtb-body">Gen Z consumers across India and APAC who warmly admire Coca-Cola as an iconic cultural monument but rarely drink it, choosing instead functional, identity-signaling beverage alternatives.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">TO</div>
+        <p class="gtb-body">Form a hard behavioural habit of reaching for a Coca-Cola, turning passive brand warmth into active daily transaction and cultural allegiance.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">BY</div>
+        <p class="gtb-body">Defamiliarizing Coke's legacy "happiness" messaging and confronting Gen Z with a provocative truth that transforms drinking a Coke into the ultimate, non-conformist counter-cultural identity signal.</p>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-value">+12%</div>
+        <div class="metric-label">Weekly Purchase Frequency Among Target Demographic</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">+8 pts</div>
+        <div class="metric-label">Brand Conversion Rate &mdash; Love-to-Purchase Ratio</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">3%</div>
+        <div class="metric-label">Market Share Reclaimed From Functional / Health Niche Beverages</div>
+      </div>
+    </div>
+
+    <div class="critique-box">
+      <div class="critique-tag">&#9888; Critique on Potential Weakness &middot; Non-Negotiables</div>
+      <p class="critique-body">Traditional teams will try to make this a functional product argument &mdash; "Coke gives you real energy." That kills the brand. The problem isn't that Gen Z doesn't know what Coke tastes like; it's that choosing a functional alternative makes them look modern, while choosing a Coke makes them look passive. We must tackle the identity economy head-on. <strong style="color:var(--yellow);">No clinical health claims. No boilerplate "Gen Z dancing in a montage" youth-washing templates. Do not pretend Coke is a prebiotic green tea.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2: FRICTION & INSIGHT -->
+<section id="phase2">
+  <div class="dark-section">
+    <div class="insight-inner">
+      <div class="phase-label">
+        <span class="phase-number">Phase 02</span>
+        <h2 class="phase-name">Friction &amp; Insight</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.4);">Three Truths &middot; The RTC Synthesis</span>
+      </div>
+
+      <h3 class="insight-headline">Coke is loved like a <em>museum</em>.<br>Not drunk like a habit.</h3>
+
+      <div class="truth-grid">
+        <div class="truth-cell">
+          <div class="truth-tag">Consumer Truth</div>
+          <p class="truth-body">Gen Z across APAC uses their beverage choices as public badges and identity signals to stand out, curate their personal brand, and broadcast their hyper-conscious values.</p>
+        </div>
+        <div class="truth-cell">
+          <div class="truth-tag">Cultural Truth</div>
+          <p class="truth-body">The wellness-inflected, optimization-obsessed culture of modern youth demands constant performative curated healthiness, turning daily food and drink into a public moral report card.</p>
+        </div>
+        <div class="truth-cell">
+          <div class="truth-tag">Category / Brand Truth</div>
+          <p class="truth-body">Coca-Cola is an undisputed global titan representing pure, unadulterated, unfiltered emotional and physical gratification &mdash; the literal antithesis of calculated self-optimization.</p>
+        </div>
+      </div>
+
+      <div class="tension-row">
+        <div class="tension-card">
+          <div class="tension-tag">The Love Signal</div>
+          <div class="tension-title">Brand Warmth</div>
+          <p class="tension-sub">Gen Z loves the idea of Coca-Cola. Awareness is high. Emotional affinity is real.</p>
+        </div>
+        <div class="tension-vs">VS</div>
+        <div class="tension-card">
+          <div class="tension-tag">The Purchase Gap</div>
+          <div class="tension-title">Zero Allegiance</div>
+          <p class="tension-sub">Holding a legacy soda looks like a failure to perform modern, curated identity-signaling. So they don't buy it.</p>
+        </div>
+      </div>
+
+      <div class="insight-pull">
+        <p>Gen Z believes they must constantly drink hyper-curated wellness beverages to signal a flawless identity &mdash; but <span>this obsessive self-curation is exhausting and deeply performative.</span> That is Coke's opening.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3: PROVOCATION -->
+<section id="phase3">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 03</span>
+      <h2 class="phase-name">Provocation</h2>
+      <span class="phase-tagline">Rule Breaking &middot; The Detonation Question</span>
+    </div>
+
+    <h3 class="prov-headline">Two Rules.<br>One Culture to Break.</h3>
+    <p class="prov-sub">Every category has an unspoken rule. Every culture has a tyrannical expectation. Both are now the target.</p>
+
+    <div class="rule-break">
+      <div class="rule-cell">
+        <div class="rule-tag">Category Rule &middot; Being Broken</div>
+        <p class="rule-body">Beverages must validate your clean, healthy, perfectly optimized, aspirational lifestyle facade. Every drink must signal that you are on a journey of self-improvement.</p>
+      </div>
+      <div class="rule-cell">
+        <div class="rule-tag">Cultural Norm &middot; Being Challenged</div>
+        <p class="rule-body">The modern tyrannical expectation that Gen Z must always perform flawless wellness, conscious curation, and pristine lifestyle aesthetics &mdash; every single day, on every single platform.</p>
+      </div>
+    </div>
+
+    <div class="provocation-q">
+      <small>Detonation Question</small>
+      <p>What if Coca-Cola stopped trying to look modern and instead <span>exposed Gen Z's obsession with functional wellness drinks as the ultimate corporate conformity?</span></p>
+    </div>
+
+    <div class="earn-box">
+      <div class="earn-tag">Why It Earns Attention</div>
+      <p class="earn-body">It attacks the very industry trying to displace Coke. It directly subverts the smug sanctimony of kombucha, prebiotic, and matcha culture by labeling it a performative, high-maintenance chore. It transforms a bottle of Coke from an "unhealthy choice" into a badge of pure, unbothered confidence. And no challenger brand can respond without destroying their own proposition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4: TERRITORY -->
+<section id="phase4">
+  <div class="dark-section">
+    <div class="insight-inner">
+      <div class="phase-label">
+        <span class="phase-number">Phase 04</span>
+        <h2 class="phase-name">Territory</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.4);">The Radical Uncuration &middot; Cultural Space Claimed</span>
+      </div>
+
+      <h3 class="territory-headline">The Radical Uncuration</h3>
+      <p class="territory-lead">A space of raw, liberating, rebellious freedom. The bold decision to step off the performative treadmill of modern self-optimization, functional lifestyle tracking, and premium wellness aesthetics. The unapologetic return to unfiltered human pleasure and unbothered personal authenticity.</p>
+
+      <div class="pillar-list">
+        <div class="pillar-cell">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Brand Right to Own</div>
+          <p class="pillar-body">Coca-Cola is the world's most enduring icon of uncomplicated, unpretentious happiness. It doesn't need to invent credentials. It is the <strong>original, authentic antidote</strong> to overthought, hyper-marketed modern trends.</p>
+        </div>
+        <div class="pillar-cell">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Structural Moat</div>
+          <p class="pillar-body">Challenger functional drinks &mdash; kombuchas, prebiotic elixirs, functional wellness sodas &mdash; are <strong>structurally incapable</strong> of playing here. Their entire business models depend on consumers remaining anxious and obsessed with optimization.</p>
+        </div>
+        <div class="pillar-cell">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Emotional Core</div>
+          <p class="pillar-body">This territory does not ask Gen Z to abandon identity. It offers them a <strong>better, braver identity</strong>: the person confident enough to stop performing, stop tracking, and just be.</p>
+        </div>
+      </div>
+
+      <div class="battle-cry">
+        <p>The only brand old enough to be new again.<br>The only choice radical enough to be authentic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: BIG IDEA -->
+<section id="phase5">
+  <div class="big-idea-hero">
+    <div class="bi-inner">
+      <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+        <span class="phase-number" style="color:var(--red);">Phase 05</span>
+        <h2 class="phase-name" style="color:var(--white);">Big Idea</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.35);">Platform Concept &middot; Regional Scale</span>
+      </div>
+      <div class="bi-eyebrow">The Platform</div>
+      <div class="bi-title">Drop<br><span>The Act.</span></div>
+      <p class="bi-descriptor">A massive regional platform that reframes the drinking of a real, ice-cold Coca-Cola as a defiant statement against the performative exhausting culture of Gen Z lifestyle curation. It directly challenges the region's youth to put down the over-expensive, status-seeking functional elixirs and proudly choose unadulterated pleasure over performative health theater.</p>
+
+      <div class="idea-pillars">
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">Scalability</div>
+          <div class="idea-pillar-name">Omni-Channel &amp; Confrontational</div>
+          <p class="idea-pillar-body">Fuels confrontational out-of-home placement, drives raw unedited social mechanics that mock curation filters, anchors real-world experiential interventions, and generates aggressive PR controversy across India and APAC.</p>
+        </div>
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">Hard to Copy</div>
+          <div class="idea-pillar-name">The Structural Kill Shot</div>
+          <p class="idea-pillar-body">No niche wellness challenger brand can copy this. If they say "drop the act," they destroy their own curated, functional identity-badge marketing. The platform is a strategic trap that only Coke can spring.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 6: EXECUTION SYSTEM -->
+<section id="phase6">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 06</span>
+      <h2 class="phase-name">Execution System</h2>
+      <span class="phase-tagline">Five-Vector &middot; Earned-First Architecture</span>
+    </div>
+
+    <h3 class="exec-headline">Weaponize the Medium.<br>Ambush the Occasion.</h3>
+    <p class="exec-lead">Each execution vector is designed to intercept Gen Z precisely where they feel the maximum pressure to perform their curated wellness persona &mdash; and detonate there.</p>
+
+    <div class="exec-hero">
+      <div class="exec-hero-tag">Hero Execution &middot; Film</div>
+      <div class="exec-hero-title">"The Performance Review"</div>
+      <p class="exec-hero-body">A cinematic, highly provocative film launching across APAC that follows a Gen Z protagonist enduring a grueling, absurd day of performative identity maintenance &mdash; drinking chalky functional elixirs, tracking wellness metrics, taking flawless aesthetic photos. At their breaking point of performative exhaustion, they walk away, buy a classic glass bottle of Coca-Cola, take a deep drink, and look at the camera with absolute, liberating defiance. The tagline hits: <em>Drop the Act. Real Taste. Real Happiness.</em></p>
+    </div>
+
+    <div class="exec-steps">
+      <div class="exec-step">
+        <div class="exec-step-num">02</div>
+        <div class="exec-step-tag">Earned / PR Hook</div>
+        <div class="exec-step-title">The Performative Wellness Amnesty</div>
+        <p class="exec-step-body">Massive pop-up trade-in initiative in capital cities &mdash; <strong>Mumbai, Jakarta, Sydney, Singapore.</strong> For three days, youth can drop off their half-empty, overpriced functional prebiotics and status matcha drinks into giant transparent drop boxes. In return: a classic ice-cold Coca-Cola, free. The visual of mountains of discarded challenger brands drives immense lifestyle and business news coverage.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">03</div>
+        <div class="exec-step-tag">Social Mechanics</div>
+        <div class="exec-step-title">The #UncuratedFilter</div>
+        <p class="exec-step-body">Coca-Cola hijacks TikTok and Instagram by introducing an <strong>anti-aesthetic filter</strong> that intentionally breaks or strips away glamorous lifestyle alterations, smooth lighting, and curated backgrounds &mdash; encouraging users to post their raw, messy, authentic late-night moments while grabbing a real Coke. Curation culture turns on itself.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">04</div>
+        <div class="exec-step-tag">Owned Platform Role</div>
+        <div class="exec-step-title">The Act-Free Zone</div>
+        <p class="exec-step-body">Coke App transforms into an "Act-Free Zone," locking out notifications, algorithmic tracking, and optimization metrics. Users are rewarded with instant localized commerce vouchers for real-time quick-commerce delivery whenever they click one button: <strong>"I need a break from performing."</strong></p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">05</div>
+        <div class="exec-step-tag">Paid Media Amplification</div>
+        <div class="exec-step-title">Strategic Ambush OOH</div>
+        <p class="exec-step-body">Highly targeted contextual outdoor ads placed <strong>directly next to luxury gyms, premium salad bars, organic wellness grocers, and sub-trend juice spots</strong>, reading: <em>"Is it actually making you happy, or is it just matching your outfit? Drop the Act."</em></p>
+      </div>
+    </div>
+
+    <div class="media-role">
+      <div class="media-role-tag">Role of Media as Creative Idea</div>
+      <p class="media-role-body">Media is weaponized as a strategic ambush. Instead of mass broadcasting to everyone, placements disrupt the physical locations where Gen Z feels maximum pressure to perform their curated wellness personas. The medium is not the megaphone &mdash; it is the provocation itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 7: SYNTHESIS -->
+<div class="synth-section" id="phase7">
+  <div class="synth-inner">
+    <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+      <span class="phase-number" style="color:var(--yellow);">Phase 07</span>
+      <h2 class="phase-name" style="color:var(--white);">Synthesis</h2>
+      <span class="phase-tagline" style="color:rgba(255,255,255,.35);">7-Slide Distillation</span>
+    </div>
+
+    <div class="slide-grid">
+      <div class="slide-card">
+        <div class="slide-num">01</div>
+        <div class="slide-tag">Slide 01 &middot; Challenge</div>
+        <div class="slide-title">Loved Like a Monument. Ignored Like One Too.</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Symptom:</strong> Awareness is high. Emotional affinity is real. Purchase frequency is in freefall among the most valuable generation in APAC.</div></li>
+          <li><div><strong>The Leak:</strong> Brand love is institutional, not habitual. Gen Z admires Coke the way they admire a museum &mdash; from a distance, with warmth, without returning.</div></li>
+          <li><div><strong>The Mission:</strong> Close the gap between love and allegiance. Turn warmth into transaction.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">02</div>
+        <div class="slide-tag">Slide 02 &middot; Insight</div>
+        <div class="slide-title">The Identity Tax</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Trap:</strong> Gen Z doesn't avoid Coke because they dislike it. They avoid it because choosing a functional alternative signals modern identity. Choosing Coke signals nothing &mdash; or worse.</div></li>
+          <li><div><strong>The Exhaustion:</strong> The performative wellness treadmill is relentless, expensive, and increasingly hollow. Nobody's talking about this openly.</div></li>
+          <li><div><strong>The Opportunity:</strong> Coke is the only brand with permission to call this out and mean it.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">03</div>
+        <div class="slide-tag">Slide 03 &middot; Provocation</div>
+        <div class="slide-title">Kombucha is the New Conformity</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Reframe:</strong> Functional wellness drinks are not an act of rebellion. They are the most aggressively marketed, corporate-engineered conformity Gen Z has ever swallowed.</div></li>
+          <li><div><strong>The Flip:</strong> Reaching for a Coke &mdash; unapologetically, publicly &mdash; is now the braver, more original choice.</div></li>
+          <li><div><strong>The Mandate:</strong> Stop defending Coke. Attack the pretenders. Make authenticity the scarce resource.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">04</div>
+        <div class="slide-tag">Slide 04 &middot; Territory</div>
+        <div class="slide-title">The Radical Uncuration</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Space:</strong> Raw, liberating, rebellious freedom. The decision to step off the performative treadmill of modern self-optimization.</div></li>
+          <li><div><strong>The Moat:</strong> No challenger brand can play here without destroying their own proposition. This territory belongs only to Coke.</div></li>
+          <li><div><strong>The Core:</strong> Not anti-health. Anti-performance. The difference is everything.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">05</div>
+        <div class="slide-tag">Slide 05 &middot; Big Idea</div>
+        <div class="slide-title">Drop the Act.</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Platform:</strong> A regional movement that reframes drinking a real Coca-Cola as a defiant act against performative exhaustion culture.</div></li>
+          <li><div><strong>The Logic:</strong> Choose unadulterated pleasure over health theater. Choose the real thing over the curated thing. Choose to stop performing.</div></li>
+          <li><div><strong>The Tagline:</strong> <em>Drop the Act. Real Taste. Real Happiness.</em></div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">06</div>
+        <div class="slide-tag">Slide 06 &middot; Executions</div>
+        <div class="slide-title">Five Vectors. One Detonation.</div>
+        <ul class="slide-bullets">
+          <li><div><strong>"The Performance Review" Film:</strong> Cinematic APAC hero content. One exhausted protagonist. One bottle of Coke. Absolute defiance.</div></li>
+          <li><div><strong>Performative Wellness Amnesty:</strong> Pop-up trade-in events across Mumbai, Jakarta, Sydney, Singapore. Drop your elixir, get a Coke.</div></li>
+          <li><div><strong>#UncuratedFilter + Act-Free Zone + OOH Ambush:</strong> Social, owned, and paid working together as a single ambush system against the wellness complex.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">07</div>
+        <div class="slide-tag">Slide 07 &middot; Why It Works</div>
+        <div class="slide-title">The Logic Closes</div>
+        <ul class="slide-bullets">
+          <li><div><strong>It Attacks, Not Defends:</strong> Coke stops justifying its existence and starts exposing the competition's absurdity. Aggression converts attention into allegiance.</div></li>
+          <li><div><strong>It's Structurally Uncopyable:</strong> The "drop the act" positioning is a death trap for any wellness challenger. If they copy it, they're finished. If they don't, Coke owns the counterculture.</div></li>
+          <li><div><strong>It Solves the Right Problem:</strong> This isn't a taste problem, an awareness problem, or a media spend problem. It's an identity problem. And this is the first strategy that treats it as one.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-wordmark">antigen</div>
+  <div class="footer-meta">
+    Strategy Output &middot; Coca-Cola &times; Gen Z &middot; India / APAC<br>
+    ANTIGEN Intelligence Stack &middot; Phase 01&ndash;07 &middot; Confidential
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section[id], div[id]');
+const btns = document.querySelectorAll('.pnav-btn');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      btns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
