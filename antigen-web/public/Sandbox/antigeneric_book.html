@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTIGENERIC: The Biological Blueprint for Defeating Global Sameness</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    /* --------------------------------------------------------------------------------
+       ANTIGEN V3 Design System CSS
+       Derived from the ANTIGEN Design Guide: red/magenta manifesto fields, white evidence spreads,
+       brutal uppercase typography, insurgent overlays, and sharp diagnostic components.
+       -------------------------------------------------------------------------------- */
+
+    :root {
+      /* Brand colors */
+      --color-red: #e31d28;
+      --color-magenta: #e3195b;
+      --color-crimson: #b11226;
+      --color-black: #111111;
+      --color-ink: #1e1c17;
+      --color-white: #ffffff;
+      --color-paper: #f8f7f6;
+      --color-smoke: #e8e8e8;
+      --color-grey: #9fa2a4;
+      --color-blue: #08a7d8;
+      --color-yellow: #ffc000;
+
+      /* Semantic colors */
+      --bg-primary: var(--color-white);
+      --bg-paper: var(--color-paper);
+      --bg-insurgence: var(--color-red);
+      --text-primary: var(--color-black);
+      --text-muted: #6e6e6e;
+      --text-inverse: var(--color-white);
+      --accent-primary: var(--color-red);
+      --accent-secondary: var(--color-magenta);
+      --accent-signal: var(--color-yellow);
+
+      /* Gradients */
+      --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+      --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+      --gradient-evidence: linear-gradient(180deg, #ffffff 0%, #f8f7f6 100%);
+
+      /* Typography */
+      --font-display: 'Bebas Neue', 'Oswald', Impact, 'Arial Narrow', sans-serif;
+      --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --font-special: 'Special Elite', 'Courier New', monospace;
+
+      /* Type scale */
+      --type-hero: clamp(3.5rem, 10vw, 11rem);
+      --type-display: clamp(2.5rem, 7vw, 7rem);
+      --type-title: clamp(1.8rem, 4.5vw, 4rem);
+      --type-subtitle: clamp(1.1rem, 2vw, 2rem);
+      --type-body: clamp(0.95rem, 1.1vw, 1.125rem);
+      --type-small: .82rem;
+      --type-micro: .68rem;
+
+      /* Spacing */
+      --space-1: .25rem;
+      --space-2: .5rem;
+      --space-3: .75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --space-9: 6rem;
+      --space-10: 8rem;
+      --page-pad: clamp(1.5rem, 5vw, 4.5rem);
+
+      /* Layout */
+      --max-page: 1440px;
+      --grid-gap: clamp(1rem, 2vw, 2rem);
+      --rule: 1px solid rgba(17, 17, 17, .14);
+      --shadow-hard: 10px 10px 0 rgba(17, 17, 17, .95);
+      --shadow-red: 10px 10px 0 rgba(227, 29, 40, .95);
+      --shadow-yellow: 10px 10px 0 rgba(255, 192, 0, .95);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border-radius: 0 !important; /* Design Guide Principle: Always 0 border radius */
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: var(--type-body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    img, svg, video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: .08em;
+      text-underline-offset: .18em;
+    }
+
+    ::selection {
+      background: var(--color-yellow);
+      color: var(--color-black);
+    }
+
+    /* Typography Classes */
+    .kicker,
+    .meta,
+    .caption,
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: var(--type-micro);
+      font-weight: 900;
+      letter-spacing: .15em;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "— ";
+      color: var(--color-red);
+    }
+
+    .display-hero,
+    .display-section,
+    .display-title,
+    .force-title,
+    .word-wall-statement {
+      font-family: var(--font-display);
+      font-weight: 400;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .display-hero {
+      font-size: var(--type-hero);
+      line-height: .76;
+      letter-spacing: -.035em;
+    }
+
+    .display-section {
+      font-size: var(--type-display);
+      line-height: .82;
+      letter-spacing: -.03em;
+    }
+
+    .display-title {
+      font-size: var(--type-title);
+      line-height: .9;
+      letter-spacing: -.025em;
+    }
+
+    .editorial-headline {
+      font-family: var(--font-sans);
+      font-size: var(--type-title);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .body-large {
+      font-size: clamp(1.1rem, 1.6vw, 1.65rem);
+      line-height: 1.4;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+
+    .body-copy {
+      max-width: 62ch;
+      font-weight: 500;
+    }
+
+    .pull-quote {
+      font-family: var(--font-special);
+      font-size: clamp(1rem, 1.2vw, 1.35rem);
+      line-height: 1.45;
+      letter-spacing: -.02em;
+      border-left: 3px solid var(--color-red);
+      padding-left: var(--space-4);
+      margin-block: var(--space-4);
+      color: var(--color-ink);
+    }
+
+    .dark .pull-quote {
+      color: rgba(255, 255, 255, 0.95);
+      border-left-color: var(--color-yellow);
+    }
+
+    .text-red { color: var(--color-red); }
+    .text-magenta { color: var(--color-magenta); }
+    .text-blue { color: var(--color-blue); }
+    .text-yellow { color: var(--color-yellow); }
+    .text-white { color: var(--color-white); }
+    .text-muted { color: var(--text-muted); }
+
+    .text-outline-light {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, .7);
+    }
+
+    .text-outline-dark {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(17, 17, 17, .8);
+    }
+
+    /* Page layouts */
+    .page-shell {
+      width: min(100%, var(--max-page));
+      margin-inline: auto;
+    }
+
+    .section {
+      position: relative;
+      padding: var(--space-8) var(--page-pad);
+      overflow: hidden;
+    }
+
+    .section-full {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+    }
+
+    .grid-12 {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .grid-evidence {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(320px, 7fr);
+      gap: clamp(2rem, 6vw, 7rem);
+      align-items: center;
+    }
+
+    .grid-triptych {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1.25rem, 3vw, 3rem);
+    }
+
+    /* Territories */
+    .territory-red {
+      background: var(--gradient-insurgence);
+      color: var(--text-inverse);
+    }
+
+    .territory-white {
+      background: var(--gradient-evidence);
+      color: var(--text-primary);
+    }
+
+    .territory-black {
+      background: var(--color-black);
+      color: var(--text-inverse);
+    }
+
+    .territory-paper {
+      background: var(--color-paper);
+    }
+
+    /* Sticky Navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-black);
+      border-bottom: 2px solid var(--color-red);
+      padding: 1rem var(--page-pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      color: var(--color-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-logo span {
+      color: var(--color-red);
+    }
+
+    .section-nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      color: rgba(255, 255, 255, .45);
+    }
+
+    .section-nav a {
+      text-decoration: none;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .section-nav a:hover {
+      color: var(--color-white);
+    }
+
+    .section-nav .active {
+      color: var(--color-yellow) !important;
+      font-weight: 900;
+      border-bottom: 2px solid var(--color-yellow);
+    }
+
+    /* Hero manifesto (Graphics Removed - Strict Brutalist Center Column) */
+    .hero-manifesto {
+      position: relative;
+      min-height: calc(100vh - 60px);
+      padding: var(--space-8) var(--page-pad);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--gradient-insurgence);
+      color: var(--color-white);
+      overflow: hidden;
+    }
+
+    .hero-manifesto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, .25), transparent 60%),
+        linear-gradient(180deg, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, .3) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin-inline: auto;
+    }
+
+    .hero-subline {
+      max-width: 780px;
+      margin-top: var(--space-4);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 2vw, 1.75rem);
+      line-height: 1.35;
+      letter-spacing: -.02em;
+    }
+
+    /* Evidence Block styling */
+    .evidence-block {
+      background: var(--color-white);
+      border: var(--rule);
+      padding: clamp(1.5rem, 2.5vw, 2.5rem);
+      position: relative;
+      box-shadow: var(--shadow-hard);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+
+    .evidence-block:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 12px 12px 0 var(--color-red);
+    }
+
+    .evidence-block.is-pinned::before {
+      content: 'EVIDENCE ROOM';
+      position: absolute;
+      top: -0.6rem;
+      left: 1rem;
+      background: var(--color-red);
+      color: var(--color-white);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .evidence-number {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      line-height: .8;
+      letter-spacing: -.03em;
+      color: var(--color-black);
+    }
+
+    .evidence-caption {
+      margin-top: var(--space-3);
+      color: var(--color-red);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      font-size: 0.85rem;
+    }
+
+    /* Force cards */
+    .force-card {
+      border-top: 6px solid var(--color-red);
+      padding-top: var(--space-4);
+      min-height: 280px;
+      background: var(--color-paper);
+      padding: var(--space-5);
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .force-card:hover {
+      background: var(--color-white);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hard);
+    }
+
+    .force-card .kicker {
+      color: var(--color-red);
+      margin-bottom: var(--space-3);
+    }
+
+    .force-title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: .85;
+      color: var(--color-red);
+      letter-spacing: -.035em;
+      margin-bottom: var(--space-3);
+    }
+
+    .force-card p {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--color-ink);
+    }
+
+    /* Torn signal */
+    .torn-signal {
+      background: var(--color-yellow);
+      color: var(--color-black);
+      padding: clamp(1.5rem, 4vw, 3.5rem);
+      clip-path: polygon(2% 0%, 98% 4%, 100% 96%, 0% 98%, 3% 50%);
+      box-shadow: var(--shadow-hard);
+    }
+
+    .torn-signal .signal-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: .85;
+      text-transform: uppercase;
+      margin: 0 0 var(--space-4);
+    }
+
+    /* Word wall */
+    .word-wall {
+      position: relative;
+      min-height: 40vh;
+      display: grid;
+      align-items: center;
+      background: var(--gradient-insurgence);
+      color: var(--color-white);
+      padding: var(--space-8) var(--page-pad);
+      overflow: hidden;
+    }
+
+    .word-wall-terms {
+      position: absolute;
+      inset: var(--space-6) var(--page-pad);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .6rem 2rem;
+      opacity: 0.25;
+      font-weight: 800;
+      font-size: clamp(.7rem, 1vw, 1rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+      pointer-events: none;
+    }
+
+    .word-wall-statement {
+      position: relative;
+      z-index: 2;
+      color: var(--color-black);
+      font-size: clamp(3rem, 10vw, 7.5rem);
+      line-height: .8;
+      letter-spacing: -.04em;
+      max-width: 1100px;
+    }
+
+    /* Diagnostic widget inside Black territory */
+    .diagnostic-widget {
+      background: #151515;
+      border: 1px solid rgba(255, 255, 255, .1);
+      padding: var(--space-6);
+      color: var(--color-white);
+      box-shadow: var(--shadow-red);
+    }
+
+    .diagnostic-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: var(--space-5);
+    }
+
+    .diagnostic-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #1f1f1f;
+      padding: 1rem;
+      border: 1px solid #333;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .diagnostic-option:hover {
+      border-color: var(--color-red);
+      background: #252525;
+    }
+
+    .diagnostic-option input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      accent-color: var(--color-red);
+      margin-top: 0.15rem;
+      cursor: pointer;
+    }
+
+    .diagnostic-option-text h4 {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--color-paper);
+      margin-bottom: 0.25rem;
+    }
+
+    .diagnostic-option-text p {
+      font-size: 0.85rem;
+      color: var(--color-grey);
+    }
+
+    .results-display {
+      background: #0d0d0d;
+      border-left: 6px solid var(--color-yellow);
+      padding: var(--space-5);
+      margin-top: var(--space-5);
+    }
+
+    /* Moat Simulator Engine (Chapter 12) */
+    .slider-container {
+      width: 100%;
+      margin: 2rem 0;
+    }
+
+    .moat-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 10px;
+      background: #2a2a2a;
+      outline: none;
+      border: 1px solid var(--color-black);
+      cursor: pointer;
+    }
+
+    .moat-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: var(--color-red);
+      border: 1px solid var(--color-white);
+      cursor: pointer;
+      transition: background-color 0.1s;
+    }
+
+    .moat-slider::-webkit-slider-thumb:hover {
+      background: var(--color-yellow);
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .moat-card-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .moat-stat-card {
+      background: var(--color-paper);
+      border: var(--rule);
+      padding: 1rem;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .moat-stat-card h5 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .moat-stat-card .value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      line-height: 1.1;
+      color: var(--color-black);
+      word-wrap: break-word;
+    }
+
+    /* 30-Day Tracker interactive styles */
+    .tabs-header {
+      display: flex;
+      border-bottom: 2px solid var(--color-smoke);
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: none;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      color: var(--color-red);
+      border-bottom: 4px solid var(--color-red);
+      margin-bottom: -2px;
+    }
+
+    .journey-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.75rem;
+    }
+
+    .day-card {
+      background: var(--color-white);
+      border: var(--rule);
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100px;
+    }
+
+    .day-card:hover {
+      border-color: var(--color-red);
+      box-shadow: 4px 4px 0 var(--color-red);
+    }
+
+    .day-card.active {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-color: var(--color-black);
+      box-shadow: 4px 4px 0 var(--color-yellow);
+    }
+
+    .day-card .day-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .day-card .day-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .briefing-box {
+      background: var(--color-paper);
+      border-left: 6px solid var(--color-red);
+      padding: 2rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow-hard);
+    }
+
+    /* Manifesto Board Structure (Infographic Visuals) */
+    .manifesto-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .manifesto-phase {
+      border: var(--rule);
+      background: var(--color-white);
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: var(--shadow-hard);
+      transition: all 0.3s ease;
+    }
+
+    .manifesto-phase:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--color-red);
+    }
+
+    .phase-num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--color-smoke);
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      z-index: 1;
+    }
+
+    .phase-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Highly structured Book Map / Accordion explorer */
+    .part-header {
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 1.25rem 2rem;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-top: 2px solid var(--color-red);
+      box-shadow: var(--shadow-hard);
+    }
+
+    .part-header:hover {
+      background: #181818;
+    }
+
+    .chapter-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 0; /* Clear baseline stack controlled by part-blocks */
+    }
+
+    .part-block {
+      border: 1px solid rgba(17, 17, 17, 0.15);
+      background: var(--color-white);
+      margin-bottom: 3.5rem; /* Required Change: Substantial spacing in between book parts */
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chapter-row {
+      border-top: 1px solid var(--color-smoke);
+      padding: 1.25rem 2rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chapter-row:hover {
+      background-color: var(--color-paper);
+    }
+
+    .chapter-info h4 {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--color-black);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .chapter-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .chapter-toggle-icon {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--color-red);
+    }
+
+    .chapter-details {
+      display: none;
+      padding: 2.5rem 2rem;
+      background: var(--color-paper);
+      border-top: 1px solid var(--color-smoke);
+      animation: expandFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes expandFade {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: var(--color-red);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .concept-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      background: var(--color-smoke);
+      color: var(--color-black);
+      padding: 0.25rem 0.6rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: .85rem 1.5rem;
+      border: 1px solid var(--color-black);
+      background: transparent;
+      color: currentColor;
+      font-family: var(--font-sans);
+      font-size: .8rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 4px 4px 0 var(--color-black);
+    }
+
+    .button:hover {
+      background: var(--color-black);
+      border-color: var(--color-black);
+      color: var(--color-white);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+
+    .button-red {
+      background: var(--color-red);
+      border-color: var(--color-black);
+      color: var(--color-white);
+      box-shadow: 4px 4px 0 var(--color-black);
+    }
+
+    .button-red:hover {
+      background: var(--color-crimson);
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+
+    .button-yellow {
+      background: var(--color-yellow);
+      border-color: var(--color-black);
+      color: var(--color-black);
+      box-shadow: 4px 4px 0 var(--color-black);
+    }
+
+    .button-yellow:hover {
+      background: var(--color-black);
+      color: var(--color-white);
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+
+    /* Modal / Alert overlays */
+    .custom-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--page-pad);
+    }
+
+    .custom-modal {
+      background: var(--color-white);
+      color: var(--color-black);
+      max-width: 650px;
+      width: 100%;
+      border: 1px solid var(--color-black);
+      box-shadow: var(--shadow-red);
+      padding: var(--space-6);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--color-red);
+      cursor: pointer;
+    }
+
+    /* Grid helper variations */
+    .grid-manifesto-column {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .manifesto-board {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .journey-days-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .grid-evidence,
+      .grid-triptych,
+      .hero-manifesto {
+        grid-template-columns: 1fr;
+      }
+
+      .moat-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      :root {
+        --page-pad: 1.15rem;
+      }
+
+      .display-hero {
+        font-size: clamp(3rem, 15vw, 6rem);
+      }
+
+      .section {
+        padding-block: var(--space-6);
+      }
+
+      .sticky-nav {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .manifesto-board {
+        grid-template-columns: 1fr;
+      }
+
+      .moat-card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .journey-days-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top-Aligned System Navigation Header -->
+  <nav class="sticky-nav">
+    <a href="#" class="brand-logo">
+      ANTIGEN<span>ERIC</span>
+    </a>
+    <div class="section-nav" id="main-nav">
+      <a href="#prelude" class="active" onclick="setActiveNav(this)">0. PRELUDE</a>
+      <a href="#manifesto" onclick="setActiveNav(this)">1. MANIFESTO</a>
+      <a href="#book-map" onclick="setActiveNav(this)">2. BOOK MAP</a>
+      <a href="#diagnostic" onclick="setActiveNav(this)">3. DIAGNOSTIC</a>
+      <a href="#moats" onclick="setActiveNav(this)">4. MOATS</a>
+      <a href="#journey" onclick="setActiveNav(this)">5. JOURNEY</a>
+    </div>
+  </nav>
+
+  <!-- Section 0: PRELUDE (Red Opener Territory - Graphics Removed) -->
+  <header id="prelude" class="hero-manifesto">
+    <div class="hero-content">
+      <div class="kicker text-yellow" style="margin-bottom: 1rem; display: inline-block; background: var(--color-black); padding: 0.2rem 0.6rem;">0. INTRODUCTORY PROPHECY</div>
+      <h1 class="display-hero">THE AGE OF AVERAGE<br>MUST END IN<br><span class="text-yellow">INSURGENCE</span></h1>
+      <p class="hero-subline">
+        The Homogeneocene is here. Algorithms have replaced cognition, "best practices" have destroyed differentiation, and templates have flattened aesthetics. Here is the biological blueprint to survive the corporate flatness.
+      </p>
+      <div class="stack-md" style="margin-top: 2rem;">
+        <p class="body-large text-white max-50" style="opacity: 0.95; margin-inline: auto;">
+          A manifesto for the post-algorithm economy. Learn to diagnose pathogens, insert antigens, generate antibodies, and build sustained immunity.
+        </p>
+        <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-top: 1.8rem;">
+          <a href="#book-map" class="button button-yellow">EXPLORE THE BLUEPRINT</a>
+          <a href="#diagnostic" class="button">RUN DIAGNOSTIC</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: MANIFESTO (Brutalist Infographic Board, Red/Black Territory) -->
+  <section id="manifesto" class="territory-black" style="border-top: 2px solid var(--color-red);">
+    <div class="page-shell">
+      
+      <div class="stack-sm" style="border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 2rem; margin-bottom: 3rem;">
+        <span class="kicker text-yellow">1. THE POST-ALGORITHM ECONOMY MANIFESTO</span>
+        <h2 class="display-section">THE FOUR PHASES OF THE BLUEPRINT</h2>
+        <p class="body-large text-grey max-70">
+          The economics of authenticity are shifting. When optimization is cheap and automated, standardized efficiency fails to differentiate. Distinctiveness requires a structured biological response.
+        </p>
+      </div>
+
+      <!-- Manifesto board exactly capturing visual data from "Antigeneric__Post-Algorithm_Economy_Manifesto.png" -->
+      <div class="manifesto-board">
+        
+        <!-- Phase 1 -->
+        <div class="manifesto-phase">
+          <div class="phase-num">1</div>
+          <div class="phase-content">
+            <span class="meta text-red">Phase 1: Diagnosis</span>
+            <h3 class="display-title" style="font-size: 2.2rem; color: var(--color-black); margin-block: 0.5rem 1rem; border-bottom: 2px solid var(--color-red); padding-bottom: 0.25rem;">THE HOMOGENEOCENE</h3>
+            <div class="stack-sm" style="color: var(--color-ink);">
+              <p><strong>The Age of Average:</strong> Algorithmic optimization has consolidated aesthetic, strategic, and functional traits. 52% of Fortune 500 corporations from 2000 are extinct today.</p>
+              <p><strong>The Curiosity Crisis:</strong> Organizations systematically suffocate inquiry because questioning looks like structural inefficiency.</p>
+              <div style="background: var(--color-paper); padding: 0.75rem; border: 1px solid rgba(0,0,0,0.1); margin-top: 1rem;">
+                <span class="kicker" style="font-size: 0.65rem; color: var(--color-crimson);">THE PATHOGENS OF SAMENESS</span>
+                <p style="font-size: 0.8rem; font-family: var(--font-mono); margin-top: 0.25rem;">• Data Analytics<br>• Best Practice Proliferation<br>• Platform Homogenization<br>• Risk Aversion Spirals<br>• Specialization Myopia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="manifesto-phase">
+          <div class="phase-num">2</div>
+          <div class="phase-content">
+            <span class="meta text-red">Phase 2: Insertion</span>
+            <h3 class="display-title" style="font-size: 2.2rem; color: var(--color-black); margin-block: 0.5rem 1rem; border-bottom: 2px solid var(--color-red); padding-bottom: 0.25rem;">BIOLOGICAL INTRUSION</h3>
+            <div class="stack-sm" style="color: var(--color-ink);">
+              <p><strong>Diagnosing Pathogens:</strong> Read the symptoms of stagnation and trace them back to their root operational causes in Market, Tech, or Sourcing pipelines.</p>
+              <p><strong>Inserting Antigens:</strong> Deliberately introduce highly targeted positive provocations—uncomfortable questions, alien talent, or outsider perspectives—to force the system to react.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="manifesto-phase">
+          <div class="phase-num">3</div>
+          <div class="phase-content">
+            <span class="meta text-red">Phase 3: Culture</span>
+            <h3 class="display-title" style="font-size: 2.2rem; color: var(--color-black); margin-block: 0.5rem 1rem; border-bottom: 2px solid var(--color-red); padding-bottom: 0.25rem;">ANTIGENERIC CELLS</h3>
+            <div class="stack-sm" style="color: var(--color-ink);">
+              <p><strong>Generating Antibodies:</strong> Build targeted, uncopyable capabilities and structural trade-offs (e.g. Dissent, Friction, Ritual Destruction) sparked directly by the inserted antigens.</p>
+              <p><strong>Productive Rebellion:</strong> Shift breakthrough innovation outside standard permission gates. Real solutions are grown, not installed by advisors.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="manifesto-phase">
+          <div class="phase-num">4</div>
+          <div class="phase-content">
+            <span class="meta text-red">Phase 4: Moats</span>
+            <h3 class="display-title" style="font-size: 2.2rem; color: var(--color-black); margin-block: 0.5rem 1rem; border-bottom: 2px solid var(--color-red); padding-bottom: 0.25rem;">NEW RULES</h3>
+            <div class="stack-sm" style="color: var(--color-ink);">
+              <p><strong>Sustaining Immunity:</strong> Construct durable safeguards that actively protect distinctiveness from quarterly cannibalization and standard corporate gravity-drift.</p>
+              <p><strong>Friction & Opacity:</strong> Reclaiming un-automatable human experiences and secure internal parameters that digital systems cannot clone or capture.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 2: BOOK MAP (White Evidence Territory - Deep Chapter Explorer) -->
+  <section id="book-map" class="territory-white">
+    <div class="page-shell">
+      
+      <div class="stack-sm" style="border-bottom: 2px solid var(--color-black); padding-bottom: 2rem; margin-bottom: 3.5rem;">
+        <span class="kicker text-red">2. COMPREHENSIVE BOOK BLUEPRINT</span>
+        <h2 class="display-section">THE 4 PARTS & 13 CHAPTERS</h2>
+        <p class="body-large text-muted max-70">
+          The complete, granular layout of <em>ANTIGENERIC: Breaking Through Growth in the Age of Average</em>. Expand each Part below to drill down into Chapter summaries, core concepts, and insurgent typewriter-styled pull-quotes.
+        </p>
+      </div>
+
+      <div class="chapter-tree">
+        
+        <!-- Part 1 Block -->
+        <div class="part-block">
+          <div class="part-header" onclick="togglePart('part-one-list', this)">
+            <span>PART ONE: ENSHITTIFICATION OF EVERYTHING</span>
+            <span class="part-toggle-symbol">—</span>
+          </div>
+          <div class="chapter-list" id="part-one-list" style="display: block;">
+            
+            <!-- Ch 1 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 1: The Age of Average</h4>
+                <p>The "Great Convergence" flattening global metrics, aesthetics, and sports.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Strategic and aesthetic convergence is flattening industries worldwide. From WeWork-style Scandinavian coffee shops to identical sans-serif fashion house logos, individual identity is being traded for digital legibility.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">The Homogeneocene</span>
+                <span class="concept-tag">Blanding</span>
+                <span class="concept-tag">Five Pathogens of Sameness</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>With only 4% of brands building sustainable market volume over three years, standardizing around the mean is a slow race to bankruptcy and margin compression.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Comfort is where distinctiveness goes to die. Discomfort is the beginning of differentiation."
+              </div>
+            </div>
+
+            <!-- Ch 2 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 2: The Curiosity Crisis</h4>
+                <p>How organizations build subtle, automatic immune responses that execute inquiry.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Corporate systems systematically suppress the exploration and questioning needed to adapt. We run values seminars praising innovation while building operational bureaucracies that route challenging questions to "process purgatory."</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">The Success Trap</span>
+                <span class="concept-tag">Algorithmic Ubiquity</span>
+                <span class="concept-tag">Learned Helplessness</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>In an era of automated algorithmic metrics tracking, curiosity—which often looks like friction or inefficiency—is actively penalized, destroying adaptive capacity.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Curiosity looks like inefficiency until it succeeds, and most exploration doesn't succeed in the short term."
+              </div>
+            </div>
+
+            <!-- Ch 3 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 3: Why Differentiation Dies</h4>
+                <p>Exposing the six structural killers of corporate distinction.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Differentiation is killed slowly through reasonable decisions. Past wins calcify into sacred doctrine that nobody is permitted to challenge, leaving organizations structurally blind to existential market shifts.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Six Killers of Differentiation</span>
+                <span class="concept-tag">Echo Chamber Effect</span>
+                <span class="concept-tag">Specialization Myopia</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Best practices are, by definition, the elimination of differentiation. Following them is purchasing a baseline, not a competitive moat.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "The consultant who sells you the same framework they sold your competitor is helping you converge."
+              </div>
+            </div>
+
+            <!-- Ch 4 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 4: Dangerous Ideas in Advertising</h4>
+                <p>A structural critique of programmatic attention theft and intermediate metrics.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>A harsh critique of the modern advertising ecosystem, confronting its broken business models, reliance on programmatic attention theft, and intermediate vanity metrics that fail to drive real volume growth.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">The Effectiveness Illusion</span>
+                <span class="concept-tag">Attention Theft</span>
+                <span class="concept-tag">Creative Courage</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>As AI tools automate average content at infinite scale, marketers must transition from optimizing for algorithms to demonstrating measurement honesty and raw human impact.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "What would we create if reach, engagement, and conversion weren't the only gods we worshipped?"
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Part 2 Block -->
+        <div class="part-block">
+          <div class="part-header" onclick="togglePart('part-two-list', this)">
+            <span>PART TWO: THE ANTIGENERIC FRAMEWORK</span>
+            <span class="part-toggle-symbol">+</span>
+          </div>
+          <div class="chapter-list" id="part-two-list" style="display: none;">
+            
+            <!-- Ch 5 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 5: The Antigeneric Advantage</h4>
+                <p>Replacing mechanical strategy metaphors with immunobiology.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Discard traditional corporate metaphors of "warfare" or "machines" to be optimized. Living systems survive by developing highly specific immune responses (antibodies) to match specific environmental pathogens. Antigens are the deliberately introduced irritants that force the response.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">The Biological Metaphor</span>
+                <span class="concept-tag">Inserted Antigens</span>
+                <span class="concept-tag">Durable Immunity</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Generic responses (like standard digital transformation playbooks) act as an expensive corporate fever that eventually exhausts your operational resources without solving any specific threat.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Your immune system doesn't try to be better than other immune systems. It protects your specific body against specific threats."
+              </div>
+            </div>
+
+            <!-- Ch 6 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 6: Mapping Pathogens</h4>
+                <p>A step-by-step forensic guide to trace symptoms back to root causes.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>A rigorous diagnostic workbook teaching how to trace surface-level symptoms of sameness back to their structural root causes (pathogens) across Market, Technology, Sourcing, and Culture pipelines.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Symptom Tracking</span>
+                <span class="concept-tag">The 'Why?' Query</span>
+                <span class="concept-tag">Pathogen Mapping</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Treating marketing symptoms while keeping identical technology structures or homogeneous talent pools leaves the primary pathogen unchecked, causing the symptoms to regenerate.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "The things you accept as 'just how things are' are often the things most worth questioning."
+              </div>
+            </div>
+
+            <!-- Ch 7 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 7: Inserting Antigens, Generating Antibodies</h4>
+                <p>How to introduce irritants that force competitors into structural tradeoffs.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>How to design and insert deliberate positive provocations (antigens) to generate uncopyable strategic responses (antibodies) built on your organization's unique asymmetric advantages.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Antigenic Provocation</span>
+                <span class="concept-tag">Asymmetric Advantage</span>
+                <span class="concept-tag">Antibody Design</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>If your competitive move can be cloned in 18 months, it is a head start, not a strategic antibody. True antibodies force competitors into painful tradeoffs they won't accept.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "The most powerful antibodies force competitors into impossible tradeoffs."
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Part 3 Block -->
+        <div class="part-block">
+          <div class="part-header" onclick="togglePart('part-three-list', this)">
+            <span>PART THREE: IMPLEMENTING DIFFERENTIATION</span>
+            <span class="part-toggle-symbol">+</span>
+          </div>
+          <div class="chapter-list" id="part-three-list" style="display: none;">
+            
+            <!-- Ch 8 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 8: Marketing in an Antigeneric World</h4>
+                <p>Escaping the platform template loops by choosing deliberate human friction.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Transitioning away from third-party platform templates toward owned human-centric communities and brand ecosystems. Learn to build value on dimensions that standard automated search or price comparison tools cannot capture.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Platform Escape</span>
+                <span class="concept-tag">The Human Premium</span>
+                <span class="concept-tag">The Template Economy</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Optimization metrics flatten identity. In a volume recession where volume drops while cash registers ring due to inflation, un-automatable human experiences are your only premium tool.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "The more marketers optimize for algorithms, the more marketing starts to look the same."
+              </div>
+            </div>
+
+            <!-- Ch 9 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 9: Building an Antigeneric Culture</h4>
+                <p>The five structural antibodies to protect internal non-conformity.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Rewiring the organization's internal culture so it naturally attacks sameness instead of novelty. Introducing the five structural antibodies: Institutionalized Dissent, Structural Friction, Rewarding the Uncomfortable, Outsider Injection, and Ritual Destruction.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Culture as Immune System</span>
+                <span class="concept-tag">Structural Friction</span>
+                <span class="concept-tag">Ritual Destruction</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Since products and features are copied instantly, a culture that rewards constructive dissent and tolerates productive failure represents the last sustainable competitive moat.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Adequate performance gets a generous severance package. There is no ambiguity about what is valued."
+              </div>
+            </div>
+
+            <!-- Ch 10 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 10: Innovation Without Permission</h4>
+                <p>Exposing how stage-gate compliance processes are designed to murder breakthroughs.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>Breakthrough corporate innovations (like Gmail, PlayStation, or AWS) are almost always unauthorized projects that began without permission. Learn to differentiate reversible risks from irreversible ones to bypass stage-gate bottlenecks.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">The Permission Problem</span>
+                <span class="concept-tag">Productive Rebellion</span>
+                <span class="concept-tag">Reversible Risk</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Corporate innovation centers fail because they evaluate revolutionary concepts using risk-averse metrics. Leaders must protect unauthorized space where rebels can experiment freely.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "The permission you are waiting for is often permission you do not require. Start anyway."
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Part 4 Block (REQUIRED COMPLETE INSERTION & COPIOUS SPACING) -->
+        <div class="part-block">
+          <div class="part-header" onclick="togglePart('part-four-list', this)">
+            <span>PART FOUR: SUSTAINING DISTINCTION</span>
+            <span class="part-toggle-symbol">+</span>
+          </div>
+          <div class="chapter-list" id="part-four-list" style="display: none;">
+            
+            <!-- Ch 11 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 11: The Mindset and the Methods</h4>
+                <p>Introducing continuous monitoring systems to defend against gravity-drift.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>To resist the gravitational drift back toward average as you scale, organizations must implement systemic tracking metrics (Leading Indicators: Question Ratios, External Hire Assimilation Time; Lagging Indicators: Price Premium, Copying Lag).</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">The Gravity of Average</span>
+                <span class="concept-tag">Differentiation Dashboard</span>
+                <span class="concept-tag">Reverse Benchmarking</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Scale naturally demands checklists. Without active counter-metrics (audits, quarterly kill lists, outsider councils), the organization's unique edges are sanded away by default.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Day 2 is stasis. Followed by irrelevance. Followed by excruciating, painful decline. Followed by death."
+              </div>
+            </div>
+
+            <!-- Ch 12 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 12: The New Rules of Distinction</h4>
+                <p>Predictive rules for competitive survival in an AI-saturated future.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>When AI tools make synthesis, speed, and optimization cheap and abundant, they cease to be competitive advantages. Winners will deliberately build moats using engineered inefficiency, constraint, and absolute opacity.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Inefficiency as Moat</span>
+                <span class="concept-tag">Friction Value</span>
+                <span class="concept-tag">Strategic Opacity</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>The public becomes the commodity; the private becomes the advantage. In an age of infinite cloning, the things you do not publicize or make frictionless represent your premium value.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Genuinely different is the only thing that will matter when the machines can do everything else."
+              </div>
+            </div>
+
+            <!-- Ch 13 -->
+            <div class="chapter-row" onclick="toggleChapter(this)">
+              <div class="chapter-info">
+                <h4>Chapter 13: Your Antigeneric Journey</h4>
+                <p>A practical, day-by-day 30-day action plan to begin the transformation.</p>
+              </div>
+              <span class="chapter-toggle-icon">+</span>
+            </div>
+            <div class="chapter-details">
+              <span class="detail-section-title">Chapter Summary</span>
+              <p>A step-by-step implementation system to kickstart the Antigeneric transformation. Incorporates the five diagnostic tests (e.g. Mission Statement Test) and requires drafting a formal one-page Anti-Strategy of core refusals.</p>
+              
+              <span class="detail-section-title">Key Core Concepts</span>
+              <div>
+                <span class="concept-tag">Honest Assessment</span>
+                <span class="concept-tag">The 30-Day Plan</span>
+                <span class="concept-tag">The Anti-Strategy</span>
+              </div>
+              
+              <span class="detail-section-title">Present-Day Importance</span>
+              <p>Rhetoric without immediate, visible operational change is dead on arrival. Bypassing the permission system using small experimental boundaries creates true strategic momentum.</p>
+              
+              <span class="detail-section-title">Insurgent Pull-Quote</span>
+              <div class="pull-quote">
+                "Life is too short to spend it being average. Walking away is itself a distinctive choice."
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 3: DIAGNOSTIC (Black Territory - Checklist & Report) -->
+  <section id="diagnostic" class="territory-black" style="border-top: 1px solid rgba(255,255,255,0.15);">
+    <div class="page-shell">
+      
+      <div class="stack-sm" style="margin-bottom: var(--space-6); border-bottom: 2px solid var(--color-red); padding-bottom: 2rem;">
+        <span class="kicker text-magenta">3. INTERACTIVE DIAGNOSTIC ENGINE</span>
+        <h2 class="display-section" style="color: var(--color-white)">DIAGNOSE PATHOGENS</h2>
+        <p class="body-large text-grey max-70">
+          Read the symptoms of stagnation and trace them back to their root operational causes. Then introduce the right antigen (irritant) to provoke targeted organizational antibodies.
+        </p>
+      </div>
+
+      <div class="grid-evidence">
+        <div class="stack-md">
+          <span class="meta text-red">IMMUNE ANALYSIS DECK</span>
+          <h3 class="editorial-headline text-white" style="font-size: 2.2rem; line-height: 1.1;">IS YOUR BRAND BEING SLOWLY SANDED INTO AVERAGE?</h3>
+          <p class="text-grey" style="font-size: 0.95rem; margin-top: 1rem;">
+            Tick the symptoms below representing your team's current setup. Our system will diagnose the pathogen, plan the antigenic intervention, and project the generated antibody.
+          </p>
+          
+          <div class="stack-sm" style="margin-top: 2rem;">
+            <div class="torn-signal" id="diagnostic-summary-box" style="display: none;">
+              <h4 class="signal-title" style="font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--color-black)">IMMUNE ANALYSIS</h4>
+              <p id="diagnostic-summary-text" style="font-size: 0.95rem; font-weight: 700; line-height: 1.35;"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="diagnostic-widget">
+          <h4 class="eyebrow text-red" style="margin-bottom: 1rem;">Select Symptoms / Evidence:</h4>
+          <div class="diagnostic-checklist">
+            <label class="diagnostic-option">
+              <input type="checkbox" id="symp-platform" value="platform" onchange="runImmuneDiagnostic()">
+              <div class="diagnostic-option-text">
+                <h4>Platform Similarity</h4>
+                <p>We share default Salesforce, HubSpot, or tech configurations with all competitors.</p>
+              </div>
+            </label>
+
+            <label class="diagnostic-option">
+              <input type="checkbox" id="symp-talent" value="talent" onchange="runImmuneDiagnostic()">
+              <div class="diagnostic-option-text">
+                <h4>Executive Inbreeding</h4>
+                <p>Our senior leadership/CFO came directly from direct competitors, importing familiar models.</p>
+              </div>
+            </label>
+
+            <label class="diagnostic-option">
+              <input type="checkbox" id="symp-risk" value="risk" onchange="runImmuneDiagnostic()">
+              <div class="diagnostic-option-text">
+                <h4>"Team Player" Compliance</h4>
+                <p>Unconventional ideas are killed during approval stages because "they haven't been proven elsewhere."</p>
+              </div>
+            </label>
+
+            <label class="diagnostic-option">
+              <input type="checkbox" id="symp-bench" value="bench" onchange="runImmuneDiagnostic()">
+              <div class="diagnostic-option-text">
+                <h4>Benchmark Obsession</h4>
+                <p>We analyze competitor features weekly and feel high anxiety if our product lacks them.</p>
+              </div>
+            </label>
+
+            <label class="diagnostic-option">
+              <input type="checkbox" id="symp-copy" value="copy" onchange="runImmuneDiagnostic()">
+              <div class="diagnostic-option-text">
+                <h4>Generic Messaging Tooling</h4>
+                <p>Our agencies use standard programmatic loops and keywords; our website copy could belong to anyone.</p>
+              </div>
+            </label>
+          </div>
+
+          <div class="results-display" id="immune-results">
+            <h5 class="eyebrow" style="color: var(--color-yellow); margin-bottom: 0.5rem;">Diagnostic Report</h5>
+            <p id="diagnostic-output-default" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-grey);">
+              Select symptoms above to output your specific pathogen map and target antibody treatment.
+            </p>
+            <div id="diagnostic-output-active" style="display: none;">
+              <p class="body-large text-white" id="diagnosed-pathogen-title" style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;"></p>
+              <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 1rem;" id="diagnosed-pathogen-desc"></p>
+              <div style="border-top: 1px solid #333; padding-top: 1rem; margin-bottom: 1rem;">
+                <span class="eyebrow text-yellow" style="font-size: 0.65rem;">Antigen to Insert</span>
+                <p class="body-large text-yellow" id="antigen-title" style="margin-top: 0.25rem; font-size: 1.15rem;"></p>
+                <p style="font-size: 0.85rem; color: var(--color-paper); margin-top: 0.25rem;" id="antigen-action"></p>
+              </div>
+              <div style="border-top: 1px solid #333; padding-top: 1rem;">
+                <span class="eyebrow text-red" style="font-size: 0.65rem;">Antibody Generated</span>
+                <p class="body-large text-red" id="antibody-title" style="margin-top: 0.25rem; font-size: 1.15rem;"></p>
+                <p style="font-size: 0.85rem; color: var(--color-paper); margin-top: 0.25rem;" id="antibody-action"></p>
+              </div>
+              <button class="button button-yellow" style="margin-top: 1.5rem; width: 100%;" onclick="openCharterModal()">Generate Distinctiveness Charter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 3: MOATS (White Evidence - Post-Algorithm Simulator) -->
+  <section id="moats" class="territory-white" style="border-top: 2px solid var(--color-black);">
+    <div class="page-shell">
+      
+      <div class="stack-sm" style="margin-bottom: var(--space-8); border-bottom: 2px solid var(--color-black); padding-bottom: 2rem;">
+        <span class="kicker text-red">4. THE SPECIFICITY ENGINE</span>
+        <h2 class="display-section">THE RULES OF DISTINCTION</h2>
+        <p class="body-large text-muted max-70">
+          In an AI-saturated future where capability and optimization are infinitely cheap, standard efficiencies collapse. Intentionally engineered friction, constraint, and opacity are your last remaining moats.
+        </p>
+      </div>
+
+      <!-- Interactive Moat Slider -->
+      <div class="grid-evidence" style="margin-bottom: var(--space-8);">
+        <div class="stack-md">
+          <span class="eyebrow" style="color: var(--color-red);">THE EXPERIMENTAL INTERFACE</span>
+          <h3 class="editorial-headline" style="font-size: 2.2rem; line-height: 1.1;">SLIDE TO DEVELOP DEFENSIVE RESISTANCE</h3>
+          <p class="body-copy">
+            Drag the strategic slider away from <strong>Comfortable Abstraction</strong> (the standard automated corporate playbook) towards <strong>Terrifying Specificity</strong> (the antigeneric moats). See how your primary system attributes transform.
+          </p>
+
+          <div class="slider-container">
+            <input type="range" min="0" max="100" value="10" class="moat-slider" id="moat-slider-input" oninput="updateMoatStats(this.value)">
+            <div class="slider-labels">
+              <span class="text-muted">Comfortable Abstraction (100% Automated)</span>
+              <span class="text-red">Terrifying Specificity (Antigeneric Moat)</span>
+            </div>
+          </div>
+          <p class="text-muted" style="font-size: 0.85rem; font-family: var(--font-mono)">
+            *IMPLICATION: High specificity makes you entirely accountable. There are no industry templates or case studies to hide behind. It is the only path to defensible margins.
+          </p>
+        </div>
+
+        <div class="diagram-frame">
+          <span class="eyebrow text-red" style="position: absolute; top: 1rem; left: 1rem;">SYSTEM METRICS MATRIX</span>
+          <div class="stack-md" style="width: 100%; margin-top: 1rem;">
+            
+            <div class="moat-card-grid">
+              <div class="moat-stat-card" id="moat-stat-1">
+                <h5>Rule 1: Moat Model</h5>
+                <div class="value" id="val-efficiency">Total Efficiency</div>
+              </div>
+              <div class="moat-stat-card" id="moat-stat-2">
+                <h5>Rule 2: Verification</h5>
+                <div class="value" id="val-human">Synthetic/AI</div>
+              </div>
+              <div class="moat-stat-card" id="moat-stat-3">
+                <h5>Rule 3: Focus</h5>
+                <div class="value" id="val-capability">Infinite Capacity</div>
+              </div>
+              <div class="moat-stat-card" id="moat-stat-4">
+                <h5>Rule 4: UX Principle</h5>
+                <div class="value" id="val-friction">Frictionless</div>
+              </div>
+              <div class="moat-stat-card" id="moat-stat-5">
+                <h5>Rule 5: Information</h5>
+                <div class="value" id="val-opacity">Absolute Transparency</div>
+              </div>
+            </div>
+
+            <div class="results-display" style="border-color: var(--color-black); margin-top: 1.5rem;">
+              <span class="kicker" id="simulation-verdict-title" style="color: var(--color-red);">COMFORTABLE TRANCE</span>
+              <p style="font-size: 0.9rem; color: #333; margin-top: 0.25rem;" id="simulation-verdict-desc">
+                You are utilizing standard digital playbooks. Your algorithms optimize for average. Copying lag is weeks. Margins are sliding into standard industry averages.
+              </p>
+              <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                <span class="eyebrow" style="font-size: 0.6rem;">Algorithmic Commoditization Risk:</span>
+                <span class="body-large text-red" id="commoditization-risk-pct" style="font-family: var(--font-mono); font-weight: bold;">95%</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 4: JOURNEY (Yellow/Red - Interactive 30-Day Plan) -->
+  <section id="journey" class="territory-red" style="border-top: 2px solid var(--color-black);">
+    <div class="page-shell">
+      
+      <div class="stack-sm" style="margin-bottom: var(--space-8); border-bottom: 2px solid rgba(255,255,255,0.25); padding-bottom: 2rem;">
+        <span class="kicker text-yellow">5. ORGANIZATIONAL IMPLEMENTATION</span>
+        <h2 class="display-section" style="color: var(--color-white)">YOUR 30-DAY JOURNEY PLAN</h2>
+        <p class="body-large text-white max-70" style="opacity: 0.85">
+          You cannot transform an entire system in a month, but you can build momentum. Use the plan below to implement quick structural changes that require zero pre-launch budget permissions.
+        </p>
+      </div>
+
+      <div class="tabs-header" id="journey-tabs">
+        <button class="tab-btn active" onclick="switchWeek(1, this)">Week 1: Diagnose Pathogens</button>
+        <button class="tab-btn" onclick="switchWeek(2, this)">Week 2: Insert Antigens</button>
+        <button class="tab-btn" onclick="switchWeek(3, this)">Week 3: Generate Antibodies</button>
+        <button class="tab-btn" onclick="switchWeek(4, this)">Week 4: Build Immunity</button>
+      </div>
+
+      <div class="journey-days-grid" id="days-grid-container">
+        <!-- Days rendered dynamically by JS -->
+      </div>
+
+      <div class="briefing-box" id="day-briefing-box">
+        <h4 class="eyebrow text-red" id="briefing-day-label">DAY briefing</h4>
+        <h3 class="display-title" id="briefing-day-title" style="font-size: 2.2rem; color: var(--color-black); margin-bottom: 0.5rem;">Click a day above</h3>
+        <p class="body-copy" id="briefing-day-content" style="color: var(--color-black);"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Final Call to Action Spread (Black Territory - Hard Button Removed, Write to Sid email link added) -->
+  <section class="territory-black" style="padding-block: var(--space-9); text-align: center; border-top: 4px solid var(--color-red);">
+    <div class="page-shell">
+      <div class="stack-md" style="max-width: 800px; margin-inline: auto;">
+        <span class="kicker text-yellow">THE DECISIVE QUESTION</span>
+        <h2 class="editorial-headline text-white" style="font-size: 3rem; margin-bottom: 1.5rem;">IF ALL YOUR BRANDING WAS REMOVED TOMORROW, WOULD ANYONE MISS YOU?</h2>
+        <p class="text-grey body-large" style="margin-bottom: 2.5rem;">
+          Siddhartha Singh exposes the fatal trap of blanding, consulting, and algorithmic comfort. Take action before your brand is optimized into extinct average.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="mailto:sid@1antigen.com" class="button button-yellow" style="font-size: 1rem; padding: 1.2rem 2.5rem; text-decoration: none;">WRITE TO SID</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Modal Overlay: Distinctiveness Charter Generator -->
+  <div class="custom-modal-backdrop" id="charter-modal">
+    <div class="custom-modal">
+      <span class="modal-close" onclick="closeModal('charter-modal')">X</span>
+      <span class="eyebrow text-red">Immunological Output</span>
+      <h3 class="display-title" style="font-size: 2.5rem; color: var(--color-black); margin-bottom: 1rem;">YOUR DISTINCTIVENESS CHARTER</h3>
+      
+      <div style="background: var(--color-paper); padding: 1rem; border: 1px dashed var(--color-red); margin-bottom: 1.5rem;">
+        <span class="eyebrow" style="font-size: 0.65rem; color: var(--color-red); font-family: var(--font-mono)">NON-NEGOTIABLE CORE REFUSALS (ANTI-STRATEGY)</span>
+        <ol style="margin-left: 1.2rem; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.45;" id="charter-refusals">
+          <!-- Rendered dynamically -->
+        </ol>
+      </div>
+
+      <p style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+        Print this charter. Deliver it to your leadership. Make these refusals the bedrock of your strategic meetings. Private thoughts do not survive operational pressures; public commitments are harder to abandon.
+      </p>
+
+      <button class="button button-red" style="width: 100%;" onclick="copyCharterText()">Copy Charter Bedrocks</button>
+    </div>
+  </div>
+
+  <!-- Interactive Modal Overlay: Hard Problem -->
+  <div class="custom-modal-backdrop" id="problem-modal">
+    <div class="custom-modal" style="background: var(--color-black); color: var(--color-white); border-color: var(--color-yellow);">
+      <span class="modal-close" style="color: var(--color-yellow);" onclick="closeModal('problem-modal')">X</span>
+      <span class="kicker text-yellow">Strategic Insurgency Intake</span>
+      <h3 class="display-title" style="font-size: 2.5rem; color: var(--color-white); margin-bottom: 1rem;">BRING US A HARD PROBLEM</h3>
+      
+      <p style="font-size: 0.95rem; margin-bottom: 1.5rem; color: var(--color-grey)">
+        We do not introduce polite consultant frameworks. We design uncopyable, targeted corporate antibodies built on your asymmetric advantages. Describe the forces pushing you toward average.
+      </p>
+
+      <form onsubmit="submitHardProblem(event)">
+        <div style="margin-bottom: 1rem;">
+          <label style="display:block; font-size: 0.7rem; font-weight:700; text-transform:uppercase; margin-bottom: 0.25rem;">The Commodity Trap / Pain Point:</label>
+          <textarea style="width:100%; height:80px; background:#222; border:1px solid #444; color:#fff; padding:0.5rem;" placeholder="E.g., Competitors copy our features in weeks..." required></textarea>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display:block; font-size: 0.7rem; font-weight:700; text-transform:uppercase; margin-bottom: 0.25rem;">Your Email Coordinates:</label>
+          <input type="email" style="width:100%; height:40px; background:#222; border:1px solid #444; color:#fff; padding:0 0.5rem;" placeholder="insurgent@corporatedomain.com" required>
+        </div>
+        <button type="submit" class="button button-yellow" style="width:100%;">DEPLOY DEFENSIVE SYSTEM RESEARCH</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive scripts for state mechanics -->
+  <script>
+    // State storage
+    let selectedSymptoms = [];
+    let currentWeek = 1;
+
+    // Pathogen mappings matching Siddhartha's core frameworks
+    const symptomData = {
+      platform: {
+        pathogen: "Platform Homogenization",
+        desc: "Slick automated digital platform layouts (Salesforce default structures, programmatic templates) force standard, uniform workflows across your entire industry, eliminating distinct touchpoints.",
+        antigen: "Deliberate Technology Divergence",
+        antibody: "Custom Middleware & Analog Gates",
+        action: "Insert deliberate tech friction. Reject out-of-the-box templates; build custom customizer layers or analog gates that competitors cannot clone.",
+        antiStrategy: "We will NOT deploy standard SaaS out-of-the-box configurations. We force our teams to custom build core engagement components."
+      },
+      talent: {
+        pathogen: "Talent Development Pipelines",
+        desc: "Hiring continuously from identical competitor target environments or prestigious business schools imports existing assumptions, creating cognitive inbreeding.",
+        antigen: "Outsider Sourcing Intrusion",
+        antibody: "Cognitive Diversity Hire Quota",
+        action: "Establish a strict 20% quota mandating hire pipelines from completely non-adjacent creative fields (hospitality, theatre, documentary filmmaking) to disrupt internal consensus.",
+        antiStrategy: "We refuse to hire more than 40% of our managers from traditional competitor pools. We will recruit from hospitality and education."
+      },
+      risk: {
+        pathogen: "Risk Aversion Spirals",
+        desc: "CMOs missing immediate proxy targets are fired, forcing teams to hide inside accepted industry frameworks to secure institutional survival cover.",
+        antigen: "Calculated Failure Tolerance Ritual",
+        antibody: "Uncomfortable Question & Dissent Rewards",
+        action: "Introduce a quarterly 'Uncomfortable Question Award' for employees challenging core management initiatives, backed by protective promotion path guarantees.",
+        antiStrategy: "We refuse to measure creative marketing efforts purely through immediate programmatic conversion trackers. We allocate 30% of budget to non-trackable offline distinctiveness."
+      },
+      bench: {
+        pathogen: "Best Practice Proliferation",
+        desc: "Traditional consultant templates analyze competitor achievements and package them as universal table stakes, turning your distinct traits into standard averages.",
+        antigen: "Reverse Benchmarking Sessions",
+        antibody: "Core Policy Exclusions / Outsider Councils",
+        action: "Analyze what industry leaders are doing and make a formal documented decision to do the exact opposite. Establish an Outsider Advisory Council.",
+        antiStrategy: "We refuse to match standard competitor features unless they serve a highly unique asymmetric baseline we possess."
+      },
+      copy: {
+        pathogen: "The Effectiveness Illusion / Specialization Myopia",
+        desc: "Marketing silos optimize isolated vanity indices (clicks, viewability) while the core product visual asset matches identical competitor blanding structures.",
+        antigen: "Operational Friction Injection",
+        antibody: "Strategic Narrative Memos",
+        action: "Destroy PowerPoint templates. Mandate Amazon-style six-page narrative memos for product ideas, forcing deep structural thinking across specialized silos.",
+        antiStrategy: "We refuse to write standard corporate mission statements or copy. If our name is removed, our product text must remain instantly recognizable."
+      }
+    };
+
+    // 30-Day Insurgency Plan Data
+    const actionPlanBriefings = {
+      1: {
+        1: { title: "The Pathogen Audit", desc: "Identify the three most powerful forces pushing your organization toward sameness. Be specific. E.g., 'We match ServiceNow's product updates blindly because our board demands it.' Write down how this force manifests in your last three choices. These are pathogens; your symptoms are diagnostic evidence, not antigens." },
+        2: { title: "Decisions Trace", desc: "For each identified pathogen, map the trail from the outside market pressure to the average output. See where the human element surrendered to compliance." },
+        3: { title: "Asymmetric Inventory", desc: "List your organization's organic asymmetric advantages. Look for historic quirks, deep relationship trusts, or geographic details competitors can't purchase." },
+        4: { title: "Unseen Assets", desc: "Consult long-term employees to find ancient methods that were shelved because they were deemed 'inefficient' or 'unprofessional' by newer consulting overlays." },
+        5: { title: "The Outside View", desc: "Interview three completely non-stakeholder outsiders. Show them your product and ask them to define what looks indistinguishable from rivals." },
+        6: { title: "Truth Mapping", desc: "Compare the outsider input with your internal strategic presentation documents. Map the size of the abstraction gap." },
+        7: { title: "Week 1 Review", desc: "Convene your small circle. Agree on the core pathogen that is structurally causing your stagnation." }
+      },
+      2: {
+        8: { title: "Insert process irritant", desc: "Identify one meeting, report, or approval layer that exists purely out of precedent. Kill it completely. If no operations collapse, you've removed dead weight." },
+        9: { title: "Inertia Proof", desc: "Document the structural time recovered from the Day 8 purge. Reallocate those hours immediately into customer exploration loops." },
+        10: { title: "Insert Constraint", desc: "Find an industry 'best practice' being discussed. Write a formal executive refusal document explaining why your brand will conform elsewhere." },
+        11: { title: "Public Intent", desc: "Share the refusal document with your close team circles. Create visual boundaries around where your brand will refuse to replicate." },
+        12: { title: "Insert Dissent", desc: "In your next sync, reward someone who asked a genuinely uncomfortable question or proposed an unauthorized route. Signals change cultures." },
+        13: { title: "Dissent Shield", desc: "Visibly defend a team member who ran a failed experiment, proving that failure under calculated exploration is protected." },
+        14: { title: "Week 2 Review", desc: "Assess the momentum. You have proven the company can eliminate, reject, and dissent without corporate collapse." }
+      },
+      3: {
+        15: { title: "Install decision gate", desc: "Add one mandatory parameter to every major decision: 'If our main competitor made this exact choice, would it surprise anyone?' If no, go back." },
+        16: { title: "Default Exposure", desc: "Run the Day 15 question query on your next product or marketing roadmap item. Force teams to defend its distinct metrics." },
+        17: { title: "Outsider Injection", desc: "Charter an Outsider Role. Appoint one person to challenge every consensus in executive sessions with explicit immunity from career damage." },
+        18: { title: "Silo Friction", desc: "Temporarily ban all PowerPoints in major syncs. Force teams to read narrative memos in silence before speaking, slowing down assumptions." },
+        19: { title: "The Competitor Ban", desc: "Run a strategy session with a strict ban on mentioning competitor features. Re-align decisions around customer direct anomalies." },
+        20: { title: "Waterline Analysis", desc: "Differentiate reversible actions from irreversible ones. Fast-track approval permissions for all reversible experiments." },
+        21: { title: "Week 3 Review", desc: "Evaluate the decision machinery. Structural friction has begun replacing quick conformist pathways." }
+      },
+      4: {
+        22: { title: "The Anti-Strategy", desc: "Write five explicit refusals of profit opportunities that would dilute your core distinctiveness. What you refuse is what defines your strategy." },
+        23: { title: "Charter Drafting", desc: "Consolidate the anti-strategy and non-negotiables into a formal one-page 'Distinctiveness Charter' with clear explanations of why." },
+        24: { title: "Public Binding", desc: "Publish the Distinctiveness Charter to your department. Sign it. Public stakes prevent retreats when future quarterly targets squeeze." },
+        25: { title: "Dashboard Sync", desc: "Schedule a recurring quarterly review tracking your leading indicators of health: Question Ratio and Distinctive Practice Survival." },
+        26: { title: "Hiring Reset", desc: "Rewrite your next job postings. Remove conventional target backgrounds; require candidates to demonstrate constructive rebellion." },
+        27: { title: "The Ritual Destroy", desc: "Establish an annual 'Kill List' meeting specifically targeting accommodating policies that crept back in." },
+        28: { title: "The Long Horizon", desc: "Align resources to protect the new antibodies. Ensure budgets for distinctiveness cannot be cannibalized for short-term fixes." },
+        29: { title: "The Narrative Share", desc: "Gather your organization. Tell the honest story of your transition away from average, building deep cultural pride." },
+        30: { title: "Day 30 Milestone", desc: "The transformation isn't finished. But your cultural immune system is now awake. You are finally ANTIGENERIC." }
+      }
+    };
+
+    // Initialize Page State
+    window.onload = function() {
+      switchWeek(1);
+      updateMoatStats(10);
+      
+      // Auto-highlight nav on scroll
+      window.addEventListener('scroll', handleScrollHighlight);
+    };
+
+    function setActiveNav(element) {
+      document.querySelectorAll('#main-nav a').forEach(a => a.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function handleScrollHighlight() {
+      const sections = document.querySelectorAll('header, section');
+      const navLinks = document.querySelectorAll('#main-nav a');
+      
+      let currentSectionId = 'prelude';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        const bottom = top + section.offsetHeight;
+        const scroll = window.scrollY;
+        if (scroll >= top && scroll < bottom) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    // Interactive Diagnostic Logic (Pathogen and Antigen Corrected)
+    function runImmuneDiagnostic() {
+      const checkedBoxes = document.querySelectorAll('.diagnostic-option input[type="checkbox"]:checked');
+      selectedSymptoms = Array.from(checkedBoxes).map(cb => cb.value);
+
+      const defaultOutput = document.getElementById('immune-results');
+      const defaultText = document.getElementById('diagnostic-output-default');
+      const activeOutput = document.getElementById('diagnostic-output-active');
+
+      const pathTitle = document.getElementById('diagnosed-pathogen-title');
+      const pathDesc = document.getElementById('diagnosed-pathogen-desc');
+      const antTitle = document.getElementById('antigen-title');
+      const antAction = document.getElementById('antigen-action');
+      const abTitle = document.getElementById('antibody-title');
+      const abAction = document.getElementById('antibody-action');
+
+      const summaryBox = document.getElementById('diagnostic-summary-box');
+      const summaryText = document.getElementById('diagnostic-summary-text');
+
+      if (selectedSymptoms.length === 0) {
+        defaultText.style.display = 'block';
+        activeOutput.style.display = 'none';
+        summaryBox.style.display = 'none';
+        return;
+      }
+
+      defaultText.style.display = 'none';
+      activeOutput.style.display = 'block';
+
+      // Pick the most impactful selected symptom as primary pathogen representation
+      const primarySymptomKey = selectedSymptoms[selectedSymptoms.length - 1];
+      const diagnosticResult = symptomData[primarySymptomKey];
+
+      pathTitle.innerText = `PATHOGEN: ${diagnosticResult.pathogen}`;
+      pathDesc.innerText = diagnosticResult.desc;
+      antTitle.innerText = diagnosticResult.antigen;
+      antAction.innerText = diagnosticResult.action;
+      abTitle.innerText = diagnosticResult.antibody;
+      abAction.innerText = `When provoked, the system generates this defense: ${diagnosticResult.antiStrategy}`;
+
+      // Update the yellow "Torn Signal" summary box
+      summaryBox.style.display = 'block';
+      summaryText.innerText = `ALERT: Diagnosed with [${diagnosticResult.pathogen}]. Your brand's natural variation is being suffocated. Suggested antigenic intervention to insert: [${diagnosticResult.antigen}].`;
+    }
+
+    // Modal Mechanics
+    function openCharterModal() {
+      const modal = document.getElementById('charter-modal');
+      const listContainer = document.getElementById('charter-refusals');
+      listContainer.innerHTML = '';
+
+      if (selectedSymptoms.length === 0) {
+        alert("Please select at least one symptom to generate a Distinctiveness Charter.");
+        return;
+      }
+
+      selectedSymptoms.forEach(key => {
+        const item = symptomData[key];
+        const li = document.createElement('li');
+        li.style.style = 'none';
+        li.style.marginBottom = '0.50rem';
+        li.innerHTML = `<strong>Against ${item.pathogen}:</strong> ${item.antiStrategy}`;
+        listContainer.appendChild(li);
+      });
+
+      modal.style.display = 'flex';
+    }
+
+    function openHardProblemModal() {
+      document.getElementById('problem-modal').style.display = 'flex';
+    }
+
+    function openSafeAlert(title, message) {
+      // Custom styled alert to avoid native browser popup constraints
+      const overlay = document.createElement('div');
+      overlay.className = 'custom-modal-backdrop';
+      overlay.style.display = 'flex';
+      
+      const modal = document.createElement('div');
+      modal.className = 'custom-modal';
+      modal.innerHTML = `
+        <span class="modal-close" onclick="this.parentElement.parentElement.remove()">X</span>
+        <span class="kicker text-red">System Notice</span>
+        <h3 class="display-title" style="font-size: 2rem; color: var(--color-black); margin-bottom: 0.5rem;">${title}</h3>
+        <p style="font-size:0.95rem; margin-bottom:1.5rem;">${message}</p>
+        <button class="button button-red" style="width:100%;" onclick="this.parentElement.parentElement.remove()">Acknowledge</button>
+      `;
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    function copyCharterText() {
+      const refusalsList = document.getElementById('charter-refusals');
+      let textToCopy = "ANTIGENERIC DISTINCTIVENESS CHARTER:\n\n";
+      refusalsList.querySelectorAll('li').forEach((li, idx) => {
+        textToCopy += `${idx + 1}. ${li.innerText}\n`;
+      });
+
+      // Secure copy helper following standard document constraints
+      const tempInput = document.createElement('textarea');
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      openSafeAlert("CHARTER COPIED", "Your customized distinctiveness parameters have been copied to your clipboard. Deploy them into your strategic documentation.");
+      closeModal('charter-modal');
+    }
+
+    function submitHardProblem(event) {
+      event.preventDefault();
+      openSafeAlert("PROBLEM INTAKE LOGGED", "Your operational constraints have been uploaded to our secure pipeline. Siddhartha Singh's strategic cells are formulating your target antibody package.");
+      closeModal('problem-modal');
+    }
+
+    // Interactive Moat Slider Attributes (Chapter 12)
+    function updateMoatStats(value) {
+      const parsedVal = parseInt(value);
+      const comRisk = document.getElementById('commoditization-risk-pct');
+      const verdictTitle = document.getElementById('simulation-verdict-title');
+      const verdictDesc = document.getElementById('simulation-verdict-desc');
+
+      // Attributes to swap
+      const attrEff = document.getElementById('val-efficiency');
+      const attrHuman = document.getElementById('val-human');
+      const attrCap = document.getElementById('val-capability');
+      const attrFric = document.getElementById('val-friction');
+      const attrOp = document.getElementById('val-opacity');
+
+      // Update Risk Score inversely to specific moats
+      const currentRisk = 95 - Math.floor(parsedVal * 0.85);
+      comRisk.innerText = `${currentRisk}%`;
+
+      // Apply dynamic colors to the statistics boxes based on specific values
+      for(let i=1; i<=5; i++) {
+        const statCard = document.getElementById(`moat-stat-${i}`);
+        if(parsedVal > 50) {
+          statCard.style.backgroundColor = 'var(--color-black)';
+          statCard.style.color = 'var(--color-white)';
+          statCard.style.borderColor = 'var(--color-red)';
+        } else {
+          statCard.style.backgroundColor = 'var(--color-paper)';
+          statCard.style.color = 'var(--color-black)';
+          statCard.style.borderColor = 'var(--color-smoke)';
+        }
+      }
+
+      if (parsedVal <= 30) {
+        verdictTitle.innerText = "COMFORTABLE TRANCE";
+        verdictTitle.style.color = "var(--color-red)";
+        verdictDesc.innerText = "You are optimizing for fast scalability. Your design formats and customer funnels are frictionless, making your offering infinitely copyable by any machine learning scraping tool within weeks.";
+        
+        attrEff.innerText = "Total Efficiency";
+        attrHuman.innerText = "Automated / AI";
+        attrCap.innerText = "Infinite Capacity";
+        attrFric.innerText = "Frictionless";
+        attrOp.innerText = "Absolute Transparency";
+      } else if (parsedVal > 30 && parsedVal <= 70) {
+        verdictTitle.innerText = "HYBRID TRANSITION";
+        verdictTitle.style.color = "var(--color-yellow)";
+        verdictDesc.innerText = "You have introduced minor procedural boundaries, but still rely heavily on standard frameworks for marketing. Competitors face some integration hurdles, but can replicate your system parameters in 12 months.";
+        
+        attrEff.innerText = "Managed Speed";
+        attrHuman.innerText = "Hybrid Checks";
+        attrCap.innerText = "Selective Focus";
+        attrFric.innerText = "User Thresholds";
+        attrOp.innerText = "Structured Access";
+      } else {
+        verdictTitle.innerText = "TERRIFYING SPECIFICITY";
+        verdictTitle.style.color = "var(--color-magenta)";
+        verdictDesc.innerText = "You have engineered extreme distinctiveness. By embracing deliberate inefficiencies, friction-heavy human verification loops, and absolute opacity regarding your operational setups, you force competitors into impossible tradeoffs.";
+        
+        attrEff.innerText = "Deliberate Inefficiency";
+        attrHuman.innerText = "Demonstrable Humanity";
+        attrCap.innerText = "Aggressive Constraint";
+        attrFric.innerText = "Strategic Friction";
+        attrOp.innerText = "Information Secrecy";
+      }
+    }
+
+    // 30-Day Tracker Mechanics
+    function switchWeek(weekNum, btnElement) {
+      currentWeek = weekNum;
+      if (btnElement) {
+        document.querySelectorAll('#journey-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+      }
+
+      const grid = document.getElementById('days-grid-container');
+      grid.innerHTML = '';
+
+      // Weeks calculate relative Day arrays
+      const startDay = (weekNum - 1) * 7 + 1;
+      const endDay = weekNum * 7 + (weekNum === 4 ? 2 : 0); // Week 4 contains 9 days (up to 30)
+
+      const weekBriefings = actionPlanBriefings[weekNum];
+
+      for (let day = startDay; day <= endDay; day++) {
+        const dayBriefing = weekBriefings[day];
+        if (!dayBriefing) continue;
+
+        const card = document.createElement('div');
+        card.className = `day-card ${day === startDay ? 'active' : ''}`;
+        card.onclick = function() {
+          document.querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          showDayBriefing(day, dayBriefing);
+        };
+
+        card.innerHTML = `
+          <div class="day-num">${day}</div>
+          <div class="day-title">${dayBriefing.title}</div>
+        `;
+        grid.appendChild(card);
+      }
+
+      // Display default start day for selected week
+      showDayBriefing(startDay, weekBriefings[startDay]);
+    }
+
+    function showDayBriefing(dayNum, briefing) {
+      document.getElementById('briefing-day-label').innerText = `DAY ${dayNum} BRIEFING`;
+      document.getElementById('briefing-day-title').innerText = briefing.title;
+      document.getElementById('briefing-day-content').innerText = briefing.desc;
+    }
+
+    // Chapter Accordion toggle
+    function toggleChapter(rowElement) {
+      const details = rowElement.nextElementSibling;
+      const icon = rowElement.querySelector('.chapter-toggle-icon');
+      
+      if (details.style.display === 'block') {
+        details.style.display = 'none';
+        icon.innerText = '+';
+      } else {
+        // Close others in this specific partition
+        const siblingRows = rowElement.parentElement.querySelectorAll('.chapter-details');
+        const siblingIcons = rowElement.parentElement.querySelectorAll('.chapter-toggle-icon');
+        siblingRows.forEach(cd => cd.style.display = 'none');
+        siblingIcons.forEach(cti => cti.innerText = '+');
+        
+        details.style.display = 'block';
+        icon.innerText = '-';
+      }
+    }
+
+    // Interactive Part Tree toggle
+    function togglePart(partListId, element) {
+      const list = document.getElementById(partListId);
+      const symbol = element.querySelector('.part-toggle-symbol');
+      
+      if (list.style.display === 'block') {
+        list.style.display = 'none';
+        symbol.innerText = '+';
+      } else {
+        list.style.display = 'block';
+        symbol.innerText = '—';
+      }
+    }
+  </script>
+</body>
+</html>
