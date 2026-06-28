@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN &mdash; Ornua Strategy Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange:     #E31D28;
+  --accent:     #E31D28;
+  --black:      #050505;
+  --ink:        #1E1C17;
+  --white:      #ffffff;
+  --paper:      #F8F7F6;
+  --smoke:      #EFEDE9;
+  --grey:       #6F6A63;
+  --yellow:     #FFC000;
+  --blue:       #08A7D8;
+  --grad-ins:   linear-gradient(135deg, #E31D28 0%, #B11226 72%, #FFC000 100%);
+  --grad-dark:  linear-gradient(135deg, #050505 0%, #1E1C17 100%);
+  --font-d:     'Bebas Neue', Impact, sans-serif;
+  --font-s:     'Montserrat', Arial, sans-serif;
+  --font-j:     'Montserrat', Arial, sans-serif;
+  --rule:       1px solid rgba(30,28,23,.14);
+  --rule-w:     1px solid rgba(255,255,255,.1);
+  --shadow:     8px 8px 0 rgba(5,5,5,.92);
+  --shadow-r:   8px 8px 0 rgba(227,29,40,.88);
+  --pad:        clamp(1.25rem, 4vw, 3.5rem);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--font-j);
+  font-size: clamp(.93rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--orange); }
+
+/* Sticky nav */
+.phase-nav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: var(--white);
+  border-bottom: var(--rule);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 var(--pad);
+}
+.phase-nav::-webkit-scrollbar { display: none; }
+.pnav-btn {
+  flex-shrink: 0;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-j);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.pnav-btn:hover { color: var(--black); }
+.pnav-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+/* Header */
+.page-header {
+  position: relative;
+  background: var(--grad-dark);
+  padding: 4.5rem var(--pad) 4rem;
+  color: var(--white);
+  overflow: hidden;
+  border-bottom: 5px solid var(--orange);
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(251,146,60,.12), transparent 45%),
+    linear-gradient(90deg, rgba(0,0,0,.36), transparent 52%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative; z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: .8rem;
+}
+.header-title {
+  font-family: var(--font-d);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  line-height: .83;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: .5rem;
+}
+.header-sub {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.48);
+  margin-top: .75rem;
+}
+.header-kicker {
+  border-left: 4px solid var(--orange);
+  padding-left: 1.5rem;
+  flex-shrink: 0;
+}
+.kicker-label {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.46);
+  margin-bottom: .3rem;
+}
+.kicker-value {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height: 1;
+  color: var(--orange);
+  letter-spacing: .04em;
+}
+
+/* Phase structure */
+.phase {
+  padding: 4.5rem var(--pad);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase + .phase { padding-top: 0; }
+
+.phase-label {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--black);
+}
+.phase-number {
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.phase-name {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--black);
+}
+.phase-tagline {
+  font-size: .8rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--grey);
+  margin-left: auto;
+}
+
+/* GET-TO-BY Grid */
+.gtb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  box-shadow: 0 10px 30px -15px rgba(0,0,0,0.05);
+}
+.gtb-cell {
+  padding: 2rem 2.5rem;
+  border-right: var(--rule);
+  background: var(--white);
+}
+.gtb-cell:last-child { border-right: none; }
+.gtb-tag {
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.gtb-body {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.65;
+}
+
+/* Critique */
+.critique-box {
+  background: var(--black);
+  padding: 2rem 2.5rem;
+  margin-top: 2.5rem;
+  border-left: 6px solid var(--orange);
+  box-shadow: 0 10px 30px -10px rgba(15,23,42,0.15);
+}
+.critique-tag {
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: .8rem;
+}
+.critique-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  line-height: 1.65;
+}
+
+/* Dark section */
+.dark-section {
+  background: var(--black);
+  padding: 4.5rem var(--pad);
+}
+.dark-section .phase-label {
+  border-bottom-color: rgba(255,255,255,.15);
+}
+.dark-section .phase-number { color: var(--orange); }
+.dark-section .phase-name { color: var(--white); }
+.dark-section .phase-tagline { color: rgba(255,255,255,.4); }
+
+.content-box {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Slide Grid */
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+.slide-card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 2rem;
+  position: relative;
+  transition: all .3s;
+}
+.slide-card:hover {
+  border-color: var(--orange);
+  background: rgba(255,255,255,.05);
+}
+.slide-num {
+  font-family: var(--font-d);
+  font-size: 5rem;
+  color: rgba(255,255,255,.03);
+  line-height: 1;
+  position: absolute;
+  top: .5rem; right: 1rem;
+}
+.slide-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: .6rem;
+}
+.slide-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: .02em;
+}
+.slide-bullets {
+  list-style: none;
+}
+.slide-bullets li {
+  display: flex;
+  gap: .75rem;
+  padding: .7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.55;
+}
+.slide-bullets li:last-child { border-bottom: none; padding-bottom: 0; }
+.slide-bullets li::before {
+  content: '→';
+  color: var(--orange);
+  flex-shrink: 0;
+  font-weight: bold;
+}
+.slide-bullets li strong { font-weight: 800; color: rgba(255,255,255,.9); }
+
+/* Footer */
+.page-footer {
+  background: #090D16;
+  padding: 3rem var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.footer-wordmark {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: .25em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.footer-wordmark span {
+  color: var(--orange);
+}
+.footer-meta {
+  font-size: .7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .gtb-grid { grid-template-columns: 1fr; }
+  .gtb-cell { border-right: none; border-bottom: var(--rule); }
+  .gtb-cell:last-child { border-bottom: none; }
+}
+
+
+/* ANTIGEN standalone shell */
+body { padding-top: 80px; }
+a { color: inherit; }
+.antigen-site-header {
+  position: fixed; left: 0; right: 0; top: 0; z-index: 9999; min-height: 80px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  background: rgba(0,0,0,.92); color: #fff; padding: 20px clamp(20px,5vw,64px);
+  backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.antigen-wordmark { font-family: var(--font-s); font-size: 26px; line-height: 1; letter-spacing: .08em; color: #fff; text-decoration: none; text-transform: lowercase; }
+.antigen-wordmark strong { font-weight: 900; letter-spacing: 0; }
+.antigen-site-nav { display: flex; align-items: center; gap: 20px; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+.antigen-site-nav a { color: #fff; text-decoration: none; }
+.antigen-site-nav a:hover { color: var(--yellow); }
+.phase-nav { top: 80px; background: rgba(248,247,246,.96); backdrop-filter: blur(8px); }
+.page-header { background: var(--grad-ins); border-bottom-color: var(--yellow); }
+.page-header::before { background: linear-gradient(90deg, rgba(0,0,0,.42), transparent 58%), radial-gradient(circle at 82% 22%, rgba(255,192,0,.2), transparent 42%); }
+.header-eyebrow, .phase-number, .gtb-tag, .critique-tag, .slide-tag, .kicker-value, .footer-wordmark span { color: var(--yellow); }
+.header-kicker, .critique-box { border-left-color: var(--yellow); }
+.pnav-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+.gtb-grid, .gtb-cell, .slide-card { border-radius: 0; }
+.dark-section { background: #050505; }
+.slide-grid-container { background: #050505 !important; border: 1px solid rgba(255,255,255,.08); border-radius: 0 !important; }
+.slide-card:hover { border-color: var(--yellow); }
+.antigen-content { font-family: var(--font-s); max-width: 980px; }
+.antigen-content h1 { font-family: var(--font-d); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .9; letter-spacing: .02em; text-transform: uppercase; margin: 1rem 0 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid rgba(227,29,40,.35); }
+.antigen-content h3 { font-size: clamp(1.1rem, 1.8vw, 1.55rem); line-height: 1.15; margin: 1.75rem 0 .8rem; font-weight: 900; }
+.antigen-content p { margin: 0 0 1rem; font-size: .98rem; line-height: 1.72; font-weight: 600; }
+.antigen-content ul { list-style: none; margin: 1rem 0 1.4rem; padding: 0; }
+.antigen-content li { display: flex; gap: .8rem; margin: 0 0 .75rem; font-size: .96rem; line-height: 1.65; font-weight: 600; }
+.antigen-content li span { color: var(--yellow) !important; font-weight: 900; }
+.antigen-content strong { font-weight: 900; }
+.text-white, .text-orange-400 { color: #fff !important; }
+.text-slate-300 { color: rgba(255,255,255,.72) !important; }
+.text-slate-700 { color: #413d38 !important; }
+.text-slate-900 { color: #050505 !important; }
+.border-orange-500\/30 { border-color: rgba(227,29,40,.35) !important; }
+.font-extrabold { font-weight: 900; }
+.font-black { font-weight: 900; }
+.font-bold { font-weight: 800; }
+.leading-none { line-height: .9; }
+.leading-relaxed { line-height: 1.72; }
+.tracking-tight { letter-spacing: 0; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mt-4 { margin-top: 1rem; }
+.pb-2 { padding-bottom: .5rem; }
+.border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+.my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+.space-y-3 > * + * { margin-top: .75rem; }
+.page-footer { background: #000; padding: 28px clamp(20px,5vw,64px); border-top: 2px solid #000; }
+.page-footer .footer-wordmark { font-family: var(--font-s); font-size: 26px; letter-spacing: .08em; text-transform: lowercase; }
+.page-footer .footer-wordmark strong { font-weight: 900; letter-spacing: 0; }
+.footer-meta { color: rgba(255,255,255,.58); }
+@media (max-width: 767px) { body { padding-top: 72px; } .antigen-site-header { min-height: 72px; } .antigen-site-nav { display: none; } .phase-nav { top: 72px; } .page-header { padding-top: 3rem; } }
+
+</style>
+</head>
+<body id="top">
+<header class="antigen-site-header">
+  <a class="antigen-wordmark" href="#top" aria-label="ANTIGEN home">anti<strong>gen</strong></a>
+  <nav class="antigen-site-nav" aria-label="Primary navigation">
+    <a href="https://1antigen.com/why">Why</a>
+    <a href="https://1antigen.com/what">What</a>
+    <a href="https://1antigen.com/who">Who</a>
+    <a href="https://1antigen.com/how">How</a>
+    <a href="https://1antigen.com/pov">POV</a>
+    <a href="https://1antigen.com/contact">Contact</a>
+  </nav>
+</header>
+
+<nav class="phase-nav">
+  <a href="#phase1" class="pnav-btn active">01 &middot; Growth Brief</a>
+  <a href="#phase2" class="pnav-btn">02 &middot; Friction &amp; Insight</a>
+  <a href="#phase3" class="pnav-btn">03 &middot; Provocation</a>
+  <a href="#phase4" class="pnav-btn">04 &middot; Territory</a>
+  <a href="#phase5" class="pnav-btn">05 &middot; Big Idea</a>
+  <a href="#phase6" class="pnav-btn">06 &middot; Execution</a>
+  <a href="#phase7" class="pnav-btn">07 &middot; Synthesis</a>
+</nav>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN Strategy Constitution &middot; Intelligence Workspace</div>
+      <div class="header-title">Our Butter is Dirty.</div>
+      <div class="header-sub">Constitution Active v2.5 &middot; Verified Growth Platform</div>
+    </div>
+    <div class="header-kicker">
+      <div class="kicker-label">Transformation Cycle</div>
+      <div class="kicker-value">48-Hours</div>
+    </div>
+  </div>
+</header>
+
+<section id="phase1">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 01</span>
+      <h2 class="phase-name">Growth Brief</h2>
+      <span class="phase-tagline">GET&ndash;TO&ndash;BY &middot; Gated Framework</span>
+    </div>
+
+    <div class="gtb-grid">
+      <div class="gtb-cell">
+        <div class="gtb-tag">GET</div>
+        <p class="gtb-body">Consumers who currently associate Ornua with functional grass-fed product claims.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">TO</div>
+        <p class="gtb-body">Advocates who see Ornua as the leader of a global regenerative dairy movement.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">BY</div>
+        <p class="gtb-body">Positioning as the world’s regenerative dairy company to build long-term brand purpose.</p>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<section id="phase2">
+  <div class="dark-section">
+    <div class="content-box">
+      <div class="phase-label">
+        <span class="phase-number">Phase 02</span>
+        <h2 class="phase-name">Friction &amp; Insight</h2>
+        <span class="phase-tagline">Sharp Tensions &middot; Provocative Truths</span>
+      </div>
+      <div class="antigen-content">
+        <h1 class="font-sans font-black leading-none tracking-tight mb-6 mt-4 text-3xl lg:text-4xl pb-2 border-b border-orange-500/30 text-orange-400">The Beautiful Lie of the Green Pasture: To Save the Soil, We Must First Slaughter the Sacred Irish Cow.</h1>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">The Sharp Tension</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">Conscious consumers love the comforting myth of the pristine Irish meadow, but they secretly believe the dairy industry is an ecological crime scene.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">Ornua is currently trapped in a gold-foil paradox: <strong class="text-white font-extrabold">Your premium "grass-fed" branding acts as a passive shield to hide consumer guilt, whereas becoming the "Patagonia of Dairy" requires actively exposing the industry's wounds to heal them.</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">The Two Opposing Forces</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">[ THE COMFORTING FANTASY ]               VS.               [ THE ECOLOGICAL REALITY ]</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">"Kerrygold is pure, pastoral, and                          "Dairy is a climate disaster, and</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">frozen in a simpler time."                                 passive 'grass-fed' isn't enough."</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">|                                                             |</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">+---------------------- THE FRICTION -------------------------+</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">|</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">"If you only show me the pretty green hills,</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">I know you’re hiding the dirt."</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">1. <strong class="text-white font-extrabold">The Passive Preserver (The Safe Zone):</strong> The consumer wants to believe that Irish dairy is inherently holy. They buy Kerrygold because the gold foil and "grass-fed" claim allow them to ignore the climate crisis. It is a transaction of *convenient ignorance*.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">2. <strong class="text-white font-extrabold">The Active Restorer (The Patagonia Zone):</strong> The consumer knows that "doing less harm" (sustainable) is a dead-end. They demand *restoration* (regenerative). But restoration requires admitting that the current system—including traditional Irish dairy farming—is under existential threat and needs radical intervention.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">Why Safe Ideas Must Die</strong></h3>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Safe Idea:</strong> *"Let’s launch a 'Green Fields, Clean Future' campaign showing happy Irish farmers talking about soil biodiversity."*</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Why it’s dead:</strong> This is greenwashing in a flat cap. It treats "regenerative" as a marketing coat of paint on a grass-fed product. Consumers will see right through it. Patagonia didn’t become Patagonia by telling people how great their fleece was; they did it by telling people to *Stop Buying This Jacket* and exposing the carbon footprint of their own supply chain.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">The Insight</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300"><strong class="text-white font-extrabold">You cannot build a movement on a marketing claim. You can only build a movement on a confession.</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">Grass-fed is a passive state of nature; regenerative is an active battle against degeneration. For Ornua to own the regenerative movement, it must stop selling the nostalgic myth of the perfect Irish farm and start championing the grit, the struggle, and the radical science required to rebuild the earth from the dirt up.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">To become the Patagonia of dairy, Ornua must transition from selling <strong class="text-white font-extrabold">"the taste of an unspoiled world"</strong> to funding <strong class="text-white font-extrabold">"the fight to restore a spoiled one."</strong></p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section id="phase3">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 03</span>
+      <h2 class="phase-name">Provocation</h2>
+      <span class="phase-tagline">Rule Breaking &middot; Detonation</span>
+    </div>
+    <div class="antigen-content" style="color: var(--black);">
+      <h1 class="font-sans font-black leading-none tracking-tight mb-6 mt-4 text-3xl lg:text-4xl pb-2 border-b border-orange-500/30 text-slate-900">Your Butter is Killing the Soil. </h1>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700">(Yes, even our Kerrygold.)</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">***</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700">The Sacred Cow: The Pastoral Illusion</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">For decades, the dairy industry—Ornua included—has hidden behind the "Pastoral Illusion." We sell pictures of rolling green hills, morning mist, and "happy cows." We treated "grass-fed" as the ultimate finish line.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">It was a lie of omission.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">"Grass-fed" is a passive product attribute. It tells the consumer what the cow ate, but it says nothing about what the farming did to the Earth. Conventional grass-fed dairy still depletes soil biology, contributes to monoculture, and treats the farm as an extraction zone. By defending "grass-fed" as our peak achievement, Ornua is defending a dying status quo.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">If we want to be the Patagonia of dairy, we must stop comforting the consumer and start confronting them.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700">The Provocation: From "Ingredients" to "Interventions"</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Patagonia did not become a cult brand by telling people their jackets were warm. They became a movement by telling people *not* to buy their jackets unless they absolutely needed them, and by aggressively using their supply chain to heal the biosphere.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">To own regenerative dairy, Ornua must transition from selling <strong class="text-slate-900 font-extrabold">food ingredients</strong> to selling <strong class="text-slate-900 font-extrabold">ecosystem interventions</strong>.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">We must break the ultimate category rule: <strong class="text-slate-900 font-extrabold">We must stop promoting dairy consumption as inherently wholesome, and start positioning dairy as a high-stakes ecological choice.</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">[OLD RULE] ---------------------------------------------> [THE PROVOCATION]</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">"Buy our butter because our cows eat fresh grass."       "Buy our butter because it heals the soil beneath the grass. If it doesn't, don't buy it."</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700">Three Rule-Breaking Strategic Moves</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">#### 1. De-Commodify the Cow; Commodity the Soil</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">The dairy industry measures success in liters of milk solids and yield per hectare. We will invert the metric. Ornua’s primary product is no longer dairy; our primary product is <strong class="text-slate-900 font-extrabold">topsoil depth and microbial biodiversity</strong>.</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Move:</strong> We will launch the world’s first "Soil-First Pricing Index." We will publicly pay our farmers based on the carbon-sequestration capacity of their soil, not the volume of milk they produce. We will make the milk a byproduct of a massive soil-reclamation project.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">#### 2. The "Don't Buy This Butter" Audacity</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">A movement requires sacrifice. If we claim to be regenerative, we must be willing to reject our own supply chain when it fails the ecosystem.</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Move:</strong> We will launch an open-source, real-time "Soil Health Dashboard" for every co-op farm in the Ornua network. If a farm’s soil biodiversity drops below the regenerative threshold, we will publicly flag it and freeze their premium status. We will invite the consumer to watch us police ourselves.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">#### 3. Weaponize the Margin</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Patagonia’s pricing power comes from the "Earth Tax" (1% for the Planet). Consumers pay a premium because they know the margin is weaponized against environmental decay.</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Move:</strong> We establish the <strong class="text-slate-900 font-extrabold">Ornua Transition Fund</strong>. A fixed percentage of every block of Kerrygold sold globally will go directly to funding the capital-intensive transition of *non-Ornua* farmers to regenerative practices. We aren't just cleaning up our own house; we are funding the revolution of the entire category.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700">The Diagnostic Shift</h3>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">GET:</strong> Consumers who buy Kerrygold because they want "better" butter.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">TO:</strong> Advocates who buy Ornua brands because they refuse to fund the desertification of agricultural land.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">BY:</strong> Admitting that traditional dairy is part of the crisis, and positioning Ornua as the only cooperative massive enough—and radical enough—to fix it from the dirt up.</div></li>
+</ul>
+    </div>
+    
+  </div>
+</section>
+
+<section id="phase4">
+  <div class="dark-section">
+    <div class="content-box">
+      <div class="phase-label">
+        <span class="phase-number">Phase 04</span>
+        <h2 class="phase-name">Territory</h2>
+        <span class="phase-tagline">Defensive Emotional Space</span>
+      </div>
+      <div class="antigen-content">
+        <h1 class="font-sans font-black leading-none tracking-tight mb-6 mt-4 text-3xl lg:text-4xl pb-2 border-b border-orange-500/30 text-orange-400">"Stop Feeding the Cow. Start Healing the Dirt."</h1>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">The Territory: Radical Soil Reparations</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">*This is the Defensive Emotional Space where Ornua ceases to be a food exporter and becomes an ecological recovery force. It is an impenetrable emotional moat because it turns our greatest vulnerability (dairy’s carbon footprint) into our absolute competitive advantage.*</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">[ THE EMOTIONAL MOAT ]</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">THE CONVENTIONAL TRAP              THE DEFENSIVE TERRITORY</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">"Apologetic Sustainability"   --->    "Radical Soil Reparations"</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">(Defending dairy's existence)         (Demanding the earth be repaid)</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">Why "Grass-Fed" is a Dead End</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">Grass-fed is a passive state. It is a description of a cow standing on a field. It is easily replicated, heavily greenwashed, and increasingly dismissed by conscious consumers as "less bad" industrial farming.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">If Ornua stays in the "grass-fed" territory, you are one Netflix documentary away from irrelevance.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300"><strong class="text-white font-extrabold">"Radical Soil Reparations"</strong> shifts the emotional territory from *sustenance* to *atonement*. We are not asking consumers to buy butter; we are asking them to fund the biological resurrection of the planet’s topsoil through the only animal capable of doing it at scale: the cow.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">The Defensive Emotional Manifesto: *The Soil Debt</strong>*</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">> <strong class="text-white font-extrabold">We owe the earth a debt. Dairy is how we pay it back.</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">> For a century, industrial agriculture treated dirt like a sterile sponge to be injected with chemicals. We mined the soil to feed the world, and in doing so, we broke the carbon cycle.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">> We don't need fewer cows. We need *better managed* cows.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">> True regenerative dairy isn’t about "doing no harm." It is about active, aggressive healing. It is about using hoof, saliva, and manure to pump life back into dead earth, trapping carbon where it belongs—beneath our feet.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">> If you are buying our dairy just because it tastes good, you are missing the point. You are buying this butter because every spread is a micro-investment in biological reparations. We are putting our money back into the dirt. If our competitors won’t match our soil metrics, they aren't food companies—they are strip miners.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">Why Competitors Can’t Touch This Space (The Moat)</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">| Competitor Type | Why They Can’t Copy This | The Trap We Set For Them |</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">| :--- | :--- | :--- |</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">| <strong class="text-white font-extrabold">Big Industrial (Fonterra, Arla)</strong> | Their supply chains rely on confinement, imported soy feed, and chemical fertilizers. | If they try to claim "soil healing," we demand they publish their soil-organic-matter (SOM) metrics. They will look like liars. |</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">| <strong class="text-white font-extrabold">Plant-Based Alternatives (Oatly, Alpro)</strong> | Monoculture pea and oat farming destroys topsoil biodiversity through constant tilling and pesticides. | We expose the dirty secret of vegan tech: *their ingredients kill the soil.* We position regenerative dairy as more pro-planet than monoculture plants. |</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white"><strong class="text-white font-extrabold">The Provocative Shift</strong></h3>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">From:</strong> "Our cows eat grass." (Boring, easily faked)</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">To:</strong> "Our cows heal the wound." (Visceral, urgent, heroic)</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">From Brand Attribute:</strong> Green pastures.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">To Defensive Emotional Space:</strong> <strong class="text-white font-extrabold">The Soil Custodians.</strong> We own the moral high ground of planetary healing. To buy any other dairy is to actively participate in the desertification of the planet.</div></li>
+</ul>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section id="phase5">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 05</span>
+      <h2 class="phase-name">Big Idea</h2>
+      <span class="phase-tagline">Scalable Platform Platform</span>
+    </div>
+    <div class="antigen-content" style="color: var(--black);">
+      <h1 class="font-sans font-black leading-none tracking-tight mb-6 mt-4 text-3xl lg:text-4xl pb-2 border-b border-orange-500/30 text-slate-900"><strong class="text-slate-900 font-extrabold">Our Butter is Dirty.</strong> </h1>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700">*Why the world’s most premium dairy brand must stop selling "clean" grass-fed purity, and start fighting for the dirt.*</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">***</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700"><strong class="text-slate-900 font-extrabold">The Strategic Pivot</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">For twenty years, Ornua (via Kerrygold) won by selling an idyllic, postcard-perfect myth: happy cows, green grass, pristine Irish rain. It was the ultimate "clean" product claim.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">But "clean" is dead. "Clean" is passive. "Clean" is a luxury shield used to ignore the industrial collapse of global agriculture.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">If Ornua wants to be the Patagonia of dairy, it must embrace the dirt. It must shift from <strong class="text-slate-900 font-extrabold">grass-fed</strong> (a passive state of eating) to <strong class="text-slate-900 font-extrabold">regenerative</strong> (an active act of healing). Patagonia didn't build a cult by selling "comfortable jackets"; they built it by declaring war on consumerism to save the wild.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Ornua must declare war on synthetic, industrial, soil-depleting agriculture to save the earth.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">***</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700"><strong class="text-slate-900 font-extrabold">The Big Idea: "THE SOIL STANDARD"</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700"><strong class="text-slate-900 font-extrabold">We are not a dairy company. We are a soil-restoration cooperative funded by butter.</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Instead of apologetically defending dairy’s carbon footprint, Ornua will aggressively position topsoil restoration as the single most critical lever to fight climate change. We will turn every gold foil wrapper into a deed of commitment to the earth beneath the cows' hooves.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">[ OLD PARADIGM ]                          [ THE SOIL STANDARD ]</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Grass-Fed as a Product Claim              Regenerative as a Systemic Creed</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">"Our cows eat green grass."     --->      "Our farms rebuild the Earth's skin."</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Functional Premium Price                   Intergenerational Stewardship</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700"><strong class="text-slate-900 font-extrabold">The Three Pillars of the Platform</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">#### <strong class="text-slate-900 font-extrabold">1. The Radical Transparency Act: "The Dirt Score"</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Patagonia tells you exactly where their organic cotton is grown and the footprint of the factory. Ornua will launch the <strong class="text-slate-900 font-extrabold">Dirt Score</strong>—a QR code on every package of butter and cheese linking directly to the real-time ecological health of the specific cooperative farms that produced it.</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Metric:</strong> Consumers won't look at fat content; they’ll look at soil organic matter, microbial biodiversity, and carbon sequestration metrics.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Provocation:</strong> We will publish the scores of our worst-performing farms alongside our best, showing the raw, unpolished journey of transition.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">#### <strong class="text-slate-900 font-extrabold">2. The Anti-Commodity Campaign: "Don't Buy Cheap Butter"</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">In the spirit of Patagonia’s *"Don't Buy This Jacket,"* Ornua will run a global campaign targeting the race-to-the-bottom pricing of industrial, grain-fed, feedlot dairy.</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Message:</strong> *"If you are buying butter for under $3, you aren't paying for butter—you are financing the desertification of our topsoil. Buy less. Buy better. Or don't buy dairy at all."*</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-700"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-slate-900 font-extrabold">The Impact:</strong> This immediately reframes Kerrygold/Ornua not as an expensive grocery item, but as an ecological choice, instantly justifying and protecting their premium pricing power.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">#### <strong class="text-slate-900 font-extrabold">3. The "1% for the Soil" Fund</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">Ornua will commit 1% of all global revenue directly to the <strong class="text-slate-900 font-extrabold">Ornua Transition Fund</strong>—a self-tax designed to fund the capital-intensive transition of non-regenerative family farms worldwide into certified regenerative systems. We won't just transition Irish farms; we will sponsor the regeneration of dairy land globally, turning a local co-op into a global ecological savior.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-slate-700"><strong class="text-slate-900 font-extrabold">Why This Kills the Safe Option</strong></h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">The safe option is to put a green leaf logo on the packaging, write a CSR report about "sustainability targets for 2035," and keep doing business as usual.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700"><strong class="text-slate-900 font-extrabold">This idea kills that safety.</strong> It forces Ornua to have an enemy: industrial, soil-depleting farming. It forces Ornua to admit that food production is inherently dirty, but that done right, it is the only industry capable of healing the planet.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-700">By centering the brand on <strong class="text-slate-900 font-extrabold">soil</strong>, Ornua owns the foundation of life itself. Everything else is just a byproduct.</p>
+    </div>
+    
+  </div>
+</section>
+
+<section id="phase6">
+  <div class="dark-section">
+    <div class="content-box">
+      <div class="phase-label">
+        <span class="phase-number">Phase 06</span>
+        <h2 class="phase-name">Execution System</h2>
+        <span class="phase-tagline">Earned-First Architecture</span>
+      </div>
+      <div class="antigen-content">
+        <h1 class="font-sans font-black leading-none tracking-tight mb-6 mt-4 text-3xl lg:text-4xl pb-2 border-b border-orange-500/30 text-orange-400">"Our Grass-Fed is No Longer Good Enough."</h1>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white">The Catalyst: The Great "Grass-Fed" Self-Recall</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">To become the Patagonia of dairy, Ornua must commit the ultimate corporate sin: <strong class="text-white font-extrabold">declare its own gold-standard product claim obsolete.</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">We will not launch a "sustainability campaign." Instead, Ornua will run full-page ads in *The New York Times* and *The Guardian* with a stark warning: <strong class="text-white font-extrabold">"Stop Buying Grass-Fed. It’s Saving the Brand, But It’s Not Saving the Soil."</strong></p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">By intentionally cannibalizing our own billion-dollar positioning ("Grass-Fed") and calling it out as a passive, baseline standard that no longer suffices in a climate-crisis era, we instantly hijack the global food discourse. This is not greenwashing; it is a public confession that initiates a multi-billion-dollar pivot to <strong class="text-white font-extrabold">Regenerative-Only Dairy</strong>.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white">The Earned-First Architecture: 3 Pillars of the Movement</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">To turn this provocation into a decade of pricing power, we build an architecture designed to be written about, argued over, and championed—not bought through media spend.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">[ THE CATALYST: THE SELF-RECALL ]</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">│</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">┌───────────────────────┼───────────────────────┐</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">▼                       ▼                       ▼</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">│   THE SOIL TAX   │    │  THE OPEN-SOURCE │    │   THE DE-YIELD   │</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">│   (Pillar 1)     │    │   (Pillar 2)     │    │    (Pillar 3)    │</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">└──────────────────┘    └──────────────────┘    └──────────────────┘</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">```</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">#### Pillar 1: "The Soil Tax" (Self-Imposed Carbon Premium)</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Action:</strong> Ornua introduces a self-imposed $0.50 "Soil Tax" on every block of Kerrygold sold globally that is *not* sourced from certified regenerative farms.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Earned Hook:</strong> 100% of this tax is put into an escrow fund directly accessible by rival dairy cooperatives to help *their* farmers transition to regenerative practices.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Why it works:</strong> We are funding our competitors' transformation. This moves us from a "dairy brand" to the "governing body of the soil." It invites immense press scrutiny, which only validates our moral authority.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">#### Pillar 2: The Open-Source "Grass-to-Soil" IP</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Action:</strong> Ornua open-sources its proprietary agricultural data, soil-carbon measurement technology, and transition playbooks. We publish the exact blueprints of our regenerative farm conversions online for free.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Earned Hook:</strong> We send physical copies of these blueprints directly to the CEOs of Arla, Nestlé, and Danone with public invitation letters reading: *"Please steal this. The soil doesn't care about our market share."*</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Why it works:</strong> It mimics Patagonia’s "Don’t Buy This Jacket" and open-source repair guides. It forces the industry to either follow Ornua's lead (cementing our leadership) or ignore us and look complicit in soil degradation.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">#### Pillar 3: "The De-Yield Guarantee"</p>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Action:</strong> Ornua guarantees a minimum, stable living income to any of its cooperative farmers who experience a temporary drop in milk yield during their 3-to-5-year transition to regenerative agriculture.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">The Earned Hook:</strong> We launch the "Yield-Down, Value-Up" index, proving to the financial world that lower-yield, higher-biodiversity dairy yields 3x the margin of industrialized, high-volume farming.</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Why it works:</strong> It shifts the conversation from volume to value. It proves to the cynical agricultural sector that Ornua is absorbing the financial risk of the transition, earning deep, unbreakable loyalty from farmers and consumers alike.</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white">Safe Ideas Killed</h3>
+<ul class="list-none space-y-3 my-4">
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Killed:</strong> A heartwarming documentary series about Irish family farms adopting regenerative practices. *(Too passive; consumers tune it out as corporate PR).*</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Killed:</strong> Adding a green "Regenerative" sticker to the current Kerrygold packaging. *(A product claim, not a movement. It invites greenwashing accusations).*</div></li>
+<li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-[#FB923C] font-black">→</span><div>  <strong class="text-white font-extrabold">Killed:</strong> Lobbying governments for regenerative subsidies behind closed doors. *(No earned media value. We must lead publicly and aggressively).*</div></li>
+</ul>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">---</p>
+<h3 class="font-sans font-bold mb-3 mt-6 text-xl text-white">The Pricing Power Payoff</h3>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">By transitioning from "grass-fed" (a commodity claim that Lidl and Aldi have already copied and discounted) to "regenerative" (a systemic movement we actively fund and police), Ornua decouples itself from the dairy commodity pricing index.</p>
+<p class="text-sm md:text-base leading-relaxed mb-4 text-slate-300">Consumers do not pay a premium for the butter; they pay a premium to <strong class="text-white font-extrabold">fund the restoration of the earth.</strong> This creates an emotional and ethical lock-in that makes Ornua virtually immune to private-label undercutting for the next fifteen years.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section id="phase7">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 07</span>
+      <h2 class="phase-name">Synthesis</h2>
+      <span class="phase-tagline">Distilled Pitch Narrative</span>
+    </div>
+    
+    <div class="slide-grid-container" style="background: #111827; padding: 3rem; border-radius: 20px;">
+      <div class="slide-grid">
+        
+        <div class="slide-card">
+          <div class="slide-num">01</div>
+          <div class="slide-tag">Slide 01 &middot; Segment</div>
+          <div class="slide-title">The Challenge</div>
+          <ul class="slide-bullets">
+            <li><div><strong>The Commodity Trap:</strong> "Grass-fed" was once a powerful differentiator, but it has transitioned from a premium claim to basic table stakes.</div></li>
+<li><div><strong>The Pricing Power Erosion:</strong> As competitors copy the grass-fed narrative, Ornua's ability to command a historical price premium is actively under threat.</div></li>
+<li><div><strong>The Functional Limit:</strong> Functional product claims can only sustain a business so far; they do not build emotional loyalty or protect against inflation.</div></li>
+<li><div><strong>The Mission:</strong> Move Ornua from a functional Irish dairy exporter to a global, purpose-driven sustainability icon.</div></li>
+          </ul>
+        </div>
+        
+        <div class="slide-card">
+          <div class="slide-num">02</div>
+          <div class="slide-tag">Slide 02 &middot; Segment</div>
+          <div class="slide-title">The Insight</div>
+          <ul class="slide-bullets">
+            <li><div><strong>The Conscious Consumption Shift:</strong> Modern premium consumers are transitioning from "eating healthy for myself" to "eating healthy for the planet."</div></li>
+<li><div><strong>The Greenwashing Fatigue:</strong> Consumers are cynical of carbon-neutral buzzwords; they crave tangible, systemic, and radical transparency.</div></li>
+<li><div><strong>The Unused Asset:</strong> Ornua’s cooperative structure of small family farms is the perfect authentic engine for true regenerative agriculture—not a corporate PR stunt, but a lived reality.</div></li>
+<li><div><strong>The Opportunity Gap:</strong> No major global dairy brand currently owns the "regenerative" space emotionally. The throne is empty.</div></li>
+          </ul>
+        </div>
+        
+        <div class="slide-card">
+          <div class="slide-num">03</div>
+          <div class="slide-tag">Slide 03 &middot; Segment</div>
+          <div class="slide-title">The Provocation</div>
+          <ul class="slide-bullets">
+            <li><div><strong>Grass-fed is a product claim. Regenerative is a movement.</strong></div></li>
+<li><div><strong>The Harsh Reality:</strong> If you only sell grass-fed butter, you are selling an ingredient. If you champion regenerative soil, you are selling a healthier future for the planet.</div></li>
+<li><div><strong>The Strategic Choice:</strong> Ornua can either wait for regulators to force green practices upon them, or they can lead the revolution and write the rules themselves—becoming the Patagonia of the dairy aisle.</div></li>
+          </ul>
+        </div>
+        
+        <div class="slide-card">
+          <div class="slide-num">04</div>
+          <div class="slide-tag">Slide 04 &middot; Segment</div>
+          <div class="slide-title">The Territory</div>
+          <ul class="slide-bullets">
+            <li><div><strong>Territory: "The Living Soil"</strong></div></li>
+<li><div><strong>The Shift:</strong> Move the brand focus from the cow to the earth beneath its hooves.</div></li>
+<li><div><strong>The Narrative:</strong> Shift the story from "Irish cows eat green grass" to "Irish farms restore biodiversity, capture carbon, and heal the ecosystem."</div></li>
+<li><div><strong>The Value Proposition:</strong> Buying Ornua products becomes an active political and environmental choice to fund global soil restoration.</div></li>
+          </ul>
+        </div>
+        
+        <div class="slide-card">
+          <div class="slide-num">05</div>
+          <div class="slide-tag">Slide 05 &middot; Segment</div>
+          <div class="slide-title">The Big Idea</div>
+          <ul class="slide-bullets">
+            <li><div><strong>Ornua: Earth-First Dairy</strong></div></li>
+<li><div><strong>The Core Concept:</strong> We are redefining Ornua not as a dairy cooperative, but as a soil-restoration cooperative that happens to make world-class butter and cheese.</div></li>
+<li><div><strong>The Promise:</strong> Every block of Kerrygold sold directly funds the transition of millions of acres of farmland from industrial-adjacent agriculture to thriving, carbon-sequestering ecosystems.</div></li>
+<li><div><strong>The Metaphor:</strong> Just as Patagonia made clothing a vehicle for environmental activism, Ornua makes dairy a vehicle for planetary regeneration.</div></li>
+          </ul>
+        </div>
+        
+        <div class="slide-card">
+          <div class="slide-num">06</div>
+          <div class="slide-tag">Slide 06 &middot; Segment</div>
+          <div class="slide-title">The Executions</div>
+          <ul class="slide-bullets">
+            <li><div><strong>1% For The Planet, 100% For The Soil:</strong> Establish the "Ornua Soil Trust," committing a percentage of all global sales to fund regenerative transition grants for farmers globally.</div></li>
+<li><div><strong>The "Dirty Butter" Campaign:</strong> A provocative marketing campaign celebrating real, biodiverse, un-manicured pastures, contrasting lifeless industrial monoculture fields with vibrant, wild Irish farms.</div></li>
+<li><div><strong>Root-to-Table Transparency:</strong> Implement blockchain-backed packaging QR codes allowing consumers to scan their butter and see the exact soil health, biodiversity metrics, and carbon captured on the farm it came from.</div></li>
+          </ul>
+        </div>
+        
+        <div class="slide-card">
+          <div class="slide-num">07</div>
+          <div class="slide-tag">Slide 07 &middot; Segment</div>
+          <div class="slide-title">Why It Works</div>
+          <ul class="slide-bullets">
+            <li><div><strong>Unlocks a Decade of Pricing Power:</strong> Consumers willingly pay a premium of 20-30% more for brands that align with their personal values and fight climate change.</div></li>
+<li><div><strong>Builds Unshakable Advocacy:</strong> It transforms passive retail buyers into active brand advocates who will defend Ornua against cheaper store-brand competitors.</div></li>
+<li><div><strong>Secures the Supply Chain:</strong> Investing in regenerative practices future-proofs Irish farming against climate shocks and regulatory penalties, ensuring long-term yield viability.</div></li>
+<li><div><strong>Attracts Next-Gen Talent:</strong> Positions Ornua as the most exciting, purpose-driven food company in the world to work for.</div></li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <div class="footer-wordmark">anti<strong>gen</strong><span>.</span></div>
+  <div class="footer-meta">
+    Ornua Strategy Platform ? Standalone HTML Export<br>
+    Composable. Distributed. Insurgent.
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section[id]');
+const btns = document.querySelectorAll('.pnav-btn');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      btns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.2 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
