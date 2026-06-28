@@ -1,6 +1,6 @@
 # ANTIGEN Website
 
-Modern multi-page ANTIGEN site built with Next.js and Sanity.
+Modern multi-page ANTIGEN site built with Next.js.
 
 ## Local Development
 
@@ -12,17 +12,10 @@ npm run dev
 Open:
 
 - Site: `http://localhost:3000`
-- Studio: `http://localhost:3000/studio`
 
 ## Content Editing
 
-All major pages are structured Sanity documents. The page layouts remain in code so the visual identity stays consistent.
-
-Create `antigen-web/.env.local` from `.env.local.example`, then add the Sanity project ID, dataset, and tokens. Initial content can be seeded with:
-
-```powershell
-npm run seed:sanity
-```
+The site is self-contained. Public page content lives in `src/lib/fallbackContent.js` and section components under `src/components/sections`.
 
 ## Deployment
 

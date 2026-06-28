@@ -74,7 +74,6 @@ The reason is simple: founder-name searches are crowded and ambiguous. ANTIGEN n
 | `/pov` | Editorial hub | Index |
 | `/pov/[slug]` | Article discovery and thought leadership | Index when the article is approved for public search |
 | `/contact` | Conversion and branded contact intent | Index |
-| `/studio` | CMS/editor surface | Noindex and keep out of sitemap |
 | `/planview` and similar private/client artifacts | Utility or client artifact | Exclude from sitemap and keep out of search unless explicitly approved |
 
 ## Page-By-Page SEO Assets
@@ -231,7 +230,6 @@ The sitemap should include:
 
 The sitemap should exclude:
 
-- `/studio`
 - preview, draft, admin, or editor URLs
 - client or utility artifacts unless explicitly approved for public search
 
@@ -242,7 +240,6 @@ Recommended policy:
 - allow crawling of the public site
 - reference the sitemap
 - keep search exclusion decisions page-specific where `noindex` is required
-- mark `/studio` as an editor surface that should not be indexed
 
 Review note: `robots.txt` and `noindex` solve different problems. The implementation should not depend on a robots disallow rule alone when the goal is to keep an accessible page out of search.
 
@@ -288,7 +285,7 @@ Use the existing ANTIGEN logo assets as the starting point for:
 
 Before implementation, confirm which mark is the approved external identity asset for search and share surfaces.
 
-## Sanity Editing Recommendation
+## Editing Recommendation
 
 The long-term editing model should allow approved SEO fields without turning SEO into an uncontrolled page-builder layer.
 
@@ -304,7 +301,6 @@ Recommended locked behavior:
 
 - canonical URL construction
 - sitemap inclusion rules
-- noindex behavior for `/studio`
 - structured data templates and validation rules
 
 ## Approval Checklist
@@ -339,11 +335,10 @@ After this pack is approved, implementation should:
 4. add canonical URLs
 5. add Open Graph and Twitter metadata
 6. add a sitemap containing approved public routes and articles
-7. add robots behavior and `/studio` noindex handling
+7. add robots behavior
 8. add initial structured data that matches approved public facts
 9. add approved Open Graph image assets
-10. extend Sanity schemas only for SEO fields that the user should edit later
-11. verify rendered metadata, sitemap, robots output, and structured-data output before any push
+10. verify rendered metadata, sitemap, robots output, and structured-data output before any push
 
 ## References For Implementation
 

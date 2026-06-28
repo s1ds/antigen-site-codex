@@ -1,17 +1,15 @@
-import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/PageHero";
 import { BackHomeLink } from "@/components/site/BackHomeLink";
-import { getPost, getPosts } from "@/lib/sanity/queries";
+import { fallbackContent } from "@/lib/fallbackContent";
 
 export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return fallbackContent.posts.map((post) => ({ slug: post.slug }));
 }
 
 export default async function PovPostPage({ params }) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = fallbackContent.posts.find((item) => item.slug === slug);
 
   if (!post) {
     notFound();
@@ -21,7 +19,7 @@ export default async function PovPostPage({ params }) {
     <main>
       <PageHero eyebrow={post.category || "POV"} title={post.title} body={post.excerpt} tone="light" />
       <article className="section-pad mx-auto max-w-4xl bg-white text-lg font-semibold leading-relaxed">
-        {Array.isArray(post.body) ? <PortableText value={post.body} /> : <p>{post.body}</p>}
+        <p>{post.body}</p>
         <BackHomeLink className="mt-12" />
       </article>
     </main>

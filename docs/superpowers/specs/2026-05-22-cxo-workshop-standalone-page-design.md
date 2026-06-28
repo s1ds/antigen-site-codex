@@ -8,7 +8,7 @@ Add the supplied India CXO Workshop Series page to the ANTIGEN site at the direc
 
 - `/CXOworkshop` is a normal Next.js app route in `antigen-web`.
 - The route uses the existing ANTIGEN site shell so the fixed `1antigen.com` header remains visible.
-- The route is not added to `SiteHeader`, the footer navigation, Sanity schemas, or any other public page index.
+- The route is not added to `SiteHeader`, the footer navigation, or any other public page index.
 
 ## Page Content
 
