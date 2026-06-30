@@ -1,0 +1,968 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHOFESH // שכבת הגנה אוטונומית למטיילים ישראלים</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Assistant', 'Rubik', sans-serif;
+            background-color: #0d0d0d;
+            color: #f5f5f4;
+        }
+        .gradient-border {
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+        .radial-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden relative">
+
+    <!-- Ambient Glow BG -->
+    <div class="absolute top-0 right-1/4 w-[600px] h-[600px] radial-glow pointer-events-none z-0"></div>
+    <div class="absolute top-[1200px] left-10 w-[500px] h-[500px] radial-glow pointer-events-none z-0"></div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <span class="text-amber-500 font-extrabold tracking-widest text-2xl">CHOFESH</span>
+                    <span class="text-neutral-500 text-xs tracking-wider border border-neutral-800 px-2 py-0.5 rounded uppercase hidden sm:inline-block">שכבת AOL // 2026</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">פרדוקס הטיול</a>
+                    <a href="#map-section" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">מפת מדד הידידותיות</a>
+                    <a href="#configurator-section" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">הרכב שכבת הגנה</a>
+                    <a href="#simulator-section" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">סימולטור חירום</a>
+                </div>
+                <div>
+                    <a href="#configurator-section" class="inline-flex items-center justify-center px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold text-sm rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-amber-500/10">
+                        הפעל שכבת AOL
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-24 sm:pt-20 sm:pb-32 px-4">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Alert Badge -->
+            <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> מודיעין שטח בזמן אמת: מגדירים מחדש את החופש שלכם
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
+                ההרפתקה שלכם. בתנאים שלכם.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500">
+                    אנחנו פתרנו את החיכוך מראש.
+                </span>
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed mb-10 font-light">
+                החלום על הטיול הגדול אחרי הצבא הוא לא משהו שאפשר לוותר עליו. אבל במציאות הגיאופוליטית של 2026, דריכות מתמדת היא דבר מעייף. CHOFESH מספקת שכבת הגנה בלתי נראית — מבטיחה את הדרך שלכם הביתה, סורקת שכונות בטוחות ומגינה על הזהות שלכם בזמן שאתם שומרים על <span class="text-white font-semibold">100% מהאוטונומיה והחופש שלכם</span>.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#configurator-section" class="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-extrabold text-base rounded-xl transition-all shadow-xl shadow-amber-500/20 text-center">
+                    הרכיבו את שכבת ההגנה שלכם
+                </a>
+                <a href="#map-section" class="w-full sm:w-auto px-8 py-4 bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-base rounded-xl border border-neutral-800 transition-all text-center">
+                    בדקו את מפת המדד הידידותי
+                </a>
+            </div>
+
+            <!-- Trusted / Live status banner -->
+            <div class="mt-16 pt-8 border-t border-neutral-900 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-right">
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">רציפות תעופתית</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> מסדרון אל על מאובטח פעיל
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">שכונות ואיזורים סרוקים</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1">142 ערים ומחוזות במעקב</p>
+                </div>
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">מענה חירום ב-WhatsApp</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1">פחות מ-90 שניות</p>
+                </div>
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">ארכיטקטורת שליטה</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1">אוטונומיה מלאה ללא כבילה</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE PARADOX SECTION -->
+    <section id="about" class="py-20 bg-neutral-950 border-y border-neutral-900 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white tracking-tight">פרדוקס המטייל המודרני</h2>
+                <p class="text-neutral-400 mt-2 max-w-2xl mx-auto">טיולים מאורגנים מסורתיים לוקחים מכם את החופש והופכים אתכם לעדר. מצד שני, תכנון לבד מטיל מס דאגה וחרדה כבד על חוויית הטיול שלכם. הנה איך CHOFESH משנה את המשוואה.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Box 1 -->
+                <div class="bg-neutral-900/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-neutral-700/60 transition-all text-right">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6">
+                        <!-- Plane Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transform rotate-180">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-neutral-100 mb-2">שבירות המרחב התעופתי</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">
+                        חברות תעופה זרות מבטלות טיסות בטיפת המתיחות הראשונה, ומשאירות אתכם תקועים בחו"ל ללא כיסוי ביטוחי יעיל. אנחנו בונים עבורכם נתיבים חלופיים מבוססי מובילים יציבים, נקודות יציאה יבשתיות ורשת גיבוי אזורית.
+                    </p>
+                </div>
+
+                <!-- Box 2 -->
+                <div class="bg-neutral-900/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-neutral-700/60 transition-all text-right">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6">
+                        <!-- Shield Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-neutral-100 mb-2">שלמות הזהות והכבוד האישי</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">
+                        ביטחון הוא קודם כל תנאי של כבוד אישי. אתם לא אמורים לשקר לגבי מאיפה באתם כדי להרגיש בטוחים. CHOFESH סורקת שכונות ברמת הרחוב, ומבטיחה שתבלו ותוציאו כסף רק במקומות שמקבלים אתכם בזרועות פתוחות.
+                    </p>
+                </div>
+
+                <!-- Box 3 -->
+                <div class="bg-neutral-900/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-neutral-700/60 transition-all text-right">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6">
+                        <!-- Compass Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-neutral-100 mb-2">שימור אוטונומיה מוחלטת</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">
+                        אנחנו פוסלים לחלוטין את הרעיון של לו"ז קשיח או נסיעה באוטובוס תיירים צפוף. עם CHOFESH, אתם ישנים בהוסטלים המגניבים ביותר, מטיילים לבד בטבע ויושבים בבתי קפה מקומיים. אנחנו פשוט פועלים כשכבת הגנה בלתי נראית בכיס שלכם.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE LIVE MAP / SENTIMENT PORTAL -->
+    <section id="map-section" class="py-24 px-4 bg-neutral-900/20">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12">
+                <div class="text-right">
+                    <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">סריקה פעילה</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">מפת המדד הידידותי לישראלים בזמן אמת</h2>
+                </div>
+                <p class="text-neutral-400 max-w-md lg:text-left mt-4 lg:mt-0 text-right lg:text-left">
+                    מחושב רחוב אחר רחוב מתוך דיווחי שטח של מטיילים ישראלים ועדכוני אבטחה קהילתיים שוטפים. מעודכן לשעה האחרונה (יוני 2026).
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <!-- Right Nav: Destination Selectors (Now Right for RTL) -->
+                <div class="lg:col-span-4 flex flex-col gap-3">
+                    <button onclick="switchMapTab('greece')" id="btn-greece" class="map-tab-btn active text-right p-5 rounded-2xl bg-neutral-900 border border-amber-500/40 text-white transition-all shadow-lg shadow-amber-500/5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">יוון (אתונה והאיים)</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">נוחות גבוהה</span>
+                        </div>
+                        <p class="text-xs text-neutral-400 mt-2">חיכוך מקומי אפסי, מסדרון טיסות ישיר ויציב</p>
+                    </button>
+
+                    <button onclick="switchMapTab('vietnam')" id="btn-vietnam" class="map-tab-btn text-right p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900/50 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">מזרח אסיה (וייטנאם ותאילנד)</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">קבלה מוחלטת</span>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-2">מוקד הטיול אחרי הצבא הפופולרי ביותר עם קהילות מטיילים חזקות</p>
+                    </button>
+
+                    <button onclick="switchMapTab('balkans')" id="btn-balkans" class="map-tab-btn text-right p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900/50 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">הבלקן (בולגריה ואלבניה)</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">רגישות נמוכה</span>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-2">מסלולי טבע וטרקים זולים במיוחד ללא צורך בוויזה מורכבת</p>
+                    </button>
+
+                    <button onclick="switchMapTab('london')" id="btn-london" class="map-tab-btn text-right p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900/50 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">לונדון, בריטניה</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/30">התרעת הפגנות</span>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-2">סביבה עירונית הדורשת סינון קפדני של שכונות מגורים</p>
+                    </button>
+                </div>
+
+                <!-- Left Display: Dynamic Dashboard -->
+                <div class="lg:col-span-8 bg-neutral-900/80 border border-neutral-800 p-6 sm:p-8 rounded-3xl relative overflow-hidden text-right">
+                    
+                    <div id="sentiment-content" class="relative z-10">
+                        <!-- Dynamic Header -->
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 pb-6 border-b border-neutral-800">
+                            <div>
+                                <h3 id="panel-title" class="text-2xl font-extrabold text-white">יוון (אתונה והאיים)</h3>
+                                <p id="panel-desc" class="text-neutral-400 text-sm mt-1">אופציה מעולה לחופשת בטן-גב ללא דריכות או צורך להסתיר את הישראליות שלכם.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs uppercase text-neutral-500 font-bold">ציון רציפות:</span>
+                                <span id="panel-grade" class="px-3.5 py-1 text-sm font-extrabold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">GRADE A</span>
+                            </div>
+                        </div>
+
+                        <!-- Grid Ratings -->
+                        <div class="grid sm:grid-cols-3 gap-6 my-8">
+                            <!-- Metric 1 -->
+                            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800">
+                                <span class="text-xs text-neutral-500 uppercase font-semibold">דירוג חופש זהות פומבית</span>
+                                <div class="flex items-end justify-between mt-2">
+                                    <span id="panel-identity-score" class="text-2xl font-bold text-white">96%</span>
+                                    <span class="text-xs text-emerald-400">אפשר לדבר עברית חופשי</span>
+                                </div>
+                                <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3">
+                                    <div id="panel-identity-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 96%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800">
+                                <span class="text-xs text-neutral-500 uppercase font-semibold">סטטוס רציפות תעופתית</span>
+                                <div class="flex items-end justify-between mt-2">
+                                    <span id="panel-flight-score" class="text-2xl font-bold text-white">גבוה מאוד</span>
+                                    <span class="text-xs text-emerald-400">אל על + בלו בירד פעיל</span>
+                                </div>
+                                <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3">
+                                    <div id="panel-flight-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800">
+                                <span class="text-xs text-neutral-500 uppercase font-semibold">מדד קרבה להפגנות וחיכוך</span>
+                                <div class="flex items-end justify-between mt-2">
+                                    <span id="panel-protest-score" class="text-2xl font-bold text-white">בטוח לגמרי</span>
+                                    <span id="panel-protest-sub" class="text-xs text-emerald-400">אין צורך במסלולים עוקפים</span>
+                                </div>
+                                <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3">
+                                    <div id="panel-protest-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Feed Insight -->
+                        <div class="bg-neutral-950/60 p-6 rounded-2xl border border-neutral-800/80">
+                            <h4 class="text-xs text-amber-500 uppercase tracking-wider font-extrabold mb-4 flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> דיווחי שטח של מטיילים ישראלים (72 שעות אחרונות)
+                            </h4>
+                            <div class="space-y-4">
+                                <div class="border-b border-neutral-900 pb-3 last:border-0 last:pb-0">
+                                    <div class="flex items-center justify-between text-xs text-neutral-500 mb-1">
+                                        <span class="font-semibold text-neutral-300">יוני ר. (טרק בפיליון)</span>
+                                        <span>אתמול ב-14:22</span>
+                                    </div>
+                                    <p id="panel-comment-1" class="text-sm text-neutral-400 leading-relaxed">
+                                        "טיילנו ארבעה ימים בפיליון וישנו בבתי אירוח מקומיים. הרגשנו רצויים בטירוף בכל פינה. דיברנו עברית חופשי ואפילו שמחו לשמוע שאנחנו מישראל. ממליץ בחום על מחוזות צפון יוון."
+                                    </p>
+                                </div>
+                                <div class="pb-3 last:border-0 last:pb-0">
+                                    <div class="flex items-center justify-between text-xs text-neutral-500 mb-1">
+                                        <span class="font-semibold text-neutral-300">עדי ק. (מרכז אתונה)</span>
+                                        <span>לפני יומיים</span>
+                                    </div>
+                                    <p id="panel-comment-2" class="text-sm text-neutral-400 leading-relaxed">
+                                        "אתונה מדהימה כרגע. בימי חמישי בערב עדיף לא להסתובב ממש סביב כיכר סינטגמה בגלל הפגנות מקומיות שלא קשורות אלינו, אבל חוץ מזה הכל מושלם וידידותי לחלוטין לישראלים."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Download briefing button -->
+                        <div class="mt-6 flex flex-wrap gap-4 items-center justify-between pt-6 border-t border-neutral-800">
+                            <span class="text-xs text-neutral-500">המדד כולל גישה לקו החירום המוצפן שלנו ב-WhatsApp וסקריפטים מקומיים לתרגום.</span>
+                            <button onclick="triggerDownloadBriefing()" class="inline-flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-amber-400 px-4 py-2 rounded-lg text-xs font-bold transition-colors border border-neutral-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                </svg>
+                                בקש תדרוך שטח עדכני
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE MODULE CONFIGURATOR -->
+    <section id="configurator-section" class="py-24 px-4 bg-neutral-950 border-t border-neutral-900 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">ארכיטקטורת שקט נפשי</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">הרכיבו את שכבת ההגנה שלכם (AOL)</h2>
+                <p class="text-neutral-400 mt-2">הפעילו רק את מסנני ההגנה והשירותים הנדרשים לטיול שלכם. שמרו על חופש מוחלט תוך פתרון שקט של נקודות החיכוך.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                <!-- Configuration Options -->
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <!-- Module 1 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative text-right">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-flight" checked onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">שכבה א': הגנת תעופה ורציפות "קח אותי הביתה"</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$3.50 / יום</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">מעבר אוטומטי לטיסות של מובילים בעלי רציפות תעופתית גבוהה (אל על/ארקיע), פתרונות קישור מוכנים מראש, נקודות יציאה יבשתיות (מסדרון קפריסין/ירדן) וערבות נזילות כלכלית מיידית במקרה של השבתת שמיים.</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Module 2 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative text-right">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-map" checked onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">שכבה ב': מפת מדד הזהות והתראות הפגנות בזמן אמת</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$2.00 / יום</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">שילוב ישיר של מפות השטח המעודכנות שלנו לטלפון שלכם. התראות גיאוגרפיות חכמות יתריעו בפניכם מראש על הפגנות מקומיות, שינויי מצב רוח ברחוב או נתיבי תחבורה מומלצים ומנוטרים.</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Module 3 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative text-right">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-support" checked onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">שכבה ג': עוזר ביורוקרטיה דיגיטלי ומוקד חירום ב-WhatsApp</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$1.50 / יום</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">מוקד סיוע ייעודי 24/7 הפועל בערוץ מוצפן וקל. פותר עבורכם שאלות ביקורת גבולות, תקלות בהוצאת ויזה ובירורי מכס וביטוח תוך שניות.</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Module 4 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative text-right">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-guide" onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">שכבה ד': רשת מלווים ונהגים מקומיים מסוננים לפי דרישה</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$4.00 / יום</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">גישה דינמית למלווים ונהגים מקומיים מסוננים שמכירים בדיוק את מרחבי המילוט והאיזורים הבטוחים. ללא התחייבות ללו"ז קבוע — מפעילים ומזמינים אותם רק לימים ספציפיים שבהם אתם זקוקים להם.</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Live Shield Output Panel -->
+                <div class="lg:col-span-5 bg-gradient-to-b from-neutral-900 to-neutral-950 border border-neutral-800 p-8 rounded-3xl sticky top-28 glow-orange text-right">
+                    <h3 class="text-xl font-extrabold text-white mb-6 flex items-center gap-2">
+                        <!-- Shield Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                        </svg>
+                        שכבות ה-AOL הפעילות שלכם
+                    </h3>
+
+                    <!-- Confidence Gauge -->
+                    <div class="mb-8 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs text-neutral-400 uppercase font-semibold">מדד השקט הנפשי המשוער</span>
+                            <span id="calc-confidence" class="text-lg font-extrabold text-amber-400">92%</span>
+                        </div>
+                        <div class="w-full bg-neutral-900 h-2.5 rounded-full">
+                            <div id="calc-confidence-bar" class="bg-amber-500 h-2.5 rounded-full transition-all duration-500" style="width: 92%"></div>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-3 leading-relaxed">
+                            רמת ביטחון של מעל 85% מורידה משמעותית את מס החרדה של המטייל ומאפשרת לכם להתרכז בטיול עצמו ללא הפרעות.
+                        </p>
+                    </div>
+
+                    <!-- Selected Shields List -->
+                    <div class="space-y-3 mb-8">
+                        <span class="text-xs uppercase text-neutral-500 font-bold block">מנגנוני הגנה פעילים</span>
+                        <div id="active-shields-container" class="space-y-2">
+                            <!-- Dynamic additions -->
+                        </div>
+                    </div>
+
+                    <!-- Pricing Calc -->
+                    <div class="pt-6 border-t border-neutral-800 flex justify-between items-center mb-8">
+                        <div>
+                            <span class="text-xs text-neutral-400 uppercase font-semibold block">עלות מוערכת ליום</span>
+                            <span class="text-[10px] text-neutral-500 italic block">ללא חוזים מגבילים. ביטול מתי שרוצים.</span>
+                        </div>
+                        <div class="text-left">
+                            <span id="calc-price" class="text-3xl font-black text-white">$7.00</span>
+                            <span class="text-neutral-400 text-sm block">/ יום</span>
+                        </div>
+                    </div>
+
+                    <button onclick="triggerDeployLayer()" class="w-full py-4 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-black text-center rounded-xl transition-all shadow-xl shadow-amber-500/10 text-base">
+                        הפעל פרוטוקול מסלול מאובטח
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE FLIGHT CONTINUITY DEMO (SIMULATOR) -->
+    <section id="simulator-section" class="py-24 px-4 bg-neutral-900/10 border-t border-neutral-900 text-right">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left Details (Now Right aligned text for RTL) -->
+                <div>
+                    <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">חוסן בזמן אמת</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">סימולטור רציפות תעופתית</h2>
+                    <p class="text-neutral-400 mt-4 leading-relaxed">
+                        בשנת 2026, טיסות של חברות זרות הן עסק לא יציב. כשחברה מחליטה להשעות את הטיסות לתל אביב באופן פתאומי, המטייל הממוצע מוצא את עצמו מול ימים ארוכים של תורים מתישים, ביטול פוליסות ביטוח ומתח רב.
+                    </p>
+                    <p class="text-neutral-400 mt-4 leading-relaxed">
+                        מנגנון **"קח אותי הביתה"** פועל באופן מיידי. המערכת האוטומטית שלנו פותרת את הפאניקה בשקט מאחורי הקלעים. בחרו תרחיש סימולציה מטה כדי לראות איך אנחנו מוצאים נתיבים חלופיים, מזמינים מושבים ומעדכנים אתכם ללא לחץ.
+                    </p>
+
+                    <div class="mt-8 flex flex-wrap gap-4 justify-start">
+                        <button onclick="runSimulation('suspension')" class="bg-amber-500 hover:bg-amber-600 text-neutral-950 font-extrabold px-6 py-3 rounded-xl transition-all text-sm">
+                            סמלץ ביטול טיסה פתאומי
+                        </button>
+                        <button onclick="resetSimulation()" class="bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold px-6 py-3 rounded-xl transition-all border border-neutral-700 text-sm">
+                            אפס ציר זמן
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Visual Terminal -->
+                <div class="bg-neutral-950 border border-neutral-800 p-6 sm:p-8 rounded-3xl font-mono text-left" dir="ltr">
+                    <div class="flex items-center justify-between pb-4 border-b border-neutral-900 mb-6 text-xs text-neutral-500">
+                        <span>ROUTING LOGISTICS CENTER // v2.6</span>
+                        <span class="text-emerald-500 animate-pulse flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> LIVE TERMINAL
+                        </span>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <!-- Step 1 -->
+                        <div id="sim-step-1" class="flex gap-3 text-neutral-400 transition-all duration-300">
+                            <span class="text-amber-500 font-bold">[09:00]</span>
+                            <div>
+                                <p class="font-bold text-neutral-200">Trip Initialized</p>
+                                <p class="text-neutral-500">Carrier: Foreign Airline. Route: Rome FCO to Tel Aviv TLV.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div id="sim-step-2" class="flex gap-3 text-neutral-400 opacity-30 transition-all duration-300">
+                            <span class="text-amber-500 font-bold">[14:15]</span>
+                            <div>
+                                <p id="sim-carrier-header" class="font-bold text-neutral-200">Contingency Monitor Scan</p>
+                                <p id="sim-carrier-sub" class="text-neutral-500">Checking European airspace alerts. Status normal.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div id="sim-step-3" class="flex gap-3 text-neutral-400 opacity-30 transition-all duration-300">
+                            <span id="sim-time-3" class="text-amber-500 font-bold">[15:30]</span>
+                            <div>
+                                <p id="sim-action-header" class="font-bold text-neutral-200">Contingency Trigger Ready</p>
+                                <p id="sim-action-sub" class="text-neutral-500">Awaiting status signal update.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div id="sim-step-4" class="flex gap-3 text-neutral-400 opacity-30 transition-all duration-300">
+                            <span id="sim-time-4" class="text-amber-500 font-bold">[15:32]</span>
+                            <div>
+                                <p id="sim-result-header" class="font-bold text-neutral-200">Resolution Complete</p>
+                                <p id="sim-result-sub" class="text-neutral-500">Standby status update.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress bar simulated visual tracker -->
+                    <div class="mt-8 pt-6 border-t border-neutral-900">
+                        <span class="text-[10px] uppercase text-neutral-500 font-bold block mb-2">Automated Contingency Shield</span>
+                        <div class="w-full bg-neutral-900 h-1.5 rounded-full">
+                            <div id="sim-progress" class="bg-amber-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT STAGING STAYS (THE 1-3 MONTH BLUEPRINTS) -->
+    <section class="py-24 px-4 bg-neutral-950 border-t border-neutral-900 text-right">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">שהויות ארוכות עם משמעות</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">מסלולים מותאמים ללמידה ועיצוב זהות</h2>
+                <p class="text-neutral-400 mt-2">טיול אחרי צבא הוא לא רק לסמן וי על אתרים גנריים; הוא חלק בלתי נפרד מעיצוב השלב הבא בחיים שלכם. בחרו מסלולי שהות ארוכה (1-3 חודשים) המשלבים עשייה.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Track 1 -->
+                <div class="bg-neutral-900/30 border border-neutral-800/80 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">קונספט המפלט הבטוח</div>
+                        <h3 class="text-xl font-bold text-neutral-100 mb-3">בתי אירוח וקהילות שיתופיות</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            התמקמו בבתי אירוח המנוהלים על ידי משפחות מקומיות ידידותיות או ברשתות קהילתיות מאושרות ביעדים הבטוחים ביותר. חיו כמו מקומיים ללא דאגות או מתיחות קהילתית.
+                        </p>
+                    </div>
+                    <button onclick="triggerShowInterest('בתי אירוח וקהילות')" class="w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-bold rounded-lg transition-colors">
+                        התעניין בבתי אירוח
+                    </button>
+                </div>
+
+                <!-- Track 2 -->
+                <div class="bg-neutral-900/30 border border-neutral-800/80 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">עשייה ותרומה מקומית</div>
+                        <h3 class="text-xl font-bold text-neutral-100 mb-3">תוכניות התנדבות מסוננות</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            שהות ארוכה ומשמעותית המשלבת עשייה בארגונים סביבתיים מקומיים, חוות חקלאיות אורגניות או סיוע בפיתוח עסקי מקומי. הרגישו מועילים ותורמים בזמן שאתם מטיילים.
+                        </p>
+                    </div>
+                    <button onclick="triggerShowInterest('תוכניות התנדבות')" class="w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-bold rounded-lg transition-colors">
+                        התעניין בהתנדבות
+                    </button>
+                </div>
+
+                <!-- Track 3 -->
+                <div class="bg-neutral-900/30 border border-neutral-800/80 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">חיבור תרבותי וסדנאות</div>
+                        <h3 class="text-xl font-bold text-neutral-100 mb-3">קורסים, פילאטיס ומדיטציות בטבע</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            שלבו סדנאות יוגה ומדיטציה ארוכות, קורסי צילום מקצועיים או שיעורי בישול מקומיים עם מגורים משודרגים ברמה הגבוהה ביותר ובאזורים היציבים והבטוחים ביותר בטבע.
+                        </p>
+                    </div>
+                    <button onclick="triggerShowInterest('קורסים וחיבור תרבותי')" class="w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-bold rounded-lg transition-colors">
+                        התעניין בקורסים
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION / BRIEFING REGISTRY -->
+    <section class="py-24 px-4 bg-gradient-to-t from-neutral-950 to-neutral-900 border-t border-neutral-900 text-right">
+        <div class="max-w-4xl mx-auto bg-neutral-900 border border-neutral-800 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+            <div class="absolute inset-0 radial-glow pointer-events-none"></div>
+
+            <div class="relative z-10 text-center max-w-2xl mx-auto">
+                <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">הפעלה מיידית</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">הצטרפו לשכבת ההגנה האוטונומית</h2>
+                <p class="text-neutral-400 leading-relaxed mb-8 text-sm sm:text-base">
+                    קבלו גישה מיידית למפות המדד הבטוח שלנו, עדכונים על נתיבים חלופיים מאושרים ומספרי ה-WhatsApp של מוקדי החירום המקומיים שלנו. תכננו את הטיול הגדול שלכם עם שקט נפשי מוחלט.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" id="subscriber-email" placeholder="הקלידו את כתובת המייל שלכם" class="flex-1 bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-right">
+                    <button onclick="triggerSubscribe()" class="bg-amber-500 hover:bg-amber-600 text-neutral-950 font-black px-6 py-3 rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10 whitespace-nowrap">
+                        קבלו גישת מגן מאובטחת
+                    </button>
+                </div>
+                <p class="text-[10px] text-neutral-500 mt-3">ללא דואר זבל. רק מידע שטח מאובטח ואמין מקהילת המטיילים.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-neutral-950 border-t border-neutral-900 py-12 px-4 text-xs text-neutral-500 text-right">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <span class="text-amber-500 font-extrabold tracking-widest text-lg">CHOFESH</span>
+                <span>© 2026 CHOFESH Inc. כל הזכויות שמורות לשקט הנפשי שלכם.</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-amber-400 transition-colors">מדיניות פרטיות</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">תנאי שימוש באוטונומיה</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">צור קשר עם מוקד החירום</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // Tab Data for Live Sentiment Map in Hebrew
+        const tabData = {
+            greece: {
+                title: "יוון (אתונה והאיים)",
+                desc: "אופציה מעולה לחופשת בטן-גב ללא דריכות, טיול איים בטוח ומסלולי הליכה מרגיעים.",
+                grade: "GRADE A",
+                identityScore: "96%",
+                identityWidth: "96%",
+                flightScore: "גבוה מאוד",
+                flightWidth: "90%",
+                protestScore: "בטוח לגמרי",
+                protestSub: "אין צורך במסלולים עוקפים",
+                protestWidth: "95%",
+                comment1: {
+                    user: "יוני ר. (טרק בפיליון)",
+                    time: "אתמול ב-14:22",
+                    text: '"טיילנו ארבעה ימים בפיליון וישנו בבתי אירוח מקומיים. הרגשנו רצויים בטירוף בכל פינה. דיברנו עברית חופשי ואפילו שמחו לשמוע שאנחנו מישראל. ממליץ בחום על מחוזות צפון יוון."'
+                },
+                comment2: {
+                    user: "עדי ק. (מרכז אתונה)",
+                    time: "לפני יומיים",
+                    text: '"אתונה מדהימה כרגע. בימי חמישי בערב עדיף לא להסתובב ממש סביב כיכר סינטגמה בגלל הפגנות מקומיות שלא קשורות אלינו, אבל חוץ מזה הכל מושלם וידידותי לחלוטין לישראלים."'
+                }
+            },
+            vietnam: {
+                title: "מזרח אסיה (וייטנאם ותאילנד)",
+                desc: "המפלט הקלאסי למטיילים אחרי צבא. קהילות מטיילים ישראליות ענקיות, קבלה מוחלטת ועלויות מחיה זולות במיוחד.",
+                grade: "GRADE A+",
+                identityScore: "98%",
+                identityWidth: "98%",
+                flightScore: "מצוין",
+                flightWidth: "95%",
+                protestScore: "אפסי",
+                protestSub: "יציבות פוליטית גבוהה",
+                protestWidth: "98%",
+                comment1: {
+                    user: "מאי ס. (האנוי וסאפה)",
+                    time: "לפני 3 ימים",
+                    text: '"וייטנאם היא פשוט גן עדן. בילינו שלושה שבועות בהאנוי ובסאפה. פגשנו המון ישראלים משוחררים. יש חוות מקומיות וקהילות מדהימות. אפס לחץ."'
+                },
+                comment2: {
+                    user: "נועם ל. (קופנגן)",
+                    time: "לפני שבוע",
+                    text: '"אם אתם מחפשים מקום להירגע בו לגמרי אחרי השירות, לנשום עמוק בלי לבדוק כל רגע מי עומד מאחוריכם — מזרח אסיה היא הבחירה האולטימטיבית. שקט נפשי מושלם."'
+                }
+            },
+            balkans: {
+                title: "הבלקן (בולגריה ואלבניה)",
+                desc: "מסלולי טבע וטרקים אלפיניים זולים ויפהפיים ללא עיכובים של הוצאת ויזות מורכבות.",
+                grade: "GRADE B+",
+                identityScore: "88%",
+                identityWidth: "88%",
+                flightScore: "בינוני-גבוה",
+                flightWidth: "80%",
+                protestScore: "נמוך מאוד",
+                protestSub: "הפגנות פוליטיות מקומיות קטנות בבירה בלבד",
+                protestWidth: "85%",
+                comment1: {
+                    user: "עמית ג. (הרי רילה)",
+                    time: "לפני 5 ימים",
+                    text: '"הרי רילה יפהפיים וזולים בטירוף. ישנו בבקתות עץ בהרים. המקומיים מסבירי פנים והאווירה שקטה ללא שום מתיחות."'
+                },
+                comment2: {
+                    user: "תומר א. (מרכז סופיה)",
+                    time: "לפני שבועיים",
+                    text: '"סופיה מציעה בתי קפה מעולים וחיי לילה מצוינים. הכל מרגיש רגיל לגמרי. פשוט כדאי להתעדכן עם מנטר הטיסות של CHOFESH כי חברות זרות נוטות להחליף מועדים מדי פעם."'
+                }
+            },
+            london: {
+                title: "לונדון, בריטניה",
+                desc: "מטרופולין ענק שדורש בחירה סלקטיבית של שכונות. תרבות מדהימה לצד צורך בשימוש במערכת ההתראות המקומיות.",
+                grade: "GRADE C+",
+                identityScore: "68%",
+                identityWidth: "68%",
+                flightScore: "גבוה מאוד",
+                flightWidth: "95%",
+                protestScore: "בינוני-גבוה",
+                protestSub: "הפגנות מרכזיות בסופי שבוע",
+                protestWidth: "55%",
+                comment1: {
+                    user: "דן ב. (שוק קמדן)",
+                    time: "אתמול",
+                    text: '"לונדון מטורפת ויפהפייה, אבל צריך להיות חכמים. דיברנו עברית בצפון לונדון חופשי, אבל עדיף להוריד פרופיל באזורים הומי אדם במרכז העיר בזמן הפגנות בשבת."'
+                },
+                comment2: {
+                    user: "ליה ט. (קנסינגטון)",
+                    time: "לפני 4 ימים",
+                    text: '"פשוט תפעילו את שכבת ההתראות הגיאוגרפיות באפליקציה. היא מתריעה לכם בדיוק איפה יש התקהלויות ומנתבת אתכם מסביב. עם השכבה הזו הכל זורם ורגוע."'
+                }
+            }
+        };
+
+        // Function to Switch Map Tabs
+        function switchMapTab(tabKey) {
+            // Remove active classes
+            document.querySelectorAll('.map-tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-amber-500/40', 'bg-neutral-900', 'text-white');
+                btn.classList.add('bg-neutral-950', 'border-neutral-800', 'text-neutral-400');
+            });
+
+            // Set active class
+            const activeBtn = document.getElementById(`btn-${tabKey}`);
+            activeBtn.classList.add('active', 'border-amber-500/40', 'bg-neutral-900', 'text-white');
+            activeBtn.classList.remove('bg-neutral-950', 'border-neutral-800', 'text-neutral-400');
+
+            // Load data
+            const data = tabData[tabKey];
+            document.getElementById('panel-title').innerText = data.title;
+            document.getElementById('panel-desc').innerText = data.desc;
+            document.getElementById('panel-grade').innerText = data.grade;
+
+            // Update scores
+            document.getElementById('panel-identity-score').innerText = data.identityScore;
+            document.getElementById('panel-identity-bar').style.width = data.identityWidth;
+
+            document.getElementById('panel-flight-score').innerText = data.flightScore;
+            document.getElementById('panel-flight-bar').style.width = data.flightWidth;
+
+            document.getElementById('panel-protest-score').innerText = data.protestScore;
+            document.getElementById('panel-protest-sub').innerText = data.protestSub;
+            document.getElementById('panel-protest-bar').style.width = data.protestWidth;
+
+            // Update comment 1 & 2
+            document.getElementById('panel-comment-1').innerHTML = `"${data.comment1.text.replace(/"/g, '')}"`;
+            document.getElementById('panel-comment-1').previousElementSibling.innerHTML = `<span class="font-semibold text-neutral-300">${data.comment1.user}</span><span>${data.comment1.time}</span>`;
+
+            document.getElementById('panel-comment-2').innerHTML = `"${data.comment2.text.replace(/"/g, '')}"`;
+            document.getElementById('panel-comment-2').previousElementSibling.innerHTML = `<span class="font-semibold text-neutral-300">${data.comment2.user}</span><span>${data.comment2.time}</span>`;
+
+            // Adjust grade borders
+            const gradeEl = document.getElementById('panel-grade');
+            if (data.grade.includes('C')) {
+                gradeEl.className = "px-3.5 py-1 text-sm font-extrabold rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/20";
+            } else if (data.grade.includes('B')) {
+                gradeEl.className = "px-3.5 py-1 text-sm font-extrabold rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20";
+            } else {
+                gradeEl.className = "px-3.5 py-1 text-sm font-extrabold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            }
+
+            showToast(`המפה עודכנה: נתונים עבור ${data.title} נטענו בהצלחה.`);
+        }
+
+        // Configurator Calculation
+        function recalculateShield() {
+            const hasFlight = document.getElementById('mod-flight').checked;
+            const hasMap = document.getElementById('mod-map').checked;
+            const hasSupport = document.getElementById('mod-support').checked;
+            const hasGuide = document.getElementById('mod-guide').checked;
+
+            let price = 0;
+            let confidence = 40; // DIY baseline
+            const activeShields = [];
+
+            if (hasFlight) {
+                price += 3.50;
+                confidence += 25;
+                activeShields.push("הגנת רציפות תעופתית (קח אותי הביתה)");
+            }
+            if (hasMap) {
+                price += 2.00;
+                confidence += 15;
+                activeShields.push("מפת התראות שכונות בזמן אמת");
+            }
+            if (hasSupport) {
+                price += 1.50;
+                confidence += 12;
+                activeShields.push("מוקד חירום מוצפן ב-WhatsApp");
+            }
+            if (hasGuide) {
+                price += 4.00;
+                confidence += 6;
+                activeShields.push("רשת נהגים ומלווים לפי דרישה");
+            }
+
+            // Update UI
+            document.getElementById('calc-price').innerText = `$${price.toFixed(2)}`;
+            document.getElementById('calc-confidence').innerText = `${confidence}%`;
+            document.getElementById('calc-confidence-bar').style.width = `${confidence}%`;
+
+            // Render Active Shield Badges
+            const container = document.getElementById('active-shields-container');
+            container.innerHTML = "";
+            if (activeShields.length === 0) {
+                container.innerHTML = `<span class="text-xs text-neutral-500 italic block py-1">אין מנגנוני הגנה פעילים. הטיול מתבסס כעת על 100% רמת סיכון עצמי (DIY).</span>`;
+            } else {
+                activeShields.forEach(sh => {
+                    container.innerHTML += `
+                        <div class="flex items-center gap-2 text-xs text-neutral-300 bg-neutral-950 px-3 py-1.5 rounded-lg border border-neutral-800">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${sh}
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // Interactive Flight Simulator Logic
+        function runSimulation(type) {
+            // Clear past runs
+            resetSimulation();
+
+            const progress = document.getElementById('sim-progress');
+            const step1 = document.getElementById('sim-step-1');
+            const step2 = document.getElementById('sim-step-2');
+            const step3 = document.getElementById('sim-step-3');
+            const step4 = document.getElementById('sim-step-4');
+
+            showToast("סימולציה הופעלה. מנטר רציפות פעיל כעת...");
+
+            // Step 1: Active Monitoring
+            progress.style.width = "25%";
+            step1.style.opacity = "1";
+            step1.classList.add('text-amber-400');
+
+            setTimeout(() => {
+                // Step 2: Hazard Alert detected
+                progress.style.width = "50%";
+                step2.style.opacity = "1";
+                step2.classList.add('text-orange-400');
+                document.getElementById('sim-carrier-header').innerText = "ALERT: Carrier Suspension Detected";
+                document.getElementById('sim-carrier-sub').innerText = "Foreign airline halts Tel Aviv flights with immediate effect.";
+                showToast("התראת מערכת: ביטול טיסה פתאומי זוהה במרחב האווירי!");
+            }, 1200);
+
+            setTimeout(() => {
+                // Step 3: Get Me Home Guarantee trigger
+                progress.style.width = "75%";
+                step3.style.opacity = "1";
+                step3.classList.add('text-amber-500');
+                document.getElementById('sim-time-3').innerText = "[15:31]";
+                document.getElementById('sim-action-header').innerText = "GUARANTEE ACTIVATED";
+                document.getElementById('sim-action-sub').innerText = "Rerouting to Athens high-continuity El Al terminal + booking secure regional hub.";
+                showToast("מערכת CHOFESH מחשבת מסלול מילוט חלופי...");
+            }, 2600);
+
+            setTimeout(() => {
+                // Step 4: Fully resolved
+                progress.style.width = "100%";
+                step4.style.opacity = "1";
+                step4.classList.add('text-emerald-400');
+                document.getElementById('sim-time-4').innerText = "[15:35]";
+                document.getElementById('sim-result-header').innerText = "REROUTED // ZERO COST";
+                document.getElementById('sim-result-sub').innerText = "Rebooked successfully on El Al direct flight (ATH - TLV) for tomorrow morning. Alert and boarding pass pushed via encrypted chat.";
+                showToast("סימולציה הושלמה: הנוסע שובץ מחדש בהצלחה לטיסת אל על ישירה ללא עלות נוספת.");
+            }, 4500);
+        }
+
+        function resetSimulation() {
+            const progress = document.getElementById('sim-progress');
+            progress.style.width = "0%";
+
+            const step1 = document.getElementById('sim-step-1');
+            const step2 = document.getElementById('sim-step-2');
+            const step3 = document.getElementById('sim-step-3');
+            const step4 = document.getElementById('sim-step-4');
+
+            // Reset step 1
+            step1.style.opacity = "1";
+            step1.className = "flex gap-3 text-neutral-400 transition-all duration-300";
+            
+            // Reset step 2
+            step2.style.opacity = "0.3";
+            step2.className = "flex gap-3 text-neutral-400 opacity-30 transition-all duration-300";
+            document.getElementById('sim-carrier-header').innerText = "Contingency Monitor Scan";
+            document.getElementById('sim-carrier-sub').innerText = "Checking European airspace alerts. Status normal.";
+
+            // Reset step 3
+            step3.style.opacity = "0.3";
+            step3.className = "flex gap-3 text-neutral-400 opacity-30 transition-all duration-300";
+            document.getElementById('sim-time-3').innerText = "[15:30]";
+            document.getElementById('sim-action-header').innerText = "Contingency Trigger Ready";
+            document.getElementById('sim-action-sub').innerText = "Awaiting status signal update.";
+
+            // Reset step 4
+            step4.style.opacity = "0.3";
+            step4.className = "flex gap-3 text-neutral-400 opacity-30 transition-all duration-300";
+            document.getElementById('sim-time-4').innerText = "[15:32]";
+            document.getElementById('sim-result-header').innerText = "Resolution Complete";
+            document.getElementById('sim-result-sub').innerText = "Standby status update.";
+        }
+
+        // CUSTOM TOAST NOTIFICATION
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "flex items-center gap-3 bg-neutral-900 border border-neutral-800 text-neutral-100 text-xs px-4 py-3 rounded-xl shadow-2xl pointer-events-auto transform translate-y-5 opacity-0 transition-all duration-300 max-w-sm text-right";
+            toast.innerHTML = `
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+            }, 10);
+
+            // Remove toast after duration
+            setTimeout(() => {
+                toast.classList.add('translate-y-5', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Actions
+        function triggerDownloadBriefing() {
+            showToast("מייצר דוח מודיעין שטח גיאופוליטי מותאם אישית...");
+            setTimeout(() => {
+                showToast("הקובץ נוצר בהצלחה. החל הורדת קובץ PDF מאובטח.");
+            }, 1500);
+        }
+
+        function triggerDeployLayer() {
+            showToast("בונה פרופיל AOL מותאם אישית למסלול הטיול שלכם...");
+            setTimeout(() => {
+                showToast("הפרוטוקול הופעל! קוד הגישה למוקד החירום ב-WhatsApp נשלח אליכם.");
+            }, 1500);
+        }
+
+        function triggerShowInterest(trackName) {
+            showToast(`נרשמה התעניינות במסלול: ${trackName}. רכז קהילת המטיילים שלנו יחזור אליכם בהקדם.`);
+        }
+
+        function triggerSubscribe() {
+            const email = document.getElementById('subscriber-email').value;
+            if (!email) {
+                showToast("אנא הקלידו כתובת דואר אלקטרוני תקינה.");
+                return;
+            }
+            showToast("יוצר חיבור מוצפן לשרת... הרשמה מאובטחת נשלחה.");
+        }
+
+        // Initialize configurator calculation on mount
+        window.onload = function() {
+            recalculateShield();
+        }
+    </script>
+</body>
+</html>

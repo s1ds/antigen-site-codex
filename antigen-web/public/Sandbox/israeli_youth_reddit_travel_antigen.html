@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Israeli Youth Travel Queries on Reddit | Antigen Research Interface</title>
+  <meta name="description" content="Interactive Antigen-style research page analysing Israeli youth travel queries on Reddit over the last 12 months." />
+  <style>
+    :root{
+      --paper:#f7f4ef;
+      --white:#fffdf8;
+      --ink:#121212;
+      --muted:#6e6a64;
+      --line:#d8d1c7;
+      --red:#c40000;
+      --red-dark:#7e0000;
+      --yellow:#f4c430;
+      --black:#050505;
+      --soft:#eee8de;
+      --shadow:0 22px 60px rgba(0,0,0,.12);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, Arial, Helvetica, sans-serif;
+      --condensed: "Arial Narrow", Impact, Haettenschweiler, "Franklin Gothic Condensed", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper);color:var(--ink)}
+    body{margin:0;font-family:var(--sans);background:radial-gradient(circle at top right, rgba(196,0,0,.06), transparent 30rem), var(--paper);line-height:1.5;color:var(--ink)}
+    a{color:inherit;text-decoration:none;border-bottom:1px solid var(--red)}
+    .progress{position:fixed;top:0;left:0;height:4px;background:var(--red);width:0;z-index:20}
+    .nav{position:sticky;top:0;z-index:10;background:rgba(247,244,239,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav-inner{max-width:1240px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:13px 22px;gap:18px}
+    .brand{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--red)}
+    .nav-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+    .nav-links a{font-size:11px;font-family:var(--mono);text-transform:uppercase;color:#262626;border-bottom:0;padding:7px 9px;border:1px solid transparent}
+    .nav-links a:hover{border-color:var(--red);background:var(--white)}
+    .hero{max-width:1240px;margin:auto;padding:58px 22px 30px;display:grid;grid-template-columns:1.28fr .72fr;gap:36px;align-items:end}
+    .kicker{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--red);font-weight:900;border-top:2px solid var(--red);padding-top:9px;margin:0 0 18px}
+    h1{font-family:var(--condensed);font-size:clamp(58px, 10vw, 138px);line-height:.82;letter-spacing:-.055em;text-transform:uppercase;margin:0;color:var(--black)}
+    .subtitle{font-size:clamp(18px,2.1vw,28px);line-height:1.12;max-width:860px;margin:22px 0 0;color:#24211e;font-weight:650}
+    .meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:30px}
+    .meta{border:1px solid var(--line);background:rgba(255,253,248,.7);padding:14px;min-height:84px}
+    .meta span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .meta strong{font-size:20px;line-height:1.05;display:block}
+    .thesis-card{background:var(--black);color:var(--white);padding:24px;border-top:8px solid var(--red);box-shadow:var(--shadow)}
+    .thesis-card .label{font-family:var(--mono);font-size:11px;color:#ff9b9b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:15px}
+    .thesis-card p{font-size:21px;line-height:1.18;margin:0;font-weight:800}
+    .page{max-width:1240px;margin:auto;padding:34px 22px 70px}
+    .section{margin-top:48px;border-top:1px solid var(--line);padding-top:30px}
+    .section-head{display:grid;grid-template-columns:180px 1fr;gap:28px;align-items:start;margin-bottom:22px}
+    .num{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+    h2{font-family:var(--condensed);font-size:clamp(36px,5.5vw,72px);line-height:.9;text-transform:uppercase;letter-spacing:-.04em;margin:0 0 12px;color:var(--black)}
+    .dek{font-size:19px;line-height:1.35;color:#282522;max-width:900px;margin:0}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{background:var(--white);border:1px solid var(--line);padding:20px;position:relative;overflow:hidden}
+    .card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);transform:scaleX(.18);transform-origin:left;transition:.25s ease}
+    .card:hover:before{transform:scaleX(1)}
+    .card h3{font-size:17px;line-height:1.15;margin:0 0 12px;text-transform:uppercase;letter-spacing:-.01em}
+    .card p{margin:0;color:#38332e;font-size:15px}
+    .pillbar{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+    button,.button{appearance:none;border:1px solid var(--ink);background:var(--white);padding:10px 12px;font-family:var(--mono);font-size:11px;text-transform:uppercase;font-weight:900;cursor:pointer;color:var(--ink)}
+    button:hover,button.active,.button:hover{background:var(--black);color:var(--white);border-color:var(--black)}
+    .insight-list{display:grid;gap:12px;margin-top:15px}
+    .insight{display:grid;grid-template-columns:145px 1fr 96px;gap:15px;align-items:center;border:1px solid var(--line);background:var(--white);padding:13px 15px}
+    .tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--red);font-weight:900;letter-spacing:.08em}
+    .bar-wrap{height:9px;background:var(--soft);position:relative;overflow:hidden}
+    .bar{height:100%;width:0;background:var(--black);transition:width .7s cubic-bezier(.2,.8,.2,1)}
+    .count{font-family:var(--mono);font-size:12px;text-align:right;font-weight:900}
+    .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    blockquote{margin:0;background:var(--white);border:1px solid var(--line);border-top:5px solid var(--red);padding:18px;min-height:250px;display:flex;flex-direction:column;justify-content:space-between}
+    blockquote p{font-size:18px;line-height:1.22;font-weight:760;margin:0;color:#171717}
+    blockquote cite{display:block;margin-top:18px;font-family:var(--mono);font-style:normal;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+    .matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink);background:var(--ink);margin-top:20px}
+    .matrix > div{background:var(--white);padding:18px;border:1px solid var(--ink);min-height:170px}
+    .matrix .head{background:var(--black);color:var(--white);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;min-height:auto;font-weight:900}
+    .matrix h3{font-size:17px;margin:0 0 9px;text-transform:uppercase}
+    .matrix p{font-size:14px;margin:0;color:#36312c}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+    .chart-card{background:var(--white);border:1px solid var(--line);padding:20px}
+    .chart-title{font-family:var(--mono);font-size:12px;text-transform:uppercase;font-weight:900;letter-spacing:.1em;color:var(--red);margin-bottom:16px}
+    .sentiment-row{display:grid;grid-template-columns:190px 1fr 52px;gap:12px;align-items:center;margin:13px 0}
+    .sentiment-row .label{font-size:14px;font-weight:750}
+    .package-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+    .toggle-card{padding:18px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:.2s}
+    .toggle-card.active{background:var(--black);color:var(--white);border-color:var(--black)}
+    .toggle-card strong{display:block;text-transform:uppercase;font-size:14px;margin-bottom:8px}
+    .toggle-card span{font-size:13px;color:inherit;opacity:.8}
+    .package-output{margin-top:16px;border-left:5px solid var(--red);background:var(--white);padding:18px;font-size:17px;font-weight:680;min-height:108px}
+    .query-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .query{background:var(--white);border:1px solid var(--line);padding:16px}
+    .query h3{margin:0 0 10px;font-size:15px;text-transform:uppercase;color:var(--red)}
+    .query ul{margin:0;padding-left:17px;color:#302b27;font-size:14px}
+    .source-list{display:grid;gap:10px}
+    details{background:var(--white);border:1px solid var(--line);padding:14px}
+    summary{font-family:var(--mono);font-size:12px;text-transform:uppercase;font-weight:900;cursor:pointer;color:var(--red)}
+    details p{font-size:14px;color:#39342f;margin:12px 0 0}
+    .sticky-panel{position:sticky;top:76px;background:var(--black);color:var(--white);padding:20px;border-top:6px solid var(--red)}
+    .sticky-panel h3{font-size:22px;line-height:1;margin:0 0 10px;text-transform:uppercase}
+    .sticky-panel p{font-size:15px;color:#e9e0d6;margin:0 0 14px}
+    .footer{background:var(--black);color:var(--white);padding:38px 22px;margin-top:40px}
+    .footer-inner{max-width:1240px;margin:auto;display:grid;grid-template-columns:1fr .7fr;gap:22px}
+    .footer h2{color:var(--white);font-size:54px;margin:0 0 14px}
+    .footer p{color:#d9d1c7;max-width:760px;margin:0}
+    .small{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .mobile-note{display:none}
+    @media (max-width:900px){
+      .hero,.section-head,.split,.footer-inner{grid-template-columns:1fr}.grid-3,.grid-2,.quote-grid,.query-grid{grid-template-columns:1fr}.matrix{grid-template-columns:1fr}.nav-links{display:none}.meta-grid{grid-template-columns:1fr}.insight{grid-template-columns:1fr}.count{text-align:left}.mobile-note{display:block}.package-toggle{grid-template-columns:1fr}.sentiment-row{grid-template-columns:1fr}.hero{padding-top:34px}blockquote{min-height:auto}.sticky-panel{position:relative;top:auto}
+    }
+    @media print{.nav,.progress,button,.button{display:none}.section{break-inside:avoid}body{background:white}.card,.quote,.chart-card,blockquote{box-shadow:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">ANTIGEN / REDDIT TRAVEL INTELLIGENCE</div>
+      <div class="nav-links">
+        <a href="#findings">Findings</a><a href="#evidence">Quotes</a><a href="#packages">Packages</a><a href="#taxonomy">Queries</a><a href="#sources">Sources</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="kicker">12-month qualitative scan · July 2025 to June 2026</p>
+      <h1>Israeli youth travel is now a risk-calculation ritual.</h1>
+      <p class="subtitle">A Reddit-led research interface on young Israeli travel attitudes, desires, hopes, fears, and the new role of packaged travel.</p>
+      <div class="meta-grid">
+        <div class="meta"><span>Primary lens</span><strong>Reddit social listening</strong></div>
+        <div class="meta"><span>Core audience</span><strong>Young Israelis, post-army travellers, students, early-career travellers</strong></div>
+        <div class="meta"><span>Evidence type</span><strong>Directional qualitative coding</strong></div>
+        <div class="meta"><span>Strategic opportunity</span><strong>Pre-solved uncertainty, not pre-packaged tourism</strong></div>
+      </div>
+    </div>
+    <aside class="thesis-card">
+      <div class="label">central thesis</div>
+      <p>They still want freedom, escape, beaches, food, nightlife, and discovery. The new filter is identity safety, aviation continuity, and the ability to return home without losing control.</p>
+    </aside>
+  </header>
+
+  <main class="page">
+    <section class="section" id="findings">
+      <div class="section-head">
+        <div class="num">01 / readout</div>
+        <div>
+          <h2>The emotional stack</h2>
+          <p class="dek">The query is rarely just “where should I go?” It is “where can I go openly, safely, affordably, and still get home if the situation changes?”</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card"><h3>Attitudes</h3><p>Pragmatic, alert, peer-led, skeptical of generic advice, drawn to recent first-hand reports. Reddit functions as an anxiety-resolution layer.</p></div>
+        <div class="card"><h3>Desires</h3><p>Freedom, warmth, cheap fun, beaches, food, nightlife, nature, local texture, family connection, Hebrew/Jewish comfort, and the feeling of normality.</p></div>
+        <div class="card"><h3>Fears</h3><p>Hostility to Israelis or Jews, speaking Hebrew in public, carrier cancellations, airport closures, insurance exclusions, border friction, and being stranded.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="num">02 / coded sample</div>
+        <div>
+          <h2>Dominant concern map</h2>
+          <p class="dek">This is a directional coding of evidence units from Reddit and adjacent travel discussions. A single post can carry more than one concern, so this is an intensity map, not a survey statistic.</p>
+        </div>
+      </div>
+      <div class="pillbar" id="themeFilters">
+        <button class="active" data-filter="all">All themes</button>
+        <button data-filter="risk">Risk stack</button>
+        <button data-filter="identity">Identity</button>
+        <button data-filter="mobility">Mobility</button>
+        <button data-filter="experience">Experience</button>
+      </div>
+      <div class="insight-list" id="themeList"></div>
+    </section>
+
+    <section class="section" id="evidence">
+      <div class="section-head">
+        <div class="num">03 / voice of user</div>
+        <div>
+          <h2>Quotes that reveal the tension</h2>
+          <p class="dek">The most useful Reddit evidence is emotional. It shows how safety, identity, money, and freedom collapse into the same planning question.</p>
+        </div>
+      </div>
+      <div class="quote-grid">
+        <blockquote><p>“Planning to take a vacation this year and trying to decide on a destination. I was thinking to visit Greece, but my dad says it’s not safe there for Israelis, is he right?”</p><cite>r/Israel, safe/welcoming destinations thread, 1 month ago</cite></blockquote>
+        <blockquote><p>“I don’t want to go spend money anywhere people hate Jews or where I’d have to lie about who I am and where I’m from to feel safe.”</p><cite>r/Israel, same destination-safety thread</cite></blockquote>
+        <blockquote><p>“Also, if ypu are coming has a backup plan AND MONEY either for staying in the country if there are no flights or leaving via Egypt/Jordan.”</p><cite>r/Israel, safety-to-come discussion, 2 months ago</cite></blockquote>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="num">04 / matrix</div>
+        <div>
+          <h2>Attitudes, desires, hopes, fears</h2>
+          <p class="dek">A youth travel brand should not read this as fear alone. The audience is trying to protect the possibility of a normal, alive, independent trip.</p>
+        </div>
+      </div>
+      <div class="matrix">
+        <div class="head">Dimension</div><div class="head">Observed signal</div><div class="head">Underlying need</div><div class="head">Implication</div>
+        <div><h3>Attitudes</h3><p>Peer-led, current, skeptical, operational.</p></div><div><p>Users ask for “people there now” rather than polished destination copy.</p></div><div><p>Recent truth, not generic assurance.</p></div><div><p>Build living briefs, not static guides.</p></div>
+        <div><h3>Desires</h3><p>Escape, self-expansion, food, nightlife, beaches, hiking, social ease.</p></div><div><p>The desire for travel is intact. The friction has changed.</p></div><div><p>Normality under abnormal conditions.</p></div><div><p>Do not over-securitize the brand experience.</p></div>
+        <div><h3>Hopes</h3><p>To travel openly and return on time.</p></div><div><p>Hope is practical and emotional at once.</p></div><div><p>Identity dignity plus itinerary control.</p></div><div><p>Sell confidence without killing autonomy.</p></div>
+        <div><h3>Fears</h3><p>Hostility, stranded flights, insurance gaps, border friction.</p></div><div><p>Risk is multi-layered; not only physical safety.</p></div><div><p>A navigable risk stack.</p></div><div><p>Bundle routing, insurance, local sentiment, and backup plans.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="packages">
+      <div class="section-head">
+        <div class="num">05 / package travel</div>
+        <div>
+          <h2>Not anti-package. Anti-loss-of-control.</h2>
+          <p class="dek">The evidence does not show strong appetite for conventional pre-packaged tours. It shows appetite for modular help when risk gets high.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div class="chart-card">
+          <div class="chart-title">Inferred package sentiment split</div>
+          <div id="sentimentChart"></div>
+          <p class="small">Directional interpretation from observed package-related attitudes. Not a statistical poll.</p>
+        </div>
+        <div>
+          <div class="package-toggle">
+            <div class="toggle-card active" data-output="bad"><strong>Weak package</strong><span>Rigid itinerary, tourist tone, no disruption logic, looks like old-world group travel.</span></div>
+            <div class="toggle-card" data-output="good"><strong>Strong package</strong><span>Flexible route, guide-on-demand, live sentiment, backup exits, insurance clarity.</span></div>
+          </div>
+          <div class="package-output" id="packageOutput">A rigid youth package says: “we planned your trip.” The stronger proposition says: “you remain free, but we solved the parts that can go wrong.”</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="num">06 / opportunity</div>
+        <div>
+          <h2>Product architecture</h2>
+          <p class="dek">The answer is a youth-native confidence layer: independent travel with a safety net, not a chaperoned tour.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card"><h3>Israeli-Friendly Now Map</h3><p>Live destination layer rating cities by Israeli/Jewish comfort, flight reliability, protest/sentiment temperature, and identity-visibility caution.</p></div>
+        <div class="card"><h3>Get Me Home Layer</h3><p>Carrier reliability, backup airports, land exits where relevant, insurance review, emergency cash thresholds, and practical escalation protocols.</p></div>
+        <div class="card"><h3>Backpacker Plus</h3><p>Hostel freedom, optional group moments, vetted local guides, WhatsApp support, and crisis-routing support. Independent travel with a spine.</p></div>
+        <div class="card"><h3>Openly Israeli Briefs</h3><p>Can I speak Hebrew? Should I say I am Israeli? Are there protest hotspots? What should I avoid without becoming paranoid?</p></div>
+        <div class="card"><h3>Purposeful Long-Stays</h3><p>Hebrew courses, volunteering, casual work guidance, community housing, local life, cafes, gyms, and low-cost cultural immersion.</p></div>
+        <div class="card"><h3>Guide-on-Demand</h3><p>Not a full tour; a few local high-risk/high-value windows where a driver-guide or city fixer materially improves safety and depth.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="taxonomy">
+      <div class="section-head">
+        <div class="num">07 / content system</div>
+        <div>
+          <h2>Query taxonomy</h2>
+          <p class="dek">A useful content strategy should be question-led, because the audience is using Reddit to resolve live uncertainty.</p>
+        </div>
+      </div>
+      <div class="query-grid">
+        <div class="query"><h3>Safety now</h3><ul><li>Is Greece safe for Israelis now?</li><li>Where can Israelis travel safely this month?</li><li>Israeli-friendly countries in 2026</li></ul></div>
+        <div class="query"><h3>Flight continuity</h3><ul><li>Which airlines still fly to Israel?</li><li>El Al vs foreign carriers during war</li><li>What if my Tel Aviv flight is cancelled?</li></ul></div>
+        <div class="query"><h3>Identity visibility</h3><ul><li>Can I speak Hebrew abroad?</li><li>Should I say I am Israeli while travelling?</li><li>Where can Jews travel comfortably?</li></ul></div>
+        <div class="query"><h3>Admin</h3><ul><li>Do I need a visa for Israel?</li><li>Ben Gurion security questions</li><li>Travel insurance Israel war advisory</li></ul></div>
+        <div class="query"><h3>Purposeful travel</h3><ul><li>Volunteer in Israel for 3 months</li><li>Hebrew course and travel summer</li><li>Long stay in Haifa tips</li></ul></div>
+        <div class="query"><h3>Modular package</h3><ul><li>Flexible Israel itinerary with backup plan</li><li>Guide driver Israel current situation</li><li>Safe local guide for one day</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="section-head">
+        <div class="num">08 / source notes</div>
+        <div>
+          <h2>Evidence base</h2>
+          <p class="dek">The interface uses Reddit as qualitative social listening. The PhocusWire source supports Reddit’s growing role as a travel-planning resource, with r/travel at 12 million members and screen views up 32% year-on-year from January to November 2024.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div class="source-list">
+          <details open><summary>PhocusWire</summary><p><a href="https://www.phocuswire.com/reddit-travel-planning-resource" target="_blank" rel="noreferrer">Does Reddit have a serious role to play in trip planning?</a>. Used for Reddit travel-planning behaviour, authenticity, and the platform’s hostility to undeclared affiliate behaviour.</p></details>
+          <details><summary>Reddit destination-safety thread</summary><p><a href="https://www.reddit.com/r/Israel/comments/1tioegp/safewelcoming_tourist_destinations_for_israelis/" target="_blank" rel="noreferrer">Safe/welcoming tourist destinations for Israelis in Current Year?</a>. Used for identity safety, destination screening, and willingness to avoid places perceived as hostile.</p></details>
+          <details><summary>Reddit longer-stay thread</summary><p><a href="https://www.reddit.com/r/Israel/comments/1tze5ci/what_could_i_do_in_israel_with_3_months_of_very/" target="_blank" rel="noreferrer">What could I do in Israel with 3 months?</a>. Used for purposeful travel, volunteering, and testing life beyond tourism.</p></details>
+          <details><summary>Reuters aviation disruption context</summary><p><a href="https://www.reuters.com/world/middle-east/israels-ben-gurion-airport-set-reopen-airspace-very-limited-format-monday-2026-03-02/" target="_blank" rel="noreferrer">Ben Gurion limited reopening</a> and <a href="https://www.reuters.com/world/middle-east/israels-el-al-airlines-reviewing-operations-after-government-limits-traffic-2026-03-23/" target="_blank" rel="noreferrer">El Al capacity limits</a>. Used to contextualize fear of being stuck and flight reliability concerns.</p></details>
+        </div>
+        <aside class="sticky-panel">
+          <h3>Strategic translation</h3>
+          <p>The winning proposition is not “tour package for Israeli youth.” It is “uncertainty-native travel intelligence for young Israelis who still want freedom.”</p>
+          <a class="button" href="#packages">Review package logic</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h2>Pre-solved uncertainty.</h2><p>Package the risk layer, not the life out of the trip. That is the Antigen read of the opportunity.</p></div>
+      <div class="small">Built as an interactive Antigen-style research interface · Source window July 2025 to June 2026 · Directional social-listening analysis, not a representative survey.</div>
+    </div>
+  </footer>
+
+<script>
+const themes = [
+  {name:'Safety / conflict risk', count:8, group:'risk'},
+  {name:'Identity safety abroad', count:6, group:'identity'},
+  {name:'Flight reliability / getting stuck', count:6, group:'mobility'},
+  {name:'Destination screening', count:5, group:'risk'},
+  {name:'Local, authentic experience', count:4, group:'experience'},
+  {name:'Longer stay / productive travel', count:3, group:'experience'},
+  {name:'Bureaucracy / border process', count:3, group:'mobility'},
+  {name:'Package / guide consideration', count:3, group:'experience'}
+];
+const themeList = document.getElementById('themeList');
+function renderThemes(filter='all'){
+  themeList.innerHTML='';
+  const max = Math.max(...themes.map(t=>t.count));
+  themes.filter(t=>filter==='all'||t.group===filter).forEach((t,i)=>{
+    const row=document.createElement('div'); row.className='insight';
+    row.innerHTML=`<div class="tag">${t.group}</div><div><strong>${t.name}</strong><div class="bar-wrap"><div class="bar" style="width:0"></div></div></div><div class="count">${t.count}</div>`;
+    themeList.appendChild(row);
+    setTimeout(()=>row.querySelector('.bar').style.width=(t.count/max*100)+'%',80+i*60);
+  });
+}
+renderThemes();
+document.querySelectorAll('#themeFilters button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#themeFilters button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderThemes(btn.dataset.filter)}));
+
+const sentiments = [
+  ['Independent / DIY instinct',45], ['Guided help when risk is high',35], ['Fully packaged tour appetite',20]
+];
+const sentimentChart=document.getElementById('sentimentChart');
+sentiments.forEach((s,i)=>{
+  const row=document.createElement('div'); row.className='sentiment-row';
+  row.innerHTML=`<div class="label">${s[0]}</div><div class="bar-wrap"><div class="bar" style="width:0;background:${i===1?'var(--red)':'var(--black)'}"></div></div><div class="count">${s[1]}%</div>`;
+  sentimentChart.appendChild(row);
+  setTimeout(()=>row.querySelector('.bar').style.width=s[1]+'%',200+i*110);
+});
+
+const outputs={
+  bad:'A rigid youth package says: “we planned your trip.” It risks feeling touristic, expensive, slow, and disconnected from Reddit’s peer-led authenticity bias.',
+  good:'A stronger modular product says: “you remain free, but we solved the parts that can go wrong.” It packages routing, local safety, identity comfort, insurance clarity, and backup support.'
+};
+document.querySelectorAll('.toggle-card').forEach(card=>card.addEventListener('click',()=>{document.querySelectorAll('.toggle-card').forEach(c=>c.classList.remove('active'));card.classList.add('active');document.getElementById('packageOutput').textContent=outputs[card.dataset.output]}));
+
+window.addEventListener('scroll',()=>{const h=document.documentElement;const scrolled=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;document.getElementById('progress').style.width=scrolled+'%';});
+</script>
+</body>
+</html>
