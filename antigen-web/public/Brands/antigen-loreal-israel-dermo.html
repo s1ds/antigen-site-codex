@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Strategy · L'Oréal Active Cosmetics · Israel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ─────────────────────────────────────────────── */
+:root {
+  --red:        #e31d28;
+  --magenta:    #e3195b;
+  --crimson:    #b11226;
+  --black:      #111111;
+  --ink:        #1e1c17;
+  --white:      #ffffff;
+  --paper:      #f8f7f6;
+  --smoke:      #e8e8e8;
+  --grey:       #9fa2a4;
+  --yellow:     #ffc000;
+  --blue:       #08a7d8;
+  --grad-ins:   linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --grad-dark:  linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-d:     'Bebas Neue', Impact, sans-serif;
+  --font-s:     'Montserrat', Arial, sans-serif;
+  --rule:       1px solid rgba(17,17,17,.13);
+  --rule-w:     1px solid rgba(255,255,255,.1);
+  --shadow:     8px 8px 0 rgba(17,17,17,.92);
+  --shadow-r:   8px 8px 0 rgba(227,29,40,.88);
+  --pad:        clamp(1.25rem, 4vw, 3.5rem);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--font-s);
+  font-size: clamp(.93rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ─── STICKY PHASE NAV ─────────────────────────────────────────────── */
+.phase-nav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: var(--white);
+  border-bottom: var(--rule);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 var(--pad);
+}
+.phase-nav::-webkit-scrollbar { display: none; }
+.pnav-btn {
+  flex-shrink: 0;
+  padding: .7rem 1rem;
+  font-family: var(--font-s);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.pnav-btn:hover { color: var(--black); }
+.pnav-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+/* ─── HEADER ───────────────────────────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--grad-ins);
+  padding: 3rem var(--pad) 2.5rem;
+  color: var(--white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0,0,0,.22), transparent 38%),
+    linear-gradient(90deg, rgba(0,0,0,.16), transparent 52%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative; z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.56);
+  margin-bottom: .6rem;
+}
+.header-title {
+  font-family: var(--font-d);
+  font-size: clamp(2.6rem, 6.2vw, 6.5rem);
+  line-height: .85;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: .5rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.48);
+  margin-top: .75rem;
+}
+.header-kicker {
+  border-left: 4px solid var(--yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.kicker-label {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.46);
+  margin-bottom: .3rem;
+}
+.kicker-value {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1;
+  color: var(--yellow);
+  letter-spacing: .04em;
+}
+.kicker-note {
+  font-size: .64rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.36);
+  margin-top: .25rem;
+}
+
+/* ─── PHASE WRAPPER ────────────────────────────────────────────────── */
+.phase {
+  padding: 3.5rem var(--pad);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase + .phase { padding-top: 0; }
+
+/* ─── PHASE LABEL ──────────────────────────────────────────────────── */
+.phase-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--black);
+  flex-wrap: wrap;
+}
+.phase-number {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.phase-name {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--black);
+}
+.phase-tagline {
+  font-size: .8rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--grey);
+  margin-left: auto;
+}
+
+/* ─── GET-TO-BY ────────────────────────────────────────────────────── */
+.gtb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+}
+.gtb-cell {
+  padding: 1.75rem 2rem;
+  border-right: var(--rule);
+}
+.gtb-cell:last-child { border-right: none; }
+.gtb-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.gtb-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* ─── MARKET STAT ROW ──────────────────────────────────────────────── */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.metric-card {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 6px solid var(--red);
+  padding: 1.5rem;
+  text-align: center;
+}
+.metric-value {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: .4rem;
+}
+.metric-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+
+/* ─── PROJECT BRIEF NARRATIVE ──────────────────────────────────────── */
+.brief-narrative {
+  font-size: .92rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.75;
+  max-width: 920px;
+  margin-bottom: 2rem;
+}
+.brief-narrative strong { color: var(--red); font-weight: 800; }
+
+/* ─── DARK SECTION ─────────────────────────────────────────────────── */
+.dark-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.dark-section .phase-label {
+  border-bottom-color: rgba(255,255,255,.15);
+}
+.dark-section .phase-number { color: var(--yellow); }
+.dark-section .phase-name { color: var(--white); }
+.dark-section .phase-tagline { color: rgba(255,255,255,.4); }
+
+/* ─── INSIGHT / FRICTION ───────────────────────────────────────────── */
+.insight-inner { max-width: 1440px; margin: 0 auto; }
+
+.insight-headline {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  line-height: .92;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: .75rem;
+  max-width: 900px;
+}
+.insight-headline em {
+  font-style: normal;
+  color: var(--yellow);
+}
+.insight-subhead {
+  font-size: .85rem;
+  font-weight: 600;
+  font-style: italic;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 2.25rem;
+}
+
+.tension-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.tension-card {
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.tension-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.tension-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: .5rem;
+}
+.tension-sub {
+  font-size: .82rem;
+  font-style: italic;
+  color: rgba(255,255,255,.5);
+}
+.tension-vs {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  color: var(--red);
+  text-align: center;
+}
+
+.kill-list-box {
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 1.75rem 2rem;
+}
+.kill-list-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.25rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.kill-list { list-style: none; }
+.kill-list li {
+  display: flex;
+  gap: 1rem;
+  padding: .9rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: .85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.62);
+  line-height: 1.6;
+}
+.kill-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.kill-list li::before {
+  content: '✗';
+  color: var(--red);
+  flex-shrink: 0;
+  font-weight: 900;
+}
+.kill-list li strong { color: rgba(255,255,255,.9); font-weight: 800; }
+
+/* ─── PROVOCATION ──────────────────────────────────────────────────── */
+.prov-headline {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 3.6vw, 3.6rem);
+  line-height: .92;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.prov-sub {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+  max-width: 880px;
+  line-height: 1.7;
+}
+.prov-sub strong { color: var(--red); }
+
+.rule-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: var(--rule);
+  margin-bottom: 2.5rem;
+}
+.rule-table th {
+  background: var(--ink);
+  color: var(--white);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 1rem 1.5rem;
+}
+.rule-table th:first-child { color: rgba(255,255,255,.5); }
+.rule-table th:last-child { color: var(--yellow); }
+.rule-table td {
+  padding: 1.25rem 1.5rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-top: var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.rule-table td:first-child { background: var(--smoke); color: var(--grey); }
+.rule-table td:last-child { background: var(--white); }
+.rule-table td strong { font-weight: 800; color: var(--red); }
+
+.brand-prov-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.brand-prov-card {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 6px solid var(--red);
+  padding: 1.75rem;
+}
+.bp-name {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.bp-sub {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 1rem;
+  padding-bottom: .9rem;
+  border-bottom: var(--rule);
+}
+.bp-problem-tag, .bp-prov-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: .4rem;
+}
+.bp-problem-tag { color: var(--grey); }
+.bp-prov-tag { color: var(--red); margin-top: 1.1rem; }
+.bp-body {
+  font-size: .83rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.bp-body strong { font-weight: 800; color: var(--red); }
+
+/* ─── TERRITORY ────────────────────────────────────────────────────── */
+.territory-headline {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 3.6vw, 3.6rem);
+  line-height: .9;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  max-width: 880px;
+}
+.territory-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  line-height: 1.75;
+  max-width: 860px;
+  margin-bottom: 2rem;
+}
+
+.shift-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.1);
+  border-left: 6px solid var(--red);
+}
+.shift-side { }
+.shift-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: .5rem;
+}
+.shift-text {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.5;
+}
+.shift-text em { color: var(--yellow); font-style: normal; }
+.shift-arrow {
+  font-family: var(--font-d);
+  font-size: 2.2rem;
+  color: var(--red);
+}
+
+.pillar-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2rem;
+}
+.pillar-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.pillar-cell:last-child { border-right: none; }
+.pillar-num {
+  font-family: var(--font-d);
+  font-size: 3.5rem;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.pillar-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  color: var(--white);
+  margin-bottom: .75rem;
+  line-height: 1.1;
+}
+.pillar-body {
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.65;
+}
+.pillar-body strong { color: var(--yellow); font-weight: 800; }
+.pillar-body em { color: rgba(255,255,255,.5); font-style: italic; }
+
+.brand-role-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2rem;
+}
+.brand-role-table th {
+  background: rgba(255,255,255,.04);
+  color: var(--yellow);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.brand-role-table td {
+  padding: 1.1rem 1.5rem;
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.72);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.brand-role-table tr:last-child td { border-bottom: none; }
+.brand-role-table td:first-child {
+  font-family: var(--font-d);
+  font-size: 1.3rem;
+  color: var(--white);
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.brand-role-table td strong { color: var(--white); font-weight: 800; }
+.brand-role-table td em { color: rgba(255,255,255,.5); font-style: italic; }
+
+.battle-cry {
+  padding: 2rem;
+  border: 2px solid var(--yellow);
+  text-align: center;
+}
+.battle-cry p {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.8vw, 2.6rem);
+  color: var(--yellow);
+  letter-spacing: .04em;
+  line-height: 1.1;
+}
+
+/* ─── BIG IDEA ─────────────────────────────────────────────────────── */
+.big-idea-hero {
+  background: var(--black);
+  padding: 3rem var(--pad);
+}
+.bi-inner { max-width: 1440px; margin: 0 auto; }
+.bi-eyebrow {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+.bi-title {
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 7.5vw, 8rem);
+  line-height: .85;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.bi-title span { color: var(--red); }
+.bi-descriptor {
+  font-size: clamp(.9rem, 1.2vw, 1.1rem);
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+  max-width: 780px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+.bi-descriptor strong { color: var(--yellow); }
+
+.vs-block {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.vs-side { font-size: .85rem; font-weight: 600; color: rgba(255,255,255,.65); line-height: 1.6; }
+.vs-side .vs-tag { display:block; font-size: .62rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .5rem; }
+.vs-side.illusion .vs-tag { color: var(--grey); }
+.vs-side.reality .vs-tag { color: var(--yellow); }
+.vs-side.reality { color: var(--white); font-weight: 700; }
+.vs-divider {
+  font-family: var(--font-d);
+  font-size: 1.8rem;
+  color: var(--red);
+}
+
+.brand-idea-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2.5rem;
+}
+.brand-idea-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.brand-idea-cell:last-child { border-right: none; }
+.bi-num {
+  font-family: var(--font-d);
+  font-size: 3.5rem;
+  color: rgba(255,255,255,.06);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.bi-name {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.bi-target {
+  font-size: .68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 1rem;
+  padding-bottom: .9rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.bi-angle-tag {
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .4rem;
+}
+.bi-angle {
+  font-size: .8rem;
+  font-style: italic;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  margin-bottom: .9rem;
+}
+.bi-exec-tag {
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: .4rem;
+}
+.bi-exec {
+  font-size: .8rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+  line-height: 1.6;
+}
+
+.killed-ideas {
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 1.75rem 2rem;
+}
+.killed-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.25rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.killed-table { width: 100%; border-collapse: collapse; }
+.killed-table th {
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: left;
+  padding-bottom: .75rem;
+  color: rgba(255,255,255,.4);
+}
+.killed-table th:last-child { color: var(--yellow); }
+.killed-table td {
+  padding: .9rem 1.25rem .9rem 0;
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+  border-top: 1px solid rgba(255,255,255,.06);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.killed-table td:last-child { color: rgba(255,255,255,.85); }
+
+/* ─── EXECUTION SYSTEM ─────────────────────────────────────────────── */
+.exec-headline {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 3.6vw, 3.6rem);
+  line-height: .9;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.exec-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.75;
+  max-width: 860px;
+  margin-bottom: 1.25rem;
+}
+.exec-lead strong { color: var(--red); }
+
+.exec-killbox {
+  background: var(--smoke);
+  border: var(--rule);
+  border-left: 6px solid var(--grey);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+.exec-killbox-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .6rem;
+}
+.exec-killbox-body {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.pillar-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.exec-step {
+  background: var(--white);
+  border: var(--rule);
+  padding: 1.75rem 2rem;
+  position: relative;
+}
+.exec-step-letter {
+  font-family: var(--font-d);
+  font-size: 3.5rem;
+  color: var(--smoke);
+  line-height: 1;
+  position: absolute;
+  top: 1rem; right: 1.25rem;
+}
+.exec-step-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .5rem;
+}
+.exec-step-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  color: var(--black);
+  line-height: 1.1;
+  margin-bottom: .75rem;
+}
+.exec-step-body {
+  font-size: .84rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.exec-step-body strong { font-weight: 800; color: var(--red); }
+.exec-step-body em { font-style: italic; color: var(--crimson); }
+
+.arch-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: var(--rule);
+  margin-top: 1rem;
+}
+.arch-table th {
+  background: var(--black);
+  color: var(--white);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 1rem 1.5rem;
+}
+.arch-table th:last-child { color: var(--yellow); }
+.arch-table td {
+  padding: 1.1rem 1.5rem;
+  font-size: .83rem;
+  font-weight: 500;
+  color: var(--ink);
+  border-top: var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+  background: var(--white);
+}
+.arch-table td strong { font-weight: 800; color: var(--red); }
+
+/* ─── SYNTHESIS ────────────────────────────────────────────────────── */
+.synth-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.synth-inner { max-width: 1440px; margin: 0 auto; }
+
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.slide-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  padding: 1.75rem;
+  position: relative;
+}
+.slide-num {
+  font-family: var(--font-d);
+  font-size: 5rem;
+  color: rgba(255,255,255,.05);
+  line-height: 1;
+  position: absolute;
+  top: .5rem; right: 1rem;
+}
+.slide-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .6rem;
+}
+.slide-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 1.9vw, 1.65rem);
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+.slide-bullets {
+  list-style: none;
+}
+.slide-bullets li {
+  display: flex;
+  gap: .75rem;
+  padding: .6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.55;
+}
+.slide-bullets li:last-child { border-bottom: none; padding-bottom: 0; }
+.slide-bullets li::before {
+  content: '→';
+  color: var(--yellow);
+  flex-shrink: 0;
+  margin-top: .05rem;
+}
+.slide-bullets li strong { font-weight: 800; color: rgba(255,255,255,.88); }
+.slide-bullets li em { color: var(--yellow); font-style: normal; }
+
+.kpi-card {
+  grid-column: span 1;
+}
+.kpi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.kpi-row:last-child { border-bottom: none; }
+.kpi-label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.6);
+}
+.kpi-value {
+  font-family: var(--font-d);
+  font-size: 1.4rem;
+  color: var(--yellow);
+  letter-spacing: .02em;
+}
+
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
+.page-footer {
+  background: var(--black);
+  padding: 2.5rem var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-wordmark {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: .25em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.footer-meta {
+  font-size: .65rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .gtb-grid, .pillar-list, .brand-prov-grid, .brand-idea-grid, .pillar-flow-grid { grid-template-columns: 1fr; }
+  .gtb-cell { border-right: none; border-bottom: var(--rule); }
+  .gtb-cell:last-child { border-bottom: none; }
+  .pillar-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .pillar-cell:last-child { border-bottom: none; }
+  .brand-idea-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .brand-idea-cell:last-child { border-bottom: none; }
+  .tension-row, .shift-flow, .vs-block { grid-template-columns: 1fr; }
+  .tension-vs, .shift-arrow, .vs-divider { display: none; }
+  .metrics-row { grid-template-columns: 1fr; gap: 1rem; }
+  .rule-table, .arch-table, .brand-role-table, .killed-table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="phase-nav">
+  <a href="#phase1" class="pnav-btn active">01 &middot; The Input</a>
+  <a href="#phase2" class="pnav-btn">02 &middot; Insight</a>
+  <a href="#phase3" class="pnav-btn">03 &middot; Provocation</a>
+  <a href="#phase4" class="pnav-btn">04 &middot; Territory</a>
+  <a href="#phase5" class="pnav-btn">05 &middot; Big Idea</a>
+  <a href="#phase6" class="pnav-btn">06 &middot; Execution</a>
+  <a href="#phase7" class="pnav-btn">07 &middot; Synthesis</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN Strategy Core Document &middot; Active Cosmetics Division</div>
+      <div class="header-title">Stop Buying<br>Hope. Buy<br>Ingredients.</div>
+      <div class="header-sub">L'Oréal Dermo-Cosmetics &middot; CeraVe &middot; La Roche-Posay &middot; Vichy &middot; Israel</div>
+    </div>
+    <div class="header-kicker">
+      <div class="kicker-label">Category Share Gap</div>
+      <div class="kicker-value">8% &rarr; 13%</div>
+      <div class="kicker-note">Israel vs. European Benchmark</div>
+      <div class="kicker-label" style="margin-top:1.5rem;">12-Month Target</div>
+      <div class="kicker-value">+1.5pts</div>
+      <div class="kicker-note">Category Market Share Growth</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 1: THE INPUT -->
+<section id="phase1">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 01</span>
+      <h2 class="phase-name">The Input</h2>
+      <span class="phase-tagline">Project Brief &middot; GET&ndash;TO&ndash;BY</span>
+    </div>
+
+    <p class="brief-narrative">L'Oréal's core challenge is to grow dermo-cosmetics in Israel from a still-underdeveloped niche into a mainstream facial skincare choice. The category has strong momentum, but Israel is behind Europe: dermo-cosmetics are about <strong>8% of the Israeli beauty market versus roughly 13% in Europe.</strong> The business problem is not just competing with other dermo brands &mdash; it is converting consumers who currently buy from mass and prestige skincare, including L'Oréal Paris, Kiehl's, and broader beauty brands that are eroding the division's share. The sharper conversion challenge: why should consumers outside dermo-cosmetics choose Vichy, La Roche-Posay, or CeraVe specifically? The brands have credibility, loyalty, and engagement among users, but spontaneous awareness is still low &mdash; and Vichy has an additional issue: it is well known and appreciated, but that awareness is not converting strongly enough into trial.</p>
+
+    <div class="gtb-grid">
+      <div class="gtb-cell">
+        <div class="gtb-tag">GET</div>
+        <p class="gtb-body">Mass and prestige skincare consumers in Israel who perceive dermo-cosmetics as a niche category.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">TO</div>
+        <p class="gtb-body">Adopt L'Oréal dermo-brands as their primary, mainstream facial skincare choice over beauty competitors.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">BY</div>
+        <p class="gtb-body">Executing category-growth strategies that bridge awareness gaps and recruit users from mass-market brands.</p>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-value">8%</div>
+        <div class="metric-label">Current Dermo-Cosmetics Share of Israeli Beauty Market</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">13%</div>
+        <div class="metric-label">European Benchmark Share &mdash; The Gap to Close</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Selective Pharmacy Distribution Preserved Throughout</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2: INSIGHT -->
+<section id="phase2">
+  <div class="dark-section">
+    <div class="insight-inner">
+      <div class="phase-label">
+        <span class="phase-number">Phase 02</span>
+        <h2 class="phase-name">Insight</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.4);">The Sick-Skin Tax</span>
+      </div>
+
+      <h3 class="insight-headline">They want the <em>science</em>.<br>They reject the <em>scientist</em>.</h3>
+      <p class="insight-subhead">In Israel's hyper-social, high-expressive, status-driven culture, skincare is not a private health routine &mdash; it is an act of public vanity.</p>
+
+      <div class="tension-row">
+        <div class="tension-card">
+          <div class="tension-tag">The Aspirational Drive</div>
+          <div class="tension-title">"I want clinical-grade efficacy to look and feel flawless."</div>
+          <p class="tension-sub">Consumers crave active ingredients &mdash; Hyaluronic Acid, Retinol, Vitamin C.</p>
+        </div>
+        <div class="tension-vs">VS</div>
+        <div class="tension-card">
+          <div class="tension-tag">The Pathological Barrier</div>
+          <div class="tension-title">"If I buy a dermo brand, it means my skin is broken or diseased."</div>
+          <p class="tension-sub">Buying at the pharmacy counter feels like a public declaration of a "problem."</p>
+        </div>
+      </div>
+
+      <div class="kill-list-box">
+        <div class="kill-list-tag">Why This Kills Our Safe Ideas</div>
+        <ul class="kill-list">
+          <li><div><strong>Stop trying to make "pharmacy" look cool.</strong> The pharmacy is where people buy medicine. We cannot change the retail DNA &mdash; trying is a losing battle.</div></li>
+          <li><div><strong>Stop marketing "skin health." Start marketing "active superiority."</strong> "Healthy skin" is a boring, defensive benefit that sounds like recovery. We must pivot from remedial solution to aspirational weapon.</div></li>
+          <li><div><strong>The Vichy Paradox:</strong> High awareness, low trial &mdash; people respect its medical credentials but don't think they're "sick" enough to need it. We must transition Vichy from a "skin doctor" to a "skin architect."</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3: PROVOCATION -->
+<section id="phase3">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 03</span>
+      <h2 class="phase-name">Provocation</h2>
+      <span class="phase-tagline">Burn the White Coat</span>
+    </div>
+
+    <h3 class="prov-headline">If your skin isn't broken,<br>why would you buy a medicine?</h3>
+    <p class="prov-sub">The Israeli dermo-cosmetics market is stagnant at 8% because we are trapped in a self-inflicted medical ghetto. By relying on sterile white coats, clinical jargon, and problem-solution marketing, we've convinced consumers that La Roche-Posay, CeraVe, and Vichy are only for "sick" skin. To unlock the remaining 5% of the market, <strong>we must kill the medical aesthetic</strong> and start selling high-performance cosmetic dominance.</p>
+
+    <table class="rule-table">
+      <tr><th>The Old Category Rules &middot; Niche</th><th>The New Provocative Playbook &middot; Mainstream</th></tr>
+      <tr><td>"Dermatologist Recommended" &mdash; feels passive, medical, and defensive.</td><td><strong>"Skin-Code Demanded"</strong> &mdash; positioning dermo-actives as high-tech performance gear for the face.</td></tr>
+      <tr><td>Clinical Correction &mdash; focusing on fixing flaws, irritation, and damage.</td><td><strong>Prestige Hacking</strong> &mdash; positioning CeraVe and Vichy as the smart consumer's shortcut to $200 luxury cream results.</td></tr>
+      <tr><td>Sterile Isolation &mdash; hidden away in the quiet, clinical aisles of the pharmacy.</td><td><strong>The Pharmacy Takeover</strong> &mdash; transforming selective pharmacies into high-energy, experiential "Skin Labs."</td></tr>
+    </table>
+
+    <div class="brand-prov-grid">
+      <div class="brand-prov-card">
+        <div class="bp-name">Vichy</div>
+        <div class="bp-sub">The Ultimate Beauty Hack</div>
+        <div class="bp-problem-tag">The Problem</div>
+        <p class="bp-body">High awareness, but perceived as "my mother's pharmacy cream."</p>
+        <div class="bp-prov-tag">The Provocation</div>
+        <p class="bp-body">Position Mineral 89 not as a clinical hydrator but as the <strong>ultimate makeup primer</strong> used by top Israeli runway makeup artists. Strip the clinical trials, frame it as the secret weapon to double the glow and wear-time of luxury foundations.</p>
+      </div>
+      <div class="brand-prov-card">
+        <div class="bp-name">La Roche-Posay</div>
+        <div class="bp-sub">The Active Shield</div>
+        <div class="bp-problem-tag">The Problem</div>
+        <p class="bp-body">Viewed as a clinical brand for hyper-sensitive or damaged skin.</p>
+        <div class="bp-prov-tag">The Provocation</div>
+        <p class="bp-body">Stop talking about "tolerance." Frame LRP as <strong>extreme outdoor performance gear</strong> for the brutal Israeli climate &mdash; skin armor built for athletes, beachgoers, and high-intensity lifestyles.</p>
+      </div>
+      <div class="brand-prov-card">
+        <div class="bp-name">CeraVe</div>
+        <div class="bp-sub">The Clean-Cut Luxury Disruptor</div>
+        <div class="bp-problem-tag">The Problem</div>
+        <p class="bp-body">Perceived as cheap, basic, or entry-level.</p>
+        <div class="bp-prov-tag">The Provocation</div>
+        <p class="bp-body">Mock the $150 designer moisturizer jars directly. Position ceramides as the same fundamental building blocks found in luxury creams, stripped of fragrance and gold-leaf. <strong>"Pay for the science, not the jar."</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4: TERRITORY -->
+<section id="phase4">
+  <div class="dark-section">
+    <div class="insight-inner">
+      <div class="phase-label">
+        <span class="phase-number">Phase 04</span>
+        <h2 class="phase-name">Territory</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.4);">Biological Armor &middot; השריון הביולוגי</span>
+      </div>
+
+      <h3 class="territory-headline">Stop Treating a Biological<br>Battlefield with a Spa Day</h3>
+      <p class="territory-lead">The prestige and mass beauty markets sell a seductive lie: escapism &mdash; hope, French lavender fields, gold-flecked serums. But between the relentless Mediterranean UV index, grueling humidity, high-cortisol lifestyle, and urban pollution, the Israeli face is in constant survival mode. Applying a fragranced, superficial "luxury" moisturizer to this skin isn't self-care; it's an expensive distraction.</p>
+
+      <div class="shift-flow">
+        <div class="shift-side">
+          <div class="shift-tag">From</div>
+          <div class="shift-text">Remedial Treatment &mdash; dermo is for people with "problem skin" or clinical pathologies.</div>
+        </div>
+        <div class="shift-arrow">&rarr;</div>
+        <div class="shift-side">
+          <div class="shift-tag">To</div>
+          <div class="shift-text">Active Biological Defense &mdash; dermo is the <em>essential daily armor</em> required to survive the reality of living in Israel.</div>
+        </div>
+      </div>
+
+      <div class="pillar-list">
+        <div class="pillar-cell">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Demolish the "Luxury" Alibi</div>
+          <p class="pillar-body"><strong>Your skin doesn't care about a designer logo.</strong> It cares about lipids, ceramides, and cellular integrity. We make buying un-formulated prestige skincare feel like <em>wearing a silk gown to a sandstorm.</em></p>
+        </div>
+        <div class="pillar-cell">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">The Pharmacy as Sanctuary of Truth</div>
+          <p class="pillar-body">Super-Pharm's dermo department isn't a destination for the compromised. <strong>Going to the pharmacy is an act of uncompromising self-preservation</strong> &mdash; where you go when you're done playing games with your skin.</p>
+        </div>
+        <div class="pillar-cell">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">The Anti-Stress / Anti-Climate Mandate</div>
+          <p class="pillar-body">We tie dermo-cosmetics directly to the shared Israeli experience: heat, sweat, militaristic stress, rapid urban living. <strong>Clinically proven to protect skin facing Tel Aviv humidity and Jerusalem dry heat.</strong></p>
+        </div>
+      </div>
+
+      <table class="brand-role-table">
+        <tr><th>Brand</th><th>The Defensive Weapon</th><th>The Emotional Enemy</th></tr>
+        <tr><td>CeraVe</td><td><strong>The Daily Shield</strong> &mdash; Barrier Restoration</td><td><em>The Scented Strippers</em> &mdash; mass-market cleansers that strip the skin barrier for temporary clean-feeling illusions.</td></tr>
+        <tr><td>La Roche-Posay</td><td><strong>The Clinical Correction</strong> &mdash; Targeted Tolerance</td><td><em>The Aggressive Trend-Chasers</em> &mdash; harsh, unbuffered chemical peels causing micro-inflammation under the sun.</td></tr>
+        <tr><td>Vichy</td><td><strong>The Age-Resilience Fuel</strong> &mdash; Exposome Defense</td><td><em>The "Anti-Aging" Illusionists</em> &mdash; prestige creams promising youth through gold flakes instead of proven cellular recovery.</td></tr>
+      </table>
+
+      <div class="battle-cry">
+        <p>"Not Beauty. Skin Defense."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: BIG IDEA -->
+<section id="phase5">
+  <div class="big-idea-hero">
+    <div class="bi-inner">
+      <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+        <span class="phase-number" style="color:var(--red);">Phase 05</span>
+        <h2 class="phase-name" style="color:var(--white);">Big Idea</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.35);">The Beauty Audit &middot; האמת בפנים</span>
+      </div>
+      <div class="bi-eyebrow">The Platform</div>
+      <div class="bi-title">The Beauty<br><span>Audit.</span></div>
+      <p class="bi-descriptor">We will weaponize Israeli directness to expose the inefficiency of prestige beauty and position L'Oréal Dermo-Cosmetics as the ultimate, smart-consumer upgrade. A multi-brand, highly scalable platform that challenges Israelis to <strong>"audit" their bathroom shelves</strong> &mdash; dismantling the illusion of prestige "glamour" and replacing it with the undeniable, biological reality of skin engineering. We will no longer apologize for being clinical; we will make clinical the ultimate status symbol.</p>
+
+      <div class="vs-block">
+        <div class="vs-side illusion">
+          <span class="vs-tag">The Mass / Prestige Illusion</span>
+          "Smells good, luxury jar, empty promises"
+        </div>
+        <div class="vs-divider">VS</div>
+        <div class="vs-side reality">
+          <span class="vs-tag">The Biological Reality</span>
+          "Active ingredients, clinical proof, zero BS"
+        </div>
+      </div>
+
+      <div class="brand-idea-grid">
+        <div class="brand-idea-cell">
+          <div class="bi-num">01</div>
+          <div class="bi-name">CeraVe</div>
+          <div class="bi-target">The "No-BS" Daily Baseline &middot; Mass-Market Buyers</div>
+          <div class="bi-angle-tag">Audit Angle</div>
+          <p class="bi-angle">"Stop paying for water and perfume."</p>
+          <div class="bi-exec-tag">Execution</div>
+          <p class="bi-exec">A brutalist comparison campaign showing the skin barrier under a microscope &mdash; stripped by "pretty smelling" soaps versus CeraVe ceramides.</p>
+        </div>
+        <div class="brand-idea-cell">
+          <div class="bi-num">02</div>
+          <div class="bi-name">Vichy</div>
+          <div class="bi-target">The Active Vanity Upgrade &middot; Prestige Anti-Aging Buyers</div>
+          <div class="bi-angle-tag">Audit Angle</div>
+          <p class="bi-angle">"Stop buying age-rewind fairy tales. Invest in molecular weight."</p>
+          <div class="bi-exec-tag">Execution</div>
+          <p class="bi-exec">"The Molecular Test" &mdash; interactive digital tools calculating how much of a current routine is actually absorbed vs. evaporated. LiftActiv positioned as the bio-compatible alternative.</p>
+        </div>
+        <div class="brand-idea-cell">
+          <div class="bi-num">03</div>
+          <div class="bi-name">La Roche-Posay</div>
+          <div class="bi-target">The Skin Protectorate &middot; SPF-Ignoring Beauty Shoppers</div>
+          <div class="bi-angle-tag">Audit Angle</div>
+          <p class="bi-angle">"You cannot fix with makeup what you destroy with UV."</p>
+          <div class="bi-exec-tag">Execution</div>
+          <p class="bi-exec">High-visibility UV-camera activations in Tel Aviv showing hidden sun damage beneath makeup, followed by an immediate prescription of Anthelios.</p>
+        </div>
+      </div>
+
+      <div class="killed-ideas">
+        <div class="killed-tag">Killing the Safe Idea</div>
+        <table class="killed-table">
+          <tr><th>The Safe, Boring Idea</th><th>The Provocative Breakthrough</th></tr>
+          <tr><td>"Healthy skin is beautiful skin" lifestyle imagery featuring models in white coats.</td><td>Direct, confrontational call-outs of the beauty industry's lack of active ingredient concentration.</td></tr>
+          <tr><td>In-pharmacy leaflets explaining skin biology.</td><td>An interactive app that scans ingredient lists of any beauty brand and ranks its "Sucker Score" (actives vs. price).</td></tr>
+          <tr><td>Influencers showing their aesthetic "morning routine."</td><td>"De-influencers" stripping away makeup and luxury packaging to show the clinical raw materials that actually changed their skin.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 6: EXECUTION -->
+<section id="phase6">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 06</span>
+      <h2 class="phase-name">Execution</h2>
+      <span class="phase-tagline">The Skincare Freier Audit &middot; הנתיחה של הביוטי</span>
+    </div>
+
+    <h3 class="exec-headline">Exposing Prestige Illusion to Make Clinical the Ultimate Flex</h3>
+    <p class="exec-lead">The Israeli consumer prides themselves on one core cultural trait: <strong>not being a Freier (a sucker).</strong> Yet millions spend hundreds of shekels on prestige, gold-flaked, heavily perfumed creams that do nothing for cellular skin health. To move dermo-cosmetics from 8% to 13%+, we will not act like a boring medical alternative &mdash; we win by exposing the vanity tax of mass and prestige beauty.</p>
+
+    <div class="exec-killbox">
+      <div class="exec-killbox-tag">The Safe Idea to Kill</div>
+      <p class="exec-killbox-body">Partnering with friendly beauty influencers for "Get Ready With Me" videos showing La Roche-Posay in a daily glam routine, paired with sterile PR-release clinical trials. It blends into background noise &mdash; Israeli consumers have high ad-skepticism, and influencer flat-lays don't change systemic purchasing habits.</p>
+    </div>
+
+    <div class="pillar-flow-grid">
+      <div class="exec-step">
+        <div class="exec-step-letter">A</div>
+        <div class="exec-step-tag">The Public Outcry</div>
+        <div class="exec-step-title">The Skincare Autopsy</div>
+        <p class="exec-step-body">A controversial, unbranded PR stunt: independent cosmetic chemists and uncompromising Israeli digital creators "dissect" the ingredient lists of Israel's top five best-selling luxury and mass-market facial creams via aggressive short-form teardowns. <strong>The hook:</strong> <em>"You paid 450 NIS for perfume and a glass jar. Here is the 120 NIS clinical equivalent that actually penetrates your dermis."</em></p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-letter">B</div>
+        <div class="exec-step-tag">The Active Ingredient Guarantee</div>
+        <div class="exec-step-title">The Skincare Sucker Checker</div>
+        <p class="exec-step-body">An interactive digital tool and WhatsApp hotline. Consumers upload a photo of their current moisturizer's ingredient list; our <strong>AI-driven engine</strong> instantly analyzes the formulation, highlights filler ingredients in red, and matches their skin goal to the scientifically superior CeraVe, LRP, or Vichy formulation &mdash; at a fraction of the price.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-letter">C</div>
+        <div class="exec-step-tag">Selective Pharmacy Activation</div>
+        <div class="exec-step-title">The Prestige Exchange</div>
+        <p class="exec-step-body">For one week, consumers bring <strong>empty</strong> luxury or mass-market jars to dermo-cosmetic counters at Super-Pharm and Be. In return: a "Clinical Upgrade" &mdash; a full-sized L'Oréal dermo product matched to their needs, plus a diagnostic receipt showing scientific superiority. The pharmacy counter becomes an active intervention zone, not a passive shelf.</p>
+      </div>
+    </div>
+
+    <table class="arch-table">
+      <tr><th>Phase</th><th>Channel / Touchpoint</th><th>Provocative Action</th><th>Earned Media KPI</th></tr>
+      <tr><td><strong>Phase 1: Spark</strong></td><td>Independent Chemists, TikTok, PR</td><td>Launching "The Skincare Autopsy" video series exposing luxury ingredient markups.</td><td>Organic shares &amp; TikTok stitches; national press pickup on "The Vanity Tax"</td></tr>
+      <tr><td><strong>Phase 2: Engage</strong></td><td>WhatsApp, Mobile Web</td><td>The Skincare Sucker Checker &mdash; upload your luxury cream to find its dermo upgrade.</td><td>Tool completion rate; UGC screenshots of "audit" results shared on Instagram</td></tr>
+      <tr><td><strong>Phase 3: Convert</strong></td><td>Selective Pharmacies (Super-Pharm / Be)</td><td>The Prestige Exchange &mdash; trade luxury trash for clinical gold.</td><td>Foot traffic to dermo counters; new customer acquisition via club sign-ups</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- PHASE 7: SYNTHESIS -->
+<div class="synth-section" id="phase7">
+  <div class="synth-inner">
+    <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+      <span class="phase-number" style="color:var(--yellow);">Phase 07</span>
+      <h2 class="phase-name" style="color:var(--white);">Synthesis</h2>
+      <span class="phase-tagline" style="color:rgba(255,255,255,.35);">Israel's Skin-Rx Revolution</span>
+    </div>
+
+    <div class="slide-grid">
+      <div class="slide-card">
+        <div class="slide-num">01</div>
+        <div class="slide-tag">Slide 01 &middot; Challenge</div>
+        <div class="slide-title">Closing the 5% Gap</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Market Disconnect:</strong> Dermo-cosmetics represent 13% of the European beauty market but only 8% in Israel &mdash; millions in unrealized value.</div></li>
+          <li><div><strong>The Leaky Bucket:</strong> Losing high-value consumers to L'Oréal Paris and Kiehl's because Israelis view dermo as a corrective "niche," not an aspirational daily routine.</div></li>
+          <li><div><strong>The Brand Dilemma:</strong> CeraVe and LRP have high satisfaction but low spontaneous awareness. Vichy has high historical awareness but a severe conversion-to-trial bottleneck.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">02</div>
+        <div class="slide-tag">Slide 02 &middot; Insight</div>
+        <div class="slide-title">The Clinical vs. Cosmetic Paradox</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Barrier:</strong> Trend-conscious, fast-paced consumers view pharmacies as clinical spaces for sickness, not lifestyle-driven beauty destinations.</div></li>
+          <li><div><strong>The Friction:</strong> Mass-market skincare sells "hope in a jar" with high-sensory marketing; dermo communicates through clinical jargon that feels cold and transactional.</div></li>
+          <li><div><strong>The Core Truth:</strong> Consumers want pharmaceutical-grade <em>results</em> wrapped in a luxury cosmetic experience &mdash; not "pharmaceutical products."</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">03</div>
+        <div class="slide-tag">Slide 03 &middot; Provocation</div>
+        <div class="slide-title">Stop Treating Skin Health as a Correction</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Shift:</strong> Stop positioning dermo as the solution for "problematic skin." Start positioning it as the performance upgrade for all skin.</div></li>
+          <li><div><strong>The Reframe:</strong> Dermo isn't the cure for bad skin; it is the absolute peak performance of healthy skin.</div></li>
+          <li><div><strong>The Action:</strong> Shift messaging from defensive correction ("fix your skin") to offensive optimization ("upgrade your active ingredients").</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">04</div>
+        <div class="slide-tag">Slide 04 &middot; Territory</div>
+        <div class="slide-title">The Daily Rx Upgrade</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Angle:</strong> "The Active Ingredient Authority" &mdash; the bridge between prestige luxury and dermatological science.</div></li>
+          <li><div><strong>The Distribution Advantage:</strong> The pharmacy is no longer a "medical clinic"; it's the "Skin Lab" where high-performance beauty is unlocked.</div></li>
+          <li><div><strong>Differentiation:</strong> CeraVe &mdash; The Daily Essential. La Roche-Posay &mdash; The Advanced Active. Vichy &mdash; The Clinical Glow.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">05</div>
+        <div class="slide-tag">Slide 05 &middot; Big Idea</div>
+        <div class="slide-title">Upgrade Your Skin's IQ</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Concept:</strong> A nationwide campaign challenging consumers to audit their current products and "upgrade their Skin's IQ" to clinical-grade skincare.</div></li>
+          <li><div><strong>The Mechanism:</strong> An interactive, digital-first comparison of active ingredient concentration vs. L'Oréal's dermo portfolio.</div></li>
+          <li><div><strong>The Message:</strong> <em>"Stop guessing. Start prescribing. Upgrade to L'Oréal Dermo."</em></div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">06</div>
+        <div class="slide-tag">Slide 06 &middot; Executions</div>
+        <div class="slide-title">Seamless Omni-Channel Conversion</div>
+        <ul class="slide-bullets">
+          <li><div><strong>AI Skin-Rx Concierge (Tech &amp; UX):</strong> WhatsApp-based AI diagnostic &mdash; selfie + current products &rarr; personalized "Upgrade Rx" + nearest Super-Pharm voucher.</div></li>
+          <li><div><strong>The Vichy "Trial Engine":</strong> High-end "Glow Dispensers" in shopping districts &mdash; QR-scan for customized premium trial kits.</div></li>
+          <li><div><strong>Pharmacy "Skin Lab" Takeover + Ingredient Truth Influencer Campaign:</strong> Redesigned dermo aisles with diagnostic screens; creators deconstruct overpriced prestige cosmetics.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card kpi-card">
+        <div class="slide-num">07</div>
+        <div class="slide-tag">Slide 07 &middot; Why It Works</div>
+        <div class="slide-title">Engineered for Conversion &amp; Scale</div>
+        <div class="kpi-row"><span class="kpi-label">Spontaneous Awareness (CeraVe / LRP, 6mo)</span><span class="kpi-value">+35%</span></div>
+        <div class="kpi-row"><span class="kpi-label">AI Diagnostic &rarr; Store-Visit Conversion</span><span class="kpi-value">20%</span></div>
+        <div class="kpi-row"><span class="kpi-label">Category Market Share Growth (12mo)</span><span class="kpi-value">+1.5pts</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-wordmark">antigen</div>
+  <div class="footer-meta">
+    Strategy Output &middot; L'Oréal Active Cosmetics &middot; Israel<br>
+    ANTIGEN Intelligence Stack &middot; Phase 01&ndash;07 &middot; Confidential
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section[id], div[id]');
+const btns = document.querySelectorAll('.pnav-btn');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      btns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
