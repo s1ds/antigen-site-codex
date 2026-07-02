@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ANTIGEN Strategy — KIA EV2 Germany · Die Revolution der Vernunft</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #FB923C;
+  --orange-d: #ea7318;
+  --black: #0F172A;
+  --ink: #1E293B;
+  --white: #ffffff;
+  --paper: #F8FAFC;
+  --smoke: #F1F5F9;
+  --grey: #64748B;
+  --grey-l: #94A3B8;
+  --border: rgba(15,23,42,.1);
+  --border-w: rgba(255,255,255,.1);
+  --red: #e31d28;
+  --yellow: #ffc000;
+  --font-d: 'Bebas Neue', Impact, sans-serif;
+  --font-s: 'Montserrat', Arial, sans-serif;
+  --font-j: 'Plus Jakarta Sans', sans-serif;
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --max: 1360px;
+  --shadow: 6px 6px 0 rgba(15,23,42,.9);
+  --shadow-o: 6px 6px 0 rgba(251,146,60,.8);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--paper);color:var(--black);font-family:var(--font-j);-webkit-font-smoothing:antialiased;line-height:1.6;}
+::selection{background:var(--yellow);color:var(--black);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:var(--orange);}
+img,svg{display:block;}
+button{cursor:pointer;font-family:var(--font-j);}
+a{color:inherit;text-decoration:none;}
+
+/* ── STICKY NAV ─────────────────────────────────────────────────────── */
+.phase-nav{
+  position:sticky;top:0;z-index:90;
+  background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  padding:0 var(--pad);
+}
+.phase-nav::-webkit-scrollbar{display:none;}
+.pnav-btn{
+  flex-shrink:0;padding:.9rem 1.1rem;
+  font-family:var(--font-j);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  border:none;border-bottom:3px solid transparent;background:none;
+  color:var(--grey);cursor:pointer;white-space:nowrap;transition:all .2s;
+}
+.pnav-btn:hover{color:var(--black);}
+.pnav-btn.active{color:var(--orange);border-bottom-color:var(--orange);}
+
+/* ── HEADER ─────────────────────────────────────────────────────────── */
+.page-header{
+  background:linear-gradient(135deg,#0F172A 0%,#1E293B 70%,#0F172A 100%);
+  padding:4.5rem var(--pad) 4rem;color:var(--white);
+  position:relative;overflow:hidden;border-bottom:5px solid var(--orange);
+}
+.page-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%,rgba(251,146,60,.13),transparent 48%),
+             linear-gradient(90deg,rgba(0,0,0,.32),transparent 55%);
+  pointer-events:none;
+}
+.hd-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;}
+.hd-eye{font-size:.68rem;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:.8rem;}
+.hd-title{font-family:var(--font-d);font-size:clamp(3.2rem,8vw,8rem);line-height:.82;letter-spacing:-.01em;color:var(--white);margin-bottom:.5rem;}
+.hd-de{font-family:var(--font-d);font-size:clamp(1.4rem,3vw,3rem);line-height:1;color:rgba(255,255,255,.28);letter-spacing:.04em;margin-top:.4rem;}
+.hd-sub{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.75rem;}
+.hd-kicker{border-left:4px solid var(--orange);padding-left:1.5rem;flex-shrink:0;}
+.kicker-lbl{font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.3rem;}
+.kicker-val{font-family:var(--font-d);font-size:clamp(1.6rem,2.8vw,2.8rem);line-height:1;color:var(--orange);letter-spacing:.04em;}
+.kicker-desc{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.35);margin-top:.25rem;}
+
+/* ── PHASE WRAPPER ───────────────────────────────────────────────────── */
+.phase{padding:4rem var(--pad);max-width:var(--max);margin:0 auto;}
+.phase+.phase{padding-top:0;}
+.phase-sep{border:none;border-top:2px solid var(--black);margin:0 var(--pad);}
+
+.phase-label{display:flex;align-items:center;gap:1.25rem;margin-bottom:2.5rem;padding-bottom:1.25rem;border-bottom:2px solid var(--black);}
+.phase-num{font-size:.68rem;font-weight:900;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.phase-name{font-family:var(--font-d);font-size:clamp(2.5rem,5vw,5.5rem);line-height:.88;letter-spacing:-.01em;color:var(--black);}
+.phase-tag{font-size:.78rem;font-weight:700;font-style:italic;color:var(--grey);margin-left:auto;flex-shrink:0;}
+
+/* dark phase */
+.phase-dark{background:var(--black);padding:4rem var(--pad);}
+.phase-dark .phase-label{border-bottom-color:rgba(255,255,255,.12);}
+.phase-dark .phase-num{color:var(--orange);}
+.phase-dark .phase-name{color:var(--white);}
+.phase-dark .phase-tag{color:rgba(255,255,255,.38);}
+.phase-dark .phase-inner{max-width:var(--max);margin:0 auto;}
+
+/* ── GET-TO-BY ───────────────────────────────────────────────────────── */
+.gtb-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);box-shadow:0 8px 24px -12px rgba(0,0,0,.07);}
+.gtb-cell{padding:2rem 2.5rem;border-right:1px solid var(--border);background:var(--white);}
+.gtb-cell:last-child{border-right:none;}
+.gtb-tag{font-size:.66rem;font-weight:900;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:.9rem;padding-bottom:.55rem;border-bottom:1px solid var(--border);}
+.gtb-body{font-size:.95rem;font-weight:600;color:var(--black);line-height:1.65;}
+
+/* ── CRITIQUE BOX ────────────────────────────────────────────────────── */
+.critique{background:var(--black);padding:2rem 2.5rem;margin-top:2.5rem;border-left:6px solid var(--orange);}
+.critique-tag{font-size:.66rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.7rem;}
+.critique-body{font-size:.92rem;font-weight:500;color:rgba(255,255,255,.78);line-height:1.68;}
+.critique-body em{color:var(--orange);font-style:normal;font-weight:700;}
+
+/* ── TENSION GRID ────────────────────────────────────────────────────── */
+.tension-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:2.5rem 0;align-items:stretch;}
+.tension-col{padding:2rem;background:var(--white);border:1px solid var(--border);}
+.tension-col:first-child{border-right:none;}
+.tension-col:last-child{border-left:none;}
+.tension-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;background:var(--orange);color:var(--white);font-family:var(--font-d);font-size:clamp(1.4rem,2.5vw,2.2rem);letter-spacing:.06em;text-align:center;min-width:120px;}
+.tension-label{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;}
+.tension-quote{font-size:.92rem;font-weight:600;color:var(--black);line-height:1.6;font-style:italic;}
+
+/* ── COMPARISON TABLE ────────────────────────────────────────────────── */
+.cmp-table{width:100%;border-collapse:collapse;margin:2rem 0;}
+.cmp-table th{padding:.85rem 1.25rem;font-size:.65rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;text-align:left;border-bottom:2px solid var(--black);}
+.cmp-table th:first-child{background:var(--smoke);color:var(--grey);}
+.cmp-table th:last-child{background:var(--orange);color:var(--white);}
+.cmp-table td{padding:.85rem 1.25rem;font-size:.88rem;font-weight:500;line-height:1.55;border-bottom:1px solid var(--border);vertical-align:top;}
+.cmp-table td:first-child{background:var(--smoke);color:var(--grey);font-weight:600;}
+.cmp-table td:last-child{background:var(--white);font-weight:700;color:var(--black);}
+.cmp-table tr:last-child td{border-bottom:none;}
+
+/* ── RULE CARDS ──────────────────────────────────────────────────────── */
+.rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;}
+.rule-card{background:var(--white);border:1px solid var(--border);padding:2rem;position:relative;overflow:hidden;}
+.rule-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--orange);}
+.rule-num{font-family:var(--font-d);font-size:4rem;color:rgba(15,23,42,.04);position:absolute;right:.5rem;top:-.2rem;line-height:1;}
+.rule-tag{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;}
+.rule-title{font-family:var(--font-d);font-size:1.35rem;color:var(--black);margin-bottom:.75rem;letter-spacing:.03em;line-height:1.1;}
+.rule-body{font-size:.86rem;font-weight:500;color:var(--ink);line-height:1.65;}
+.rule-body strong{font-weight:800;color:var(--black);}
+
+/* ── PLATFORM DIAGRAM ────────────────────────────────────────────────── */
+.platform-box{background:var(--smoke);border:1px solid var(--border);padding:3rem;margin:2.5rem 0;text-align:center;}
+.platform-top{display:inline-block;background:var(--black);color:var(--white);padding:.6rem 2.5rem;font-family:var(--font-d);font-size:1.3rem;letter-spacing:.08em;margin-bottom:1.5rem;}
+.platform-branches{display:flex;gap:0;justify-content:center;margin:1rem 0;}
+.platform-branch{flex:1;max-width:280px;background:var(--white);border:1px solid var(--border);padding:1.75rem 1.5rem;text-align:center;position:relative;}
+.platform-branch:not(:last-child){border-right:none;}
+.pb-tag{font-size:.6rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:.5rem;}
+.pb-title{font-family:var(--font-d);font-size:1.15rem;color:var(--black);letter-spacing:.04em;margin-bottom:.65rem;line-height:1.1;}
+.pb-body{font-size:.8rem;font-weight:500;color:var(--grey);line-height:1.55;}
+.platform-arrow{display:flex;align-items:center;justify-content:center;width:40px;background:transparent;position:relative;}
+.platform-arrow::before{content:'↓';font-size:1.5rem;color:var(--orange);position:absolute;top:-2rem;}
+
+/* ── VECTOR CARDS ────────────────────────────────────────────────────── */
+.vector-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;}
+.vector-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);padding:2rem;transition:all .3s;position:relative;overflow:hidden;}
+.vector-card:hover{border-color:var(--orange);background:rgba(255,255,255,.07);}
+.vector-bg{font-family:var(--font-d);font-size:5.5rem;color:rgba(255,255,255,.025);position:absolute;right:.5rem;top:-.5rem;line-height:1;pointer-events:none;}
+.vc-tag{font-size:.62rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;}
+.vc-label{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.38);margin-bottom:.8rem;letter-spacing:.06em;}
+.vc-title{font-family:var(--font-d);font-size:1.5rem;color:var(--white);line-height:1.1;margin-bottom:1.25rem;letter-spacing:.03em;}
+.vc-items{list-style:none;}
+.vc-items li{display:flex;gap:.65rem;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.82rem;font-weight:500;color:rgba(255,255,255,.6);line-height:1.5;}
+.vc-items li:last-child{border-bottom:none;padding-bottom:0;}
+.vc-items li::before{content:'→';color:var(--orange);flex-shrink:0;}
+.vc-items li strong{font-weight:800;color:rgba(255,255,255,.88);}
+
+/* ── MEDIA PHASES ────────────────────────────────────────────────────── */
+.media-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:2.5rem 0;border:1px solid rgba(255,255,255,.1);}
+.media-phase{padding:2rem;border-right:1px solid rgba(255,255,255,.08);}
+.media-phase:last-child{border-right:none;}
+.mp-num{font-family:var(--font-d);font-size:3rem;color:rgba(255,255,255,.06);line-height:1;margin-bottom:.5rem;}
+.mp-tag{font-size:.62rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;}
+.mp-title{font-family:var(--font-d);font-size:1.2rem;color:var(--white);margin-bottom:.8rem;letter-spacing:.04em;}
+.mp-body{font-size:.82rem;font-weight:500;color:rgba(255,255,255,.55);line-height:1.6;}
+.mp-connector{display:flex;align-items:center;justify-content:center;padding:0 .5rem;color:var(--orange);font-size:1.5rem;}
+
+/* ── SYNTHESIS SLIDES ────────────────────────────────────────────────── */
+.slide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;}
+.slide-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);padding:2rem;position:relative;overflow:hidden;transition:all .3s;}
+.slide-card:hover{border-color:var(--orange);background:rgba(255,255,255,.06);}
+.slide-bg{font-family:var(--font-d);font-size:5.5rem;color:rgba(255,255,255,.025);position:absolute;right:.5rem;top:-.5rem;line-height:1;pointer-events:none;}
+.sc-tag{font-size:.62rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.5rem;}
+.sc-title{font-family:var(--font-d);font-size:clamp(1.3rem,1.8vw,1.75rem);color:var(--white);line-height:1.1;margin-bottom:1.25rem;letter-spacing:.02em;}
+.sc-items{list-style:none;}
+.sc-items li{display:flex;gap:.65rem;padding:.65rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.83rem;font-weight:500;color:rgba(255,255,255,.6);line-height:1.55;}
+.sc-items li:last-child{border-bottom:none;padding-bottom:0;}
+.sc-items li::before{content:'→';color:var(--orange);flex-shrink:0;}
+.sc-items li strong{font-weight:800;color:rgba(255,255,255,.88);}
+
+/* ── MANIFESTO BLOCK ─────────────────────────────────────────────────── */
+.manifesto{border:2px solid var(--orange);padding:2.5rem 3rem;margin:2.5rem 0;position:relative;}
+.manifesto::before{content:'MANIFEST';font-family:var(--font-d);font-size:.7rem;letter-spacing:.25em;color:var(--orange);position:absolute;top:-.65rem;left:1.5rem;background:var(--black);padding:0 .5rem;}
+.manifesto-body{font-size:1.05rem;font-weight:600;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;}
+.manifesto-body em{color:var(--orange);font-style:normal;font-weight:800;}
+
+/* ── ACTIVATION BOX ──────────────────────────────────────────────────── */
+.activation{background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.25);padding:2rem 2.5rem;margin:2rem 0;}
+.act-tag{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.8rem;}
+.act-title{font-family:var(--font-d);font-size:1.6rem;color:var(--white);margin-bottom:1rem;letter-spacing:.04em;}
+.act-items{list-style:none;}
+.act-items li{display:flex;gap:.65rem;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.86rem;font-weight:500;color:rgba(255,255,255,.68);line-height:1.55;}
+.act-items li:last-child{border-bottom:none;}
+.act-items li::before{content:'→';color:var(--orange);flex-shrink:0;font-weight:800;}
+
+/* ── HEADLINE ────────────────────────────────────────────────────────── */
+.section-headline{font-family:var(--font-d);font-size:clamp(1.8rem,3vw,3rem);color:var(--white);letter-spacing:.04em;line-height:1.05;margin-bottom:1rem;}
+.section-body{font-size:.92rem;font-weight:500;color:rgba(255,255,255,.65);line-height:1.72;margin-bottom:1.5rem;}
+.section-body em{color:var(--orange);font-style:normal;font-weight:700;}
+.section-body strong{color:var(--white);font-weight:800;}
+
+.light-headline{font-family:var(--font-d);font-size:clamp(1.8rem,3vw,3rem);color:var(--black);letter-spacing:.04em;line-height:1.05;margin-bottom:1rem;}
+.light-body{font-size:.92rem;font-weight:500;color:var(--ink);line-height:1.72;margin-bottom:1.5rem;}
+.light-body em{color:var(--orange-d);font-style:normal;font-weight:700;}
+.light-body strong{color:var(--black);font-weight:800;}
+
+.orange-quote{font-size:1.3rem;font-weight:800;color:var(--orange);line-height:1.45;padding:1.5rem 0;border-top:2px solid var(--orange);border-bottom:2px solid var(--orange);margin:2rem 0;letter-spacing:-.01em;}
+
+/* ── INSIGHT CARD ────────────────────────────────────────────────────── */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0;}
+.insight-card{background:var(--white);border:1px solid var(--border);padding:1.75rem 2rem;}
+.ic-tag{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;}
+.ic-title{font-family:var(--font-d);font-size:1.2rem;color:var(--black);letter-spacing:.03em;margin-bottom:.7rem;}
+.ic-body{font-size:.87rem;font-weight:500;color:var(--ink);line-height:1.65;}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────── */
+.page-footer{background:#090D16;padding:3rem var(--pad);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(255,255,255,.04);}
+.footer-mark{font-family:var(--font-d);font-size:clamp(1.8rem,3.5vw,3rem);letter-spacing:.25em;color:var(--white);text-transform:uppercase;}
+.footer-mark span{color:var(--orange);}
+.footer-meta{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;text-align:right;line-height:1.8;}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .gtb-grid,.rule-grid,.vector-grid,.media-phases,.tension-grid,.insight-grid{grid-template-columns:1fr;}
+  .platform-branches{flex-direction:column;align-items:center;}
+  .platform-branch{max-width:100%;border-right:1px solid var(--border)!important;}
+  .gtb-cell{border-right:none;border-bottom:1px solid var(--border);}
+  .gtb-cell:last-child{border-bottom:none;}
+  .tension-col:first-child,.tension-col:last-child{border-right:1px solid var(--border);}
+  .tension-mid{min-width:unset;padding:1rem;flex-direction:row;gap:.5rem;font-size:1.2rem;}
+  .cmp-table{font-size:.8rem;}
+  .cmp-table th,.cmp-table td{padding:.65rem .85rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="page-header">
+  <div class="hd-inner">
+    <div>
+      <div class="hd-eye">ANTIGEN Strategy Constitution · Intelligence Workspace · Confidential Platform</div>
+      <div class="hd-title">The Badge<br>Tax Is Dead</div>
+      <div class="hd-de">Die Revolution der Vernunft</div>
+      <div class="hd-sub">KIA EV2 · Germany Market Entry · Growth Platform · July 2, 2026</div>
+    </div>
+    <div class="hd-kicker">
+      <div class="kicker-lbl">Strategic Mandate</div>
+      <div class="kicker-val">Top 5<br>EV Sales</div>
+      <div class="kicker-desc">Germany · Entry Segment</div>
+    </div>
+  </div>
+</header>
+
+<!-- ── NAV ── -->
+<nav class="phase-nav">
+  <a href="#brief"       class="pnav-btn active">01 · Growth Brief</a>
+  <a href="#insight"     class="pnav-btn">02 · Friction & Insight</a>
+  <a href="#provocation" class="pnav-btn">03 · Provocation</a>
+  <a href="#territory"   class="pnav-btn">04 · Territory</a>
+  <a href="#bigidea"     class="pnav-btn">05 · Big Idea</a>
+  <a href="#execution"   class="pnav-btn">06 · Execution</a>
+  <a href="#synthesis"   class="pnav-btn">07 · Synthesis</a>
+</nav>
+
+
+<!-- ══ PHASE 01: GROWTH BRIEF ══ -->
+<section id="brief">
+<div class="phase">
+  <div class="phase-label">
+    <span class="phase-num">Phase 01</span>
+    <span class="phase-name">Growth Brief</span>
+    <span class="phase-tag">GET–TO–BY · Gated Framework</span>
+  </div>
+
+  <div class="gtb-grid">
+    <div class="gtb-cell">
+      <div class="gtb-tag">GET</div>
+      <div class="gtb-body">Value-conscious German car buyers seeking affordable, reliable entry points into the electric market — urban and suburban commuters priced out of the domestic premium EV tier.</div>
+    </div>
+    <div class="gtb-cell">
+      <div class="gtb-tag">TO</div>
+      <div class="gtb-body">Recognise the KIA EV2 as a top-tier, essential choice for sustainable German urban mobility — not as a budget alternative, but as the intellectually superior selection.</div>
+    </div>
+    <div class="gtb-cell">
+      <div class="gtb-tag">BY</div>
+      <div class="gtb-body">Leveraging a competitive price-to-feature ratio to expose the "premium markup" of domestic rivals while delivering uncompromised urban EV performance at a revolutionary price point.</div>
+    </div>
+  </div>
+
+  <div class="critique">
+    <div class="critique-tag">▸ The Brief Behind the Brief</div>
+    <div class="critique-body">The project brief is to launch the KIA EV2 in Germany and secure a position within the <em>top five best-selling electric vehicles</em> in that region. The abrupt termination of the federal Umweltbonus subsidy has created a market in acute structural tension — buyers want affordable EVs but the disappearance of up to €6,000 in government funding has stalled the category. The conventional strategy (value positioning, price messaging) will not work. This document is the case for why, and what to do instead.</div>
+  </div>
+</div>
+</section>
+
+<hr class="phase-sep">
+
+<!-- ══ PHASE 02: FRICTION & INSIGHT ══ -->
+<section id="insight">
+<div class="phase">
+  <div class="phase-label">
+    <span class="phase-num">Phase 02</span>
+    <span class="phase-name">Friction & Insight</span>
+    <span class="phase-tag">Sharp Tensions · Provocative Truths</span>
+  </div>
+
+  <div class="light-headline">The <em style="color:var(--orange-d);font-style:normal">Vernunft</em> Paradox</div>
+  <p class="light-body">German buyers desperately want to make the smart financial choice — but they are <strong>terrified of looking like they had to.</strong> The German automobile is not an appliance. It is a public-facing tax return. The middle class is paralysed by a profound cultural friction: committed to <em>Vernunft</em> (rationality, frugality, sensible living), yet suffering from acute status anxiety.</p>
+
+  <div class="tension-grid">
+    <div class="tension-col">
+      <div class="tension-label">The Rational Desire</div>
+      <div class="tension-quote">"I must be sensible, save money, and transition to sustainable mobility."</div>
+    </div>
+    <div class="tension-mid">VS</div>
+    <div class="tension-col">
+      <div class="tension-label">The Cultural Terror</div>
+      <div class="tension-quote">"If I drive a cheap import, my neighbours will think I am failing financially."</div>
+    </div>
+  </div>
+
+  <div class="orange-quote">"I want the savings — but I cannot afford the loss of status."</div>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="ic-tag">Why the "Safe" Strategy Will Fail</div>
+      <div class="ic-title">Value Messaging Triggers the Defence Mechanism</div>
+      <div class="ic-body">If KIA launches the EV2 with the industry-standard "smart value for money" positioning, we activate the German defence mechanism. "Value" is translated as "cheap," and "cheap" is translated as "social compromise." We relegate the EV2 to the "second car for the spouse" category — killing any chance of entering the top five best-seller list.</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-tag">The Actual Insight</div>
+      <div class="ic-title">Intellectual Superiority Over Financial Compromise</div>
+      <div class="ic-body">We must flip the psychology of the transaction. The EV2 must not be positioned as the "affordable alternative" to premium EVs. It must be positioned as the status symbol of the intellectually superior. Overpaying for an EV is no longer a sign of wealth — it is a sign of gullibility. The EV2 is not a compromise for those with smaller wallets; it is a badge of honour for those with sharper minds.</div>
+    </div>
+  </div>
+
+  <div class="critique">
+    <div class="critique-tag">▸ The Diagnosis of Our Deception</div>
+    <div class="critique-body">The current market diagnosis assumes we are fighting a rational battle of "price-to-feature ratios." It assumes the value-conscious German consumer is a logical machine weighing battery kilowatt-hours against Euros. <em>This is a critical, comfortable lie.</em> In Germany, the automobile is not an appliance — it is a social signal. We are not selling a car. We are selling permission to feel clever.</div>
+  </div>
+</div>
+</section>
+
+<hr class="phase-sep">
+
+<!-- ══ PHASE 03: PROVOCATION ══ -->
+<section id="provocation">
+<div class="phase">
+  <div class="phase-label">
+    <span class="phase-num">Phase 03</span>
+    <span class="phase-name">Provocation</span>
+    <span class="phase-tag">Rule Breaking · Detonation</span>
+  </div>
+
+  <div class="light-headline">The "Premium Tax" is a Scam</div>
+  <p class="light-body">The German automotive market is suffering from a collective Stockholm Syndrome. For decades, legacy domestic manufacturers have convinced buyers that "premium" is synonymous with over-engineered complexity and astronomical price tags. German buyers are paying a <strong>€15,000 "badge tax"</strong> for engineering excess they will never use in daily urban commutes. We are here to break this spell.</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Legacy Category Rule</th>
+        <th>The EV2 Provocation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Price as Quality Signal: "If it's cheaper, it must be inferior."</td>
+        <td>Price as Efficiency Signal: "If you paid more, you got ripped off."</td>
+      </tr>
+      <tr>
+        <td>Heritage-Based Trust: Buy German because of 100 years of history.</td>
+        <td>Future-Based Trust: Buy Korean because legacy brands are struggling to write software.</td>
+      </tr>
+      <tr>
+        <td>The "Autobahn" Fantasy: Marketing EVs based on high-speed long-distance travel.</td>
+        <td>The Urban Reality: Marketing EVs for where they actually live — the tight streets of Berlin, Munich, and Hamburg.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="rule-grid">
+    <div class="rule-card">
+      <div class="rule-num">01</div>
+      <div class="rule-tag">Campaign Concept</div>
+      <div class="rule-title">Der Ego-Steuer-Rechner</div>
+      <div class="rule-body">A highly public, interactive tool comparing the EV2's spec-sheet (range, charging speed, UI) directly with the VW ID.3 and BMW iX1. The calculator computes the exact "Ego Tax" the buyer is paying to have a German badge on their driveway.<br><br><strong>Headline: "Sie zahlen €15.000 für ein Logo. Wir haben das Auto drumherum gebaut."</strong><br>(You are paying €15,000 for a logo. We built the car around it.)</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">02</div>
+      <div class="rule-tag">Guerilla Action</div>
+      <div class="rule-title">The Overpriced EV Towing Service</div>
+      <div class="rule-body">KIA-branded flatbed tow trucks drive through Frankfurt, Munich, and Berlin carrying brand-new, covered competitor EVs. On the side of each truck, a massive billboard reads:<br><br><strong>"Befreien Sie sich von der Premium-Falle."</strong><br>(Free yourself from the premium trap.)</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">03</div>
+      <div class="rule-tag">The Diagnosis Shift</div>
+      <div class="rule-title">Repositioning the GET-TO-BY</div>
+      <div class="rule-body"><strong>GET:</strong> Value-conscious German car buyers.<br><br><strong>TO:</strong> Recognise the KIA EV2 as the smarter, superior financial and ecological choice that makes premium German EVs look obsolete.<br><br><strong>BY:</strong> Aggressively exposing the "premium markup" of domestic rivals while delivering uncompromised urban EV performance.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<hr class="phase-sep">
+
+<!-- ══ PHASE 04: TERRITORY ══ -->
+<div class="phase-dark" id="territory">
+<div class="phase-inner">
+  <div class="phase-label">
+    <span class="phase-num">Phase 04</span>
+    <span class="phase-name">Territory</span>
+    <span class="phase-tag">Defensive Emotional Space</span>
+  </div>
+
+  <div class="section-headline">The Death of "Vorsprung"</div>
+  <p class="section-body">Status is the Ultimate German Range Anxiety. The safest path for the EV2 launch is to position it as the "sensible, budget-friendly alternative to German engineering." We must kill this immediately. If we lead with price, we invite comparison on raw metrics where Chinese OEMs will always underbid us. If the EV2 is bought purely out of financial compromise, the owner secretly wishes they were driving an ID.3. That is a <em>defenceless emotional space.</em></p>
+
+  <div class="manifesto">
+    <div class="manifesto-body">"The emotional defence of the KIA EV2 driver is not 'I couldn't afford a premium German EV.' It is: <em>'I am too smart to pay the idiot tax on a badge that no longer delivers.'"</em></div>
+  </div>
+
+  <div class="section-headline" style="margin-top:2.5rem">Post-Prestige Sovereignty</div>
+  <p class="section-body"><em>Die Post-Prestige-Souveränität.</em> We are not building a moat around affordability. We are building a moat around <strong>intellectual superiority.</strong> This territory turns the EV2's price-to-feature ratio from "budget compromise" into a badge of intellectual liberation — reframing German premium cars not as aspirational, but as over-engineered, over-leveraged status symbols for people trapped in the past.</p>
+
+  <div class="vector-grid">
+    <div class="vector-card">
+      <div class="vector-bg">01</div>
+      <div class="vc-tag">The Old Paradigm — Vulnerable</div>
+      <div class="vc-title">Leasing-Angst</div>
+      <ul class="vc-items">
+        <li><strong>€600/month</strong> to impress neighbours who don't care.</li>
+        <li><strong>400 horsepower</strong> to sit in a Stau on the A8.</li>
+        <li><strong>€15,000 logo premium</strong> for a badge that used to mean quality.</li>
+      </ul>
+    </div>
+    <div class="vector-card">
+      <div class="vector-bg">02</div>
+      <div class="vc-tag">The New Paradigm — Our Moat</div>
+      <div class="vc-title">Genug ist das neue Premium</div>
+      <ul class="vc-items">
+        <li><strong>Financial Sovereignty:</strong> keeping capital for life, not a depreciating driveway ornament.</li>
+        <li><strong>Urban Precision:</strong> exactly the footprint, range, and tech to dominate Berlin or Munich.</li>
+        <li><strong>The Value Flex:</strong> demanding that engineering serves the driver, not the OEM's legacy debt.</li>
+      </ul>
+    </div>
+    <div class="vector-card">
+      <div class="vector-bg">03</div>
+      <div class="vc-tag">Three Non-Negotiable Rules</div>
+      <div class="vc-title">Strategic Guardrails</div>
+      <ul class="vc-items">
+        <li><strong>Never apologise for the price.</strong> Market it as a masterclass in high-density value.</li>
+        <li><strong>Weaponise German Rationality</strong> against German brands — overpaying is the <em>un-German</em> choice.</li>
+        <li><strong>The New Standard of Sufficiency.</strong> Urban-optimised range is a design choice, not a limitation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="activation" style="margin-top:2.5rem">
+    <div class="act-tag">The Litmus Test for Creative Execution</div>
+    <div class="act-title">One question for every piece of work</div>
+    <ul class="act-items">
+      <li>If the campaign makes a German consumer feel <strong>"sensible"</strong> — throw it away.</li>
+      <li>If it makes them feel <strong>smarter, lighter, and slightly smug</strong> compared to the Mercedes EQ driver idling next to them — run it.</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- ══ PHASE 05: BIG IDEA ══ -->
+<section id="bigidea">
+<div class="phase">
+  <div class="phase-label">
+    <span class="phase-num">Phase 05</span>
+    <span class="phase-name">Big Idea</span>
+    <span class="phase-tag">Scalable Platform</span>
+  </div>
+
+  <div class="light-headline">THE BADGE TAX IS DEAD</div>
+  <div class="light-headline" style="color:var(--orange-d);margin-top:-.5rem;font-size:clamp(1.4rem,2.5vw,2.5rem)">The Rational Mutiny · Die Revolution der Vernunft</div>
+  <p class="light-body" style="margin-top:1rem">The KIA EV2 is not a compromise. It is an IQ test. By choosing the EV2, the German driver mutinies against the bloated premium tax of VW, BMW, and Mercedes. This platform reframes the purchase of an affordable EV from a sign of financial limitation to a sign of <strong>intellectual superiority.</strong> You didn't buy a cheaper car — you outsmarted a legacy system that wanted to overcharge you for a logo.</p>
+
+  <div class="platform-box">
+    <div class="platform-top">THE STATUS TAX → OVERPRICED LEGACY GERMAN EVs</div>
+    <div style="display:flex;justify-content:center;gap:3rem;margin-bottom:1.5rem;">
+      <div style="text-align:center"><div style="font-size:.65rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-bottom:.4rem">Financial Guilt</div><div style="font-size:.82rem;color:var(--ink)">Trapped in lease anxiety</div></div>
+      <div style="font-size:1.5rem;color:var(--orange);align-self:center">+</div>
+      <div style="text-align:center"><div style="font-size:.65rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-bottom:.4rem">Obsolete Tech</div><div style="font-size:.82rem;color:var(--ink)">Paying for legacy baggage</div></div>
+    </div>
+    <div style="text-align:center;font-size:1.8rem;color:var(--orange);margin-bottom:1.25rem">↓</div>
+    <div class="platform-branches">
+      <div class="platform-branch">
+        <div class="pb-tag">Vector A</div>
+        <div class="pb-title">The Un-Status Symbol</div>
+        <div class="pb-body">Brand & Communication — ditching the badge to outsmart legacy. "Bezahle für die Technik, nicht für die Tradition."</div>
+      </div>
+      <div class="platform-branch">
+        <div class="pb-tag">Vector B</div>
+        <div class="pb-title">Metric-First Experience</div>
+        <div class="pb-body">Digital & Retail — Der Statustaxen-Rechner. Turn the purchase process into an objective spreadsheet optimisation.</div>
+      </div>
+      <div class="platform-branch">
+        <div class="pb-tag">Vector C</div>
+        <div class="pb-title">Fleet & Urban Sabotage</div>
+        <div class="pb-body">Experiential — "The Silent Takeover." Pop-up hubs in business districts offering "The 15-Minute Rationality Check."</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<hr class="phase-sep">
+
+<!-- ══ PHASE 06: EXECUTION ══ -->
+<div class="phase-dark" id="execution">
+<div class="phase-inner">
+  <div class="phase-label">
+    <span class="phase-num">Phase 06</span>
+    <span class="phase-name">Execution</span>
+    <span class="phase-tag">Earned-First Architecture</span>
+  </div>
+
+  <div class="section-headline">The Volks-Ausstieg</div>
+  <p class="section-body"><em>The People's Exit.</em> Germany invented the concept of the Volkswagen — the affordable, high-quality vehicle for the masses. Legacy manufacturers have <strong>abandoned their birthright.</strong> In their pursuit of high-margin luxury EVs, they have priced the average German worker out of the green transition. The KIA EV2 will not enter this market begging for share. We stage a hostile takeover of Germany's national automotive identity.</p>
+
+  <div class="activation">
+    <div class="act-tag">Earned-First Catalyst — Der Volks-Umtausch</div>
+    <div class="act-title">The People's Trade-In</div>
+    <ul class="act-items">
+      <li>At Munich and Berlin municipal borders, KIA establishes <strong>"Badge Tax Rebate Stations."</strong></li>
+      <li>Owners of lease-bound ID.3s and Opel Corsas bring in their contracts. KIA pays off their remaining lease penalties in exchange for an EV2 subscription.</li>
+      <li>The removed German badges are mounted on a public monument in central Berlin: <strong>Das Denkmal der Prestige-Steuer.</strong> The Monument to Overpriced Engineering.</li>
+    </ul>
+  </div>
+
+  <div class="media-phases">
+    <div class="media-phase">
+      <div class="mp-num">01</div>
+      <div class="mp-tag">Phase 1 — Earned Media</div>
+      <div class="mp-title">The Spark</div>
+      <div class="mp-body">Publicly challenge German car CEOs to defend their entry-level EV pricing on LinkedIn. Launch the "Badge Tax Rebate Stations." Generate earned media through cultural provocation.</div>
+    </div>
+    <div class="media-phase">
+      <div class="mp-num">02</div>
+      <div class="mp-tag">Phase 2 — Owned & Shared</div>
+      <div class="mp-title">The Multiplier</div>
+      <div class="mp-body"><em>Der Konfigurator des Schmerzes</em> — an online tool comparing the EV2's standard features against the costly "options list" of German competitors, line item by line item.</div>
+    </div>
+    <div class="media-phase">
+      <div class="mp-num">03</div>
+      <div class="mp-tag">Phase 3 — Targeted Paid</div>
+      <div class="mp-title">The Sustained Attack</div>
+      <div class="mp-body">High-impact OOH placed directly outside Wolfsburg (VW HQ) and Stuttgart (Mercedes/Porsche): <em>"Built for your wallet, not your ego."</em></div>
+    </div>
+  </div>
+
+  <div class="manifesto">
+    <div class="manifesto-body">"German luxury brands want you to pay €45,000 for the privilege of saving the planet. We think that's bad engineering. The KIA EV2 is everything you need, engineered to perfection, priced for reality. Keep your prestige. <em>We'll keep your money in your pocket."</em></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ PHASE 07: SYNTHESIS ══ -->
+<div class="phase-dark" id="synthesis" style="padding-top:4rem">
+<div class="phase-inner">
+  <div class="phase-label">
+    <span class="phase-num">Phase 07</span>
+    <span class="phase-name">Synthesis</span>
+    <span class="phase-tag">Distilled Pitch Narrative · 7 Slides</span>
+  </div>
+
+  <p class="section-body" style="margin-bottom:2rem">German Engineering is About Precision. The KIA EV2 is About <em>Smart Decision.</em></p>
+
+  <div class="slide-grid">
+    <div class="slide-card">
+      <div class="slide-bg">01</div>
+      <div class="sc-tag">Slide 01 · Segment Challenge</div>
+      <div class="sc-title">The Market is Stalling</div>
+      <ul class="sc-items">
+        <li><strong>The Stagnation:</strong> The German EV market stalled following the abrupt end of the Umweltbonus subsidy, leaving buyers stranded.</li>
+        <li><strong>The Barrier:</strong> German consumers perceive affordable EVs as cheap, compromised vehicles lacking the range and build quality required for the Autobahn.</li>
+        <li><strong>The Mandate:</strong> Launch the KIA EV2 and secure a Top 5 best-selling EV spot by proving that affordability does not mean sacrifice.</li>
+      </ul>
+    </div>
+    <div class="slide-card">
+      <div class="slide-bg">02</div>
+      <div class="sc-tag">Slide 02 · Insight</div>
+      <div class="sc-title">The Vernunft Factor</div>
+      <ul class="sc-items">
+        <li><strong>The Driver:</strong> German car buyers are driven by <em>Vernunft</em> (rationality, practicality, long-term value) — not just flashiness.</li>
+        <li><strong>The Feature Gap:</strong> Buyers are tired of paying a premium "brand tax" for domestic legacy models that lock essential tech behind expensive upgrade packages.</li>
+        <li><strong>The Opportunity:</strong> A massive, underserved segment of urban commuters who want premium-tier EV technology at an entry-level price point.</li>
+      </ul>
+    </div>
+    <div class="slide-card">
+      <div class="slide-bg">03</div>
+      <div class="sc-tag">Slide 03 · Provocation</div>
+      <div class="sc-title">Why Pay for the Badge?</div>
+      <ul class="sc-items">
+        <li><strong>The Question:</strong> Why pay a premium for the badge when you can get the benchmark for less?</li>
+        <li><strong>The Shift:</strong> Challenge the German belief that quality only comes with a premium price tag.</li>
+        <li><strong>The Target:</strong> Expose legacy brands for overcharging and under-delivering on entry-level mobility.</li>
+      </ul>
+    </div>
+    <div class="slide-card">
+      <div class="slide-bg">04</div>
+      <div class="sc-tag">Slide 04 · Territory</div>
+      <div class="sc-title">Das Vernünftige Elektroauto</div>
+      <ul class="sc-items">
+        <li><strong>The Territory:</strong> <em>Das Vernünftige Elektroauto</em> — The Sensible Electric Vehicle.</li>
+        <li><strong>The Position:</strong> The KIA EV2 not as a "cheap" alternative, but as the smartest, most calculated automotive purchase in Germany.</li>
+        <li><strong>The Core Value:</strong> Long-range capability, fast charging, and advanced safety suites as standard features — not costly add-ons.</li>
+      </ul>
+    </div>
+    <div class="slide-card">
+      <div class="slide-bg">05</div>
+      <div class="sc-tag">Slide 05 · Big Idea</div>
+      <div class="sc-title">Der Neue Standard</div>
+      <ul class="sc-items">
+        <li><strong>The Big Idea:</strong> KIA EV2 — Der Neue Standard (The New Standard).</li>
+        <li><strong>The Concept:</strong> Reclaiming the spirit of the practical "people's car" for the electric era.</li>
+        <li><strong>The Promise:</strong> Everything a modern German driver needs — uncompromised range, cutting-edge technology, robust safety — without the premium surcharge.</li>
+      </ul>
+    </div>
+    <div class="slide-card">
+      <div class="slide-bg">06</div>
+      <div class="sc-tag">Slide 06 · Executions</div>
+      <div class="sc-title">Die Standard-Korrektur</div>
+      <ul class="sc-items">
+        <li><strong>Campaign:</strong> "Die Standard-Korrektur" — high-impact digital and OOH comparing EV2 standard features against the costly options lists of domestic competitors.</li>
+        <li><strong>"0% Compromise" City Tour:</strong> Experiential test-drive hubs in Berlin, Munich, and Hamburg.</li>
+        <li><strong>KIA Wertgarantie:</strong> An all-inclusive leasing and guaranteed future-value package eliminating battery longevity risk-aversion.</li>
+      </ul>
+    </div>
+    <div class="slide-card">
+      <div class="slide-bg">07</div>
+      <div class="sc-tag">Slide 07 · Why It Works</div>
+      <div class="sc-title">The Case for the Mutiny</div>
+      <ul class="sc-items">
+        <li><strong>Deconstructs Risk:</strong> Directly addresses German buyer risk-aversion by highlighting standard safety, long range, and a 7-year warranty.</li>
+        <li><strong>Maximises Value:</strong> Focuses on price-to-feature ratio to appeal to <em>Vernunft</em> rather than emotional status-seeking.</li>
+        <li><strong>Disrupts the Market:</strong> Positions KIA as the champion of accessible, sustainable mobility — carving a clear path to Top 5 by capturing the largest underserved buyer segment in Germany.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="page-footer">
+  <div class="footer-mark">ANTI<span>GEN</span></div>
+  <div class="footer-meta">
+    Strategic Workspace Export · Confidential Platform<br>
+    KIA EV2 Germany Market Entry · July 2, 2026<br>
+    Powered by ANTIGEN Strategy Constitution v2.5
+  </div>
+</footer>
+
+<script>
+// ── Active nav on scroll ──────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id], div[id]');
+const btns = document.querySelectorAll('.pnav-btn');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const id = e.target.id;
+      btns.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-80px 0px 0px 0px' });
+
+sections.forEach(s => obs.observe(s));
+
+// ── Smooth nav click ──────────────────────────────────────────────────
+btns.forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(btn.getAttribute('href'));
+    if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
