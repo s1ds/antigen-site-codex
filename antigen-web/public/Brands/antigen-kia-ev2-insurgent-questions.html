@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANTIGEN · Insurgent Questions · KIA EV2</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<title>ANTIGEN · Insurgent Questions · KIA EV2 · Germany</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ── ANTIGEN V3 TOKENS ─────────────────────────────────────────── */
 :root {
   --red:     #E31D28;
   --crimson: #B11226;
@@ -18,397 +17,123 @@
   --grey:    #9FA2A4;
   --yellow:  #FFC000;
   --grad:    linear-gradient(135deg,#e31d28 0%,#e3195b 60%,#f0448e 100%);
-
-  /* vector accent colours */
-  --v1: #BDDDE8; /* Assumption Archaeology — cool blue */
-  --v2: #C8C5F0; /* Consensus Forensics — periwinkle */
-  --v3: #F4D5C8; /* Audience Inversion — blush */
-  --v4: #F5C4D8; /* Category Heresy — pink */
-  --v5: #B8D4E0; /* Future Blindness — steel blue */
-  --v6: #C5E0C5; /* Measurement Theater — sage */
-
+  --v1: #7EC8D8;
+  --v2: #9B96E8;
+  --v3: #E8A898;
+  --v4: #E898B8;
+  --v5: #78B4D0;
+  --v6: #88C888;
   --font-d: 'Bebas Neue', Impact, sans-serif;
   --font-s: 'Montserrat', Arial, sans-serif;
   --font-b: 'DM Sans', Arial, sans-serif;
+  --font-m: 'Space Mono', monospace;
   --pad: clamp(1.25rem, 4vw, 3.5rem);
-  --card-r: 0px;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-b);font-size:clamp(.9rem,1vw,1rem);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--yellow);color:var(--black)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--red)}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-b);
-  font-size: clamp(.9rem,1vw,1rem);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-::selection { background: var(--yellow); color: var(--black); }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-thumb { background: var(--red); }
+/* HERO */
+.hero{background:var(--grad);padding:4.5rem var(--pad) 3.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(0,0,0,.28),transparent 44%),linear-gradient(180deg,rgba(0,0,0,.14),transparent 60%);pointer-events:none}
+.hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:flex-end}
+.hero-eye{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:.9rem}
+.hero-title{font-family:var(--font-d);font-size:clamp(3.5rem,9vw,10rem);line-height:.82;letter-spacing:-.01em;color:var(--white);margin-bottom:1.25rem}
+.hero-sub{font-family:var(--font-s);font-size:clamp(.85rem,1.3vw,1.05rem);font-weight:600;color:rgba(255,255,255,.62);max-width:580px;line-height:1.65;margin-bottom:2.5rem}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:.2rem}
+.hero-stat-val{font-family:var(--font-d);font-size:clamp(1.8rem,3vw,2.8rem);color:var(--yellow);line-height:1}
+.hero-stat-label{font-family:var(--font-m);font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.hero-badge{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);padding:1.25rem 1.5rem;align-self:flex-end;flex-shrink:0;text-align:right}
+.hero-badge-label{font-family:var(--font-m);font-size:.58rem;color:rgba(255,255,255,.4);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.35rem}
+.hero-badge-val{font-family:var(--font-d);font-size:clamp(1rem,2vw,1.5rem);color:var(--white);letter-spacing:.04em}
 
-/* ── HERO ─────────────────────────────────────────────────────── */
-.hero {
-  background: var(--grad);
-  padding: 5rem var(--pad) 4rem;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at 80% 20%, rgba(0,0,0,.25), transparent 44%),
-              linear-gradient(180deg, rgba(0,0,0,.12), transparent 60%);
-  pointer-events: none;
-}
-.hero-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  position: relative; z-index: 2;
-}
-.hero-eye {
-  font-family: var(--font-s);
-  font-size: .64rem;
-  font-weight: 900;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.55);
-  margin-bottom: 1rem;
-}
-.hero-title {
-  font-family: var(--font-d);
-  font-size: clamp(4rem, 10vw, 11rem);
-  line-height: .82;
-  letter-spacing: -.01em;
-  color: var(--white);
-  margin-bottom: 1.5rem;
-}
-.hero-sub {
-  font-family: var(--font-s);
-  font-size: clamp(.9rem, 1.4vw, 1.15rem);
-  font-weight: 600;
-  color: rgba(255,255,255,.65);
-  max-width: 640px;
-  line-height: 1.65;
-  margin-bottom: 2.5rem;
-}
-.hero-meta {
-  display: flex;
-  gap: 2.5rem;
-  flex-wrap: wrap;
-}
-.hero-stat {
-  display: flex;
-  flex-direction: column;
-  gap: .25rem;
-}
-.hero-stat-val {
-  font-family: var(--font-d);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  color: var(--yellow);
-  line-height: 1;
-}
-.hero-stat-label {
-  font-size: .64rem;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.45);
-}
+/* NAV */
+.sticky-nav{position:sticky;top:0;z-index:80;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.07);padding:0 var(--pad);display:flex;overflow-x:auto;scrollbar-width:none}
+.sticky-nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:.8rem 1rem;font-family:var(--font-s);font-size:.62rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;border:none;border-bottom:3px solid transparent;background:none;color:var(--grey);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;text-decoration:none;display:inline-flex;align-items:center}
+.nav-btn:hover{color:var(--white)}
+.nav-btn.active{color:var(--yellow);border-bottom-color:var(--yellow)}
+.nav-divider{width:1px;background:rgba(255,255,255,.08);margin:.5rem 0;flex-shrink:0}
 
-/* ── VECTOR FILTER NAV ─────────────────────────────────────────── */
-.filter-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--ink);
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  padding: 0 var(--pad);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.filter-wrap::-webkit-scrollbar { display: none; }
-.filter-row {
-  display: flex;
-  gap: 0;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.filter-btn {
-  flex-shrink: 0;
-  padding: .85rem 1.1rem;
-  font-family: var(--font-s);
-  font-size: .63rem;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  color: var(--grey);
-  cursor: pointer;
-  transition: color .15s, border-color .15s;
-  white-space: nowrap;
-}
-.filter-btn:hover { color: var(--white); }
-.filter-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+/* ── NAIVE ENQUIRY SECTION ── */
+.naive-wrap{padding:3rem var(--pad);max-width:1280px;margin:0 auto}
+.section-eye{font-family:var(--font-m);font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:.75rem}
+.section-title{font-family:var(--font-d);font-size:clamp(2.2rem,4.5vw,5rem);line-height:.88;letter-spacing:-.01em;color:var(--white);margin-bottom:2rem}
+.naive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(255,255,255,.08);margin-bottom:2.5rem}
+.naive-cell{padding:2rem;border-right:1px solid rgba(255,255,255,.07)}
+.naive-cell:last-child{border-right:none}
+.naive-cell-label{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.9rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.naive-cell:nth-child(1) .naive-cell-label{color:var(--yellow)}
+.naive-cell:nth-child(2) .naive-cell-label{color:rgba(255,255,255,.5)}
+.naive-cell:nth-child(3) .naive-cell-label{color:var(--red)}
+.naive-cell-body{font-size:.88rem;font-weight:500;color:rgba(255,255,255,.68);line-height:1.7}
+.naive-cell-body strong{color:var(--white);font-weight:700}
 
-/* ── VECTOR SECTION ───────────────────────────────────────────── */
-.vector-section {
-  padding: 4rem var(--pad) 2rem;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.vector-section.hidden { display: none; }
+.gap-block{background:rgba(227,29,40,.06);border:1px solid rgba(227,29,40,.2);border-left:5px solid var(--red);padding:1.5rem 2rem}
+.gap-label{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.75rem}
+.gap-body{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.7}
+.gap-body strong{color:var(--yellow);font-weight:700}
 
-.vector-header {
-  display: flex;
-  align-items: flex-end;
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(255,255,255,.1);
-}
-.vector-num {
-  font-family: var(--font-d);
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 1;
-  color: rgba(255,255,255,.07);
-  flex-shrink: 0;
-}
-.vector-info { flex: 1; }
-.vector-eye {
-  font-size: .62rem;
-  font-weight: 900;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--yellow);
-  margin-bottom: .35rem;
-}
-.vector-name {
-  font-family: var(--font-d);
-  font-size: clamp(2rem, 4.5vw, 4.5rem);
-  line-height: .88;
-  letter-spacing: -.01em;
-  color: var(--white);
-  margin-bottom: .5rem;
-}
-.vector-tagline {
-  font-family: var(--font-b);
-  font-size: .88rem;
-  font-style: italic;
-  color: rgba(255,255,255,.45);
-}
+/* ── VECTOR SECTION ── */
+.vector-section{padding:3.5rem var(--pad) 1.5rem;max-width:1280px;margin:0 auto}
+.vector-section.hidden{display:none}
+.vector-header{display:flex;align-items:flex-end;gap:1.5rem;margin-bottom:2.25rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(255,255,255,.09);flex-wrap:wrap}
+.vector-num{font-family:var(--font-d);font-size:clamp(3rem,5.5vw,5.5rem);line-height:1;color:rgba(255,255,255,.07);flex-shrink:0}
+.vector-info{flex:1}
+.vector-eye{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:.3rem}
+.vector-name{font-family:var(--font-d);font-size:clamp(1.8rem,4vw,4rem);line-height:.9;letter-spacing:-.01em;color:var(--white);margin-bottom:.35rem}
+.vector-tagline{font-family:var(--font-b);font-size:.86rem;font-style:italic;color:rgba(255,255,255,.4)}
+.vector-count{font-family:var(--font-d);font-size:2rem;color:rgba(255,255,255,.2);align-self:flex-end;flex-shrink:0}
 
-/* ── CARD GRID ─────────────────────────────────────────────────── */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.25rem;
-}
+/* ── CARD GRID ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;padding-bottom:1.5rem}
 
-/* ── FLIP CARD ─────────────────────────────────────────────────── */
-.flip-wrap {
-  perspective: 1200px;
-  height: 320px;
-  cursor: pointer;
-}
-.flip-wrap:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
-.flip-card {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform .55s cubic-bezier(.4,0,.2,1);
-}
-.flip-wrap.flipped .flip-card { transform: rotateY(180deg); }
+/* ── FLIP CARD ── */
+.flip-wrap{perspective:1200px;height:310px;cursor:pointer}
+.flip-wrap:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+.flip-card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .52s cubic-bezier(.4,0,.2,1)}
+.flip-wrap.flipped .flip-card{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:1.6rem;display:flex;flex-direction:column;justify-content:space-between}
+.flip-front{background:var(--ink);border:1px solid rgba(255,255,255,.08)}
+.flip-back{background:rgba(17,17,17,.98);border:1px solid rgba(255,255,255,.08);border-top:4px solid var(--red);transform:rotateY(180deg);justify-content:flex-start;gap:1rem}
 
-.flip-front,
-.flip-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.flip-front {
-  background: var(--ink);
-  border: 1px solid rgba(255,255,255,.09);
-}
-.flip-back {
-  background: var(--black);
-  border: 1px solid rgba(255,255,255,.09);
-  border-top: 4px solid var(--red);
-  transform: rotateY(180deg);
-  justify-content: flex-start;
-  gap: 1.25rem;
-}
+.card-vec-tag{font-family:var(--font-m);font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6rem;display:block}
+.card-q-num{font-family:var(--font-d);font-size:3.2rem;color:rgba(255,255,255,.05);line-height:1;margin-bottom:.15rem}
+.card-question{font-family:var(--font-s);font-size:clamp(.85rem,1.05vw,.97rem);font-weight:700;color:var(--white);line-height:1.55;flex:1;display:flex;align-items:center}
+.card-cta{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:.4rem;margin-top:.9rem;transition:color .15s}
+.flip-wrap:hover .card-cta{color:var(--yellow)}
 
-/* front inner */
-.card-vec-tag {
-  font-size: .6rem;
-  font-weight: 900;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  margin-bottom: .75rem;
-}
-.card-q-num {
-  font-family: var(--font-d);
-  font-size: 3.5rem;
-  color: rgba(255,255,255,.05);
-  line-height: 1;
-  margin-bottom: .25rem;
-}
-.card-question {
-  font-family: var(--font-s);
-  font-size: clamp(.88rem, 1.1vw, 1rem);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.55;
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-.card-cta {
-  font-size: .64rem;
-  font-weight: 800;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.28);
-  display: flex;
-  align-items: center;
-  gap: .45rem;
-  margin-top: 1rem;
-  transition: color .15s;
-}
-.flip-wrap:hover .card-cta { color: var(--yellow); }
-.card-cta svg { width: 12px; height: 12px; }
+.back-tag{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
+.back-context-label{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem}
+.back-context{font-family:var(--font-b);font-size:.9rem;font-style:italic;color:rgba(255,255,255,.72);line-height:1.68;flex:1}
+.back-cta{font-family:var(--font-m);font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:.4rem;margin-top:auto}
 
-/* back inner */
-.back-tag {
-  font-size: .62rem;
-  font-weight: 900;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--red);
-}
-.back-context-label {
-  font-size: .68rem;
-  font-weight: 900;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--grey);
-  margin-bottom: .6rem;
-}
-.back-context {
-  font-family: var(--font-b);
-  font-size: .92rem;
-  font-style: italic;
-  color: rgba(255,255,255,.75);
-  line-height: 1.7;
-  flex: 1;
-}
-.back-cta {
-  font-size: .62rem;
-  font-weight: 800;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.28);
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  margin-top: auto;
-}
+/* ── PROGRESS BAR ── */
+.progress-bar-wrap{position:fixed;bottom:0;left:0;right:0;z-index:90;background:rgba(17,17,17,.94);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.06);padding:.7rem var(--pad);display:flex;align-items:center;gap:1.5rem}
+.progress-label{font-family:var(--font-m);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);white-space:nowrap;flex-shrink:0}
+.progress-track{flex:1;height:3px;background:rgba(255,255,255,.08);position:relative}
+.progress-fill{height:100%;background:var(--red);transition:width .28s ease;position:absolute;top:0;left:0}
+.progress-count{font-family:var(--font-d);font-size:1.4rem;color:var(--yellow);flex-shrink:0}
 
-/* ── PROGRESS BAR ─────────────────────────────────────────────── */
-.progress-bar-wrap {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 90;
-  background: rgba(17,17,17,.92);
-  backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding: .75rem var(--pad);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-.progress-label {
-  font-family: var(--font-s);
-  font-size: .64rem;
-  font-weight: 900;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--grey);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.progress-track {
-  flex: 1;
-  height: 3px;
-  background: rgba(255,255,255,.1);
-  position: relative;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--red);
-  transition: width .3s ease;
-  position: absolute; top: 0; left: 0;
-}
-.progress-count {
-  font-family: var(--font-d);
-  font-size: 1.4rem;
-  color: var(--yellow);
-  flex-shrink: 0;
-}
+/* FOOTER */
+.page-footer{background:var(--ink);padding:2.5rem var(--pad);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:3.5rem;border-top:1px solid rgba(255,255,255,.06)}
+.footer-mark{font-family:var(--font-d);font-size:clamp(2rem,4vw,3.5rem);letter-spacing:.28em;color:var(--white)}
+.footer-meta{font-family:var(--font-m);font-size:.58rem;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;text-align:right;line-height:1.8}
 
-/* ── FOOTER ───────────────────────────────────────────────────── */
-.page-footer {
-  background: var(--ink);
-  padding: 3rem var(--pad);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 3.5rem; /* space for fixed progress bar */
+/* RESPONSIVE */
+@media(max-width:900px){
+  .naive-grid{grid-template-columns:1fr}
+  .naive-cell{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}
+  .naive-cell:last-child{border-bottom:none}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-badge{display:none}
+  .card-grid{grid-template-columns:1fr}
 }
-.footer-mark {
-  font-family: var(--font-d);
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  letter-spacing: .28em;
-  color: var(--white);
-  text-transform: uppercase;
-}
-.footer-meta {
-  font-size: .65rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.28);
-  text-align: right;
-  line-height: 1.7;
-}
-
-/* ── RESPONSIVE ───────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .card-grid { grid-template-columns: 1fr; }
-  .flip-wrap { height: 280px; }
-  .hero-meta { gap: 1.5rem; }
-  .vector-header { flex-direction: column; align-items: flex-start; gap: .75rem; }
-  .vector-num { font-size: 3rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .flip-card { transition: none; }
-}
+@media(prefers-reduced-motion:reduce){.flip-card{transition:none}}
 </style>
 </head>
 <body>
@@ -416,42 +141,82 @@ body {
 <!-- HERO -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="hero-eye">ANTIGEN · Insurgent Questions · Intelligence Stack Output</div>
-    <div class="hero-title">KIA<br>EV2</div>
-    <p class="hero-sub">18 questions across 6 vectors designed to exhume the assumptions, consensus illusions, and category dogma standing between KIA and Top 5 status in the German market. Flip each card to reveal its strategic consequence.</p>
-    <div class="hero-meta">
-      <div class="hero-stat">
-        <span class="hero-stat-val">6</span>
-        <span class="hero-stat-label">Vectors</span>
+    <div>
+      <div class="hero-eye">ANTIGEN · Insurgent Questions Report · KIA EV2 · Generated July 2, 2026</div>
+      <div class="hero-title">KIA<br>EV2</div>
+      <p class="hero-sub">24 questions across 6 vectors — preceded by a Naive Enquiry that names the gap between what was said and what was actually heard. Flip each card to reveal strategic consequence.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-val">6</span>
+          <span class="hero-stat-label">Vectors</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">24</span>
+          <span class="hero-stat-label">Questions</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">DE</span>
+          <span class="hero-stat-label">Market</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">Top 5</span>
+          <span class="hero-stat-label">Stated Target</span>
+        </div>
       </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">18</span>
-        <span class="hero-stat-label">Insurgent Questions</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">DE</span>
-        <span class="hero-stat-label">Market Focus</span>
-      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-label">North Star Metric</div>
+      <div class="hero-badge-val">EV2 Unit Sales<br>Germany</div>
     </div>
   </div>
 </header>
 
-<!-- VECTOR FILTER NAV -->
-<nav class="filter-wrap" aria-label="Filter by vector">
-  <div class="filter-row">
-    <button class="filter-btn active" data-vec="all">All</button>
-    <button class="filter-btn" data-vec="v1">Assumption Archaeology</button>
-    <button class="filter-btn" data-vec="v2">Consensus Forensics</button>
-    <button class="filter-btn" data-vec="v3">Audience Inversion</button>
-    <button class="filter-btn" data-vec="v4">Category Heresy</button>
-    <button class="filter-btn" data-vec="v5">Future Blindness</button>
-    <button class="filter-btn" data-vec="v6">Measurement Theater</button>
-  </div>
+<!-- STICKY NAV -->
+<nav class="sticky-nav" aria-label="Jump to section">
+  <a href="#naive" class="nav-btn active" data-filter="naive">00 · Naive Enquiry</a>
+  <div class="nav-divider"></div>
+  <button class="nav-btn" data-filter="all">All Questions</button>
+  <button class="nav-btn" data-filter="v1">01 · Assumption Archaeology</button>
+  <button class="nav-btn" data-filter="v2">02 · Consensus Forensics</button>
+  <button class="nav-btn" data-filter="v3">03 · Audience Inversion</button>
+  <button class="nav-btn" data-filter="v4">04 · Category Heresy</button>
+  <button class="nav-btn" data-filter="v5">05 · Future Blindness</button>
+  <button class="nav-btn" data-filter="v6">06 · Measurement Theater</button>
 </nav>
 
-<!-- ═════════════════════════════════════════════════════════════ -->
-<!-- VECTOR 1 — ASSUMPTION ARCHAEOLOGY -->
-<!-- ═════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- 00 — NAIVE ENQUIRY -->
+<!-- ════════════════════════════════════════ -->
+<section id="naive">
+  <div class="naive-wrap">
+    <div class="section-eye">Naive Enquiry · Section 00</div>
+    <div class="section-title">What You Said.<br>What I Heard.</div>
+
+    <div class="naive-grid">
+      <div class="naive-cell">
+        <div class="naive-cell-label">What You Told Me</div>
+        <p class="naive-cell-body">You intend to launch the KIA EV2 in the German market with the strategic objective of securing a position within the <strong>top five best-selling electric vehicles</strong> in that region.</p>
+      </div>
+      <div class="naive-cell">
+        <div class="naive-cell-label">What I Heard</div>
+        <p class="naive-cell-body">You are prioritizing a <strong>numerical leaderboard ranking</strong> over specific market share percentages or profitability. You are assuming the German consumer — who historically favors domestic brands like VW and BMW — is ready to switch to a Korean entry-level EV at a volume that exceeds established competitors. You are also using <strong>'vision' as a placeholder</strong> for a concrete distribution strategy.</p>
+      </div>
+      <div class="naive-cell">
+        <div class="naive-cell-label">The Gap</div>
+        <p class="naive-cell-body">The brief relies on <strong>'vision'</strong> — corporate fluff. What is the specific price point compared to the VW ID.3? Does <strong>'Top 5'</strong> refer to new registrations, total fleet volume, or segment-specific sales? There is a total lack of detail regarding <strong>charging infrastructure partnerships</strong> or the <strong>dealer incentives</strong> required to disrupt the local market dominance of Tesla and the German OEMs.</p>
+      </div>
+    </div>
+
+    <div class="gap-block">
+      <div class="gap-label">Critical Intelligence Gap</div>
+      <p class="gap-body">The brief offers no mechanical reality: <strong>no price point anchored against the VW ID.3</strong>, no definition of 'Top 5' (new registrations vs fleet volume vs segment sales), and zero detail on charging infrastructure partnerships or dealer incentive structures needed to fracture local OEM dominance. This is what the 24 questions below exist to detonate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- V1 — ASSUMPTION ARCHAEOLOGY (Q1–4) -->
+<!-- ════════════════════════════════════════ -->
 <section class="vector-section" id="v1" data-vec="v1">
   <div class="vector-header">
     <div class="vector-num">01</div>
@@ -460,113 +225,70 @@ body {
       <div class="vector-name">Assumption<br>Archaeology</div>
       <div class="vector-tagline">Exhuming the beliefs that have become invisible.</div>
     </div>
+    <div class="vector-count">4 Qs</div>
   </div>
   <div class="card-grid">
 
-    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Assumption about German domestic brand loyalty">
+    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</div>
-            <div class="card-q-num">01</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</span><div class="card-q-num">01</div></div>
           <div class="card-question">Why do we treat German consumer loyalty to domestic brands as an immutable law of nature rather than a historical habit currently being eroded by software dissatisfaction?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 01 · Q01</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Accepting domestic supremacy as 'natural law' forces a defensive, discount-led strategy rather than an offensive one that exploits the current technical vulnerabilities of local incumbents.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V01 · Q01</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Accepting domestic supremacy as 'natural law' forces a defensive, discount-led strategy rather than an offensive one that exploits the current technical vulnerabilities of local incumbents.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
 
-    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Assumption about EV2 autobahn range">
+    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</div>
-            <div class="card-q-num">02</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</span><div class="card-q-num">02</div></div>
           <div class="card-question">On what data do we base the assumption that a Top 5 EV must prioritize autobahn-speed range over the urban-centric charging convenience that defines the EV2 segment?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 01 · Q02</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Over-servicing the 'range anxiety' dogma increases vehicle cost and weight, potentially pricing the EV2 out of the volume required to actually hit the Top 5 target.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V01 · Q02</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Over-servicing the 'range anxiety' dogma increases vehicle cost and weight, potentially pricing the EV2 out of the volume required to actually hit the Top 5 target.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
 
-    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Assumption about dealer footprint">
+    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</div>
-            <div class="card-q-num">03</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</span><div class="card-q-num">03</div></div>
           <div class="card-question">Why is it accepted that reaching the Top 5 requires a massive physical dealer footprint when our target demographic is increasingly digital-first and service-averse?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 01 · Q03</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">This assumption tethers the launch to a high-cost legacy infrastructure that limits our ability to experiment with direct-to-consumer models and agile pricing.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V01 · Q03</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">This assumption tethers the launch to a high-cost legacy infrastructure that limits our ability to experiment with direct-to-consumer models and agile pricing.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
 
-    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: Assumption about affordability and compromise">
+    <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</div>
-            <div class="card-q-num">04</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v1)">Assumption Archaeology</span><div class="card-q-num">04</div></div>
           <div class="card-question">Are we assuming that 'affordability' in the German market is synonymous with 'compromise,' and how does that belief limit the EV2's aspirational positioning?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 01 · Q04</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">If we internalize the belief that budget cars cannot be status symbols, we concede the 'lifestyle' territory to more expensive rivals and cap our growth potential.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V01 · Q04</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">If we internalize the belief that budget cars cannot be status symbols, we concede the 'lifestyle' territory to more expensive rivals and cap our growth potential.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -574,9 +296,9 @@ body {
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════════════════════ -->
-<!-- VECTOR 2 — CONSENSUS FORENSICS -->
-<!-- ═════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- V2 — CONSENSUS FORENSICS (Q5–8) -->
+<!-- ════════════════════════════════════════ -->
 <section class="vector-section" id="v2" data-vec="v2">
   <div class="vector-header">
     <div class="vector-num">02</div>
@@ -585,32 +307,22 @@ body {
       <div class="vector-name">Consensus<br>Forensics</div>
       <div class="vector-tagline">Identifying where agreement masks a lack of conviction.</div>
     </div>
+    <div class="vector-count">4 Qs</div>
   </div>
   <div class="card-grid">
 
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</div>
-            <div class="card-q-num">01</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</span><div class="card-q-num">05</div></div>
           <div class="card-question">Does the 'Top 5' target reflect a rigorous bottom-up market analysis, or was it a non-negotiable directive that effectively silenced more cautious, evidence-based local forecasts?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 02 · Q01</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Understanding if the goal is a strategic anchor or an arbitrary mandate helps identify where operational shortcuts will be taken to meet unrealistic expectations.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V02 · Q05</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Understanding if the goal is a strategic anchor or an arbitrary mandate helps identify where operational shortcuts will be taken to meet unrealistic expectations.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -618,26 +330,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</div>
-            <div class="card-q-num">02</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</span><div class="card-q-num">06</div></div>
           <div class="card-question">During the planning phase, what specific objections regarding German brand loyalty to VW and Opel were dismissed as 'pessimistic' rather than integrated into the risk model?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 02 · Q02</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Manufactured agreement often masks a failure to account for entrenched cultural biases, leaving the launch vulnerable to predictable patriotic consumer behavior.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V02 · Q06</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Manufactured agreement often masks a failure to account for entrenched cultural biases, leaving the launch vulnerable to predictable patriotic consumer behavior.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -645,26 +346,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</div>
-            <div class="card-q-num">03</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</span><div class="card-q-num">07</div></div>
           <div class="card-question">Which internal technical stakeholders raised concerns about the EV2's range-to-price ratio for Autobahn driving, and how were those concerns sanitized for the final presentation?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 02 · Q03</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Forced consensus on product-market fit ignores technical friction points that German consumers will prioritize, leading to rapid post-launch reputation decay.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V02 · Q07</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Forced consensus on product-market fit ignores technical friction points that German consumers will prioritize, leading to rapid post-launch reputation decay.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -672,26 +362,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</div>
-            <div class="card-q-num">04</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v2)">Consensus Forensics</span><div class="card-q-num">08</div></div>
           <div class="card-question">What data regarding the actual saturation of the entry-level EV segment in Germany was omitted to ensure a unanimous executive green light for the current launch budget?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 02 · Q04</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Suppressing signals of market saturation creates a false sense of security, preventing the development of a necessary and truly differentiated value proposition.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V02 · Q08</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Suppressing signals of market saturation creates a false sense of security, preventing the development of a necessary and truly differentiated value proposition.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -699,9 +378,9 @@ body {
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════════════════════ -->
-<!-- VECTOR 3 — AUDIENCE INVERSION -->
-<!-- ═════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- V3 — AUDIENCE INVERSION (Q9–12) -->
+<!-- ════════════════════════════════════════ -->
 <section class="vector-section" id="v3" data-vec="v3">
   <div class="vector-header">
     <div class="vector-num">03</div>
@@ -710,32 +389,22 @@ body {
       <div class="vector-name">Audience<br>Inversion</div>
       <div class="vector-tagline">Focusing on the voices you've filtered out.</div>
     </div>
+    <div class="vector-count">4 Qs</div>
   </div>
   <div class="card-grid">
 
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v3)">Audience Inversion</div>
-            <div class="card-q-num">01</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v3)">Audience Inversion</span><div class="card-q-num">09</div></div>
           <div class="card-question">How does the EV2 value proposition change if we stop marketing to urban early adopters and focus exclusively on rural commuters who currently view electric vehicles as a threat to their personal mobility?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 03 · Q01</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">The top 5 goal requires volume that urban centers alone cannot provide; winning over the skeptical rural demographic breaks the echo chamber and tests the car's true utility.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V03 · Q09</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">The top 5 goal requires volume that urban centers alone cannot provide; winning over the skeptical rural demographic breaks the echo chamber and tests the car's true utility.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -743,26 +412,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v3)">Audience Inversion</div>
-            <div class="card-q-num">02</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v3)">Audience Inversion</span><div class="card-q-num">10</div></div>
           <div class="card-question">What would happen if we designed our entire launch strategy for the 'longevity seeker' who keeps a car for 15 years, rather than the tech-focused consumer who prioritizes a three-year lease cycle?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 03 · Q02</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">The German market deeply values engineering endurance; addressing the 'disposable tech' stigma attracts the conservative buyer who typically avoids the EV segment.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V03 · Q10</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">The German market deeply values engineering endurance; addressing the 'disposable tech' stigma attracts the conservative buyer who typically avoids the EV segment.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -770,26 +428,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v3)">Audience Inversion</div>
-            <div class="card-q-num">03</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v3)">Audience Inversion</span><div class="card-q-num">11</div></div>
           <div class="card-question">Who are the customers currently buying used combustion-engine Volkswagens that we have classified as 'not our segment,' and what specific friction prevents the EV2 from being their only logical choice?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 03 · Q03</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Achieving top-tier market share necessitates cannibalizing the mass-market used-car psyche rather than just competing for the limited pool of existing EV enthusiasts.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V03 · Q11</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Achieving top-tier market share necessitates cannibalizing the mass-market used-car psyche rather than just competing for the limited pool of existing EV enthusiasts.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -797,26 +444,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v3)">Audience Inversion</div>
-            <div class="card-q-num">04</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v3)">Audience Inversion</span><div class="card-q-num">12</div></div>
           <div class="card-question">If we were prohibited from using the words 'sustainability' or 'green' in our German marketing, which pragmatic and anti-environmental audiences would still find the EV2 indispensable?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 03 · Q04</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">This forces the brand to identify raw functional merit and cost-benefit advantages that appeal to those who resent the 'green' premium and moralizing marketing.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V03 · Q12</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">This forces the brand to identify raw functional merit and cost-benefit advantages that appeal to those who resent the 'green' premium and moralizing marketing.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -824,9 +460,9 @@ body {
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════════════════════ -->
-<!-- VECTOR 4 — CATEGORY HERESY -->
-<!-- ═════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- V4 — CATEGORY HERESY (Q13–16) -->
+<!-- ════════════════════════════════════════ -->
 <section class="vector-section" id="v4" data-vec="v4">
   <div class="vector-header">
     <div class="vector-num">04</div>
@@ -835,32 +471,22 @@ body {
       <div class="vector-name">Category<br>Heresy</div>
       <div class="vector-tagline">Challenging the unwritten rules of the category.</div>
     </div>
+    <div class="vector-count">4 Qs</div>
   </div>
   <div class="card-grid">
 
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v4)">Category Heresy</div>
-            <div class="card-q-num">01</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v4)">Category Heresy</span><div class="card-q-num">13</div></div>
           <div class="card-question">Why are we adhering to the 'tech-gadget' design language of the EV market when German mass-market buyers prioritize tactile permanence and mechanical reliability over software novelty?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 04 · Q01</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">The industry assumes digital-first cockpits are a prerequisite for EVs, but this convention may create a barrier for the volume-segment buyers needed to reach Top 5 status.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V04 · Q13</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">The industry assumes digital-first cockpits are a prerequisite for EVs, but this convention may create a barrier for the volume-segment buyers needed to reach Top 5 status.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -868,26 +494,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v4)">Category Heresy</div>
-            <div class="card-q-num">02</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v4)">Category Heresy</span><div class="card-q-num">14</div></div>
           <div class="card-question">If the goal is Top 5 status, why are we replicating the digital-only sales friction of niche competitors instead of weaponizing the physical ubiquity of the traditional dealership network as a competitive advantage?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 04 · Q02</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">The 'Tesla-model' of distribution is a convention that ignores the German consumer's preference for local service security and physical touchpoints in high-stakes purchases.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V04 · Q14</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">The 'Tesla-model' of distribution is a convention that ignores the German consumer's preference for local service security and physical touchpoints in high-stakes purchases.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -895,26 +510,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v4)">Category Heresy</div>
-            <div class="card-q-num">03</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v4)">Category Heresy</span><div class="card-q-num">15</div></div>
           <div class="card-question">What if the EV2 achieved market dominance by explicitly removing 40% of the standard 'smart' connectivity features that increase unit cost and cognitive load for the average daily commuter?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 04 · Q03</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Industry herd behavior drives a feature arms race that inflates price points beyond the reach of the mass market while offering diminishing returns on actual utility.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V04 · Q15</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Industry herd behavior drives a feature arms race that inflates price points beyond the reach of the mass market while offering diminishing returns on actual utility.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -922,26 +526,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v4)">Category Heresy</div>
-            <div class="card-q-num">04</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v4)">Category Heresy</span><div class="card-q-num">16</div></div>
           <div class="card-question">Why do we accept the industry dogma that 'sustainable materials' must look and feel synthetic, potentially sabotaging the perception of longevity that defines a high-ranking vehicle in the German market?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 04 · Q04</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Blindly following 'eco-aesthetic' conventions may signal poor quality to traditionalists, whereas true heresy would be delivering a sustainable interior that feels indistinguishable from premium luxury.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V04 · Q16</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Blindly following 'eco-aesthetic' conventions may signal poor quality to traditionalists, whereas true heresy would be delivering a sustainable interior that feels indistinguishable from premium luxury.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -949,9 +542,9 @@ body {
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════════════════════ -->
-<!-- VECTOR 5 — FUTURE BLINDNESS -->
-<!-- ═════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- V5 — FUTURE BLINDNESS (Q17–20) -->
+<!-- ════════════════════════════════════════ -->
 <section class="vector-section" id="v5" data-vec="v5">
   <div class="vector-header">
     <div class="vector-num">05</div>
@@ -960,32 +553,22 @@ body {
       <div class="vector-name">Future<br>Blindness</div>
       <div class="vector-tagline">Signals from the future being treated as noise.</div>
     </div>
+    <div class="vector-count">4 Qs</div>
   </div>
   <div class="card-grid">
 
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v5)">Future Blindness</div>
-            <div class="card-q-num">01</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v5)">Future Blindness</span><div class="card-q-num">17</div></div>
           <div class="card-question">If the residual value of budget EVs collapses due to solid-state battery breakthroughs by 2027, how does our finance-heavy launch model survive a mass return of depreciated lease assets?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 05 · Q01</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">It exposes the risk of a potential leasing bubble and the fragility of current battery technology cycles in the German market.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V05 · Q17</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">It exposes the risk of a potential leasing bubble and the fragility of current battery technology cycles in the German market.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -993,26 +576,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v5)">Future Blindness</div>
-            <div class="card-q-num">02</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v5)">Future Blindness</span><div class="card-q-num">18</div></div>
           <div class="card-question">Are we ignoring the German shift toward subscription-based urban mobility because our volume targets are still tethered to legacy private ownership metrics?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 05 · Q02</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">It identifies a fundamental mismatch between the product's distribution strategy and the core demographic's changing relationship with vehicle possession.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V05 · Q18</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">It identifies a fundamental mismatch between the product's distribution strategy and the core demographic's changing relationship with vehicle possession.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1020,26 +592,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v5)">Future Blindness</div>
-            <div class="card-q-num">03</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v5)">Future Blindness</span><div class="card-q-num">19</div></div>
           <div class="card-question">If a Chinese competitor launches a comparable model with a superior software ecosystem at 20% lower cost, what is the EV2's non-negotiable value beyond mere availability?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 05 · Q03</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">It challenges the assumption that brand heritage can withstand a total disruption in price-to-technology ratios from aggressive new entrants.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V05 · Q19</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">It challenges the assumption that brand heritage can withstand a total disruption in price-to-technology ratios from aggressive new entrants.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1047,26 +608,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v5)">Future Blindness</div>
-            <div class="card-q-num">04</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v5)">Future Blindness</span><div class="card-q-num">20</div></div>
           <div class="card-question">As German public charging costs rise and grid stability becomes a political flashpoint, how does the EV2 remain viable for the urban buyers who lack private charging access?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 05 · Q04</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">It addresses physical and economic constraints in the German infrastructure that marketing visions often overlook in favor of idealized adoption curves.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V05 · Q20</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">It addresses physical and economic constraints in the German infrastructure that marketing visions often overlook in favor of idealized adoption curves.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1074,9 +624,9 @@ body {
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════════════════════ -->
-<!-- VECTOR 6 — MEASUREMENT THEATER -->
-<!-- ═════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════ -->
+<!-- V6 — MEASUREMENT THEATER (Q21–24) -->
+<!-- ════════════════════════════════════════ -->
 <section class="vector-section" id="v6" data-vec="v6">
   <div class="vector-header">
     <div class="vector-num">06</div>
@@ -1085,32 +635,22 @@ body {
       <div class="vector-name">Measurement<br>Theater</div>
       <div class="vector-tagline">Metrics that validate rather than inform.</div>
     </div>
+    <div class="vector-count">4 Qs</div>
   </div>
   <div class="card-grid">
 
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v6)">Measurement Theater</div>
-            <div class="card-q-num">01</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v6)">Measurement Theater</span><div class="card-q-num">21</div></div>
           <div class="card-question">If the EV2 achieves Top 5 volume primarily through internal migration from the Niro EV and EV3, do our current success metrics acknowledge this as a net-zero gain for the brand's total market footprint?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 06 · Q01</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Volume targets often mask internal cannibalization, creating an illusion of growth while the brand's overall market share remains stagnant or inefficiently distributed.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V06 · Q21</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Volume targets often mask internal cannibalization, creating an illusion of growth while the brand's overall market share remains stagnant or inefficiently distributed.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1118,26 +658,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v6)">Measurement Theater</div>
-            <div class="card-q-num">02</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v6)">Measurement Theater</span><div class="card-q-num">22</div></div>
           <div class="card-question">Which specific data points are we ignoring because they would contradict the narrative of a successful launch, such as the actual conversion rate from low-commitment digital reservations to finalized financing?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 06 · Q02</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Vanity metrics like 'reservations' or 'hand-raisers' create a false sense of security that can lead to overproduction and strategic complacency before real sales materialize.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V06 · Q22</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Vanity metrics like 'reservations' or 'hand-raisers' create a false sense of security that can lead to overproduction and strategic complacency before real sales materialize.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1145,26 +674,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v6)">Measurement Theater</div>
-            <div class="card-q-num">03</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v6)">Measurement Theater</span><div class="card-q-num">23</div></div>
           <div class="card-question">How much of our projected market share is a measurement artifact of temporary competitor production delays rather than a verified, sustainable shift in German consumer preference for KIA?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 06 · Q03</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Distinguishing between opportunistic gains and genuine brand loyalty is critical to avoid mistaking a temporary market vacuum for long-term competitive advantage.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V06 · Q23</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Distinguishing between opportunistic gains and genuine brand loyalty is critical to avoid mistaking a temporary market vacuum for long-term competitive advantage.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1172,26 +690,15 @@ body {
     <div class="flip-wrap" tabindex="0" role="button" aria-pressed="false">
       <div class="flip-card">
         <div class="flip-front">
-          <div>
-            <div class="card-vec-tag" style="color:var(--v6)">Measurement Theater</div>
-            <div class="card-q-num">04</div>
-          </div>
+          <div><span class="card-vec-tag" style="color:var(--v6)">Measurement Theater</span><div class="card-q-num">24</div></div>
           <div class="card-question">Are our KPIs designed to detect the moment the EV2 becomes a commodity choice based solely on price, or are we only measuring metrics that support the 'visionary' brand narrative we have constructed?</div>
-          <div class="card-cta">
-            Reveal Strategic Context
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-          </div>
+          <div class="card-cta">Reveal Significance <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg></div>
         </div>
         <div class="flip-back">
-          <div class="back-tag">Vector 06 · Q04</div>
-          <div>
-            <div class="back-context-label">Strategic Context</div>
-            <p class="back-context">Focusing on brand sentiment metrics can blind the organization to the reality that the product may be winning on price alone, which is a fragile position for a top 5 contender.</p>
-          </div>
-          <div class="back-cta">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" width="12"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
-            Flip back
-          </div>
+          <div class="back-tag">V06 · Q24</div>
+          <div><div class="back-context-label">Significance</div>
+          <p class="back-context">Focusing on brand sentiment metrics can blind the organization to the reality that the product may be winning on price alone, which is a fragile position for a top 5 contender.</p></div>
+          <div class="back-cta"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H2M6 10L2 6l4-4"/></svg> Flip back</div>
         </div>
       </div>
     </div>
@@ -1203,8 +710,8 @@ body {
 <footer class="page-footer">
   <div class="footer-mark">antigen</div>
   <div class="footer-meta">
-    Insurgent Questions · KIA EV2 · Germany<br>
-    ANTIGEN Intelligence Stack · Confidential
+    Insurgent Questions Report · KIA EV2 · Germany<br>
+    Generated July 2, 2026 · 6 Vectors · 24 Questions · Confidential
   </div>
 </footer>
 
@@ -1214,29 +721,23 @@ body {
   <div class="progress-track">
     <div class="progress-fill" id="progressFill" style="width:0%"></div>
   </div>
-  <span class="progress-count" id="progressCount">0 / 18</span>
+  <span class="progress-count" id="progressCount">0 / 24</span>
 </div>
 
 <script>
-// ── FLIP CARD LOGIC ──────────────────────────────────────────────
+const TOTAL = 24;
 const cards = document.querySelectorAll('.flip-wrap');
-let revealed = new Set();
+const revealed = new Set();
 
 function updateProgress() {
-  const total = document.querySelectorAll('.flip-wrap:not([data-hidden])').length || 18;
-  const visibleRevealed = [...revealed].filter(id => {
-    const el = document.getElementById(id);
-    return el && !el.closest('.vector-section.hidden');
-  }).length;
-  // count all revealed globally
-  const pct = (revealed.size / 18) * 100;
+  const pct = (revealed.size / TOTAL) * 100;
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressCount').textContent = revealed.size + ' / 18';
+  document.getElementById('progressCount').textContent = revealed.size + ' / ' + TOTAL;
 }
 
 cards.forEach((card, idx) => {
-  const id = 'card-' + idx;
-  card.id = id;
+  const id = 'c' + idx;
+  card.dataset.cid = id;
   card.addEventListener('click', () => toggle(card, id));
   card.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(card, id); }
@@ -1244,30 +745,44 @@ cards.forEach((card, idx) => {
 });
 
 function toggle(card, id) {
-  const isFlipped = card.classList.toggle('flipped');
-  card.setAttribute('aria-pressed', isFlipped);
-  if (isFlipped) revealed.add(id);
-  else revealed.delete(id);
+  const flipped = card.classList.toggle('flipped');
+  card.setAttribute('aria-pressed', flipped);
+  flipped ? revealed.add(id) : revealed.delete(id);
   updateProgress();
 }
 
-// ── VECTOR FILTER ────────────────────────────────────────────────
-const filterBtns = document.querySelectorAll('.filter-btn');
-const sections   = document.querySelectorAll('.vector-section');
+// NAV — vector filter + naive scroll
+const navBtns = document.querySelectorAll('.nav-btn');
+const sections = document.querySelectorAll('.vector-section');
 
-filterBtns.forEach(btn => {
+navBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    const target = btn.dataset.vec;
-    filterBtns.forEach(b => b.classList.remove('active'));
+    const filter = btn.dataset.filter;
+
+    // naive link — just scroll
+    if (filter === 'naive') {
+      document.getElementById('naive').scrollIntoView({ behavior: 'smooth' });
+      navBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      return;
+    }
+
+    navBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
     sections.forEach(sec => {
-      if (target === 'all' || sec.dataset.vec === target) {
+      if (filter === 'all' || sec.dataset.vec === filter) {
         sec.classList.remove('hidden');
       } else {
         sec.classList.add('hidden');
       }
     });
+
+    // scroll to first visible section
+    if (filter !== 'all') {
+      const target = document.getElementById(filter);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
   });
 });
 </script>
