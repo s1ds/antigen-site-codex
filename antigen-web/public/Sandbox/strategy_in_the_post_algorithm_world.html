@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy in the Post Algorithm World</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Tokens - Red Manifesto */
+            --color-red: #e31d28;
+            --color-magenta: #e3195b;
+            --color-crimson: #b11226;
+            --color-blush: #f0448e;
+
+            /* Color Tokens - White Evidence */
+            --color-white: #ffffff;
+            --color-paper: #f8f7f6;
+            --color-smoke: #e8e8e8;
+
+            /* Color Tokens - Black Intervention */
+            --color-black: #111111;
+            --color-ink: #1e1c17;
+            --color-grey: #7a7d80;
+            --color-mute: #2a2c2e; /* Darkened for significantly better reading contrast */
+
+            /* Color Tokens - Yellow Growth Agent */
+            --color-yellow: #ffc000;
+
+            /* Fonts */
+            --font-display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+            --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+            --font-typewriter: 'Special Elite', monospace;
+            --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+            /* Gradients */
+            --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+            --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+            --gradient-evidence: linear-gradient(180deg, #ffffff 0%, #f8f7f6 100%);
+
+            /* Shadows & Border Radii */
+            --shadow-hard: 8px 8px 0 rgba(17,17,17,.92);
+            --shadow-red: 8px 8px 0 rgba(227,29,40,.92);
+            --shadow-yellow: 8px 8px 0 rgba(255,192,0,.92);
+            --shadow-card: 0 1px 2px rgba(17,17,17,.06), 0 4px 16px rgba(17,17,17,.05);
+            --radius-0: 0;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: var(--color-ink);
+            font-family: var(--font-sans);
+            color: var(--color-black);
+        }
+
+        /* Deck scrolling viewport */
+        #deck {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+            will-change: transform;
+        }
+
+        /* 16:9 safe area scaling container */
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-ink);
+            position: relative;
+        }
+
+        .slide-content {
+            width: 100%;
+            max-width: 177.77vh; 
+            height: 100%;
+            max-height: 56.25vw; 
+            aspect-ratio: 16/9;
+            position: relative;
+            background-color: var(--color-paper); 
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            padding: 3rem; /* Expanded breathing room */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(17,17,17,.1);
+        }
+
+        /* Typographic elements */
+        h1, h2, h3, .font-display {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: -.025em;
+        }
+        
+        .font-sub {
+            font-family: var(--font-sans);
+        }
+
+        /* Minimal Kicker (with rule) */
+        .kicker-min {
+            font-family: var(--font-sans);
+            font-size: 0.8rem; /* Scaled up */
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--color-red);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .kicker-min::before {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--gradient-insurgence);
+        }
+
+        /* Pull-quotes with special typewriter styling */
+        .pull-quote {
+            font-family: var(--font-typewriter);
+            font-size: 1.45rem; /* Significantly wider/more visible scale */
+            line-height: 1.5;
+            border-left: 4px solid var(--color-red);
+            padding-left: 1.75rem;
+            color: var(--color-ink);
+            margin: 0;
+        }
+
+        /* Card styles based on design guide */
+        .card-min {
+            padding: 1.75rem; /* Increased padding */
+            background: var(--color-white);
+            position: relative;
+            border: 1px solid rgba(17,17,17,.12);
+            transition: border-color .15s, box-shadow .15s;
+            border-radius: var(--radius-0);
+        }
+        .card-min:hover {
+            border-color: var(--color-red);
+        }
+
+        .card-ins::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--gradient-insurgence);
+        }
+
+        .card-rdk {
+            background: var(--color-paper);
+        }
+        .card-rdk::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--gradient-red-dark);
+        }
+
+        .card-lft {
+            border-left: 5px solid var(--color-red);
+            padding-left: calc(1.75rem - 5px);
+        }
+
+        .card-kicker {
+            font-size: 10px; /* Improved readability */
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--color-red);
+            margin-bottom: 0.6rem;
+        }
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 2.35rem; /* Scaled up */
+            line-height: .9;
+            text-transform: uppercase;
+            color: var(--color-black);
+            margin-bottom: 0.6rem;
+        }
+        .card-stat {
+            font-family: var(--font-display);
+            font-size: 4rem; /* Scaled up */
+            line-height: .9;
+            color: var(--color-black);
+            margin-bottom: 0.5rem;
+        }
+        .card-body {
+            font-size: 0.95rem; /* Scaled up from 0.72rem for supreme legibility */
+            font-weight: 500;
+            line-height: 1.55;
+            color: var(--color-mute);
+        }
+
+        /* Buttons with Antigen rules */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 10px 20px;
+            border: 2px solid currentColor;
+            background: transparent;
+            color: currentColor;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            border-radius: var(--radius-0);
+            cursor: pointer;
+            transition: background .15s, color .15s, border-color .15s;
+        }
+        .btn-primary {
+            background: var(--color-black);
+            border-color: var(--color-black);
+            color: var(--color-white);
+        }
+        .btn-primary:hover {
+            background: var(--color-ink);
+            border-color: var(--color-ink);
+        }
+        .btn-ghost {
+            border-color: var(--color-black);
+            color: var(--color-black);
+        }
+        .btn-ghost:hover {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+        .btn-ghost-red {
+            border-color: var(--color-red);
+            color: var(--color-red);
+        }
+        .btn-ghost-red:hover {
+            background: var(--color-red);
+            color: var(--color-white);
+        }
+
+        /* Gradients as Accent rules */
+        .top-rule {
+            height: 3px;
+            background: var(--gradient-insurgence);
+        }
+
+        .ins {
+            background: var(--gradient-insurgence);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Section Headings Chrome */
+        .sec-hdr {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .sec-num {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            letter-spacing: .1em;
+            color: var(--color-grey);
+            flex-shrink: 0;
+        }
+        .sec-title {
+            font-family: var(--font-display);
+            font-size: 3.75rem; /* Bigger title */
+            line-height: .9;
+            color: var(--color-black);
+            margin: 0;
+        }
+        .sec-sub {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--color-grey);
+        }
+
+        /* Territory overrides */
+        .territory-black {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        /* Navigation Dots */
+        #nav-dots {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 80vw;
+            gap: 6px;
+            z-index: 30;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            background-color: var(--color-red);
+            transform: scale(1.5);
+        }
+
+        .slide-num {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--color-grey);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Persistent Header with Slide Index Link -->
+    <div class="fixed top-0 left-0 right-0 h-14 px-8 flex items-center justify-between z-30 bg-white border-b border-[rgba(17,17,17,.1)]">
+        <div class="flex items-center gap-4">
+            <span class="font-display text-2xl tracking-wider text-black">ANTIGEN</span>
+            <span class="hidden md:inline font-mono text-[10px] tracking-wider text-gray-500 bg-gray-100 px-2.5 py-0.5 border border-gray-200">STRATEGY IN THE POST ALGORITHM WORLD</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <button id="index-trigger" class="btn btn-ghost text-[11px] h-9 px-4 py-1 flex items-center gap-1.5 font-sans font-bold">
+                INDEX [ ⌗ ]
+            </button>
+        </div>
+    </div>
+
+    <!-- Slide Index Drawer overlay -->
+    <div id="index-drawer" class="fixed inset-0 z-50 bg-black bg-opacity-70 backdrop-blur-md hidden justify-center items-center p-6">
+        <div class="bg-white text-black w-full max-w-5xl max-h-[85vh] overflow-y-auto p-10 shadow-2xl relative border-t-8 border-red-500">
+            <button id="index-close" class="absolute top-6 right-6 font-mono text-xs font-bold bg-black text-white hover:bg-red-500 hover:text-white px-3 py-1.5 transition-all">✕ CLOSE</button>
+            <h2 class="font-display text-4xl mb-6 border-b border-gray-200 pb-2">REPORT INDEX</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-display text-xl text-red-500 mb-3 border-b border-red-100 pb-1">PART 1: THE CONTEXT</h3>
+                    <ul class="space-y-1.5 font-sans text-xs">
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="0">01 COVER // CARTOGRAPHERS OF CHAOS</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="1">02 PART 1 COVER // THE STRATEGY PARADOX</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="2">03 THE CORE CONDITION</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="3">04 THE VITAL SIGNS</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="4">05 PATHOLOGY I: THE MONETIZATION CRISIS</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="5">06 PATHOLOGY II: THE BLANDNESS TRAP</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="6">07 PATHOLOGY III: THE AI TRILEMMA</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="7">08 TRAP OF EFFICIENCY SYMMETRY</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="8">09 THE BROKEN LADDER</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="9">10 THE INDY MIGRATION</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="10">11 THE GREAT BIFURCATION</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="11">12 AUTOMATION ABSORPTION</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="12">13 FINAL DIAGNOSIS</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl text-red-500 mb-3 border-b border-red-100 pb-1">PART 2: THE TRUTH</h3>
+                    <ul class="space-y-1.5 font-sans text-xs">
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="13">14 PART 2 COVER // THE ARCHITECT</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="14">15 THE HOMOGENIZATION TRAP</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="15">16 DELIVERING VALUE THROUGH SIMPLICITY</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="16">17 THE EMPATHY ENGINE</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="17">18 THE ANTIDOTE TO "AVERAGE"</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="18">19 DIAGNOSTIC PRECISION</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="19">20 MINING THE ILLEGIBLE SPACES</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="20">21 MYTH-MAKERS IN A MESSY WORLD</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="21">22 WHOLE-BRAIN DEFENSE MATRIX</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="22">23 THE INDISPENSABLE COMPASS</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl text-red-500 mb-3 border-b border-red-100 pb-1">PART 3: THE VISION</h3>
+                    <ul class="space-y-1.5 font-sans text-xs">
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="23">24 PART 3 COVER // POST-ALGORITHM</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="24">25 THE AI PARTNERSHIP INTERFACE</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="25">26 THE MINDSET MUTATION</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="26">27 DEEP DIVE 1: THE CHAOS SLICER</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="27">28 DEEP DIVE 3: ILLEGIBLE SPACES</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="28">29 METHODOLOGY 1: BREAKING SYMMETRY</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="29">30 METHODOLOGY 2: FUTURE-IN PLANNING</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="30">31 MECHANICS: STRATEGY IS A VERB</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="31">32 THE CO-CREATIVE LOOP</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="32">33 THE PARADIGM SHIFT</button></li>
+                        <li><button class="index-link hover:text-red-500 text-left" data-slide="33">34 CONCLUSION</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Presentation Viewport Container -->
+    <div id="deck" class="pt-14">
+
+        <!-- Slide 1: Master Title -->
+        <section class="slide">
+            <div class="slide-content bg-grid border-[16px] border-black">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">State of Strategy 2025 // Diagnostic Report</p>
+                    <span class="slide-num">01</span>
+                </div>
+                <div class="my-auto">
+                    <h1 class="text-[5.5rem] md:text-[6.5rem] tracking-tight uppercase leading-[0.8] mb-4">
+                        THE CARTOGRAPHERS <br>OF <span class="ins">CHAOS</span>
+                    </h1>
+                    <p class="font-sub text-lg text-gray-800 max-w-2xl leading-relaxed">
+                        A rigorous diagnostic deep dive on the state of brand and corporate strategy inside volatile markets. Refer to the referenced document <strong class="text-black">"Strategy in the Post Algorithm World.pdf"</strong> for detailed source data.
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 gap-6 pt-4 border-t border-black">
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-red-500 font-bold block mb-1">PART 01</span>
+                        <h4 class="font-sub font-bold text-sm uppercase text-black">The Strategy Paradox</h4>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-red-500 font-bold block mb-1">PART 02</span>
+                        <h4 class="font-sub font-bold text-sm uppercase text-black">The Architect of Unfair Advantage</h4>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-red-500 font-bold block mb-1">PART 03</span>
+                        <h4 class="font-sub font-bold text-sm uppercase text-black">The Post-Algorithm Strategist</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Part 1 Cover -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Part 1 // The Context</p>
+                    <span class="slide-num">02</span>
+                </div>
+                <div class="my-auto">
+                    <h1 class="text-[5.5rem] md:text-[6.5rem] uppercase leading-[0.8] mb-4">
+                        THE STRATEGY <br><span class="ins">PARADOX</span>
+                    </h1>
+                    <p class="font-sub text-2xl text-gray-800 max-w-2xl leading-relaxed">
+                        A clinical autopsy of an industry at a crossroads, where downstream optimization overrides high-stakes guidance.
+                    </p>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">STATE OF STRATEGY 2025 // REJECTING COMMODITIZED CONVERGENCE</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Core Condition -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Paradox</p>
+                    <span class="slide-num">03</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    <div class="card-min card-lft flex flex-col justify-between">
+                        <div>
+                            <span class="card-kicker">THE DEMAND</span>
+                            <h3 class="card-title">VOLATILITY AT HIGHS</h3>
+                        </div>
+                        <p class="card-body text-xl font-medium text-gray-900 leading-relaxed mt-2">
+                            In a highly turbulent business landscape, client demands for clear, objective, and solution-agnostic strategic direction have reached unprecedented levels.
+                        </p>
+                    </div>
+                    <div class="card-min card-ins flex flex-col justify-between">
+                        <div>
+                            <span class="card-kicker">THE REALITY</span>
+                            <h3 class="card-title">AGENCY MELTDOWN</h3>
+                        </div>
+                        <p class="card-body text-gray-800">
+                            Strategy units inside traditional holding-company environments are shrinking, suffering, and bleeding talent out. 
+                        </p>
+                        <div class="flex gap-8 mt-4 pt-4 border-t border-gray-200">
+                            <div>
+                                <span class="font-display text-3xl text-red-500 block">52%</span>
+                                <span class="font-sans text-[10px] uppercase font-bold text-gray-400">Teams Growing (2022)</span>
+                            </div>
+                            <div>
+                                <span class="font-display text-3xl text-red-500 block">27%</span>
+                                <span class="font-sans text-[10px] uppercase font-bold text-gray-400">Teams Growing (2025)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-black pt-4 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                    <span>DOCUMENT: "Strategy in the Post Algorithm World.pdf"</span>
+                    <span>ANTIGEN DIAGNOSTICS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Vital Signs -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Vital Signs</p>
+                    <span class="slide-num">04</span>
+                </div>
+                <div class="my-auto grid grid-cols-2 gap-6">
+                    <div class="card-min card-rdk">
+                        <p class="card-kicker">Adaptation Breakpoint</p>
+                        <p class="card-stat">80%</p>
+                        <p class="card-body font-semibold text-gray-900">Believe strategy must dramatically transform and adapt to remain relevant in digital workflows.</p>
+                    </div>
+                    <div class="card-min card-rdk">
+                        <p class="card-kicker">Resource Vulnerability</p>
+                        <p class="card-stat">62%</p>
+                        <p class="card-body font-semibold text-gray-900">Acknowledge strategy is treated as non-essential overhead when financial margins constrict.</p>
+                    </div>
+                    <div class="card-min card-rdk">
+                        <p class="card-kicker">Risk Suppression</p>
+                        <p class="card-stat">47%</p>
+                        <p class="card-body font-semibold text-gray-900">Identify self-imposed risk-aversion and administrative consensus as a larger threat than AI.</p>
+                    </div>
+                    <div class="card-min card-rdk">
+                        <p class="card-kicker">Brief Collapse</p>
+                        <p class="card-stat">64%</p>
+                        <p class="card-body font-semibold text-gray-900">Report a steep decline in the foundational quality of creative and business briefs produced internally.</p>
+                    </div>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">EVIDENCE BASE // MULTI-MARKET SURVEY // N=420 STRATEGISTS</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Pathology I -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Pathology 01</p>
+                    <span class="slide-num">05</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h4 class="font-display text-5xl mb-4 text-red-500">THE MONETIZATION CRISIS</h4>
+                        <p class="font-sub text-xl text-gray-800 leading-relaxed mb-4">
+                            Agencies fail to bill for strategy as an independent service line. It is treated as a <strong class="text-black">"gift with purchase"</strong> to sweeten execution deals.
+                        </p>
+                        <blockquote class="pull-quote mt-4">
+                            "Archaic hours billing treats a growth-driving discipline as zero-value transactional overhead."
+                        </blockquote>
+                    </div>
+                    <div class="card-min card-rdk">
+                        <span class="card-kicker">Traditional Bill-Out Model</span>
+                        <div class="space-y-1.5 font-mono text-[12px] border-b border-gray-300 pb-3 mb-3">
+                            <div class="flex justify-between"><span>Production</span><span>$500,000</span></div>
+                            <div class="flex justify-between"><span>Media Purchase</span><span>$1,000,000</span></div>
+                            <div class="flex justify-between text-red-500 font-bold"><span>Strategy Integration</span><span>INCLUDED ($0)</span></div>
+                        </div>
+                        <div class="font-mono text-[12px]">
+                            <div class="flex justify-between font-bold text-base text-black"><span>Total Invoice</span><span>$1,500,000</span></div>
+                        </div>
+                        <p class="card-body mt-4 pt-3 border-t border-gray-200 text-gray-900 font-medium">
+                            <strong>48%</strong> of agencies still charge based strictly on time logged; only <strong class="text-black">4%</strong> link their strategy fees to objective commercial results.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Pathology II -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Pathology 02</p>
+                    <span class="slide-num">06</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="card-min card-lft">
+                        <span class="card-kicker">Self-Imposed Protection</span>
+                        <h2 class="card-title">THE BLANDNESS TRAP</h2>
+                        <p class="card-body mt-4 text-gray-800 text-base">
+                            To avoid accountability for bold, risky, asymmetric positioning, teams hide behind synthetic templates, generic dashboards, and standard templates.
+                        </p>
+                    </div>
+                    <div>
+                        <span class="bg-red-500 text-white font-mono text-xs px-2.5 py-1 uppercase font-bold mb-3 inline-block">Autopsy Report</span>
+                        <p class="font-sub text-xl text-gray-800 leading-relaxed">
+                            When data is utilized as an defensive shield rather than an exploratory spring, the result is convergence. Brand campaigns end up adopting identical arguments, styling, and safe categorizations.
+                        </p>
+                    </div>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">DIAGNOSTIC ARCHIVE // REJECTING COMMODITIZED CRITERIA</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Pathology III -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Pathology 03</p>
+                    <span class="slide-num">07</span>
+                </div>
+                <div class="my-auto">
+                    <h2 class="font-display text-5xl mb-6"><span class="ins">THE AI TRILEMMA</span></h2>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">01 // THE TOOL</span>
+                            <p class="font-bold text-base uppercase mb-2">Efficiency Over Value</p>
+                            <p class="card-body text-gray-900">76% of strategists use AI to squeeze timelines, teaching clients that strategic speed is identical to strategic weight.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">02 // COMMODITISER</span>
+                            <p class="font-bold text-base uppercase mb-2">Flattened Culture</p>
+                            <p class="card-body text-gray-900">76% admit that this heavy AI use comes directly at the expense of deeper, nuanced, cultural thinking.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">03 // PIPELINE KILLER</span>
+                            <p class="font-bold text-base uppercase mb-2">Burnt Ladder</p>
+                            <p class="card-body text-gray-900">GenAI automation replaces the manual junior desk research that historically formed the training ground for senior intuition.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">ANALYSIS BRIEF // SOURCE: "Strategy in the Post Algorithm World.pdf"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: The Trap of Efficiency Symmetry -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Symmetry Trap</p>
+                    <span class="slide-num">08</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-5xl mb-4 leading-none">THE TRAP OF <span class="ins">EFFICIENCY SYMMETRY</span></h2>
+                        <p class="font-sub text-lg text-gray-800 leading-relaxed mb-4">
+                            When Competitor A and Competitor B use identical LLMs, scrape identical datasets, and map onto identical diagnostic matrices, their strategic outlooks reach absolute alignment.
+                        </p>
+                        <p class="font-sub font-bold text-base bg-yellow-400 p-3.5 inline-block text-black">
+                            "Table stakes don't win markets. They just buy you entry."
+                        </p>
+                    </div>
+                    <div class="card-min card-rdk">
+                        <span class="card-kicker">Process Model</span>
+                        <div class="flex flex-col gap-2 font-mono text-[11px] mt-2">
+                            <div class="border border-gray-300 p-2 bg-white">Competitor A (AI Tools + Cleaned Data)</div>
+                            <div class="text-center font-bold">⬇ CONVERGENCE ⬇</div>
+                            <div class="border border-gray-300 p-2 bg-white">Competitor B (AI Tools + Cleaned Data)</div>
+                            <div class="text-center font-bold">⬇</div>
+                            <div class="border border-black p-2.5 bg-black text-white text-center font-bold text-sm">IDENTICAL, COMMODITIZED OUTPUTS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: The Broken Ladder -->
+        <section class="slide">
+            <div class="slide-content territory-black">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min text-yellow-400">Systemic Rupture</p>
+                    <span class="slide-num text-white">09</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-5xl mb-4 text-yellow-400">THE BROKEN LADDER</h2>
+                        <p class="font-sub text-lg text-gray-200 leading-relaxed mb-4">
+                            By automating lower-level synthesis, manual coding, and spreadsheet parsing, seniors eliminate the "necessary friction" that transforms junior operatives into critical directors.
+                        </p>
+                        <p class="font-sub text-sm text-yellow-400 font-bold border-l-2 border-yellow-400 pl-4">
+                            Rupturing middle rungs ensures that there is no structural pipeline to produce the next Chief Strategy Officers.
+                        </p>
+                    </div>
+                    <div class="border border-gray-700 bg-gray-900 p-6 flex flex-col justify-center text-center">
+                        <span class="font-display text-yellow-400 text-3xl block">AUTOPSY ANALYSIS</span>
+                        <p class="font-sans text-sm text-gray-200 mt-2 leading-relaxed">
+                            The immediate automation of junior tasks doesn't just cut payroll overhead—it systematically destroys the apprenticeship loop that guarantees senior strategic judgment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Indy Migration -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Talent Shifting</p>
+                    <span class="slide-num">10</span>
+                </div>
+                <div class="my-auto">
+                    <h2 class="font-display text-5xl mb-6">THE INDY <span class="ins">MIGRATION</span></h2>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">The Cause</span>
+                            <p class="font-bold text-sm uppercase mb-2 text-gray-900">The Downstream Squeeze</p>
+                            <p class="card-body text-gray-900">Clients view large traditional networks as execution factories seeking to feed specific media pipelines, rather than diagnostic partners.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">The Void</span>
+                            <p class="font-bold text-sm uppercase mb-2 text-gray-900">Upstream Exodus</p>
+                            <p class="card-body text-gray-900"><strong>56%</strong> of senior independent strategists state that core, foundational brand strategy is leaving holding networks completely.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">The Result</span>
+                            <p class="font-bold text-sm uppercase mb-2 text-gray-900">The Solitary Insurgent</p>
+                            <p class="card-body text-gray-900">Independent consultants fill this strategy void, purchased for objective, pipeline-agnostic, strategic diagnostic authority.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">DATA PATHOLOGY MAP // INDEPENDENT STRATEGISTS GLOBAL SURVEY</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Great Bifurcation -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Great Bifurcation</p>
+                    <span class="slide-num">11</span>
+                </div>
+                <div class="my-auto grid grid-cols-2 gap-8 items-stretch">
+                    <div class="card-min card-ins flex flex-col justify-between">
+                        <div>
+                            <span class="card-kicker">PREMIUM</span>
+                            <h3 class="card-title text-3xl">DECISION-CRITICAL</h3>
+                        </div>
+                        <p class="card-body text-xl text-gray-900 font-medium leading-relaxed">
+                            Owns big bets & operating models. Shapes exactly where the brand plays. Directly linked to revenue and pricing power. Sits in C-suite war rooms.
+                        </p>
+                    </div>
+                    <div class="card-min card-rdk flex flex-col justify-between">
+                        <div>
+                            <span class="card-kicker text-gray-400">COMMODITY</span>
+                            <h3 class="card-title text-3xl text-gray-400">PRODUCTION-ADJACENT</h3>
+                        </div>
+                        <p class="card-body text-xl text-gray-700 font-medium leading-relaxed">
+                            Rearranges existing information into decks. Polishes briefs conceived elsewhere. Billed strictly as hours on a timesheet. Bundled as a non-billable "gift with purchase".
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Automation Absorption -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Automation Boundary</p>
+                    <span class="slide-num">12</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-5xl mb-4 leading-none">THE BOUNDARY OF <span class="ins">ABSORPTION</span></h2>
+                        <p class="font-sub text-lg text-gray-800 leading-relaxed mb-4">
+                            Automation targets processes governed by historical replication. If your value is primarily "knowing" (parsing reports, summarizing transcripts, matching categories), the machine is designed to absorb you instantly.
+                        </p>
+                        <p class="font-sub text-sm font-bold border-l-2 border-black pl-4 text-black">
+                            Human exclusivity is conserved only at the boundary of "meaning"—intuition, judgment, taste, and high-voltage perspective-taking.
+                        </p>
+                    </div>
+                    <div class="card-min card-lft">
+                        <span class="card-kicker">Exclusivity Matrix</span>
+                        <div class="space-y-2 mt-2 font-mono text-[11px] text-gray-900">
+                            <div class="flex justify-between border-b pb-1"><span>Data Summarization</span><span class="text-red-500 font-bold">100% ABSORBED</span></div>
+                            <div class="flex justify-between border-b pb-1"><span>Framework Polishing</span><span class="text-red-500 font-bold">90% ABSORBED</span></div>
+                            <div class="flex justify-between border-b pb-1"><span>Aesthetic Judgment</span><span class="text-green-600 font-bold">EXCLUDED</span></div>
+                            <div class="flex justify-between"><span>Lateral Creative Leap</span><span class="text-green-600 font-bold">EXCLUDED</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: Final Diagnosis -->
+        <section class="slide">
+            <div class="slide-content territory-black">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min text-yellow-400">Diagnostic Verdict</p>
+                    <span class="slide-num text-white">13</span>
+                </div>
+                <div class="my-auto text-center max-w-3xl mx-auto">
+                    <h2 class="font-display text-[4rem] mb-6 text-yellow-400">THE FINAL DIAGNOSIS</h2>
+                    <blockquote class="font-typewriter text-2xl text-gray-100 border-l-4 border-yellow-400 pl-6 text-left my-6 leading-relaxed">
+                        "The era of strategy as pure information synthesis is officially over. The divide in our industry is no longer between good and bad analysis. The divide is between commoditized analysis and irreplaceable human authority."
+                    </blockquote>
+                    <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mt-4">
+                        antigen diagnostic brief // final chapter context
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Part 2 Cover -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Part 2 // The Truth</p>
+                    <span class="slide-num">14</span>
+                </div>
+                <div class="my-auto">
+                    <h1 class="text-[5.5rem] md:text-[6.5rem] uppercase leading-[0.8] mb-4">
+                        THE ARCHITECT OF <br><span class="ins">UNFAIR ADVANTAGE</span>
+                    </h1>
+                    <p class="font-sub text-2xl text-gray-800 max-w-2xl leading-relaxed">
+                        Reiterating that the road to distinctive, non-obvious, and anti-consensus thinking begins entirely with the strategist.
+                    </p>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">DOCUMENT FILE // "Strategy in the Post Algorithm World.pdf" // SECTOR 02</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: The Homogenization Trap 2 -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Homogenization</p>
+                    <span class="slide-num">15</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="card-min card-ins">
+                        <span class="card-kicker">Category Sameness</span>
+                        <h3 class="card-title">THE BLIND ALLEY</h3>
+                        <p class="card-body text-gray-900">
+                            The collective panic for speed means brands utilize the exact same programmatic insights, resulting in identical product strategies and generic content structures across their vertical.
+                        </p>
+                    </div>
+                    <div>
+                        <blockquote class="pull-quote mb-4">
+                            "When everyone optimizes for the median, distinctiveness becomes a structural impossibility."
+                        </blockquote>
+                        <p class="font-sub text-base text-gray-800 leading-relaxed">
+                            Competitive edge is not mapped out using standard open tools. To win, a brand requires raw, asymmetric variance—to exit the center completely and change the coordinates of the game.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 16: Simplicity & Direction -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Clarity Mechanics</p>
+                    <span class="slide-num">16</span>
+                </div>
+                <div class="my-auto text-center">
+                    <h2 class="font-display text-5xl mb-6">VALUE THROUGH <span class="ins">SIMPLICITY</span></h2>
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-4xl mx-auto">
+                        <div class="card-min w-full md:w-1/3">
+                            <span class="card-kicker">01 // Noise</span>
+                            <p class="font-mono text-sm uppercase font-bold text-gray-500 mb-2">The Glut</p>
+                            <p class="card-body text-gray-900">Drowning in unverified data, synthetic slides, and flat metrics.</p>
+                        </div>
+                        <div class="text-red-500 font-display text-4xl">➔</div>
+                        <div class="card-min w-full md:w-1/3 card-ins">
+                            <span class="card-kicker">02 // Slicing</span>
+                            <p class="font-mono text-sm uppercase font-bold text-black mb-2">The Cut</p>
+                            <p class="card-body text-gray-900 font-bold">Cutting away the structural bloat to locate the core systemic trap.</p>
+                        </div>
+                        <div class="text-red-500 font-display text-4xl">➔</div>
+                        <div class="card-min w-full md:w-1/3">
+                            <span class="card-kicker">03 // Direction</span>
+                            <p class="font-mono text-sm uppercase font-bold text-gray-500 mb-2">The Compass</p>
+                            <p class="card-body text-gray-900">A single-minded, highly visible vision engineered for clear market action.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 17: The Empathy Engine (Quote) -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Engine</p>
+                    <span class="slide-num">17</span>
+                </div>
+                <div class="my-auto max-w-4xl mx-auto">
+                    <blockquote class="pull-quote text-2xl md:text-3xl leading-relaxed">
+                        "AI can't find the distinction that inspires a creative team. It can synthesize, but it cannot step into the un-digitized friction of real human subcultures."
+                    </blockquote>
+                    <div class="mt-8 flex items-center gap-4">
+                        <span class="font-mono text-xs font-bold bg-black text-white px-2.5 py-1">SOURCE</span>
+                        <p class="font-sub font-bold text-base text-black">Martin Weigel // Operating Principles of Human Resonance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 18: Antidote to Average -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Antidote</p>
+                    <span class="slide-num">18</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-5xl mb-4 leading-none">THE ANTIDOTE TO <span class="ins">"AVERAGE"</span></h2>
+                        <p class="font-sub text-base text-gray-800 leading-relaxed mb-4">
+                            The modern algorithm calculates the absolute average. It maps the common denominator of yesterday's internet and feeds it back as "strategy."
+                        </p>
+                        <p class="font-sub text-base font-bold border-l-2 border-black pl-4 text-black">
+                            But the average is culturally invisible. Strategic authority lies in executing the lateral leap of faith required to shatter category conventions.
+                        </p>
+                    </div>
+                    <div class="card-min card-lft">
+                        <span class="card-kicker">Leverage Priority</span>
+                        <div class="space-y-2 mt-2 font-mono text-[11px] text-gray-900">
+                            <div class="flex justify-between border-b pb-1"><span>Empathy & Judgment</span><span class="text-green-600 font-bold">MAX PREMIUM</span></div>
+                            <div class="flex justify-between border-b pb-1"><span>Creative leaps</span><span class="text-green-600 font-bold">MAX PREMIUM</span></div>
+                            <div class="flex justify-between border-b pb-1"><span>Desk summaries</span><span class="text-red-500 font-bold">COMMODITIZED</span></div>
+                            <div class="flex justify-between"><span>Basic data parsing</span><span class="text-red-500 font-bold">COMMODITIZED</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 19: Diagnostic Precision -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Target Precision</p>
+                    <span class="slide-num">19</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="card-min card-ins">
+                        <span class="card-kicker">Problem Setting</span>
+                        <h3 class="card-title">THE ALTITUDE ERROR</h3>
+                        <p class="card-body text-gray-900">
+                            If you solve the wrong problem with hyper-efficiency, you generate structural waste at scale. Before optimizing speed, the strategist zooms out to ensure the diagnostic targets are precisely set.
+                        </p>
+                    </div>
+                    <div>
+                        <span class="bg-black text-white font-mono text-xs px-2.5 py-1 uppercase font-bold mb-3 inline-block">Diagnostic Rules</span>
+                        <ul class="space-y-3 font-sub text-sm text-gray-800 font-semibold">
+                            <li><strong class="text-black">1. Systems First:</strong> Zoom out to locate structural blockages.</li>
+                            <li><strong class="text-black">2. Context Framing:</strong> Redefining the brief is 90% of the battle.</li>
+                            <li><strong class="text-black">3. Anti-consensus:</strong> Refuse answers that satisfy internal departments but mean nothing to culture.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 20: Mining Illegible Spaces -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Underground Data</p>
+                    <span class="slide-num">20</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-[4rem] mb-4 leading-none">MINING THE <span class="ins">ILLEGIBLE SPACES</span></h2>
+                        <p class="font-sub text-base text-gray-800 leading-relaxed mb-4">
+                            Competitive leverage lives where web crawlers cannot index. If the insight is readily accessible on public search engines, it's already coded into your competitors' models.
+                        </p>
+                        <p class="font-sub text-xs font-bold bg-yellow-400 p-3 inline-block">
+                            "Cultivate research as an active, un-templatized hobby."
+                        </p>
+                    </div>
+                    <div class="card-min card-rdk">
+                        <span class="card-kicker">Knowledge Territories</span>
+                        <div class="space-y-2 mt-2 font-mono text-[11px]">
+                            <div class="border border-gray-300 p-2 bg-white">
+                                <strong class="block text-red-500">PUBLIC DATA (Scrapable)</strong>
+                                Optimized dashboards, generic metrics, public newsletters.
+                            </div>
+                            <div class="border border-black p-2 bg-black text-white">
+                                <strong class="block text-yellow-400">ILLEGIBLE DATA (Dark Social)</strong>
+                                Closed Discord channels, closed messaging threads, localized micro-rituals.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 21: Myth-Makers in a Messy World (FIXED OVERFLOW & TRUNCATION) -->
+        <section class="slide">
+            <div class="slide-content bg-grid flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Narrative Authority</p>
+                    <span class="slide-num">21</span>
+                </div>
+                
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch w-full max-w-6xl mx-auto">
+                    <!-- Left: Logic Card -->
+                    <div class="card-min card-ins flex flex-col justify-between h-full bg-white">
+                        <div>
+                            <span class="card-kicker">01 // STRUCTURAL OPTIONS</span>
+                            <h3 class="card-title text-2xl mb-2">THE LIMITS OF LOGIC</h3>
+                        </div>
+                        <p class="card-body text-gray-900 mt-2">
+                            Perfectly optimized data, detailed spreadsheets, and algorithmic lists inform the boardroom, but they routinely fail to secure client buy-in or inspire breakthrough creative execution.
+                        </p>
+                    </div>
+                    
+                    <!-- Right: Myth Card -->
+                    <div class="card-min card-rdk flex flex-col justify-between h-full bg-white border-l-4 border-yellow-400">
+                        <div>
+                            <span class="card-kicker text-yellow-500">02 // STRATEGIC MYTH</span>
+                            <h3 class="card-title text-2xl mb-2">STORIES MOBILIZE</h3>
+                        </div>
+                        <p class="card-body text-gray-900 mt-2">
+                            Translating abstract strategic logic into an immersive, high-voltage narrative arc. In the modern boardroom, the individual who can tell the most compelling story wins.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-t border-black pt-3 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                    <span>STRATEGIC MYTH-MAKING // "Strategy in the Post Algorithm World.pdf"</span>
+                    <span>ANTIGEN ACTION CODE v.2025</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 22: Whole-Brain Defense Matrix -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Matrix</p>
+                    <span class="slide-num">22</span>
+                </div>
+                <div class="my-auto max-w-5xl w-full mx-auto">
+                    <div class="border border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-sm">
+                        <div class="flex border-b border-black bg-gray-100 font-bold uppercase p-3 text-sm">
+                            <div class="w-1/2">COMMODITY (AI / Left-Brain Boost)</div>
+                            <div class="w-1/2 text-red-500 border-l border-black pl-4">PREMIUM (Strategist / Right-Brain Anchor)</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3">
+                            <div class="w-1/2 text-gray-800">Optimization (Replicating historical bests)</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4">Empathy & Perspective (Locating human friction)</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3 bg-gray-50">
+                            <div class="w-1/2 text-gray-800">Pattern Recognition (Categorizing public signals)</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4">Synthesis & Meaning (Reframing messy traps)</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3">
+                            <div class="w-1/2 text-gray-800">Information Storage (Retrieving catalogued facts)</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4">Defining Context (Framing target altitude)</div>
+                        </div>
+                        <div class="flex p-3 bg-gray-50">
+                            <div class="w-1/2 text-gray-800">Analysis (Compiling the spreadsheet pathways)</div>
+                            <div class="w-1/2 font-bold text-red-500 border-l border-gray-200 pl-4">Authority (The courage to make the final, risky call)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 23: The Indispensable Compass -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Compass</p>
+                    <span class="slide-num">23</span>
+                </div>
+                <div class="my-auto max-w-4xl mx-auto text-center">
+                    <h2 class="font-display text-[4.5rem] leading-none mb-6">THE INDISPENSABLE <span class="ins">COMPASS</span></h2>
+                    <blockquote class="font-typewriter text-xl text-gray-900 border-l-4 border-black pl-6 text-left my-6 bg-white p-5 shadow-sm leading-relaxed">
+                        "In an era overflowing with cheap, synthetic content, authentic human resonance is the ultimate premium asset. The strategist infuses raw judgment and genuine empathy into the cold mechanics of decision-making."
+                    </blockquote>
+                    <p class="font-mono text-[10px] text-gray-500">ANTIGEN PRINCIPLE 02 // REAL-WORLD CHANGE VALUE</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 24: Part 3 Cover -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Part 3 // The Vision</p>
+                    <span class="slide-num">24</span>
+                </div>
+                <div class="my-auto">
+                    <h1 class="text-[5.5rem] md:text-[6.5rem] uppercase leading-[0.8] mb-4">
+                        THE POST-ALGORITHM <br><span class="ins">STRATEGIST</span>
+                    </h1>
+                    <p class="font-sub text-2xl text-gray-800 max-w-2xl leading-relaxed">
+                        The architectural manual of the post-algorithm strategist: mindsets, methods, and tactical mechanics.
+                    </p>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">COMPETENCY FRAMEWORK // ANTIGEN LABS // INITIATE SYSTEM</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 25: The AI Partnership Interface -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Interface</p>
+                    <span class="slide-num">25</span>
+                </div>
+                <div class="my-auto">
+                    <h2 class="font-display text-5xl mb-6">THE AI PARTNERSHIP <span class="ins">INTERFACE</span></h2>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">01 // AUTOMATE</span>
+                            <p class="font-bold text-base uppercase mb-2 text-black">The Obvious</p>
+                            <p class="card-body text-gray-900">Delegate standard decks, administrative templates, meeting transcripts, and boilerplate frameworks. Allow machines to clear the administrative clutter.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">02 // ACCELERATE</span>
+                            <p class="font-bold text-base uppercase mb-2 text-black">The Difficult</p>
+                            <p class="card-body text-gray-900">Speed up scenario simulation models, complex data parsing, qualitative categorizations, and standard market segmentation rules.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">03 // AUGMENT</span>
+                            <p class="font-bold text-base uppercase mb-2 text-black">The Important</p>
+                            <p class="card-body text-gray-900">Refuse conventional median prompts. Synthesize the outlier connections. Find the vacant cultural coordinates and run.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 26: Mindset Mutation -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Mindset Shifts</p>
+                    <span class="slide-num">26</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-[4rem] mb-4 leading-none">THE MINDSET <span class="ins">MUTATION</span></h2>
+                        <p class="font-sub text-lg text-gray-800 leading-relaxed mb-4">
+                            The immediate, chaotic integration of Generative AI forces a shift from linear execution back to first-principles context.
+                        </p>
+                        <blockquote class="pull-quote mt-4">
+                            "Abandon the Foreman. Become the Companion."
+                        </blockquote>
+                    </div>
+                    <div class="card-min card-ins">
+                        <span class="card-kicker">COLLABORATIVE DESIGN</span>
+                        <h3 class="card-title text-3xl">THE COMPANION</h3>
+                        <p class="card-body text-gray-900">
+                            Guiding a highly powerful, non-human partner. Shift perspectives fluidly based on task complexity:
+                        </p>
+                        <div class="space-y-2 mt-4 pt-4 border-t border-gray-200 font-mono text-[10px] text-gray-900 font-bold">
+                            <div class="flex justify-between"><span>01 // THE SENTINEL</span><span>Guarding against bias & hallucination</span></div>
+                            <div class="flex justify-between"><span>02 // THE COACH</span><span>Training standard patterns on deep context</span></div>
+                            <div class="flex justify-between"><span>03 // THE CO-CREATOR</span><span>Synthesizing outliers at absolute velocity</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 27: Deep Dive 1: Slicer -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Deep Dive 01</p>
+                    <span class="slide-num">27</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="card-min card-ins">
+                        <span class="card-kicker">The Chaos Slicer</span>
+                        <h3 class="card-title">CUTTING BULK</h3>
+                        <p class="card-body text-gray-900">
+                            Operating as the ultimate C-suite safety net. By performing the structural heavy lifting, the strategist takes a surgical knife to entropic corporate noise and replaces it with a piercing directional arrow.
+                        </p>
+                    </div>
+                    <div>
+                        <span class="bg-red-500 text-white font-mono text-xs px-2.5 py-1 uppercase font-bold mb-3 inline-block">Operating Formula</span>
+                        <div class="bg-black text-white p-6 font-mono text-base shadow-md font-bold text-center">
+                            [NOISE] + [DIAGNOSIS] = [DIRECTION]
+                        </div>
+                        <p class="font-sub text-base text-gray-800 mt-4 leading-relaxed font-semibold">
+                            Strategy is not about compiling larger files of information; it's about synthesizing volume to isolate the single root cause.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 28: Deep Dive 3: Illegible Spaces -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Deep Dive 03</p>
+                    <span class="slide-num">28</span>
+                </div>
+                <div class="my-auto">
+                    <h2 class="font-display text-5xl mb-6">DECODING <span class="ins">ILLEGIBLE SPACES</span></h2>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="card-min card-rdk">
+                            <span class="card-kicker">Above Waterline</span>
+                            <p class="font-bold text-base uppercase mb-2 text-black">Public Data Fields</p>
+                            <p class="card-body text-gray-900">Open dashboards, scrapable metrics, generic newsletters, and optimized industry averages. The safe baseline where standard algorithms survive.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">Below Waterline</span>
+                            <p class="font-bold text-base uppercase mb-2 text-black">Illegible Territories</p>
+                            <p class="card-body text-gray-900">Closed messaging rooms, unpolished localized rituals, micro-cultural forums. The messy, raw zone where real competitive edge lives.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-black pt-4">
+                    <p class="font-mono text-[10px] text-gray-500">ACTIONABLE PRACTICE // STRATEGIC ANTHROPOLOGY</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 29: Methodology 1: Breaking Symmetry -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Methodology 01</p>
+                    <span class="slide-num">29</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-display text-[4rem] mb-4 leading-none">METHODOLOGY // <span class="ins">BREAKING SYMMETRY</span></h2>
+                        <p class="font-sub text-base text-gray-800 leading-relaxed mb-4">
+                            When everyone is working with the same strategic templates, standard optimization guarantees convergence. Unfair advantage requires deliberate, calculated asymmetry.
+                        </p>
+                        <blockquote class="pull-quote mt-4">
+                            "Break the center. Play a completely different game."
+                        </blockquote>
+                    </div>
+                    <div class="card-min card-ins">
+                        <span class="card-kicker">Action Blueprint</span>
+                        <p class="font-bold text-sm uppercase mb-2 text-black">The Insurgent Variant</p>
+                        <p class="card-body mb-4 text-gray-900">
+                            Escape standard category consensus. Design positioning pathways that make competitor parameters irrelevant.
+                        </p>
+                        <span class="bg-black text-white font-mono text-xs px-2.5 py-1 uppercase font-bold inline-block">PLAY TO WIN</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 30: Methodology 2: Future-In Planning -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Methodology 02</p>
+                    <span class="slide-num">30</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    <div class="card-min card-rdk flex flex-col justify-between">
+                        <div>
+                            <span class="card-kicker text-gray-500">OBSOLETE</span>
+                            <h3 class="card-title text-gray-500 line-through">CURRENT-OUT</h3>
+                        </div>
+                        <p class="card-body text-gray-800 text-base leading-relaxed">
+                            Extrapolating present trends directly into the future. It operates on a false assumption of linear stability, leaving businesses vulnerable to sudden, violent technological disruption.
+                        </p>
+                    </div>
+                    <div class="card-min card-ins flex flex-col justify-between">
+                        <div>
+                            <span class="card-kicker">REQUIRED</span>
+                            <h3 class="card-title text-black">FUTURE-IN</h3>
+                        </div>
+                        <p class="card-body font-bold text-gray-900 text-base leading-relaxed">
+                            Defining a clear, desired future end-state, and then working backward step-by-step to outline the exact execution map required in the present day.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 31: Mechanics: Strategy is a Verb -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Mechanics</p>
+                    <span class="slide-num">31</span>
+                </div>
+                <div class="my-auto text-center max-w-4xl mx-auto">
+                    <h2 class="font-display text-[4.5rem] leading-none mb-6">STRATEGY IS <span class="ins">A VERB</span></h2>
+                    <blockquote class="font-typewriter text-xl text-gray-900 border-l-4 border-black pl-6 text-left my-6 bg-white p-5 leading-relaxed">
+                        "The deliverable is NOT the presentation. The deliverable is a living ecosystem that guides messy, day-to-day real-world execution. Stop trying to be theoretically perfect on paper."
+                    </blockquote>
+                    <span class="bg-red-500 text-white font-mono text-xs px-2.5 py-1 uppercase font-bold inline-block">TACTICAL INSTRUCTION</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 32: Co-Creative Loop -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Process Loop</p>
+                    <span class="slide-num">32</span>
+                </div>
+                <div class="my-auto">
+                    <h2 class="font-display text-5xl mb-6 text-center">THE <span class="ins">CO-CREATIVE LOOP</span></h2>
+                    <div class="grid grid-cols-4 gap-4 max-w-5xl mx-auto">
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">Step 01</span>
+                            <p class="font-bold text-sm uppercase mb-1 text-black">Readiness</p>
+                            <p class="card-body text-gray-900">Establishing deep contextual awareness before prompting.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">Step 02</span>
+                            <p class="font-bold text-sm uppercase mb-1 text-black">Co-Creation</p>
+                            <p class="card-body text-gray-900">Engaging in rapid, iterative, non-linear generation with the AI companion.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">Step 03</span>
+                            <p class="font-bold text-sm uppercase mb-1 text-black">Validation</p>
+                            <p class="card-body text-gray-900">Applying rigorous ethical, cultural, and quality review to identify the average.</p>
+                        </div>
+                        <div class="card-min card-ins">
+                            <span class="card-kicker">Step 04</span>
+                            <p class="font-bold text-sm uppercase mb-1 text-black">Execution</p>
+                            <p class="card-body text-gray-900">Translating the synthesis into defining strategic output.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 33: Paradigm Shift Table -->
+        <section class="slide">
+            <div class="slide-content bg-grid">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">The Shift</p>
+                    <span class="slide-num">33</span>
+                </div>
+                <div class="my-auto max-w-5xl w-full mx-auto">
+                    <h2 class="font-display text-4xl mb-4 uppercase text-center">THE PARADIGM SHIFT</h2>
+                    <div class="border border-black bg-white shadow-md text-sm">
+                        <div class="flex border-b border-black bg-gray-200 font-bold uppercase p-3">
+                            <div class="w-1/2 text-gray-700">THE LEGACY STRATEGIST</div>
+                            <div class="w-1/2 text-red-500 border-l border-black pl-4">THE ARCHITECT OF UNFAIR ADVANTAGE</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3">
+                            <div class="w-1/2 text-gray-600">Scraped Open Data</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4 text-black">Thick Underground Data</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3">
+                            <div class="w-1/2 text-gray-600">Consensus Best Practices</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4 text-black">Insurgent Variant</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3">
+                            <div class="w-1/2 text-gray-600">Analytical Spreadsheets</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4 text-black">Strategic Myth-Making</div>
+                        </div>
+                        <div class="flex border-b border-gray-200 p-3">
+                            <div class="w-1/2 text-gray-600">Tool Foreman</div>
+                            <div class="w-1/2 font-bold border-l border-gray-200 pl-4 text-black">AI Companion Collaboration</div>
+                        </div>
+                        <div class="flex p-3">
+                            <div class="w-1/2 text-gray-600">Linear / Hierarchical Ladder</div>
+                            <div class="w-1/2 font-bold text-red-500 border-l border-gray-200 pl-4">The Hourglass Talent Model</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 34: Final Conclusion -->
+        <section class="slide">
+            <div class="slide-content border-[20px] border-black">
+                <div class="flex justify-between items-start">
+                    <p class="kicker-min">Manifesto End</p>
+                    <span class="slide-num">34</span>
+                </div>
+                <div class="my-auto text-center">
+                    <h2 class="font-display text-[4.5rem] md:text-[5rem] leading-[0.8] mb-6">
+                        THE TOOLS ARE <span class="text-gray-400 line-through decoration-red-500 decoration-8">SYMMETRICAL.</span><br>
+                        THE ADVANTAGE IS <span class="ins">HUMAN.</span>
+                    </h2>
+                    <p class="font-sub text-lg text-gray-800 max-w-xl mx-auto my-6 font-semibold">
+                        Stop chasing the algorithm. Master the illegible spaces, slice the chaos, and start architecting the unfair advantage.
+                    </p>
+                    <a href="#" class="btn btn-ghost-red btn-lg">Bring us a hard problem</a>
+                </div>
+                <div class="flex justify-between items-center text-[10px] font-mono text-gray-500 border-t border-gray-200 pt-3">
+                    <span>ANTIGEN INTELLIGENCE // 2026</span>
+                    <span>END SYSTEM MANUAL v.2025</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Dots indicators -->
+    <div id="nav-dots"></div>
+
+    <!-- Persistent navigation instructions overlay -->
+    <div class="fixed bottom-6 right-6 text-white bg-black bg-opacity-70 px-4 py-2 rounded-none font-sans text-[10px] uppercase tracking-wider font-bold z-30 pointer-events-none hidden md:block border border-gray-700">
+        Scroll or use ← → keys
+    </div>
+
+    <!-- Script for Navigation & Drawer Actions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deck = document.getElementById('deck');
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            const dotsContainer = document.getElementById('nav-dots');
+            
+            const indexTrigger = document.getElementById('index-trigger');
+            const indexDrawer = document.getElementById('index-drawer');
+            const indexClose = document.getElementById('index-close');
+            const indexLinks = document.querySelectorAll('.index-link');
+            
+            let currentSlide = 0;
+            let isAnimating = false;
+
+            // Generate Nav Dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            const dots = document.querySelectorAll('.dot');
+
+            function updateUI() {
+                deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            function goToSlide(index) {
+                if (isAnimating || index < 0 || index >= totalSlides || index === currentSlide) return;
+                isAnimating = true;
+                currentSlide = index;
+                updateUI();
+                
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500); // Wait for transition animation to end
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                if (currentSlide > 0) goToSlide(currentSlide - 1);
+            }
+
+            // Keyboard Arrows Navigation
+            window.addEventListener('keydown', (e) => {
+                // Ignore navigation when the Drawer is visible
+                if (!indexDrawer.classList.contains('hidden')) return;
+
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    goToSlide(0);
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    goToSlide(totalSlides - 1);
+                }
+            });
+
+            // Mouse wheel / Trackpad Swipe Navigation
+            let wheelTimeout;
+            window.addEventListener('wheel', (e) => {
+                if (isAnimating || !indexDrawer.classList.contains('hidden')) return;
+                
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(() => {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        if (e.deltaY > 20) nextSlide();
+                        else if (e.deltaY < -20) prevSlide();
+                    } else {
+                        if (e.deltaX > 20) nextSlide();
+                        else if (e.deltaX < -20) prevSlide();
+                    }
+                }, 40); 
+            }, { passive: false });
+
+            // Touch Drag / Mobile Swipe Navigation
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            window.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            window.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50; 
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    nextSlide(); 
+                }
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    prevSlide(); 
+                }
+            }
+
+            // Index Drawer Controls
+            indexTrigger.addEventListener('click', () => {
+                indexDrawer.classList.remove('hidden');
+                indexDrawer.classList.add('flex');
+            });
+
+            indexClose.addEventListener('click', () => {
+                indexDrawer.classList.add('hidden');
+                indexDrawer.classList.remove('flex');
+            });
+
+            indexLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const slideIndex = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
+                    indexDrawer.classList.add('hidden');
+                    indexDrawer.classList.remove('flex');
+                    goToSlide(slideIndex);
+                });
+            });
+
+            // Viewport resize handling
+            window.addEventListener('resize', () => {
+                deck.style.transition = 'none';
+                updateUI();
+                setTimeout(() => {
+                    deck.style.transition = 'transform 0.5s cubic-bezier(0.76, 0, 0.24, 1)';
+                }, 50);
+            });
+        });
+    </script>
+</body>
+</html>
