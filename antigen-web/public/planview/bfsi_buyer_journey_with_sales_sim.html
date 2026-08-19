@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Indian BFSI Buyer Journey — Sales Simulator</title>
+<meta name="description" content="Nine decision gates in the Indian BFSI buying journey for PPM software, with a rehearsal simulator for the objections in the room at each gate." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ANTIGEN MINIMAL — tokens
+   paper / ink / one red. square corners, hairlines, hard shadows.
+   ============================================================ */
+:root{
+  --paper:#F2F0EB;
+  --paper-2:#E9E6DF;
+  --white:#FFFFFF;
+  --ink:#292929;
+  --ink-2:#57544E;
+  --ink-3:#6E6A62;
+  --red:#E33737;          /* fills, rules, marks */
+  --red-ink:#C42A2A;      /* text-only tint of the same red, for AA contrast */
+  --line:rgba(41,41,41,.18);
+  --line-2:rgba(41,41,41,.10);
+
+  --display:'Bebas Neue','Oswald','Arial Narrow',Impact,sans-serif;
+  --body:'Barlow','Trebuchet MS',Tahoma,Arial,sans-serif;
+  --mono:'Courier New',Courier,ui-monospace,monospace;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --rail:392px;
+  --bar:56px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+body.is-locked{overflow:hidden}
+
+h1,h2,h3,h4{margin:0;font-weight:400;font-family:var(--display);text-transform:uppercase;letter-spacing:.012em;line-height:.9}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+[hidden]{display:none !important}
+button,select,textarea,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+.wrap{width:min(1360px,100% - 40px);margin-inline:auto}
+@media (max-width:720px){.wrap{width:min(1360px,100% - 28px)}}
+
+.kicker{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--red-ink);
+  margin-bottom:var(--s3);
+}
+.kicker--mute{color:var(--ink-3)}
+
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--ink);color:var(--paper);padding:12px 16px;
+  font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;text-decoration:none;
+}
+.skip:focus{left:0}
+
+/* ============================================================
+   TOP BAR + GATE RULER (the signature element)
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:var(--paper);
+  border-bottom:1px solid var(--ink);
+}
+.topbar-in{
+  display:flex;align-items:stretch;gap:var(--s4);
+  min-height:var(--bar);
+}
+.mark{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--display);font-size:22px;letter-spacing:.04em;
+  padding-right:var(--s4);border-right:1px solid var(--line);
+  white-space:nowrap;
+}
+.mark i{display:block;width:10px;height:10px;background:var(--red);font-style:normal}
+
+.ruler{
+  flex:1;min-width:0;
+  display:flex;align-items:stretch;
+  overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;
+  scroll-snap-type:x proximity;
+}
+.ruler::-webkit-scrollbar{display:none}
+.gate{
+  flex:0 0 auto;
+  display:flex;align-items:baseline;gap:7px;
+  padding:0 12px;
+  background:transparent;border:0;border-right:1px solid var(--line-2);
+  color:var(--ink-3);
+  scroll-snap-align:center;
+  transition:background .12s linear,color .12s linear;
+}
+.gate-no{font-family:var(--display);font-size:19px;letter-spacing:.03em}
+.gate-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.gate:hover{background:var(--paper-2);color:var(--ink)}
+.gate[aria-current="true"]{background:var(--ink);color:var(--paper)}
+.gate[aria-current="true"] .gate-no{color:var(--paper)}
+
+.sim-toggle{
+  flex:0 0 auto;
+  display:none;align-items:center;gap:8px;
+  padding:0 var(--s4);
+  background:var(--red);color:var(--white);border:0;
+  font-family:var(--display);font-size:19px;letter-spacing:.05em;text-transform:uppercase;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding:var(--s7) 0 var(--s6)}
+.hero h1{
+  font-size:clamp(42px,7.4vw,104px);
+  line-height:.86;
+  max-width:20ch;
+  margin-bottom:var(--s5);
+}
+.hero h1 em{font-style:normal;color:var(--red)}
+.lede{
+  max-width:62ch;color:var(--ink-2);
+  font-size:clamp(16px,1.5vw,19px);font-weight:500;
+}
+.facts{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  margin-top:var(--s7);border-top:2px solid var(--ink);
+}
+.facts li{
+  padding:var(--s4) var(--s4) var(--s4) 0;
+  border-right:1px solid var(--line);
+}
+.facts li:last-child{border-right:0}
+.facts b{display:block;font-family:var(--display);font-size:clamp(34px,4.6vw,56px);line-height:.9;font-weight:400}
+.facts span{
+  display:block;margin-top:6px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+}
+@media (max-width:720px){
+  .hero{padding:var(--s6) 0 var(--s5)}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts li{border-bottom:1px solid var(--line)}
+  .facts li:nth-child(2n){border-right:0}
+  .facts li:nth-last-child(-n+2){border-bottom:0}
+}
+
+/* ============================================================
+   SHELL — journey + simulator rail
+   ============================================================ */
+.shell{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) var(--rail);
+  gap:var(--s7);
+  align-items:start;
+  padding-bottom:var(--s8);
+}
+
+.section-head{
+  border-top:2px solid var(--ink);
+  padding-top:var(--s4);
+  margin-bottom:var(--s5);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s5);align-items:end;
+}
+.section-head h2{font-size:clamp(30px,3.6vw,50px);line-height:.88}
+.section-head p{color:var(--ink-2);font-size:15.5px}
+.tools{display:flex;gap:var(--s2);margin-top:var(--s3)}
+.tool{
+  background:transparent;border:1px solid var(--ink);
+  padding:7px 12px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+}
+.tool:hover{background:var(--ink);color:var(--paper)}
+
+/* --- stage accordion --- */
+.stages{display:grid;gap:var(--s3)}
+.stage{
+  border:1px solid var(--ink);
+  background:var(--white);
+  scroll-margin-top:calc(var(--bar) + 12px);
+}
+.stage[open]{box-shadow:5px 5px 0 var(--ink)}
+.stage.is-active{box-shadow:5px 5px 0 var(--red)}
+
+.stage summary{
+  list-style:none;cursor:pointer;
+  display:grid;grid-template-columns:74px minmax(0,1fr) 26px;
+  align-items:center;gap:var(--s4);
+  padding:var(--s4) var(--s4) var(--s4) 0;
+}
+.stage summary::-webkit-details-marker{display:none}
+.stage summary:hover .stage-h{color:var(--red-ink)}
+.stage-no{
+  align-self:stretch;
+  display:grid;place-items:center;
+  background:var(--paper-2);color:var(--ink);
+  font-family:var(--display);font-size:32px;line-height:1;
+  min-height:64px;
+}
+.stage.is-active .stage-no{background:var(--red);color:var(--white)}
+.stage-h{
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.015em;line-height:.95;
+  font-size:clamp(21px,2.2vw,29px);transition:color .12s linear;
+}
+.stage-blurb{margin-top:6px;color:var(--ink-2);font-size:14px;max-width:70ch}
+.chev{
+  justify-self:end;margin-right:var(--s4);
+  width:11px;height:11px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  transform:rotate(45deg);transform-origin:60% 60%;
+}
+@media (prefers-reduced-motion:no-preference){.chev{transition:transform .15s ease}}
+.stage[open] .chev{transform:rotate(-135deg)}
+
+.stage-body{
+  border-top:1px solid var(--line);
+  padding:var(--s2) var(--s4) var(--s5) 74px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  background:var(--white);
+}
+.fact{padding:var(--s4) var(--s5) var(--s4) 0;border-bottom:1px solid var(--line-2)}
+.fact:nth-child(odd){border-right:1px solid var(--line-2)}
+.fact:nth-child(even){padding-left:var(--s5);padding-right:0}
+.fact:nth-child(3),.fact:nth-child(4){border-bottom:0}
+.fact h4{
+  font-family:var(--mono);font-weight:700;font-size:10.5px;letter-spacing:.14em;
+  color:var(--ink-3);margin-bottom:var(--s2);
+  display:flex;align-items:center;gap:7px;
+}
+.fact h4::before{content:"";width:16px;height:2px;background:var(--red)}
+.fact--nuance h4::before{background:var(--ink)}
+.fact p{font-size:14.5px;color:var(--ink-2)}
+.fact li{
+  font-size:14.5px;color:var(--ink-2);
+  padding-left:16px;position:relative;
+}
+.fact li::before{content:"→";position:absolute;left:0;color:var(--red-ink)}
+.stage-cta{
+  grid-column:1/-1;background:var(--white);
+  padding:var(--s4) var(--s4) 0 0;
+}
+.stage-cta button{
+  background:var(--ink);color:var(--paper);border:0;
+  padding:11px 16px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+}
+.stage-cta button:hover{background:var(--red)}
+
+/* ============================================================
+   SIMULATOR
+   ============================================================ */
+.sim{
+  position:sticky;top:calc(var(--bar) + 20px);
+  border:1px solid var(--ink);
+  background:var(--paper);
+  max-height:calc(100dvh - var(--bar) - 40px);
+  display:flex;flex-direction:column;
+}
+.sim-head{
+  background:var(--ink);color:var(--paper);
+  padding:var(--s5) var(--s4);
+  flex:0 0 auto;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:var(--s3);
+}
+.sim-head .kicker{color:var(--red);margin-bottom:var(--s2)}
+.sim-head h2{font-size:34px;color:var(--paper)}
+.sim-head p{margin-top:var(--s2);color:rgba(242,240,235,.72);font-size:13.5px;max-width:44ch}
+.sim-close{
+  display:none;background:transparent;border:1px solid rgba(242,240,235,.4);color:var(--paper);
+  width:34px;height:34px;font-family:var(--mono);font-size:16px;line-height:1;
+}
+.sim-body{
+  flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;
+  padding:var(--s4);display:grid;gap:var(--s4);align-content:start;
+}
+
+.field label{
+  display:block;margin-bottom:var(--s2);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+}
+.field select,.field textarea{
+  width:100%;background:var(--white);
+  border:1px solid var(--ink);border-radius:0;
+  padding:11px 12px;font-size:15px;
+}
+.field select{
+  appearance:none;-webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 49%,var(--ink) 50%),linear-gradient(-45deg,transparent 49%,var(--ink) 50%);
+  background-size:7px 7px;background-repeat:no-repeat;
+  background-position:calc(100% - 18px) 55%,calc(100% - 12px) 55%;
+  padding-right:38px;
+}
+.field textarea{min-height:96px;resize:vertical;line-height:1.5}
+.field select:focus,.field textarea:focus{outline:2px solid var(--red);outline-offset:-1px}
+
+.row{display:grid;grid-template-columns:1fr auto;gap:var(--s2)}
+.btn{
+  border:1px solid var(--ink);
+  padding:12px 16px;
+  font-family:var(--display);font-size:19px;letter-spacing:.06em;text-transform:uppercase;
+}
+.btn--go{background:var(--red);border-color:var(--red);color:var(--white)}
+.btn--go:hover{background:var(--ink);border-color:var(--ink)}
+.btn--ghost{background:transparent}
+.btn--ghost:hover{background:var(--ink);color:var(--paper)}
+
+.readout{border:1px solid var(--line);background:var(--white)}
+.readout dl{margin:0;display:grid;grid-template-columns:76px minmax(0,1fr)}
+.readout dt{
+  padding:10px 10px 10px 12px;border-bottom:1px solid var(--line-2);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+}
+.readout dd{
+  margin:0;padding:10px 12px 10px 0;border-bottom:1px solid var(--line-2);
+  font-size:14px;color:var(--ink-2);overflow-wrap:anywhere;
+}
+.readout dt:last-of-type,.readout dd:last-of-type{border-bottom:0}
+.readout dd b{color:var(--ink);font-weight:600}
+
+.strategy{border-left:4px solid var(--red);background:var(--white);padding:var(--s3) var(--s4)}
+.strategy h3{font-size:19px;margin-bottom:6px}
+.strategy p{font-size:14.5px;color:var(--ink-2)}
+
+.room-label{
+  display:flex;align-items:center;gap:var(--s3);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+}
+.room-label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.personas{display:grid;gap:var(--s3)}
+.persona{border:1px solid var(--ink);background:var(--white);padding:var(--s3) var(--s4) var(--s4)}
+.persona-top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.persona h3{font-size:21px}
+.stance{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--line);padding:3px 7px;white-space:nowrap;
+}
+.objection{
+  margin-top:var(--s3);padding-left:18px;position:relative;
+  font-family:var(--mono);font-size:13.5px;line-height:1.5;color:var(--ink);
+}
+.objection::before{content:"⌗";position:absolute;left:0;color:var(--red)}
+.fear{
+  margin-top:var(--s3);font-size:13px;color:var(--ink-2);
+}
+.fear b{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--red-ink);display:block;margin-bottom:2px;font-weight:700;
+}
+.reply-open{
+  margin-top:var(--s3);background:transparent;border:0;padding:0;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);border-bottom:2px solid var(--red);
+}
+.reply-open:hover{color:var(--red-ink)}
+.reply{margin-top:var(--s3);padding-top:var(--s3);border-top:1px solid var(--line);display:grid;gap:var(--s2)}
+.reply textarea{width:100%;min-height:80px;border:1px solid var(--ink);padding:10px;font-size:14.5px;resize:vertical}
+.reply textarea:focus{outline:2px solid var(--red);outline-offset:-1px}
+.reply .btn{font-size:16px;padding:9px 12px}
+
+.thread{border:1px solid var(--line);background:var(--white);padding:var(--s3) var(--s4)}
+.thread ol{display:grid;gap:var(--s2);margin-top:var(--s2)}
+.thread li{font-size:13.5px;color:var(--ink-2);padding-left:16px;position:relative;overflow-wrap:anywhere}
+.thread li::before{content:"→";position:absolute;left:0;color:var(--red-ink)}
+.thread li b{color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+
+.note{font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--ink-3)}
+
+/* --- mobile sheet behaviour --- */
+.scrim{
+  display:none;position:fixed;inset:0;z-index:45;
+  background:rgba(41,41,41,.5);
+}
+.scrim.is-open{display:block}
+
+@media (max-width:1080px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:var(--s5)}
+  .sim-toggle{display:flex}
+  .sim-close{display:block}
+  .sim{
+    position:fixed;z-index:50;
+    inset:auto 0 0 0;top:auto;
+    max-height:none;height:min(92dvh,760px);
+    border:0;border-top:2px solid var(--ink);
+    transform:translateY(101%);
+    visibility:hidden;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .sim{transition:transform .22s ease,visibility .22s}
+  }
+  .sim.is-open{transform:none;visibility:visible;box-shadow:0 -8px 0 rgba(41,41,41,.08)}
+  .sim-body{padding-bottom:calc(var(--s6) + env(safe-area-inset-bottom))}
+  .section-head{grid-template-columns:minmax(0,1fr)}
+}
+
+/* topbar folds to two rows once the ruler runs out of room */
+@media (max-width:860px){
+  .topbar-in{
+    display:grid;grid-template-columns:minmax(0,1fr) auto;
+    min-height:0;
+  }
+  .mark{grid-row:1;grid-column:1;border-right:0;padding:10px 0;font-size:20px}
+  .sim-toggle{grid-row:1;grid-column:2;align-self:stretch;min-height:46px}
+  .ruler{
+    grid-row:2;grid-column:1/-1;
+    border-top:1px solid var(--line-2);
+    margin-inline:-14px;padding-inline:14px;
+  }
+  .gate{padding:9px 12px}
+  .stage{scroll-margin-top:104px}
+  .sim{top:auto}
+}
+
+@media (max-width:720px){
+  .mark span{display:none}
+  .stage summary{grid-template-columns:58px minmax(0,1fr) 22px;gap:var(--s3);padding-right:var(--s3)}
+  .stage-no{font-size:26px;min-height:56px}
+  .chev{margin-right:var(--s3)}
+  .stage-body{padding:var(--s4) var(--s4) var(--s4) var(--s4);grid-template-columns:minmax(0,1fr)}
+  .fact{padding:var(--s4) 0}
+  .fact:nth-child(odd),.fact:nth-child(even){padding-left:0;padding-right:0}
+  .stage-cta{padding-right:0}
+  .row{grid-template-columns:minmax(0,1fr)}
+}
+
+/* --- footer --- */
+.footer{border-top:2px solid var(--ink);padding:var(--s4) 0 var(--s8);margin-top:var(--s6)}
+.footer-line{
+  display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+}
+
+/* --- print --- */
+@media print{
+  .topbar,.sim,.scrim,.tools,.stage-cta,.sim-toggle{display:none !important}
+  body{background:#fff}
+  .stage{box-shadow:none;break-inside:avoid}
+  .stage-body{display:block !important}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#journey">Skip to the journey map</a>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <div class="mark"><i></i>BFSI <span>Buyer Journey</span></div>
+    <nav class="ruler" id="ruler" aria-label="Decision gates"></nav>
+    <button class="sim-toggle" id="simToggle" aria-expanded="false" aria-controls="simulator">Simulator</button>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <p class="kicker">00 — Brief</p>
+  <h1>The BFSI buy is a <em>governance</em> journey, not a software purchase.</h1>
+  <p class="lede">Nine gates stand between the first trigger and a renewed contract, and each one holds people who can say no for different reasons. Pick the gate you are standing at, type the objection you are actually hearing, and rehearse the answer before the meeting.</p>
+  <ul class="facts">
+    <li><b>09</b><span>Decision gates</span></li>
+    <li><b>27</b><span>Personas in the room</span></li>
+    <li><b>05</b><span>Objection signals detected</span></li>
+    <li><b>00</b><span>Backend dependencies</span></li>
+  </ul>
+</section>
+
+<main class="wrap shell">
+  <section id="journey">
+    <div class="section-head">
+      <div>
+        <p class="kicker">01 — Journey map</p>
+        <h2>Nine gates, one long corridor</h2>
+        <div class="tools">
+          <button class="tool" id="expandAll" type="button">Expand all</button>
+          <button class="tool" id="collapseAll" type="button">Collapse all</button>
+        </div>
+      </div>
+      <p>Open a gate to see what happens there, who is in the room, what the buyer asks, and what is specific to Indian BFSI. Rehearse a gate to load it into the simulator.</p>
+    </div>
+    <div class="stages" id="stages"></div>
+    <noscript><p class="note" style="margin-top:16px">This page builds the gates and the simulator with JavaScript. Enable it to read the map.</p></noscript>
+  </section>
+
+  <aside class="sim" id="simulator" aria-label="BFSI sales simulator">
+    <div class="sim-head">
+      <div>
+        <p class="kicker">02 — Rehearsal</p>
+        <h2>Sales simulator</h2>
+        <p>Set the gate, describe the challenge, and answer the people who will push back.</p>
+      </div>
+      <button class="sim-close" id="simClose" type="button" aria-label="Close simulator">✕</button>
+    </div>
+
+    <div class="sim-body">
+      <div class="field">
+        <label for="stageSelect">Decision gate</label>
+        <select id="stageSelect"></select>
+      </div>
+
+      <div class="field">
+        <label for="challengeInput">What you are hearing from the buyer</label>
+        <textarea id="challengeInput" placeholder="e.g. InfoSec concerns about cloud hosting">InfoSec concerns about cloud hosting</textarea>
+      </div>
+
+      <div class="row">
+        <button class="btn btn--go" id="runBtn" type="button">Run simulation</button>
+        <button class="btn btn--ghost" id="copyBtn" type="button" title="Copy the brief for this gate">Copy</button>
+      </div>
+
+      <div class="readout" id="readout" aria-live="polite"></div>
+      <div class="strategy" id="strategy"></div>
+
+      <p class="room-label">In the room</p>
+      <div class="personas" id="results"></div>
+
+      <div class="thread" id="thread" hidden>
+        <p class="room-label">Your replies</p>
+        <ol id="threadList"></ol>
+        <button class="tool" id="clearThread" type="button" style="margin-top:12px">Clear replies</button>
+      </div>
+
+      <p class="note">Replies feed back into the next run, so the signal sharpens as the conversation goes on. Nothing leaves this page.</p>
+    </div>
+  </aside>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<footer class="wrap footer">
+  <div class="footer-line">
+    <span>Indian BFSI buyer decision journey — PPM software</span>
+    <span>ANTIGEN minimal — single file, no backend</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DATA — one source of truth for the map and the simulator
+   ============================================================ */
+const STAGES = [
+  {
+    key:"1", short:"Trigger", title:"Trigger / Need Recognition",
+    blurb:"Transformation pressure, compliance load, and portfolio sprawl create the first opening for PPM.",
+    what:"Transformation complexity rises. Project tracking fragments. Leaders feel the pain of weak visibility across change portfolios.",
+    stakeholders:["CIO / CTO","Transformation Office","PMO / EPMO","Business Heads"],
+    questions:"Why now? What pain is severe enough to solve?",
+    nuance:"Urgency is created by modernization, compliance pressure, and growth, but budget often needs a sharper governance story.",
+    context:"Transformation complexity, regulatory pressure, cost control, poor prioritisation, and weak visibility across change portfolios create urgency.",
+    strategy:"Anchor the conversation in business pain, not product features. Show how the platform creates visibility, prioritisation, and control.",
+    personas:[
+      {role:"CIO",stance:"open but cautious",objection:"I need a credible reason to invest now, not a generic platform pitch.",fear:"Buying too early without a clear governance case."},
+      {role:"PMO Lead",stance:"problem owner",objection:"Our tracking is fragmented, but I need agreement on the real operating pain.",fear:"Treating a process problem like a tool problem."},
+      {role:"Business Head",stance:"skeptical",objection:"How does this help my teams deliver faster, not just add reporting work?",fear:"Extra admin with little business impact."}
+    ]
+  },
+  {
+    key:"2", short:"Framing", title:"Internal Mobilisation & Problem Framing",
+    blurb:"The institution defines the problem and decides whether this is a planning, resource, or governance issue.",
+    what:"The team maps current planning and governance processes and clarifies the capabilities that are missing.",
+    stakeholders:["PMO / EPMO","Strategy","Transformation Leads","Enterprise Architecture","Business Unit Leaders"],
+    questions:"Is this a project problem or an operating-model problem?",
+    nuance:"There are usually multiple change agendas running at once across retail, corporate, operations, and technology.",
+    context:"The buyer maps current governance, defines the real problem, and aligns the change agenda across teams.",
+    strategy:"Help the buyer frame the problem in operational terms. Show how portfolio visibility, resourcing, and governance connect.",
+    personas:[
+      {role:"PMO Director",stance:"analytical",objection:"We need to know whether this is portfolio, resource, or execution governance.",fear:"Getting the charter wrong and buying the wrong capability."},
+      {role:"Enterprise Architect",stance:"guarded",objection:"Show me where this fits with our existing stack and process model.",fear:"Another disconnected platform."},
+      {role:"Operations Head",stance:"pragmatic",objection:"If this changes our workflow, I need to see the operating benefit quickly.",fear:"Disruption without adoption."}
+    ]
+  },
+  {
+    key:"3", short:"Business case", title:"Business Case & Requirements",
+    blurb:"Value, integration, reporting, security, and audit needs become concrete evaluation criteria.",
+    what:"The sponsor team builds the ROI case, defines use cases, and captures must-have requirements.",
+    stakeholders:["Sponsor","PMO / EPMO","Finance","CIO team","Enterprise Architecture"],
+    questions:"How will this improve prioritisation, governance, speed, and capital allocation?",
+    nuance:"The case usually needs measurable control and productivity gains, not just software efficiency.",
+    context:"Value case, integration requirements, reporting needs, and security expectations become formal buying criteria.",
+    strategy:"Move from concept to evidence. Quantify control, productivity, and decision-speed benefits, then map them to requirements.",
+    personas:[
+      {role:"Finance Sponsor",stance:"numbers-first",objection:"Show me measurable ROI and a realistic payback story.",fear:"Funding a platform that cannot prove value."},
+      {role:"PMO / EPMO",stance:"requirements owner",objection:"Our reporting and governance needs must be met without heavy customisation.",fear:"A tool that cannot match the operating model."},
+      {role:"CIO team",stance:"technical",objection:"Integration and security requirements need to be explicit.",fear:"Hidden technical debt after purchase."}
+    ]
+  },
+  {
+    key:"4", short:"Longlist", title:"Market Scan & Longlist",
+    blurb:"Vendors are compared against scale, governance depth, and enterprise fit.",
+    what:"The team scans vendors, analyst views, peer references, and known enterprise platforms.",
+    stakeholders:["PMO","CIO office","Procurement","Architecture"],
+    questions:"Which vendors fit our scale, governance model, and support expectations?",
+    nuance:"Enterprise credibility and implementation maturity matter as much as feature breadth.",
+    context:"The buyer builds a longlist using analyst inputs, peer references, and enterprise credibility signals.",
+    strategy:"Show category credibility fast: enterprise scale, BFSI references, implementation maturity, and support depth.",
+    personas:[
+      {role:"PMO",stance:"comparative",objection:"Why should you be on the shortlist over the established names?",fear:"Backing an outlier that cannot scale."},
+      {role:"Procurement",stance:"process-driven",objection:"We need evidence of enterprise viability and support commitments.",fear:"Vendor risk and weak service depth."},
+      {role:"Architecture",stance:"structural",objection:"Does the platform work inside our reference architecture?",fear:"Fit problems discovered late."}
+    ]
+  },
+  {
+    key:"5", short:"Evaluation", title:"Evaluation, Demos & PoC",
+    blurb:"Fit-gap, sandbox testing, security checks, and reference calls start to narrow the field.",
+    what:"The buyer runs workshops, fit-gap reviews, scoring, and reference validation.",
+    stakeholders:["Evaluation team","Power users","InfoSec","Implementation lead"],
+    questions:"Can it integrate with our stack? Can users adopt it quickly?",
+    nuance:"Integration, onboarding effort, and process fit often decide whether enthusiasm survives the demo.",
+    context:"Demos, sandbox testing, fit-gap analysis, and reference checks determine who stays in the race.",
+    strategy:"Design the demo around their workflow, not your feature list. Prove usability, integration, and time-to-value.",
+    personas:[
+      {role:"Evaluation Team",stance:"scoring-focused",objection:"We need to see our actual scenarios working, not a generic walkthrough.",fear:"Buying on demo polish instead of real fit."},
+      {role:"Power Users",stance:"hands-on",objection:"If this is hard to use, teams will avoid it.",fear:"Low adoption and workaround behaviour."},
+      {role:"InfoSec",stance:"gatekeeping",objection:"Security and access controls need to clear review before we go further.",fear:"Exposure through a new platform."}
+    ]
+  },
+  {
+    key:"6", short:"Diligence", title:"Risk, Compliance & Procurement Diligence",
+    blurb:"Security, privacy, legal, commercials, and third-party risk gates become decisive.",
+    what:"The deal goes through risk checks, privacy review, legal scrutiny, SLA review, and procurement negotiation.",
+    stakeholders:["InfoSec","Risk","Legal","Procurement","Vendor management"],
+    questions:"Is the vendor safe, compliant, and contractable on our terms?",
+    nuance:"Cloud posture, data residency, and auditability become high-stakes objections here.",
+    context:"Security, privacy, legal, commercial, and third-party risk gates can accelerate or stop the deal.",
+    strategy:"Answer objections with a crisp trust package: data controls, hosting posture, certifications, SLA coverage, and contract clarity.",
+    personas:[
+      {role:"InfoSec",stance:"high scrutiny",objection:"Cloud hosting is fine only if the control story is airtight.",fear:"Data residency, access control, or audit gaps."},
+      {role:"Risk",stance:"protective",objection:"We need evidence that the vendor will not create operational or compliance exposure.",fear:"Third-party risk and weak governance."},
+      {role:"Procurement",stance:"commercial",objection:"Commercial terms, scope, and service commitments need to be clean.",fear:"Unclear contract liabilities or hidden costs."}
+    ]
+  },
+  {
+    key:"7", short:"Approval", title:"Approval & Selection",
+    blurb:"The final recommendation needs executive confidence, not just technical fit.",
+    what:"The team presents the recommendation and asks for budget release and selection approval.",
+    stakeholders:["Executive sponsor","Steering committee","Finance","Procurement"],
+    questions:"Does this align with the transformation roadmap, budget cycle, and operating priorities?",
+    nuance:"Consensus is rarely enough. A credible business case and risk story are both required.",
+    context:"The recommendation is tested at executive level, where budget and political alignment matter.",
+    strategy:"Make the final story simple: business value, risk reduction, and fit with the transformation roadmap.",
+    personas:[
+      {role:"Executive Sponsor",stance:"decisive",objection:"I need confidence that this supports the broader change agenda.",fear:"Approving a tool without strategic alignment."},
+      {role:"CFO",stance:"budget conscious",objection:"Show me why this should be funded now instead of later.",fear:"Budget leakage without clear returns."},
+      {role:"Steering Committee",stance:"consensus-seeking",objection:"We need a recommendation that is easy to defend across functions.",fear:"A split decision that creates delay."}
+    ]
+  },
+  {
+    key:"8", short:"Deployment", title:"Deployment & Change Adoption",
+    blurb:"Implementation, training, migration, and operating model change begin to prove the decision.",
+    what:"The team designs rollout, configures the platform, migrates data, and trains users.",
+    stakeholders:["Implementation partner","Platform owner","PMO","Change lead"],
+    questions:"Who will own the platform, and how fast will adoption happen?",
+    nuance:"Successful rollouts usually start with a small, high-credibility use case and then expand.",
+    context:"Implementation, migration, training, and operating model change determine whether the decision sticks.",
+    strategy:"Shift from selling the tool to selling the adoption plan. Reduce change risk with phased rollout and clear ownership.",
+    personas:[
+      {role:"Implementation Lead",stance:"delivery-focused",objection:"We need a rollout plan that fits our team capacity.",fear:"Over-ambitious delivery commitments."},
+      {role:"Change Lead",stance:"adoption-minded",objection:"If users do not see value fast, adoption will stall.",fear:"Launch without behavior change."},
+      {role:"Platform Owner",stance:"accountable",objection:"Who will own support and governance after go-live?",fear:"No one taking responsibility post-launch."}
+    ]
+  },
+  {
+    key:"9", short:"Value", title:"Usage, Value Realisation & Expansion",
+    blurb:"Adoption, reporting quality, and portfolio governance determine whether the platform scales.",
+    what:"The institution measures adoption, business value, and opportunities to extend the platform to more teams.",
+    stakeholders:["PMO / EPMO","Platform owner","Business leaders","Transformation office"],
+    questions:"Are we getting value? What should we expand next?",
+    nuance:"Renewal and expansion depend on proof that the platform improved control, coordination, and decision speed.",
+    context:"The buyer measures adoption, value realization, and the case for extending the platform further.",
+    strategy:"Prove value with usage, reporting quality, governance gains, and visible expansion opportunities.",
+    personas:[
+      {role:"PMO / EPMO",stance:"value tracker",objection:"We need evidence that the platform improved governance, not just process chatter.",fear:"A stalled deployment with no measurable impact."},
+      {role:"Business Leader",stance:"results-oriented",objection:"What tangible outcomes have improved for my team?",fear:"Process overhead without business payoff."},
+      {role:"Executive Sponsor",stance:"growth-minded",objection:"If this is working, where should we expand next?",fear:"Missing the chance to scale success."}
+    ]
+  }
+];
+
+const SIGNALS = [
+  {keys:["cloud","saas","hosting"],label:"cloud hosting",fear:"data residency and control",angle:"Lead with hosting options, residency controls, and audit evidence."},
+  {keys:["security","infosec","risk"],label:"security review",fear:"security and third-party exposure",angle:"Open with your controls, certifications, and access model."},
+  {keys:["integration","api","legacy"],label:"integration complexity",fear:"implementation drag",angle:"Show how the platform fits the existing stack and avoids hidden complexity."},
+  {keys:["cost","budget","price","commercial"],label:"commercial scrutiny",fear:"budget leakage and weak ROI",angle:"Tie the cost to measurable governance and productivity gains."},
+  {keys:["adoption","change","users","training"],label:"adoption risk",fear:"low usage after go-live",angle:"Focus on rollout design, training, and fast time-to-value."}
+];
+const FALLBACK_SIGNAL = {
+  label:"general buyer concern",
+  fear:"unknown downside",
+  angle:"Keep the answer crisp, credible, and rooted in the buyer's operating reality."
+};
+
+const byKey = Object.fromEntries(STAGES.map(s => [s.key, s]));
+const pad = k => String(k).padStart(2,"0");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ============================================================
+   ELEMENTS + STATE
+   ============================================================ */
+const el = {
+  ruler:document.getElementById("ruler"),
+  stages:document.getElementById("stages"),
+  select:document.getElementById("stageSelect"),
+  challenge:document.getElementById("challengeInput"),
+  run:document.getElementById("runBtn"),
+  copy:document.getElementById("copyBtn"),
+  readout:document.getElementById("readout"),
+  strategy:document.getElementById("strategy"),
+  results:document.getElementById("results"),
+  thread:document.getElementById("thread"),
+  threadList:document.getElementById("threadList"),
+  clearThread:document.getElementById("clearThread"),
+  sim:document.getElementById("simulator"),
+  simToggle:document.getElementById("simToggle"),
+  simClose:document.getElementById("simClose"),
+  scrim:document.getElementById("scrim"),
+  expandAll:document.getElementById("expandAll"),
+  collapseAll:document.getElementById("collapseAll")
+};
+
+let currentStage = "6";
+let thread = [];
+const isSheet = () => window.matchMedia("(max-width:1080px)").matches;
+
+/* ============================================================
+   BUILD
+   ============================================================ */
+function buildRuler(){
+  el.ruler.innerHTML = STAGES.map(s => `
+    <button class="gate" type="button" data-stage="${s.key}" aria-current="false">
+      <span class="gate-no">${pad(s.key)}</span><span class="gate-lbl">${esc(s.short)}</span>
+    </button>`).join("");
+}
+
+function buildSelect(){
+  el.select.innerHTML = STAGES.map(s =>
+    `<option value="${s.key}">${pad(s.key)} — ${esc(s.title)}</option>`).join("");
+}
+
+function buildStages(){
+  el.stages.innerHTML = STAGES.map(s => `
+    <details class="stage" id="stage-${s.key}" data-stage-card="${s.key}">
+      <summary>
+        <span class="stage-no">${pad(s.key)}</span>
+        <span>
+          <span class="stage-h" style="display:block">${esc(s.title)}</span>
+          <span class="stage-blurb" style="display:block">${esc(s.blurb)}</span>
+        </span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="stage-body">
+        <div class="fact">
+          <h4>What happens</h4>
+          <p>${esc(s.what)}</p>
+        </div>
+        <div class="fact">
+          <h4>Key stakeholders</h4>
+          <ul>${s.stakeholders.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+        </div>
+        <div class="fact">
+          <h4>Buyer questions</h4>
+          <p>${esc(s.questions)}</p>
+        </div>
+        <div class="fact fact--nuance">
+          <h4>India BFSI nuance</h4>
+          <p>${esc(s.nuance)}</p>
+        </div>
+        <div class="stage-cta">
+          <button type="button" data-rehearse="${s.key}">Rehearse this gate →</button>
+        </div>
+      </div>
+    </details>`).join("");
+}
+
+/* ============================================================
+   STATE SYNC
+   ============================================================ */
+function setActiveStage(key, {openCard = false} = {}){
+  currentStage = key;
+  el.select.value = key;
+
+  el.ruler.querySelectorAll(".gate").forEach(btn => {
+    const on = btn.dataset.stage === key;
+    btn.setAttribute("aria-current", on ? "true" : "false");
+    if(on) btn.scrollIntoView({block:"nearest", inline:"center"});
+  });
+
+  el.stages.querySelectorAll(".stage").forEach(card => {
+    const on = card.dataset.stageCard === key;
+    card.classList.toggle("is-active", on);
+    if(on && openCard) card.open = true;
+  });
+}
+
+function detectSignal(text){
+  const t = (text || "").toLowerCase();
+  return SIGNALS.find(s => s.keys.some(k => t.includes(k))) || FALLBACK_SIGNAL;
+}
+
+/* ============================================================
+   SIMULATE
+   ============================================================ */
+function simulate(){
+  const stage = byKey[currentStage];
+  const challenge = el.challenge.value.trim() || "No challenge provided";
+  const threadText = thread.map(t => `${t.role} ${t.text}`).join(" ");
+  const signal = detectSignal(`${challenge} ${threadText}`);
+
+  el.readout.innerHTML = `
+    <dl>
+      <dt>Gate</dt><dd><b>${pad(stage.key)} — ${esc(stage.title)}</b></dd>
+      <dt>Situation</dt><dd>${esc(stage.context)}</dd>
+      <dt>Challenge</dt><dd>${esc(challenge)}</dd>
+      <dt>Signal</dt><dd><b>${esc(signal.label)}</b> — underlying fear: ${esc(signal.fear)}</dd>
+    </dl>`;
+
+  el.strategy.innerHTML = `
+    <h3>Counter strategy</h3>
+    <p>${esc(stage.strategy)} ${esc(signal.angle)}</p>`;
+
+  el.results.innerHTML = stage.personas.map((p, i) => `
+    <article class="persona">
+      <div class="persona-top">
+        <h3>${esc(p.role)}</h3>
+        <span class="stance">${esc(p.stance)}</span>
+      </div>
+      <p class="objection">${esc(p.objection)}</p>
+      <p class="fear"><b>Underlying fear</b>${esc(p.fear)}</p>
+      <button class="reply-open" type="button" data-reply="${i}" aria-expanded="false">Draft a reply</button>
+      <div class="reply" data-reply-box="${i}" hidden>
+        <label for="reply-${i}" style="position:absolute;left:-9999px">Reply to ${esc(p.role)}</label>
+        <textarea id="reply-${i}" data-reply-input="${i}" placeholder="How do you answer ${esc(p.role)}?"></textarea>
+        <button class="btn btn--ghost" type="button" data-submit-reply="${i}">Send reply</button>
+      </div>
+    </article>`).join("");
+
+  renderThread();
+}
+
+function renderThread(){
+  el.thread.hidden = thread.length === 0;
+  el.threadList.innerHTML = thread.map(t =>
+    `<li><b>${esc(t.gate)} · to ${esc(t.role)}</b><br>${esc(t.text)}</li>`).join("");
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+el.ruler.addEventListener("click", e => {
+  const btn = e.target.closest("[data-stage]");
+  if(!btn) return;
+  setActiveStage(btn.dataset.stage, {openCard:true});
+  simulate();
+  document.getElementById(`stage-${btn.dataset.stage}`)
+    ?.scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+el.select.addEventListener("change", () => {
+  setActiveStage(el.select.value, {openCard:true});
+  simulate();
+});
+
+el.stages.addEventListener("click", e => {
+  const rehearse = e.target.closest("[data-rehearse]");
+  if(rehearse){
+    setActiveStage(rehearse.dataset.rehearse);
+    simulate();
+    if(isSheet()) openSim();
+    else el.challenge.focus({preventScroll:true});
+    return;
+  }
+  const summary = e.target.closest("summary");
+  if(summary){
+    const card = summary.closest(".stage");
+    if(card && card.dataset.stageCard !== currentStage){
+      setActiveStage(card.dataset.stageCard);
+      simulate();
+    }
+  }
+});
+
+el.results.addEventListener("click", e => {
+  const open = e.target.closest("[data-reply]");
+  if(open){
+    const i = open.getAttribute("data-reply");
+    const box = el.results.querySelector(`[data-reply-box="${i}"]`);
+    const wasOpen = !box.hidden;
+    el.results.querySelectorAll("[data-reply-box]").forEach(b => b.hidden = true);
+    el.results.querySelectorAll("[data-reply]").forEach(b => b.setAttribute("aria-expanded","false"));
+    box.hidden = wasOpen;
+    open.setAttribute("aria-expanded", String(!wasOpen));
+    if(!wasOpen) box.querySelector("textarea")?.focus();
+    return;
+  }
+
+  const send = e.target.closest("[data-submit-reply]");
+  if(send){
+    const i = Number(send.getAttribute("data-submit-reply"));
+    const input = el.results.querySelector(`[data-reply-input="${i}"]`);
+    const text = input ? input.value.trim() : "";
+    if(!text){ input?.focus(); return; }
+    const role = byKey[currentStage].personas[i].role;
+    thread.push({role, text, gate:pad(currentStage)});
+    simulate();
+    el.thread.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+});
+
+el.run.addEventListener("click", simulate);
+el.challenge.addEventListener("keydown", e => {
+  if((e.metaKey || e.ctrlKey) && e.key === "Enter") simulate();
+});
+
+el.clearThread.addEventListener("click", () => { thread = []; simulate(); });
+
+el.copy.addEventListener("click", async () => {
+  const stage = byKey[currentStage];
+  const signal = detectSignal(`${el.challenge.value} ${thread.map(t=>t.text).join(" ")}`);
+  const brief = [
+    `GATE ${pad(stage.key)} — ${stage.title}`,
+    `Situation: ${stage.context}`,
+    `Challenge: ${el.challenge.value.trim() || "No challenge provided"}`,
+    `Signal: ${signal.label} (fear: ${signal.fear})`,
+    `Counter strategy: ${stage.strategy} ${signal.angle}`,
+    "",
+    "In the room:",
+    ...stage.personas.map(p => `- ${p.role} (${p.stance}): "${p.objection}" — fear: ${p.fear}`)
+  ].join("\n");
+  try{
+    await navigator.clipboard.writeText(brief);
+    el.copy.textContent = "Copied";
+  }catch{
+    el.copy.textContent = "Press ⌘C";
+  }
+  setTimeout(() => { el.copy.textContent = "Copy"; }, 1600);
+});
+
+el.expandAll.addEventListener("click", () =>
+  el.stages.querySelectorAll(".stage").forEach(d => d.open = true));
+el.collapseAll.addEventListener("click", () =>
+  el.stages.querySelectorAll(".stage").forEach(d => d.open = false));
+
+/* --- mobile sheet --- */
+function openSim(){
+  el.sim.classList.add("is-open");
+  el.scrim.hidden = false;
+  el.scrim.classList.add("is-open");
+  el.simToggle.setAttribute("aria-expanded","true");
+  document.body.classList.add("is-locked");
+  el.sim.querySelector(".sim-close")?.focus();
+}
+function closeSim(){
+  el.sim.classList.remove("is-open");
+  el.scrim.classList.remove("is-open");
+  el.scrim.hidden = true;
+  el.simToggle.setAttribute("aria-expanded","false");
+  document.body.classList.remove("is-locked");
+  el.simToggle.focus();
+}
+el.simToggle.addEventListener("click", () =>
+  el.sim.classList.contains("is-open") ? closeSim() : openSim());
+el.simClose.addEventListener("click", closeSim);
+el.scrim.addEventListener("click", closeSim);
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape" && el.sim.classList.contains("is-open")) closeSim();
+});
+window.addEventListener("resize", () => {
+  if(!isSheet() && el.sim.classList.contains("is-open")){
+    el.sim.classList.remove("is-open");
+    el.scrim.classList.remove("is-open");
+    el.scrim.hidden = true;
+    el.simToggle.setAttribute("aria-expanded","false");
+    document.body.classList.remove("is-locked");
+  }
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+buildRuler();
+buildSelect();
+buildStages();
+setActiveStage(currentStage, {openCard:true});
+simulate();
+</script>
+</body>
+</html>
