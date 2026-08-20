@@ -341,6 +341,38 @@ button{cursor:pointer}
 .strategy h3{font-size:19px;margin-bottom:6px}
 .strategy p{font-size:14.5px;color:var(--ink-2)}
 
+.persona.is-won{box-shadow:4px 4px 0 var(--ink)}
+.persona.is-stuck{box-shadow:4px 4px 0 var(--red)}
+
+.exchange{margin-top:var(--s3);padding-top:var(--s3);border-top:1px dashed var(--line)}
+.exchange + .exchange{border-top-style:solid}
+.said{
+  font-size:13.5px;color:var(--ink-2);padding-left:18px;position:relative;overflow-wrap:anywhere;
+}
+.said::before{content:"→";position:absolute;left:0;color:var(--ink-3)}
+.verdict{
+  display:inline-block;margin:var(--s2) 0 0;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid var(--ink);
+}
+.verdict--won{background:var(--ink);color:var(--paper)}
+.verdict--part{background:transparent;color:var(--ink)}
+.verdict--no{background:var(--red);border-color:var(--red);color:var(--white)}
+.pushback{
+  margin-top:var(--s2);padding-left:18px;position:relative;
+  font-family:var(--mono);font-size:13px;line-height:1.5;color:var(--ink);
+}
+.pushback::before{content:"⌗";position:absolute;left:0;color:var(--red)}
+.gaps{margin-top:var(--s2);display:grid;gap:4px}
+.gaps li{
+  font-size:12.5px;color:var(--ink-3);padding-left:14px;position:relative;
+}
+.gaps li::before{content:"·";position:absolute;left:4px;color:var(--red-ink);font-weight:700}
+.tally{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink);
+  border:1px solid var(--line);padding:2px 7px;
+}
+
 .room-label{
   display:flex;align-items:center;gap:var(--s3);
   font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
@@ -529,16 +561,16 @@ button{cursor:pointer}
       <div class="readout" id="readout" aria-live="polite"></div>
       <div class="strategy" id="strategy"></div>
 
-      <p class="room-label">In the room</p>
+      <p class="room-label" id="roomLabel">In the room</p>
       <div class="personas" id="results"></div>
 
       <div class="thread" id="thread" hidden>
-        <p class="room-label">Your replies</p>
+        <p class="room-label">Session log</p>
         <ol id="threadList"></ol>
-        <button class="tool" id="clearThread" type="button" style="margin-top:12px">Clear replies</button>
+        <button class="tool" id="clearThread" type="button" style="margin-top:12px">Reset the room</button>
       </div>
 
-      <p class="note">Replies feed back into the next run, so the signal sharpens as the conversation goes on. Nothing leaves this page.</p>
+      <p class="note">Every reply is judged in the room: the persona answers back, and the gaps list what an Indian BFSI buyer would still need. Change the challenge and run again to start a fresh room. Nothing leaves this page.</p>
     </div>
   </aside>
 </main>
@@ -712,6 +744,56 @@ const pad = k => String(k).padStart(2,"0");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 /* ============================================================
+   THE ROOM — how a reply gets judged
+   Deterministic checks, no backend. A BFSI gatekeeper wants
+   substance, evidence, their own fear addressed, and a
+   commitment. Hedging and vendor adjectives cost you.
+   ============================================================ */
+const EVIDENCE = ["audit","certif","iso ","iso2","soc 2","soc2","sla","residenc","policy","reference","case study","pilot","poc","proof of concept","benchmark","report","contract","clause","documentation","roadmap","encryption","access control","penetration","logs","rbi","dpdp","irdai","sebi","uptime","%"];
+const COMMIT = ["i will","we will","we can","by next","by the","within","send you","share the","schedule","commit","guarantee","sign off","put it in writing","take it on"];
+const HEDGES = ["maybe","i think","probably","should be","hopefully","we'll try","we will try","might be","perhaps","sort of","kind of","i guess"];
+const FLUFF = ["best-in-class","best in class","world-class","world class","seamless","cutting-edge","game-chang","synerg","holistic","leverage our","industry-leading","robust and"];
+
+function judge(text, persona){
+  const t = ` ${text.toLowerCase()} `;
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  const has = list => list.some(k => t.includes(k));
+  const fearStems = (persona.fear.toLowerCase().match(/[a-z]{5,}/g) || []).map(w => w.slice(0,5));
+
+  const checks = {
+    substance : words >= 15,
+    evidence  : has(EVIDENCE),
+    fear      : fearStems.some(stem => t.includes(stem)),
+    commitment: has(COMMIT)
+  };
+  const hedged = has(HEDGES);
+  const fluffy = has(FLUFF);
+
+  const score = Object.values(checks).filter(Boolean).length - (hedged ? 1 : 0) - (fluffy ? 1 : 0);
+  const verdict = score >= 4 ? "Convinced" : score >= 2 ? "Partly there" : "Not yet";
+  const tone = score >= 4 ? "won" : score >= 2 ? "part" : "no";
+
+  const gaps = [];
+  if(!checks.substance) gaps.push("Too short to defend upstairs. Give the reasoning, not just the assertion.");
+  if(!checks.evidence)  gaps.push("Name the evidence: a certification, an audit trail, an SLA clause, or a reference they can call.");
+  if(!checks.fear)      gaps.push(`Does not touch what ${persona.role} actually fears: ${persona.fear.toLowerCase().replace(/\.$/,"")}.`);
+  if(!checks.commitment)gaps.push("No commitment they can hold you to. Say what you will do, and by when.");
+  if(hedged)            gaps.push("Hedged language. Strip out maybe, probably, we will try.");
+  if(fluffy)            gaps.push("Vendor adjectives instead of specifics. Cut them.");
+
+  let pushback;
+  if(score >= 4)              pushback = "That works. Put it in writing and I will take it forward.";
+  else if(!checks.fear)       pushback = `You have not answered what I actually worry about: ${persona.fear.toLowerCase().replace(/\.$/,"")}.`;
+  else if(!checks.evidence)   pushback = "The direction is fine. I need something I can put in the file. Evidence, not intent.";
+  else if(hedged)             pushback = "You are hedging. Give me a commitment I can hold you to.";
+  else if(!checks.substance)  pushback = "Expand it. I have to defend this to people who were not in this room.";
+  else if(!checks.commitment) pushback = "Who owns this, and by when? Without that it stalls in my queue.";
+  else                        pushback = "Noted. Now tell me what happens if it goes wrong.";
+
+  return {verdict, tone, gaps, pushback};
+}
+
+/* ============================================================
    ELEMENTS + STATE
    ============================================================ */
 const el = {
@@ -724,6 +806,7 @@ const el = {
   readout:document.getElementById("readout"),
   strategy:document.getElementById("strategy"),
   results:document.getElementById("results"),
+  roomLabel:document.getElementById("roomLabel"),
   thread:document.getElementById("thread"),
   threadList:document.getElementById("threadList"),
   clearThread:document.getElementById("clearThread"),
@@ -737,7 +820,15 @@ const el = {
 
 let currentStage = "6";
 let thread = [];
+const rooms = {};                 /* gate key -> { challenge, log: {personaIndex: [exchange]} } */
 const isSheet = () => window.matchMedia("(max-width:1080px)").matches;
+
+/* a room resets when the challenge itself changes — new objection, new conversation */
+function room(challenge){
+  const r = rooms[currentStage];
+  if(!r || r.challenge !== challenge) rooms[currentStage] = {challenge, log:{}};
+  return rooms[currentStage];
+}
 
 /* ============================================================
    BUILD
@@ -817,9 +908,10 @@ function detectSignal(text){
 /* ============================================================
    SIMULATE
    ============================================================ */
-function simulate(){
+function simulate({focusReply = null} = {}){
   const stage = byKey[currentStage];
   const challenge = el.challenge.value.trim() || "No challenge provided";
+  const r = room(challenge);
   const threadText = thread.map(t => `${t.role} ${t.text}`).join(" ");
   const signal = detectSignal(`${challenge} ${threadText}`);
 
@@ -835,21 +927,52 @@ function simulate(){
     <h3>Counter strategy</h3>
     <p>${esc(stage.strategy)} ${esc(signal.angle)}</p>`;
 
-  el.results.innerHTML = stage.personas.map((p, i) => `
-    <article class="persona">
+  const won = stage.personas.filter((p, i) => {
+    const log = r.log[i];
+    return log && log.length && log[log.length - 1].verdict === "Convinced";
+  }).length;
+  el.roomLabel.innerHTML = `In the room <span class="tally">${pad(won)} / ${pad(stage.personas.length)} convinced</span>`;
+
+  el.results.innerHTML = stage.personas.map((p, i) => {
+    const log = r.log[i] || [];
+    const last = log[log.length - 1];
+    const cls = !last ? "" : last.verdict === "Convinced" ? " is-won" : last.verdict === "Not yet" ? " is-stuck" : "";
+    const exchanges = log.map(x => `
+      <div class="exchange">
+        <p class="said">${esc(x.text)}</p>
+        <p class="verdict verdict--${x.tone}">${esc(x.verdict)}</p>
+        <p class="pushback">${esc(x.pushback)}</p>
+        ${x.gaps.length ? `<ul class="gaps">${x.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
+      </div>`).join("");
+
+    return `
+    <article class="persona${cls}">
       <div class="persona-top">
         <h3>${esc(p.role)}</h3>
         <span class="stance">${esc(p.stance)}</span>
       </div>
       <p class="objection">${esc(p.objection)}</p>
       <p class="fear"><b>Underlying fear</b>${esc(p.fear)}</p>
-      <button class="reply-open" type="button" data-reply="${i}" aria-expanded="false">Draft a reply</button>
+      ${exchanges}
+      <button class="reply-open" type="button" data-reply="${i}" aria-expanded="false">${log.length ? "Answer again" : "Draft a reply"}</button>
       <div class="reply" data-reply-box="${i}" hidden>
         <label for="reply-${i}" style="position:absolute;left:-9999px">Reply to ${esc(p.role)}</label>
         <textarea id="reply-${i}" data-reply-input="${i}" placeholder="How do you answer ${esc(p.role)}?"></textarea>
         <button class="btn btn--ghost" type="button" data-submit-reply="${i}">Send reply</button>
       </div>
-    </article>`).join("");
+    </article>`;
+  }).join("");
+
+  if(focusReply !== null){
+    const card = el.results.querySelectorAll(".persona")[focusReply];
+    const box = el.results.querySelector(`[data-reply-box="${focusReply}"]`);
+    const opener = el.results.querySelector(`[data-reply="${focusReply}"]`);
+    if(box && opener){
+      box.hidden = false;
+      opener.setAttribute("aria-expanded","true");
+    }
+    card?.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
 
   renderThread();
 }
@@ -857,7 +980,7 @@ function simulate(){
 function renderThread(){
   el.thread.hidden = thread.length === 0;
   el.threadList.innerHTML = thread.map(t =>
-    `<li><b>${esc(t.gate)} · to ${esc(t.role)}</b><br>${esc(t.text)}</li>`).join("");
+    `<li><b>${esc(t.gate)} · to ${esc(t.role)} · ${esc(t.verdict)}</b><br>${esc(t.text)}</li>`).join("");
 }
 
 /* ============================================================
@@ -915,20 +1038,31 @@ el.results.addEventListener("click", e => {
     const i = Number(send.getAttribute("data-submit-reply"));
     const input = el.results.querySelector(`[data-reply-input="${i}"]`);
     const text = input ? input.value.trim() : "";
-    if(!text){ input?.focus(); return; }
-    const role = byKey[currentStage].personas[i].role;
-    thread.push({role, text, gate:pad(currentStage)});
-    simulate();
-    el.thread.scrollIntoView({behavior:"smooth", block:"nearest"});
+    if(!text){
+      input?.focus();
+      if(input) input.placeholder = "Type a reply first, then send it.";
+      return;
+    }
+    const persona = byKey[currentStage].personas[i];
+    const assessment = judge(text, persona);
+    const r = room(el.challenge.value.trim() || "No challenge provided");
+    if(!r.log[i]) r.log[i] = [];
+    r.log[i].push({text, ...assessment});
+    thread.push({role:persona.role, text, gate:pad(currentStage), verdict:assessment.verdict});
+    simulate({focusReply:i});
   }
 });
 
-el.run.addEventListener("click", simulate);
+el.run.addEventListener("click", () => simulate());
 el.challenge.addEventListener("keydown", e => {
   if((e.metaKey || e.ctrlKey) && e.key === "Enter") simulate();
 });
 
-el.clearThread.addEventListener("click", () => { thread = []; simulate(); });
+el.clearThread.addEventListener("click", () => {
+  thread = [];
+  Object.keys(rooms).forEach(k => delete rooms[k]);
+  simulate();
+});
 
 el.copy.addEventListener("click", async () => {
   const stage = byKey[currentStage];
