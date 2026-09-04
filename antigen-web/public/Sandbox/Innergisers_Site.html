@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innergisers — Leadership is behaviour under pressure</title>
+  <meta name="description" content="Innergisers helps leaders understand and change the patterns shaping how they communicate, decide and lead. Founded by Yamini Singh.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Typography: Newsreader (Editorial Serif) & Plus Jakarta Sans (Body Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#14120F',
+            primary: '#2B8180',
+            'primary-text': '#246D6C',
+            'primary-dark': '#1F6362',
+            secondary: '#FECD5A',
+            accent: '#FC712B',
+            'reserve-1': '#FD9319',
+            'reserve-2': '#07B1BC',
+            paper: '#FBFAF8',
+            'neutral-100': '#EFEDEA',
+            'neutral-300': '#C9C6C1',
+            'neutral-600': '#6B6862',
+          },
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          maxWidth: {
+            measure: '68ch',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --ink: #14120F;
+      --primary: #2B8180;
+      --primary-text: #246D6C;
+      --primary-dark: #1F6362;
+      --secondary: #FECD5A;
+      --accent: #FC712B;
+      --reserve-1: #FD9319;
+      --reserve-2: #07B1BC;
+      --paper: #FBFAF8;
+      --neutral-100: #EFEDEA;
+      --neutral-300: #C9C6C1;
+      --neutral-600: #6B6862;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (min-width: 1024px) {
+      body {
+        font-size: 19px;
+      }
+    }
+
+    /* Page Routing */
+    .page-view {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .page-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Chevron method sequence arrows for desktop */
+    .method-step {
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .method-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -13px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 13px solid transparent;
+        border-bottom: 13px solid transparent;
+        border-left: 13px solid currentColor;
+        z-index: 10;
+        pointer-events: none;
+      }
+    }
+
+    ::selection {
+      background-color: var(--secondary);
+      color: var(--ink);
+    }
+
+    /* Solutions Tabs */
+    .sol-tab-content { display: none; }
+    .sol-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+    
+    .nav-link.active-nav {
+      color: var(--secondary) !important;
+      border-bottom-color: var(--secondary) !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-paper text-ink selection:bg-secondary selection:text-ink">
+
+  <!-- =========================================================================
+       PERSISTENT NAVIGATION (Primary Teal Ground)
+  ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-primary text-white border-b border-white/15 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#home" class="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded py-1">
+        <img 
+          src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=518,fit=crop,q=95/dOqDyMp9aeuJVQLm/ing-logo-m2WEngB4OzcoNV9a.png" 
+          alt="Innergisers Logo" 
+          class="h-9 sm:h-10 w-auto object-contain brightness-105"
+          onerror="this.style.display='none'; document.getElementById('text-brand').classList.remove('hidden');"
+        />
+        <span id="text-brand" class="hidden font-serif text-2xl font-bold tracking-tight text-white">
+          innergisers<span class="text-secondary">.com</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-9 text-[17px] font-medium tracking-normal text-white/85">
+        <a href="#home" class="nav-link text-white font-semibold border-b-2 border-transparent hover:text-secondary transition-colors pb-1" data-target="home">Home</a>
+        <a href="#approach" class="nav-link hover:text-secondary border-b-2 border-transparent transition-colors pb-1" data-target="approach">Approach</a>
+        <a href="#solutions" class="nav-link hover:text-secondary border-b-2 border-transparent transition-colors pb-1" data-target="solutions">Solutions</a>
+        <a href="#engage" class="nav-link hover:text-secondary border-b-2 border-transparent transition-colors pb-1" data-target="engage">Engage</a>
+      </nav>
+
+      <!-- Persistent Header CTA -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button 
+          onclick="openBookingModal('General')" 
+          class="bg-accent text-ink font-semibold text-sm sm:text-base px-5 sm:px-6 py-2.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+          Book a conversation
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button 
+          type="button" 
+          onclick="toggleMobileNav()" 
+          aria-label="Toggle navigation menu" 
+          class="md:hidden p-2 text-white rounded-lg hover:bg-white/10 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-nav" class="hidden md:hidden border-b border-white/15 bg-primary-dark px-6 py-5 transition-all">
+      <nav class="flex flex-col space-y-4 text-lg font-medium text-white/90">
+        <a href="#home" class="nav-link text-white font-bold" data-target="home" onclick="toggleMobileNav()">Home</a>
+        <a href="#approach" class="nav-link hover:text-secondary" data-target="approach" onclick="toggleMobileNav()">Approach</a>
+        <a href="#solutions" class="nav-link hover:text-secondary" data-target="solutions" onclick="toggleMobileNav()">Solutions</a>
+        <a href="#engage" class="nav-link hover:text-secondary" data-target="engage" onclick="toggleMobileNav()">Engage</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    
+    <!-- =========================================================================
+         PAGE 1: HOME
+    ========================================================================= -->
+    <div id="page-home" class="page-view active">
+      <!-- HERO -->
+      <section class="pt-10 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 border-b border-neutral-300/40">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div class="lg:col-span-7 flex flex-col items-start">
+              <span class="text-xs uppercase tracking-[0.25em] font-semibold text-primary-text mb-4">Executive Coaching &amp; Behavioural Science</span>
+              <h1 class="font-serif text-[40px] sm:text-[56px] lg:text-[68px] leading-[1.08] font-medium tracking-tight text-ink mb-6">
+                “Leadership is behaviour under pressure.”
+              </h1>
+              <p class="text-neutral-600 text-lg sm:text-xl lg:text-[21px] leading-relaxed max-w-measure mb-9">
+                Innergisers helps leaders understand and change the patterns shaping how they communicate, decide and lead.
+              </p>
+              <div class="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+                <a href="#approach" class="w-full sm:w-auto text-center bg-accent text-ink font-semibold px-7 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Explore the Approach</a>
+                <button onclick="openBookingModal('Talk to Yamini')" class="w-full sm:w-auto text-center border-2 border-ink text-ink font-medium px-7 py-3.5 rounded-full hover:bg-neutral-100 active:scale-[0.98] transition-all">Talk to Yamini</button>
+              </div>
+            </div>
+            <div class="lg:col-span-5">
+              <div class="relative">
+                <div class="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-300/70 bg-neutral-100 aspect-[5/4]">
+                  <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=503,h=392,fit=crop,trim=0;117.06056527590847;0;68.99596231493943/dOqDyMp9aeuJVQLm/in-2-mp8JvM1N0eHaR9pr.jpeg" alt="Yamini Singh facilitating" class="w-full h-full object-cover object-center" onerror="this.src='97221.png'"/>
+                  <div class="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent pointer-events-none"></div>
+                </div>
+                <div class="absolute -bottom-6 -left-3 sm:-left-6 bg-paper/95 backdrop-blur-sm border border-neutral-300 p-3 sm:p-4 rounded-xl shadow-lg flex items-center gap-3.5 max-w-[320px]">
+                  <img src="https://media.licdn.com/dms/image/v2/D4D03AQEqd-BGxKJhKg/profile-displayphoto-scale_400_400/B4DZ7wYWgLJ0Ao-/0/1782149377352?e=2147483647&v=beta&t=lFxUoARUbMHHi8rbhI3m9T3G06ME8ziA1Pb5ifcAf2I" alt="Yamini Singh" class="w-12 h-12 rounded-full object-cover border-2 border-primary shrink-0"/>
+                  <div>
+                    <span class="block text-sm font-bold text-ink leading-snug">Yamini Singh</span>
+                    <span class="block text-xs text-neutral-600 font-medium">Founder · Ex-L'Oréal · MBA Faculty</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHILOSOPHY -->
+      <section class="py-20 sm:py-28 bg-paper border-b border-neutral-300/40">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="max-w-3xl">
+            <div class="w-12 h-0.5 bg-primary mb-8"></div>
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[44px] font-medium text-ink leading-tight mb-8">
+              “Most leadership problems don’t arrive labelled leadership problems.”
+            </h2>
+            <div class="space-y-6 text-lg sm:text-xl text-ink leading-relaxed">
+              <div class="p-5 sm:p-6 rounded-xl bg-neutral-100/70 border-l-4 border-primary">
+                <p class="font-semibold text-ink">The meeting where nobody disagrees.</p>
+                <p class="text-neutral-600 text-base sm:text-[17px] mt-1.5">Concurrence that masks anxiety, leaving real risks unvoiced until execution breaks down.</p>
+              </div>
+              <div class="p-5 sm:p-6 rounded-xl bg-neutral-100/70 border-l-4 border-secondary">
+                <p class="font-semibold text-ink">The manager who keeps doing everyone’s work.</p>
+                <p class="text-neutral-600 text-base sm:text-[17px] mt-1.5">Under pressure, the expert retreats to doing what is safe and familiar rather than holding the space to lead.</p>
+              </div>
+              <div class="p-5 sm:p-6 rounded-xl bg-neutral-100/70 border-l-4 border-accent">
+                <p class="font-semibold text-ink">The feedback that creates defensiveness.</p>
+                <p class="text-neutral-600 text-base sm:text-[17px] mt-1.5">The message intended and the message received diverge, turning calibration into conflict.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- METHOD SUMMARY -->
+      <section class="py-20 sm:py-28 bg-neutral-100/40 border-b border-neutral-300/40">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+              <span class="text-xs uppercase tracking-[0.2em] font-semibold text-primary-text block mb-2">The Architecture</span>
+              <h2 class="font-serif text-3xl sm:text-4xl text-ink font-medium">The Five-Stage Framework</h2>
+            </div>
+            <div>
+              <a href="#approach" class="inline-flex items-center text-primary-text font-semibold hover:text-ink transition-colors group">
+                <span>See the full approach</span>
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
+          </div>
+          <!-- 5 blocks -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 md:gap-2 text-center select-none">
+            <div class="method-step bg-primary text-white text-[#2B8180] py-6 px-3 rounded-lg flex flex-col items-center justify-center min-h-[115px] shadow-sm">
+              <span class="text-[11px] uppercase tracking-wider text-white/80 font-bold block mb-1">01</span><span class="text-white text-lg font-bold tracking-wider">NOTICE</span>
+            </div>
+            <div class="method-step bg-secondary text-ink text-[#FECD5A] py-6 px-3 rounded-lg flex flex-col items-center justify-center min-h-[115px] shadow-sm">
+              <span class="text-[11px] uppercase tracking-wider text-ink/70 font-bold block mb-1">02</span><span class="text-ink text-lg font-bold tracking-wider">UNDERSTAND</span>
+            </div>
+            <div class="method-step bg-accent text-ink text-[#FC712B] py-6 px-3 rounded-lg flex flex-col items-center justify-center min-h-[115px] shadow-sm">
+              <span class="text-[11px] uppercase tracking-wider text-ink/70 font-bold block mb-1">03</span><span class="text-ink text-lg font-bold tracking-wider">INTERRUPT</span>
+            </div>
+            <div class="method-step bg-reserve-1 text-ink text-[#FD9319] py-6 px-3 rounded-lg flex flex-col items-center justify-center min-h-[115px] shadow-sm">
+              <span class="text-[11px] uppercase tracking-wider text-ink/70 font-bold block mb-1">04</span><span class="text-ink text-lg font-bold tracking-wider">PRACTISE</span>
+            </div>
+            <div class="method-step bg-reserve-2 text-ink text-[#07B1BC] py-6 px-3 rounded-lg flex flex-col items-center justify-center min-h-[115px] shadow-sm">
+              <span class="text-[11px] uppercase tracking-wider text-ink/70 font-bold block mb-1">05</span><span class="text-ink text-lg font-bold tracking-wider">EMBED</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROOF STRIP -->
+      <section class="py-16 sm:py-20 bg-paper border-b border-neutral-300/40">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <p class="text-center text-xs uppercase tracking-[0.25em] font-semibold text-neutral-600 mb-10">Client &amp; Institution Experience</p>
+          <div class="flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-14 lg:gap-x-20 gap-y-7 text-neutral-600 font-serif text-lg sm:text-xl md:text-2xl">
+            <span class="tracking-wide font-medium text-ink/80">CHARLES &amp; KEITH</span>
+            <span class="tracking-widest font-sans font-semibold text-ink/80">L’ORÉAL</span>
+            <span class="tracking-normal font-sans font-semibold text-ink/80">SUBROS</span>
+            <span class="tracking-tight font-sans font-bold text-ink/80">PrimeStaff</span>
+            <span class="font-serif italic text-ink/80">University of London</span>
+            <span class="font-serif tracking-normal text-ink/80">Teesside University</span>
+            <span class="font-serif tracking-tight text-ink/80">University of Northampton</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEASER & CLOSE -->
+      <section class="py-20 sm:py-28 bg-paper">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
+            
+            <div class="lg:col-span-7 bg-secondary rounded-2xl p-7 sm:p-10 text-ink shadow-sm flex flex-col justify-between border border-secondary/60">
+              <div>
+                <span class="text-xs uppercase tracking-[0.2em] font-bold text-ink/75 block mb-3">Interactive Assessment</span>
+                <h3 class="font-serif text-3xl sm:text-4xl lg:text-[38px] font-medium leading-tight mb-4 text-ink">“What’s getting in the way of the way you lead?”</h3>
+                <p class="text-ink/90 text-base sm:text-lg leading-relaxed mb-6">A five-minute Leadership Pattern Diagnostic. Pinpoint unconscious communication scripts, risk-aversion traps, and defensive triggers.</p>
+                <div class="rounded-xl overflow-hidden border border-ink/15 shadow-inner mb-7 aspect-[16/9] max-w-md">
+                  <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,h=224,fit=crop/dOqDyMp9aeuJVQLm/screenshot-2025-07-17-142742-d954qeZlQKu8reM2.png" alt="Workshop" class="w-full h-full object-cover" onerror="this.src='97222.png'"/>
+                </div>
+              </div>
+              <div>
+                <a href="#engage" class="inline-flex items-center justify-center bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Start Diagnostic</a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-neutral-100/70 rounded-2xl p-7 sm:p-10 flex flex-col justify-between border border-neutral-300/60">
+              <div>
+                <span class="text-xs uppercase tracking-[0.2em] font-semibold text-primary-text block mb-3">Close</span>
+                <h3 class="font-serif text-3xl sm:text-4xl font-medium text-ink leading-tight mb-4">Bring us a leadership problem.</h3>
+                <p class="text-neutral-600 text-base leading-relaxed mb-6">Tell us what is breaking down in communication, decision-making, or team execution. We build direct behaviour-change interventions.</p>
+                <div class="space-y-3.5 mb-8">
+                  <div class="p-3.5 rounded-lg bg-paper border border-neutral-300/60 flex items-start gap-3"><span class="w-2.5 h-2.5 rounded-full bg-primary mt-1.5 shrink-0"></span><div><span class="font-semibold text-sm text-ink block">For Organisations</span><span class="text-xs text-neutral-600">Six signature cohort labs</span></div></div>
+                  <div class="p-3.5 rounded-lg bg-paper border border-neutral-300/60 flex items-start gap-3"><span class="w-2.5 h-2.5 rounded-full bg-secondary mt-1.5 shrink-0"></span><div><span class="font-semibold text-sm text-ink block">For Individuals</span><span class="text-xs text-neutral-600">1:1 Executive coaching</span></div></div>
+                  <div class="p-3.5 rounded-lg bg-paper border border-neutral-300/60 flex items-start gap-3"><span class="w-2.5 h-2.5 rounded-full bg-accent mt-1.5 shrink-0"></span><div><span class="font-semibold text-sm text-ink block">For Institutes</span><span class="text-xs text-neutral-600">Exec-ed &amp; MBA faculty</span></div></div>
+                </div>
+              </div>
+              <div>
+                <button onclick="openBookingModal('Close Section')" class="w-full text-center bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Book a conversation</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         PAGE 2: APPROACH
+    ========================================================================= -->
+    <div id="page-approach" class="page-view">
+      
+      <!-- POV -->
+      <section class="pt-16 sm:pt-24 pb-16 border-b border-neutral-300/40">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12">
+          <span class="text-xs uppercase tracking-[0.25em] font-semibold text-primary-text mb-4 block">Point of View</span>
+          <h1 class="font-serif text-4xl sm:text-5xl font-medium text-ink mb-8 leading-tight">We look at leadership as an observable sequence of behaviours, not abstract traits.</h1>
+          
+          <div class="prose prose-lg text-neutral-600 max-w-measure">
+            <p class="mb-6 text-xl text-ink">Our approach integrates four distinct disciplines to map, interrupt, and redesign how you lead under pressure.</p>
+            <p class="mb-4"><strong>Neuroscience:</strong> Understanding how the brain processes threat and why biological safety overrides strategic intent in high-stakes environments.</p>
+            <p class="mb-4"><strong>Behavioural Science:</strong> Identifying the cognitive biases and systemic defaults that cause intelligent people to act against their own interests.</p>
+            <p class="mb-4"><strong>CliftonStrengths:</strong> Decoding your innate execution, influencing, relationship-building, and strategic thinking patterns so you lead from design, not default.</p>
+            <p class="mb-4"><strong>Soundwave:</strong> A clinical communication framework determining whether your voice lands as an Ask, Tell, or Suggest—and closing the gap between your intent and their reception.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Method in Full -->
+      <section class="py-20 bg-neutral-100/40 border-b border-neutral-300/40">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <h2 class="font-serif text-3xl font-medium text-ink mb-12 text-center">The Architecture of Change</h2>
+          
+          <div class="space-y-6">
+            <!-- Notice -->
+            <div class="bg-paper border border-primary/20 rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-24 shrink-0 bg-primary text-white text-center py-2 px-3 rounded-lg font-bold tracking-wider text-sm">NOTICE</div>
+              <div>
+                <h3 class="font-semibold text-lg text-ink mb-2">Identifying the trigger</h3>
+                <p class="text-neutral-600 max-w-measure">Before a pattern can change, it must be seen. We use room observation and 360-degree feedback to map exactly what happens the moment stakes rise. We look for the micro-behaviours you are blind to.</p>
+              </div>
+            </div>
+            
+            <!-- Understand -->
+            <div class="bg-paper border border-secondary/40 rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-24 shrink-0 bg-secondary text-ink text-center py-2 px-3 rounded-lg font-bold tracking-wider text-sm">UNDERSTAND</div>
+              <div>
+                <h3 class="font-semibold text-lg text-ink mb-2">Decoding the blueprint</h3>
+                <p class="text-neutral-600 max-w-measure">Why does this pattern exist? Here we deploy <em>CliftonStrengths</em> and <em>Soundwave</em> profiles to unpack your psychological safety defaults and communication habits. We separate the symptom from the source code.</p>
+              </div>
+            </div>
+
+            <!-- Interrupt -->
+            <div class="bg-paper border border-accent/30 rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-24 shrink-0 bg-accent text-ink text-center py-2 px-3 rounded-lg font-bold tracking-wider text-sm">INTERRUPT</div>
+              <div>
+                <h3 class="font-semibold text-lg text-ink mb-2">Breaking the sequence</h3>
+                <p class="text-neutral-600 max-w-measure">Insight without interruption is just poetry. We design specific, physical circuit-breakers—a pause, a specific question, a shift in posture—to deploy in the split-second before your default behaviour fires.</p>
+              </div>
+            </div>
+
+            <!-- Practise -->
+            <div class="bg-paper border border-reserve-1/30 rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-24 shrink-0 bg-reserve-1 text-ink text-center py-2 px-3 rounded-lg font-bold tracking-wider text-sm">PRACTISE</div>
+              <div>
+                <h3 class="font-semibold text-lg text-ink mb-2">Building new muscle memory</h3>
+                <p class="text-neutral-600 max-w-measure">We build 'labs' within your working environment. You do not practice in theory; you practice in real meetings, with real stakes, using micro-assignments between our coaching sessions.</p>
+              </div>
+            </div>
+
+            <!-- Embed -->
+            <div class="bg-paper border border-reserve-2/30 rounded-xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start">
+              <div class="w-24 shrink-0 bg-reserve-2 text-ink text-center py-2 px-3 rounded-lg font-bold tracking-wider text-sm">EMBED</div>
+              <div>
+                <h3 class="font-semibold text-lg text-ink mb-2">Sustaining the shift</h3>
+                <p class="text-neutral-600 max-w-measure">The final stage ensures the new behaviour costs less energy than the old one. We establish accountability loops, peer-coaching structures, and recalibration metrics to ensure the change survives under pressure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Editorial Device: Observation -->
+      <section class="py-20 bg-primary text-white border-b border-primary-dark">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 text-center">
+          <div class="border border-white/20 p-8 sm:p-12 rounded-2xl bg-white/5 backdrop-blur-sm">
+            <h3 class="font-serif text-2xl sm:text-3xl text-secondary mb-10 italic">The Observation Device</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+              <div>
+                <span class="text-xs uppercase tracking-widest font-bold text-white/50 mb-3 block">You Say</span>
+                <p class="font-serif text-2xl leading-snug">"My team needs to communicate better."</p>
+              </div>
+              <div class="hidden sm:block w-px bg-white/20"></div>
+              <div class="sm:border-l border-white/20 sm:pl-8">
+                <span class="text-xs uppercase tracking-widest font-bold text-secondary mb-3 block">We Look For</span>
+                <ul class="space-y-2 text-white/90 text-[17px]">
+                  <li>Who speaks first</li>
+                  <li>Who stops speaking</li>
+                  <li>What gets interpreted as disagreement</li>
+                  <li>What happens when pressure rises</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Meet Yamini & Testimonials -->
+      <section class="py-20 bg-paper">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            <div class="lg:col-span-5">
+              <img src="https://media.licdn.com/dms/image/v2/D4D03AQEqd-BGxKJhKg/profile-displayphoto-scale_400_400/B4DZ7wYWgLJ0Ao-/0/1782149377352?e=2147483647&v=beta&t=lFxUoARUbMHHi8rbhI3m9T3G06ME8ziA1Pb5ifcAf2I" alt="Yamini Singh" class="w-full max-w-sm rounded-2xl shadow-lg border border-neutral-300 mb-6" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80'"/>
+              <h2 class="font-serif text-3xl font-medium text-ink mb-1">Yamini Singh</h2>
+              <p class="text-primary-text italic font-medium mb-6">Founder · Executive Coach · MBA Faculty</p>
+              <div class="prose prose-sm text-neutral-600">
+                <p>Yamini’s career began in the commercial trenches at L'Oréal, managing brand P&Ls before moving into organizational leadership. She understands that coaching cannot exist in a vacuum—it must translate to business execution.</p>
+                <p>Today, she bridges the gap between academic theory and corporate reality, serving as faculty for University of London's MBA programs while directly coaching executive cohorts globally.</p>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-6">
+              <span class="text-xs uppercase tracking-[0.25em] font-semibold text-neutral-600 block mb-2">Behavioural Outcomes</span>
+              
+              <div class="bg-secondary rounded-xl p-6 sm:p-8 text-ink shadow-sm">
+                <p class="font-serif text-xl sm:text-2xl leading-relaxed mb-6">"I learned to separate my personal anxiety from the strategic necessity of a difficult conversation. The defensive patterns in my team dropped within weeks."</p>
+                <p class="font-bold text-sm uppercase tracking-wider">— Regional Director, Retail (APAC)</p>
+              </div>
+
+              <div class="bg-secondary rounded-xl p-6 sm:p-8 text-ink shadow-sm">
+                <p class="font-serif text-xl sm:text-2xl leading-relaxed mb-6">"Most leadership training tells you what to do. Yamini showed me exactly what I was doing in the split-second I was triggered, and gave me the tool to interrupt it."</p>
+                <p class="font-bold text-sm uppercase tracking-wider">— Founder, Tech Scale-up</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         PAGE 3: SOLUTIONS
+    ========================================================================= -->
+    <div id="page-solutions" class="page-view">
+      <section class="pt-16 pb-10 border-b border-neutral-300">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 text-center">
+          <h1 class="font-serif text-4xl sm:text-5xl font-medium text-ink mb-6">Interventions &amp; Pathways</h1>
+          <p class="text-neutral-600 text-lg max-w-2xl mx-auto mb-10">Select your context to explore how we design specific behavioural shifts for organisations, individual leaders, and academic institutes.</p>
+          
+          <!-- Tabs Navigation -->
+          <div class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b border-neutral-300">
+            <button onclick="switchSolutionTab('orgs')" id="tab-btn-orgs" class="px-6 py-3 font-semibold text-sm sm:text-base rounded-t-lg bg-primary text-white transition-colors">For Organisations</button>
+            <button onclick="switchSolutionTab('indiv')" id="tab-btn-indiv" class="px-6 py-3 font-semibold text-sm sm:text-base rounded-t-lg bg-neutral-100 text-neutral-600 hover:text-ink transition-colors">For Individuals</button>
+            <button onclick="switchSolutionTab('inst')" id="tab-btn-inst" class="px-6 py-3 font-semibold text-sm sm:text-base rounded-t-lg bg-neutral-100 text-neutral-600 hover:text-ink transition-colors">For Institutes</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 1: Organisations -->
+      <section id="tab-orgs" class="sol-tab-content active py-16 bg-paper">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="mb-12 text-center">
+            <span class="text-xs uppercase tracking-[0.2em] font-bold text-primary-text mb-2 block">Corporate &amp; Team Context</span>
+            <h2 class="font-serif text-3xl font-medium text-ink">Six Signature Interventions</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards -->
+            <div class="border border-neutral-300 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div>
+                <span class="text-[11px] font-bold text-neutral-600 uppercase tracking-wider mb-2 block">New Managers</span>
+                <h3 class="font-serif text-xl font-medium text-ink mb-2">From Expert to Leader</h3>
+                <p class="text-sm text-neutral-600 mb-4">Shifting the identity from 'the person who does the work' to 'the person who creates the environment for work.'</p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 text-xs font-semibold text-primary-text">Cohort-based · 3-6 Months</div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div>
+                <span class="text-[11px] font-bold text-neutral-600 uppercase tracking-wider mb-2 block">High-Stakes Comm</span>
+                <h3 class="font-serif text-xl font-medium text-ink mb-2">The Difficult Conversation Lab</h3>
+                <p class="text-sm text-neutral-600 mb-4">A practical dojo for navigating conflict, delivering hard feedback, and regulating defensiveness in real-time.</p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 text-xs font-semibold text-primary-text">Intensive · 2 Days</div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div>
+                <span class="text-[11px] font-bold text-neutral-600 uppercase tracking-wider mb-2 block">Team Alignment</span>
+                <h3 class="font-serif text-xl font-medium text-ink mb-2">Lead With Your Strengths</h3>
+                <p class="text-sm text-neutral-600 mb-4">Mapping the team's CliftonStrengths to decode execution blind spots and optimize delegation.</p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 text-xs font-semibold text-primary-text">Workshop · 1 Day</div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div>
+                <span class="text-[11px] font-bold text-neutral-600 uppercase tracking-wider mb-2 block">Vocal Impact</span>
+                <h3 class="font-serif text-xl font-medium text-ink mb-2">The Way You Sound</h3>
+                <p class="text-sm text-neutral-600 mb-4">Using Soundwave to ensure your intended message (Ask, Tell, Suggest) matches the received impact.</p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 text-xs font-semibold text-primary-text">Team Profiling · 1-2 Days</div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div>
+                <span class="text-[11px] font-bold text-neutral-600 uppercase tracking-wider mb-2 block">Collaboration</span>
+                <h3 class="font-serif text-xl font-medium text-ink mb-2">Team Wiring</h3>
+                <p class="text-sm text-neutral-600 mb-4">Resolving cross-functional friction by exposing the unconscious rules different members play by.</p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 text-xs font-semibold text-primary-text">Intervention · Variable</div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div>
+                <span class="text-[11px] font-bold text-neutral-600 uppercase tracking-wider mb-2 block">Crisis &amp; Strategy</span>
+                <h3 class="font-serif text-xl font-medium text-ink mb-2">Leading Under Pressure</h3>
+                <p class="text-sm text-neutral-600 mb-4">Emotional regulation and decision-making architecture for senior leaders facing high ambiguity.</p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 text-xs font-semibold text-primary-text">Executive Cohort · 3 Months</div>
+            </div>
+          </div>
+          
+          <div class="mt-12 text-center">
+            <button onclick="openBookingModal('Organisations')" class="bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Request the Programme Pack</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Individuals -->
+      <section id="tab-indiv" class="sol-tab-content py-16 bg-paper">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div class="mb-12 text-center">
+            <span class="text-xs uppercase tracking-[0.2em] font-bold text-primary-text mb-2 block">1:1 Executive Coaching</span>
+            <h2 class="font-serif text-3xl font-medium text-ink">A Visible Process, Not a Menu</h2>
+            <p class="text-neutral-600 mt-4">We do not do unstructured chats. Individual coaching is a precise, confidential architecture designed to shift specific behavioural defaults.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-neutral-100 rounded-lg p-5 flex items-center gap-6">
+              <div class="w-10 h-10 rounded-full bg-secondary text-ink font-bold flex items-center justify-center shrink-0">1</div>
+              <div><strong class="block text-ink">Discovery Call</strong><span class="text-sm text-neutral-600">Assessing fit, stakes, and the core pressure point.</span></div>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-lg p-5 flex items-center gap-6">
+              <div class="w-10 h-10 rounded-full border-2 border-neutral-300 text-neutral-600 font-bold flex items-center justify-center shrink-0">2</div>
+              <div><strong class="block text-ink">Profiling</strong><span class="text-sm text-neutral-600">CliftonStrengths + Soundwave diagnostic baseline.</span></div>
+            </div>
+            <div class="bg-neutral-100 rounded-lg p-5 flex items-center gap-6">
+              <div class="w-10 h-10 rounded-full bg-secondary text-ink font-bold flex items-center justify-center shrink-0">3</div>
+              <div><strong class="block text-ink">Fortnightly Sessions</strong><span class="text-sm text-neutral-600">Identifying triggers and designing behavioural circuit-breakers.</span></div>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-lg p-5 flex items-center gap-6">
+              <div class="w-10 h-10 rounded-full border-2 border-neutral-300 text-neutral-600 font-bold flex items-center justify-center shrink-0">4</div>
+              <div><strong class="block text-ink">Between-Session Practice</strong><span class="text-sm text-neutral-600">Micro-assignments executed in your actual meetings.</span></div>
+            </div>
+            <div class="bg-neutral-100 rounded-lg p-5 flex items-center gap-6">
+              <div class="w-10 h-10 rounded-full bg-secondary text-ink font-bold flex items-center justify-center shrink-0">5</div>
+              <div><strong class="block text-ink">Review &amp; Embed</strong><span class="text-sm text-neutral-600">Measuring shift and setting accountability systems.</span></div>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center">
+            <button onclick="openBookingModal('Talk to Yamini')" class="bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Book a 30-Minute Conversation</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Institutes -->
+      <section id="tab-inst" class="sol-tab-content py-16 bg-paper">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 text-center">
+          <div class="mb-10">
+            <span class="text-xs uppercase tracking-[0.2em] font-bold text-primary-text mb-2 block">Academic &amp; Exec-Ed</span>
+            <h2 class="font-serif text-3xl font-medium text-ink">“The bridge most executive coaches don't have: the classroom.”</h2>
+          </div>
+          
+          <p class="text-neutral-600 text-lg mb-10 text-left max-w-2xl mx-auto">Yamini serves as faculty for leading MBA programs, teaching modules that bridge rigorous academic theory with practical behavioural execution.</p>
+          
+          <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <span class="px-4 py-2 bg-neutral-100 rounded-full text-sm font-medium text-ink border border-neutral-200">Organisational Behaviour</span>
+            <span class="px-4 py-2 bg-neutral-100 rounded-full text-sm font-medium text-ink border border-neutral-200">HR Management</span>
+            <span class="px-4 py-2 bg-neutral-100 rounded-full text-sm font-medium text-ink border border-neutral-200">Brand Management</span>
+            <span class="px-4 py-2 bg-neutral-100 rounded-full text-sm font-medium text-ink border border-neutral-200">Marketing Management</span>
+            <span class="px-4 py-2 bg-neutral-100 rounded-full text-sm font-medium text-ink border border-neutral-200">International Business</span>
+          </div>
+
+          <button onclick="openBookingModal('Institutes')" class="bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Discuss teaching or collaboration</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         PAGE 4: ENGAGE (WITH DIAGNOSTIC APP)
+    ========================================================================= -->
+    <div id="page-engage" class="page-view">
+      
+      <!-- Sub Nav -->
+      <div class="bg-neutral-100 border-b border-neutral-300 sticky top-20 z-30">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-center space-x-6 sm:space-x-12 py-3 text-sm font-bold uppercase tracking-wider text-neutral-600">
+          <a href="#engage-play" class="hover:text-primary transition-colors">Play (Diagnostic)</a>
+          <a href="#engage-book" class="hover:text-primary transition-colors">Book a Slot</a>
+          <a href="#engage-contact" class="hover:text-primary transition-colors">Contacts</a>
+        </div>
+      </div>
+
+      <!-- PLAY: Diagnostic App -->
+      <section id="engage-play" class="py-20 sm:py-28 bg-primary text-white border-b border-primary-dark">
+        <div class="max-w-3xl mx-auto px-5 sm:px-8 lg:px-12">
+          
+          <!-- App Container -->
+          <div id="diagnostic-app-container" class="bg-white rounded-2xl p-8 sm:p-12 text-ink shadow-2xl">
+            <!-- Rendered via JS -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- BOOK & CONTACTS -->
+      <section id="engage-book" class="py-20 bg-paper">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-16">
+          
+          <div>
+            <h2 class="font-serif text-3xl font-medium text-ink mb-4">Book a Slot</h2>
+            <p class="text-neutral-600 mb-8">Access Yamini directly for a 30-minute discovery conversation or to request a corporate programme pack.</p>
+            <button onclick="openBookingModal('General')" class="bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Open Calendar &amp; Form</button>
+          </div>
+
+          <div id="engage-contact">
+            <h2 class="font-serif text-3xl font-medium text-ink mb-4">Direct Contacts</h2>
+            <p class="text-neutral-600 mb-8">I reply within one working day. The first call is 30 minutes with no obligation.</p>
+            
+            <div class="flex flex-wrap gap-4">
+              <a href="#" class="px-5 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white font-medium text-sm transition-colors">WhatsApp</a>
+              <a href="mailto:yamini@innergisers.com" class="px-5 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white font-medium text-sm transition-colors">Email</a>
+              <a href="#" class="px-5 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white font-medium text-sm transition-colors">LinkedIn</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+  ========================================================================= -->
+  <footer class="bg-primary text-white border-t border-white/15 py-14">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-white/15">
+        
+        <div class="flex items-center gap-3.5">
+          <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=518,fit=crop,q=95/dOqDyMp9aeuJVQLm/ing-logo-m2WEngB4OzcoNV9a.png" alt="Innergisers Logo" class="h-8 sm:h-9 w-auto object-contain brightness-105" onerror="this.style.display='none'"/>
+          <span class="font-serif text-xl font-bold text-white tracking-tight">innergisers</span>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-6 text-sm font-medium text-white/85">
+          <a href="#home" class="nav-link text-white hover:text-secondary transition-colors" data-target="home">Home</a>
+          <a href="#approach" class="nav-link hover:text-secondary transition-colors" data-target="approach">Approach</a>
+          <a href="#solutions" class="nav-link hover:text-secondary transition-colors" data-target="solutions">Solutions</a>
+          <a href="#engage" class="nav-link hover:text-secondary transition-colors" data-target="engage">Engage</a>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-4">
+        <p>© 2026 Innergisers · Yamini Singh. All rights reserved.</p>
+        <p class="italic font-serif tracking-wide text-white/80">NOTICE · UNDERSTAND · INTERRUPT · PRACTISE · EMBED</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODAL: BOOK A CONVERSATION
+  ========================================================================= -->
+  <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-paper rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-neutral-300 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-neutral-600 hover:text-ink p-1 rounded-md" aria-label="Close dialog">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <span class="text-xs uppercase tracking-widest font-semibold text-primary-text block mb-1">Innergisers · Direct</span>
+      <h3 class="font-serif text-2xl sm:text-3xl font-medium text-ink mb-2">Book a Conversation</h3>
+      <p class="text-neutral-600 text-sm mb-6">Yamini Singh replies within one business day.</p>
+
+      <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-4 text-left">
+        <div><label class="block text-xs font-semibold uppercase text-ink mb-1">Full Name</label><input type="text" required class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-primary text-sm text-ink"></div>
+        <div><label class="block text-xs font-semibold uppercase text-ink mb-1">Work Email</label><input type="email" required class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-primary text-sm text-ink"></div>
+        <div>
+          <label class="block text-xs font-semibold uppercase text-ink mb-1">Inquiring For</label>
+          <select id="booking-type" class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-primary text-sm text-ink">
+            <option value="organisation">Organisations (Team Intervention)</option>
+            <option value="individual">Individuals (1:1 Coaching)</option>
+            <option value="institute">Academic Faculty</option>
+          </select>
+        </div>
+        <div><label class="block text-xs font-semibold uppercase text-ink mb-1">Challenge / Context</label><textarea rows="3" class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-primary text-sm text-ink"></textarea></div>
+        <button type="submit" class="w-full bg-accent text-ink font-semibold py-3.5 rounded-full hover:brightness-95 transition-all mt-2">Request Call</button>
+      </form>
+
+      <div id="booking-confirmation" class="hidden text-center py-8">
+        <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+        <h4 class="font-serif text-2xl font-medium text-ink mb-2">Request Received</h4>
+        <p class="text-neutral-600 text-sm max-w-sm mx-auto">Thank you. Yamini will reply directly.</p>
+        <button onclick="closeBookingModal()" class="mt-6 px-6 py-2 rounded-full border border-ink text-sm font-medium">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SCRIPTS (Router, Tabs, Modals, Diagnostic App)
+  ========================================================================= -->
+  <script>
+    // --- 1. SPA ROUTING ---
+    function handleHashChange() {
+      const hash = window.location.hash || '#home';
+      // Strip any sub-hash like #engage-play, route to main page
+      const pageName = hash.split('-')[0].substring(1); 
+      const validPages = ['home', 'approach', 'solutions', 'engage'];
+      const targetPage = validPages.includes(pageName) ? pageName : 'home';
+
+      // Hide all pages, show target
+      document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
+      document.getElementById('page-' + targetPage).classList.add('active');
+
+      // Update Nav highlighting
+      document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.dataset.target === targetPage) {
+          link.classList.add('active-nav');
+        } else {
+          link.classList.remove('active-nav');
+        }
+      });
+      
+      // Scroll to top or specific sub-anchor if exists
+      if(hash.includes('-')) {
+        const el = document.getElementById(hash.substring(1));
+        if(el) {
+          setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Init on load
+    document.addEventListener('DOMContentLoaded', handleHashChange);
+
+    // --- 2. MOBILE NAV ---
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobile-nav');
+      const hamburger = document.getElementById('hamburger-icon');
+      const close = document.getElementById('close-icon');
+      if (nav.classList.contains('hidden')) {
+        nav.classList.remove('hidden'); hamburger.classList.add('hidden'); close.classList.remove('hidden');
+      } else {
+        nav.classList.add('hidden'); hamburger.classList.remove('hidden'); close.classList.add('hidden');
+      }
+    }
+
+    // --- 3. SOLUTIONS TABS ---
+    function switchSolutionTab(tabId) {
+      // Hide contents
+      document.querySelectorAll('.sol-tab-content').forEach(el => el.classList.remove('active'));
+      // Reset buttons
+      document.querySelectorAll('[id^="tab-btn-"]').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('bg-neutral-100', 'text-neutral-600');
+      });
+      // Activate target
+      document.getElementById('tab-' + tabId).classList.add('active');
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      activeBtn.classList.remove('bg-neutral-100', 'text-neutral-600');
+      activeBtn.classList.add('bg-primary', 'text-white');
+    }
+
+    // --- 4. MODALS ---
+    function openBookingModal(context) {
+      const modal = document.getElementById('booking-modal');
+      const select = document.getElementById('booking-type');
+      if (context === 'Talk to Yamini' && select) select.value = 'individual';
+      if (context === 'Organisations' && select) select.value = 'organisation';
+      if (context === 'Institutes' && select) select.value = 'institute';
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBookingModal() {
+      document.getElementById('booking-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        document.getElementById('booking-form').classList.remove('hidden');
+        document.getElementById('booking-confirmation').classList.add('hidden');
+      }, 300);
+    }
+    function handleBookingSubmit(e) {
+      e.preventDefault();
+      document.getElementById('booking-form').classList.add('hidden');
+      document.getElementById('booking-confirmation').classList.remove('hidden');
+    }
+
+    // --- 5. FUNCTIONAL DIAGNOSTIC APP ---
+    const diagnosticApp = {
+      step: 0,
+      scores: { A: 0, B: 0, C: 0 },
+      container: null,
+      init() {
+        this.container = document.getElementById('diagnostic-app-container');
+        this.render();
+      },
+      questions: [
+        {
+          q: "When a high-stakes deadline is compromised, what is your immediate behavioural reflex?",
+          opts: [
+            { id: "A", text: "I absorb the task myself to eliminate variance and speed delivery." },
+            { id: "B", text: "I escalate inquiry volume, which subordinates often hear as micromanagement." },
+            { id: "C", text: "I buffer the team from friction, taking personal emotional stress." }
+          ]
+        },
+        {
+          q: "In a management meeting where nobody is disagreeing with a risky strategy, you usually:",
+          opts: [
+            { id: "C", text: "Assume alignment and feel relieved the meeting is running smoothly." },
+            { id: "B", text: "Directly challenge the room to force a debate, regardless of comfort." },
+            { id: "A", text: "Note the risk privately and plan to manage the fallout yourself later." }
+          ]
+        },
+        {
+          q: "When receiving highly critical, unexpected feedback from a superior, your default is to:",
+          opts: [
+            { id: "B", text: "Immediately defend the logic and intent behind your actions." },
+            { id: "A", text: "Shut down verbally while rapidly processing how to fix the error." },
+            { id: "C", text: "Over-apologize to restore harmony in the relationship quickly." }
+          ]
+        }
+      ],
+      answer(optId) {
+        this.scores[optId]++;
+        this.step++;
+        this.render();
+      },
+      getPattern() {
+        // Simple logic: highest score wins
+        const max = Object.keys(this.scores).reduce((a, b) => this.scores[a] > this.scores[b] ? a : b);
+        if(max === 'A') return { title: "The Executioner", desc: "Under pressure, you retreat to doing the work rather than leading it. You guarantee delivery, but create bottlenecks and stunt team growth." };
+        if(max === 'B') return { title: "The Interrogator", desc: "Under pressure, you escalate urgency through rapid questioning. While intended to drive clarity, it lands on your team as an attack, shutting down honest communication." };
+        return { title: "The Harmoniser", desc: "Under pressure, you prioritize relationship safety over strategic truth. You absorb stress to protect others, leading to burnout and unvoiced risks." };
+      },
+      reset() {
+        this.step = 0;
+        this.scores = { A: 0, B: 0, C: 0 };
+        this.render();
+      },
+      render() {
+        if(this.step === 0) {
+          this.container.innerHTML = `
+            <div class="text-center">
+              <span class="text-xs uppercase tracking-[0.2em] font-bold text-primary block mb-3">5-Minute Tool</span>
+              <h3 class="font-serif text-3xl sm:text-4xl font-medium mb-4">Leadership Pattern Diagnostic</h3>
+              <p class="text-neutral-600 mb-8 max-w-lg mx-auto">Discover the unconscious communication scripts and defensive triggers governing how you lead under pressure.</p>
+              <button onclick="diagnosticApp.step++; diagnosticApp.render()" class="bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Start Assessment</button>
+            </div>
+          `;
+        } else if (this.step <= this.questions.length) {
+          const qData = this.questions[this.step - 1];
+          let optsHtml = qData.opts.map(opt => `
+            <button onclick="diagnosticApp.answer('${opt.id}')" class="w-full text-left p-4 rounded-xl border-2 border-neutral-200 hover:border-primary hover:bg-neutral-50 transition-all font-medium text-ink">
+              ${opt.text}
+            </button>
+          `).join('');
+
+          this.container.innerHTML = `
+            <div>
+              <div class="flex justify-between text-xs font-bold text-neutral-400 mb-4 uppercase tracking-wider">
+                <span>Question ${this.step} of ${this.questions.length}</span>
+                <span class="text-primary">${Math.round((this.step / this.questions.length) * 100)}%</span>
+              </div>
+              <div class="w-full bg-neutral-200 h-1.5 rounded-full mb-8 overflow-hidden">
+                <div class="bg-primary h-full transition-all" style="width: ${(this.step / this.questions.length) * 100}%"></div>
+              </div>
+              <h4 class="font-serif text-xl sm:text-2xl font-medium mb-6 leading-relaxed">${qData.q}</h4>
+              <div class="space-y-3">
+                ${optsHtml}
+              </div>
+            </div>
+          `;
+        } else if (this.step === this.questions.length + 1) {
+          // Email Capture step
+          this.container.innerHTML = `
+            <div class="text-center max-w-md mx-auto">
+              <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              </div>
+              <h3 class="font-serif text-2xl font-medium mb-3">Analysis Complete</h3>
+              <p class="text-neutral-600 mb-6 text-sm">Enter your email to reveal your leadership pressure pattern.</p>
+              <input type="email" placeholder="name@company.com" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-primary text-center mb-4">
+              <button onclick="diagnosticApp.step++; diagnosticApp.render()" class="w-full bg-ink text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-neutral-800 transition-all shadow-sm">Reveal My Pattern</button>
+              <p class="text-[11px] text-neutral-400 mt-4">We do not share your data. By continuing, you agree to receive insights from Innergisers.</p>
+            </div>
+          `;
+        } else {
+          // Result
+          const result = this.getPattern();
+          this.container.innerHTML = `
+            <div class="max-w-xl mx-auto">
+              <span class="text-xs uppercase tracking-[0.2em] font-bold text-primary block mb-2 text-center">Your Pressure Default</span>
+              <h3 class="font-serif text-3xl sm:text-4xl font-medium mb-6 text-center text-ink">${result.title}</h3>
+              <div class="bg-secondary/20 p-6 rounded-xl border border-secondary/50 mb-8">
+                <p class="text-ink leading-relaxed">${result.desc}</p>
+              </div>
+              <div class="text-center">
+                <p class="text-sm text-neutral-600 mb-4">Patterns can be interrupted. Bring this result to a discovery call with Yamini to map a circuit-breaker.</p>
+                <button onclick="openBookingModal('Diagnostic Result')" class="bg-accent text-ink font-semibold px-8 py-3.5 rounded-full hover:brightness-95 active:scale-[0.98] transition-all shadow-sm">Discuss this pattern</button>
+                <div class="mt-6"><button onclick="diagnosticApp.reset()" class="text-xs font-bold text-neutral-400 uppercase tracking-widest hover:text-ink">Retake Assessment</button></div>
+              </div>
+            </div>
+          `;
+        }
+      }
+    };
+
+    // Initialize App
+    document.addEventListener('DOMContentLoaded', () => diagnosticApp.init());
+  </script>
+</body>
+</html>
