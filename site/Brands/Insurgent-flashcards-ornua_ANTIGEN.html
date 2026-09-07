@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN &mdash; Ornua Insurgent Flashcards</title>
+<link href="https://fonts.googleapis.com/css2family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ───────────────────────────────────────────────── */
+:root {
+  --color-red: #e31d28;
+  --color-magenta: #e3195b;
+  --color-crimson: #b11226;
+  --color-black: #111111;
+  --color-ink: #1e1c17;
+  --color-white: #ffffff;
+  --color-paper: #f8f7f6;
+  --color-smoke: #e8e8e8;
+  --color-grey: #9fa2a4;
+  --color-blue: #08a7d8;
+  --color-yellow: #ffc000;
+  --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-display: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+  --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+  --rule: 1px solid rgba(17,17,17,.14);
+  --shadow-hard: 8px 8px 0 rgba(17,17,17,.95);
+  --shadow-red: 8px 8px 0 rgba(227,29,40,.95);
+  --page-pad: clamp(1.25rem, 4vw, 3.5rem);
+  --v1: #e31d28;
+  --v2: #e3195b;
+  --v3: #08a7d8;
+  --v4: #b11226;
+  --v5: #e31d28;
+  --v6: #1e1c17;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-paper);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  font-size: clamp(.95rem, 1.1vw, 1.1rem);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+::selection { background: var(--color-yellow); color: var(--color-black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--color-red); }
+
+/* ── HEADER ──────────────────────────────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--gradient-insurgence);
+  padding: 2.5rem var(--page-pad) 2rem;
+  color: var(--color-white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(0,0,0,.22), transparent 36%),
+    linear-gradient(90deg, rgba(0,0,0,.14), transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .5rem;
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: .85;
+  letter-spacing: -.01em;
+  color: var(--color-white);
+  margin-bottom: .4rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.header-badge {
+  text-align: right;
+  border-left: 4px solid var(--color-yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.badge-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: .2rem;
+}
+.badge-count {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-yellow);
+  letter-spacing: .03em;
+}
+.badge-note {
+  font-size: .68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  margin-top: .2rem;
+}
+
+/* ── PHASE 01 BLOCK ──────────────────────────────────────────────────── */
+.phase-section {
+  background: var(--color-ink);
+  padding: 3rem var(--page-pad);
+}
+.phase-inner { max-width: 1440px; margin: 0 auto; }
+.phase-eyebrow {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: .75rem;
+}
+.phase-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.02em;
+  color: var(--color-white);
+  margin-bottom: 2.5rem;
+}
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  border-color: rgba(255,255,255,.1);
+}
+.phase-block {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.phase-block:last-child { border-right: none; }
+.phase-block-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.phase-block-body {
+  font-size: .88rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.78);
+  line-height: 1.7;
+}
+.phase-block-body strong { color: var(--color-white); font-weight: 800; }
+.phase-block.gap-block {
+  border-left: 4px solid var(--color-red);
+  padding-left: calc(2rem - 4px);
+}
+.phase-block.gap-block .phase-block-label { color: var(--color-red); }
+
+/* ── VECTOR NAV ──────────────────────────────────────────────────────── */
+.vector-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-black);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 2px solid var(--color-red);
+}
+.vector-nav::-webkit-scrollbar { display: none; }
+.vnav-btn {
+  padding: .85rem 1.25rem;
+  font-family: var(--font-sans);
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+  margin-bottom: -2px;
+}
+.vnav-btn:hover { color: var(--color-white); }
+.vnav-btn.active { color: var(--color-yellow); border-bottom-color: var(--color-yellow); }
+
+/* ── MAIN ────────────────────────────────────────────────────────────── */
+.main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem var(--page-pad) 5rem;
+}
+
+/* ── VECTOR SECTION ──────────────────────────────────────────────────── */
+.vector-section { margin-bottom: 3.5rem; }
+.vector-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--rule);
+}
+.vector-number {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .08em;
+  color: var(--color-grey);
+}
+.vector-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: .04em;
+  color: var(--color-black);
+  line-height: 1;
+}
+.vector-tagline {
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--color-grey);
+  letter-spacing: .06em;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── CARD GRID ───────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+.flip-card {
+  height: 340px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* FRONT */
+.flip-front {
+  background: var(--color-white);
+  border: var(--rule);
+  border-top: 6px solid var(--v-accent, var(--color-red));
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.card-vector-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 1rem;
+}
+.card-question {
+  font-family: var(--font-sans);
+  font-size: clamp(.88rem, 1.2vw, 1rem);
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.5;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: var(--rule);
+}
+.antigen-wordmark {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+.flip-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.flip-hint svg { width: 11px; height: 11px; }
+
+/* BACK */
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--gradient-insurgence);
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.back-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.back-context {
+  font-size: clamp(.85rem, 1.1vw, .95rem);
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1.65;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.back-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+.back-vector-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  color: var(--color-yellow);
+}
+.back-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+}
+
+/* DETONATION card variant */
+.flip-card.detonation .flip-front {
+  background: #1e1c17;
+  border-color: rgba(255,192,0,.3);
+  border-top: 6px solid var(--color-yellow);
+}
+.flip-card.detonation .card-vector-label { color: var(--color-yellow); }
+.flip-card.detonation .card-question { color: var(--color-white); }
+.flip-card.detonation .card-footer { border-top-color: rgba(255,255,255,.1); }
+.flip-card.detonation .antigen-wordmark { color: rgba(255,255,255,.3); }
+.flip-card.detonation .flip-hint { color: var(--color-yellow); }
+.detonation-tag {
+  display: inline-block;
+  font-size: .6rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  border: 1px solid rgba(255,192,0,.4);
+  padding: .15rem .5rem;
+  margin-bottom: .75rem;
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--color-ink);
+  padding: .75rem var(--page-pad);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+}
+.progress-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  white-space: nowrap;
+}
+.progress-track { flex: 1; height: 3px; background: rgba(255,255,255,.1); }
+.progress-fill { height: 100%; background: var(--color-yellow); transition: width .4s ease; }
+.progress-count {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-yellow);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.reset-btn {
+  padding: .35rem .9rem;
+  border: 1.5px solid rgba(255,255,255,.2);
+  background: none;
+  color: rgba(255,255,255,.4);
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .15s;
+}
+.reset-btn:hover { border-color: var(--color-yellow); color: var(--color-yellow); }
+
+@media (max-width: 900px) {
+  .phase-grid { grid-template-columns: 1fr; }
+  .phase-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .phase-block:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .main { padding: 2rem 1.25rem 5rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .flip-card { height: 320px; }
+  .vector-tagline { display: none; }
+}
+
+
+/* ANTIGEN standalone shell */
+body { padding-top: 80px; padding-bottom: 64px; }
+a { color: inherit; }
+.antigen-site-header {
+  position: fixed; left: 0; right: 0; top: 0; z-index: 9999; min-height: 80px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  background: rgba(0,0,0,.92); color: #fff; padding: 20px clamp(20px,5vw,64px);
+  backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.site-wordmark { font-family: var(--font-sans); font-size: 26px; line-height: 1; letter-spacing: .08em; color: #fff; text-decoration: none; text-transform: lowercase; }
+.site-wordmark strong { font-weight: 900; letter-spacing: 0; }
+.antigen-site-nav { display: flex; align-items: center; gap: 20px; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+.antigen-site-nav a { color: #fff; text-decoration: none; }
+.antigen-site-nav a:hover { color: var(--color-yellow); }
+.vector-nav { top: 80px; }
+.page-header { border-bottom: 5px solid var(--color-yellow); }
+.page-header::before { background: linear-gradient(90deg, rgba(0,0,0,.3), transparent 56%), radial-gradient(circle at 78% 30%, rgba(255,192,0,.2), transparent 38%); }
+.header-eyebrow, .phase-eyebrow, .phase-block-label, .badge-count { color: var(--color-yellow); }
+.phase-block.gap-block { border-left-color: var(--color-yellow); }
+.phase-block.gap-block .phase-block-label { color: var(--color-yellow); }
+.flip-front, .flip-back, .slide-card { border-radius: 0; }
+.flip-card { min-height: 340px; }
+.site-footer {
+  background: #000; color: #fff; padding: 28px clamp(20px,5vw,64px) 88px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  border-top: 2px solid #000;
+}
+.site-footer-wordmark { font-family: var(--font-sans); font-size: 26px; letter-spacing: .08em; text-transform: lowercase; }
+.site-footer-wordmark strong { font-weight: 900; letter-spacing: 0; }
+.site-footer-wordmark span { color: var(--color-yellow); }
+.site-footer-meta { color: rgba(255,255,255,.58); font-size: .72rem; font-weight: 800; letter-spacing: .1em; line-height: 1.7; text-transform: uppercase; text-align: right; }
+@media (max-width: 767px) {
+  body { padding-top: 72px; }
+  .antigen-site-header { min-height: 72px; }
+  .antigen-site-nav { display: none; }
+  .vector-nav { top: 72px; }
+  .site-footer-meta { text-align: left; }
+}
+
+</style>
+</head>
+<body id="top">
+<header class="antigen-site-header">
+  <a class="site-wordmark" href="#top" aria-label="ANTIGEN home">anti<strong>gen</strong></a>
+  <nav class="antigen-site-nav" aria-label="Primary navigation">
+    <a href="https://1antigen.com/why">Why</a>
+    <a href="https://1antigen.com/what">What</a>
+    <a href="https://1antigen.com/who">Who</a>
+    <a href="https://1antigen.com/how">How</a>
+    <a href="https://1antigen.com/pov">POV</a>
+    <a href="https://1antigen.com/contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN — Insurgent Questions Protocol · Ornua Regenerative Dairy · Phase 01</div>
+      <h1 class="header-title">Assumption<br>Detonation<br>Deck</h1>
+      <div class="header-sub">6 Vectors · 24 Questions · Click to reveal strategic context</div>
+    </div>
+    <div class="header-badge">
+      <div class="badge-label">Insurgent Questions™</div>
+      <div class="badge-count">24</div>
+      <div class="badge-note">Ornua · Regenerative Dairy Pivot</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 01 -->
+<section class="phase-section">
+  <div class="phase-inner">
+    <div class="phase-eyebrow">Phase 01 · Naive Enquiry</div>
+    <h2 class="phase-title">Naive<br>Enquiry</h2>
+    <div class="phase-grid">
+      <div class="phase-block">
+        <div class="phase-block-label">What you told me</div>
+        <p class="phase-block-body">"Ornua needs to pivot from a product claim ('grass-fed') to a movement ('regenerative dairy') to emulate Patagonia and secure a decade of pricing power." You are using a high-concept marketing narrative to force an <strong>operational and cultural transformation</strong> across a massive, fragmented cooperative supply chain.</p>
+      </div>
+      <div class="phase-block">
+        <div class="phase-block-label">What I heard</div>
+        <p class="phase-block-body">You assume the market will commoditize 'grass-fed' and premiumize 'regenerative,' and that <strong>repositioning the brand narrative</strong> will substitute for the structural, financial, and cultural overhaul required to make that claim real across thousands of independent Irish dairy farmers.</p>
+      </div>
+      <div class="phase-block gap-block">
+        <div class="phase-block-label">The Gap</div>
+        <p class="phase-block-body">You have treated a <strong>foundational supply chain overhaul as a positioning exercise</strong>, ignoring the structural reality of a cooperative model and the economic trade-offs of lower yields for individual farmers. The Patagonia analogy masks massive structural friction: Patagonia is a vertically integrated private company. Ornua is a co-op owned by thousands of fiercely independent farmers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VECTOR NAV -->
+<nav class="vector-nav" id="vectorNav">
+  <button class="vnav-btn active" onclick="filterVector('all',this)">All Vectors</button>
+  <button class="vnav-btn" onclick="filterVector('v1',this)">V1 · Assumption Archaeology</button>
+  <button class="vnav-btn" onclick="filterVector('v2',this)">V2 · Consensus Forensics</button>
+  <button class="vnav-btn" onclick="filterVector('v3',this)">V3 · Audience Inversion</button>
+  <button class="vnav-btn" onclick="filterVector('v4',this)">V4 · Category Heresy</button>
+  <button class="vnav-btn" onclick="filterVector('v5',this)">V5 · Future Blindness</button>
+  <button class="vnav-btn" onclick="filterVector('v6',this)">V6 · Measurement Theater</button>
+</nav>
+
+<!-- CARDS -->
+<main class="main" id="main"></main>
+
+<footer class="site-footer">
+  <div class="site-footer-wordmark">anti<strong>gen</strong><span>.</span></div>
+  <div class="site-footer-meta">
+    Ornua Insurgent Flashcards  Standalone HTML Export<br>
+    Composable. Distributed. Insurgent.
+  </div>
+</footer>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <span class="progress-label">Revealed</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="progress-count" id="progressCount">0 / 24</span>
+  <button class="reset-btn" onclick="resetAll()">Reset</button>
+</div>
+
+<script>
+const VECTORS = [
+  {
+    id:"v1", number:"Vector 01", name:"Assumption Archaeology",
+    tagline:"Exhuming the beliefs that have become invisible.",
+    accent:"#e31d28",
+    cards:[
+      {
+        q:"You assume 'grass-fed' will inevitably commoditize — but what if the premium on genuine grass-fed actually increases as industrial dairy faces harsher climate regulations globally",
+        ctx:"The entire pivot rests on this commodity assumption. If grass-fed becomes more defensible, not less, under incoming regulatory pressure, Ornua may be abandoning its most durable competitive moat precisely when it becomes structurally rare."
+      },
+      {
+        q:"Who originally decided that copying a vertically integrated, privately held outdoor apparel company is a viable blueprint for a massive, multi-tiered agricultural cooperative",
+        ctx:"Patagonia controls its supply chain. Ornua does not own its farmers. This analogy launders the structural impossibility of the strategy — a co-op model cannot enforce the operational mandates that make Patagonia's claims credible."
+      },
+      {
+        q:"What happens to this strategy if the consumer defines 'regenerative' differently than your farmers do — and who is looking for that misalignment right now",
+        ctx:"'Regenerative' has no ISO standard. The gap between brand narrative and farm-level reality is where greenwashing claims are born. If journalists or NGOs define it more rigorously than Ornua does, the positioning becomes a liability, not an asset."
+      },
+      {
+        q:"What is the most expensive operational lie embedded in the assumption that you can turn thousands of fiercely independent Irish dairy farmers into climate activists without cutting their margins",
+        ctx:"This is the load-bearing crack in the entire strategy. Regenerative practices — cover cropping, reduced herd density, soil monitoring — require upfront investment and can reduce short-term yield. Without financial mitigation, farmer adoption will be cosmetic.",
+        detonation: true
+      }
+    ]
+  },
+  {
+    id:"v2", number:"Vector 02", name:"Consensus Forensics",
+    tagline:"Identifying where agreement masks a lack of conviction.",
+    accent:"#e3195b",
+    cards:[
+      {
+        q:"Who wasn't in the room when the Patagonia analogy was approved — and what would the head of supply chain or a third-generation dairy farmer say if they heard it",
+        ctx:"Brand strategy rooms systematically exclude the people responsible for operational delivery. The people most qualified to stress-test this strategy — supply chain leads, agronomists, individual farmers — are absent from the alignment process that produced it."
+      },
+      {
+        q:"What is the career risk within Ornua for pointing out that 'regenerative dairy' at scale might be a logistical and financial impossibility under the current co-op payout model",
+        ctx:"If the career cost of dissent is high, alignment is not real. It is suppression. Organizations that punish doubt about ambitious sustainability narratives are precisely the ones that get caught by investigative journalists three years later."
+      },
+      {
+        q:"How many times has 'alignment' on sustainability goals been achieved merely because the targets are set far enough in the future that no one alive today feels accountable for them",
+        ctx:"2030 and 2035 targets are a common organizational alibi. The people who set them will be in different roles, retired, or gone when accountability arrives. Distant targets generate board consensus without generating operational commitment."
+      },
+      {
+        q:"If you asked every member of the executive team to define 'regenerative' on a blank sheet of paper, how many fundamentally irreconcilable strategies would you discover",
+        ctx:"'Regenerative' is a term that absorbs whatever the listener wants it to mean. If the executive team holds six different definitions, the supply chain will implement seven. Definitional vagueness is not strategic flexibility — it is future legal and reputational exposure.",
+        detonation: true
+      }
+    ]
+  },
+  {
+    id:"v3", number:"Vector 03", name:"Audience Inversion",
+    tagline:"Focusing on the voices you've filtered out.",
+    accent:"#08a7d8",
+    cards:[
+      {
+        q:"Which massive B2B ingredients buyers will immediately delist you if your pivot to 'movement' marketing drives up input costs by even 2%",
+        ctx:"Ornua's largest revenue stream is not premium consumer retail — it is ingredients supply to global food manufacturers. These buyers operate on margin arbitrage. A positioning story that increases their input costs is not a brand asset to them; it is a supplier problem."
+      },
+      {
+        q:"What would your most skeptical, margin-pinched dairy farmers say about this strategy if guaranteed absolute anonymity",
+        ctx:"The cooperative governance model means farmer sentiment is the ground truth of operational feasibility. If the farmers who will implement regenerative practices cannot see the financial case, the strategy exists only in PowerPoint. Their anonymous view is the most reliable prediction of adoption rate."
+      },
+      {
+        q:"Who have you decided cannot or will not buy regenerative dairy — and when was the purchasing power of that cynical, budget-conscious demographic last tested",
+        ctx:"Premium positioning always excludes a price-sensitive segment. The question is whether that exclusion is strategic or lazy. If the 'skeptical mainstream' segment is larger than assumed — especially during inflationary periods — the addressable market for regenerative premium is smaller than modelled."
+      },
+      {
+        q:"Which fast-moving consumer goods giant is currently building an alternative supply chain to bypass Ornua completely because they think your sustainability claims are just public relations",
+        ctx:"Large FMCG buyers are internalizing sustainability sourcing rather than trusting supplier narratives. If a Nestlé, Danone, or Unilever is building direct-to-farm regenerative sourcing programs, Ornua's 'movement' positioning may arrive precisely as its B2B customers decide to manufacture their own origin story.",
+        detonation: true
+      }
+    ]
+  },
+  {
+    id:"v4", number:"Vector 04", name:"Category Heresy",
+    tagline:"Challenging the unwritten rules of the category.",
+    accent:"#b11226",
+    cards:[
+      {
+        q:"What would the Irish dairy sector look like if it were invented today, globally, with zero legacy processing plants or historical cooperative agreements",
+        ctx:"This is the foundational heresy check. Legacy infrastructure is not a competitive advantage — it is the accumulated weight of historical decisions. A first-principles dairy company built in 2025 would not look like Ornua. Understanding that gap reveals which parts of the current model are assets and which are anchors."
+      },
+      {
+        q:"What industry convention protects Ornua's traditional export model but directly prevents it from achieving true, localized, circular-economy regenerative metrics",
+        ctx:"Regenerative agriculture is fundamentally local — it is about soil health in specific fields. Global commodity dairy export is fundamentally decontextualized — it erases provenance. The export model and the regenerative model are architecturally incompatible. This tension is being papered over by the positioning exercise."
+      },
+      {
+        q:"What is considered 'best practice' in dairy marketing that hyper-skeptical Gen Z and Millennial consumers actually find deeply greenwashed and annoying",
+        ctx:"Happy cow imagery, green field photography, and vague sustainability language have become category signifiers for exactly the demographic Ornua wants to reach — and that demographic has developed sophisticated bullshit detection. Following category convention is a reliable way to be dismissed as another corporate sustainability story."
+      },
+      {
+        q:"What are you copying from Arla, Fonterra, or Kerry Group without realizing it, simply because you are afraid to look un-corporate",
+        ctx:"Every major dairy cooperative has a sustainability narrative. If Ornua's regenerative pivot is structurally identical to what its competitors are already saying, it is not a positioning advantage — it is a category tax. Differentiation requires heresy, not mimicry.",
+        detonation: true
+      }
+    ]
+  },
+  {
+    id:"v5", number:"Vector 05", name:"Future Blindness",
+    tagline:"Signals from the future being treated as noise.",
+    accent:"#e31d28",
+    cards:[
+      {
+        q:"What synthetic biology or precision-fermentation dairy signal are you explicitly ignoring because it threatens the fundamental existence of your farming base",
+        ctx:"Precision fermentation companies are producing casein proteins, whey, and butterfat without cows. This is not a 20-year technology horizon — it is commercially available today. If the premium on 'natural dairy' collapses as synthetic dairy achieves taste parity, the entire regenerative positioning becomes a story told to a shrinking audience."
+      },
+      {
+        q:"Which multi-million dollar processing investments made in the last three years would a disruptive competitor building a lean supply chain next year never touch",
+        ctx:"Capital allocation decisions made under the old model create lock-in that prevents adaptation to the new one. The processing infrastructure that makes Ornua's current scale possible may be the same infrastructure that prevents it from achieving the localized, low-footprint model that makes regenerative credible."
+      },
+      {
+        q:"What is happening at the radical edge of the vegan and lab-grown milk markets that you have internal data proving 'doesn't matter,' but actually does",
+        ctx:"Organizations systematically dismiss threatening signals by finding data that minimizes them. The question is not whether lab-grown dairy 'matters now' — it is whether the timeline for it to matter has been stress-tested with genuine intellectual honesty or managed to protect an existing investment thesis."
+      },
+      {
+        q:"What would you do differently tomorrow morning if you had to bet your own job on the survival of Irish dairy's pricing power five years from now",
+        ctx:"This forces the distinction between organizational belief and personal conviction. If the answer diverges from the current strategy, that gap is the most important data point in the room.",
+        detonation: true
+      }
+    ]
+  },
+  {
+    id:"v6", number:"Vector 06", name:"Measurement Theater",
+    tagline:"Metrics designed to validate rather than inform.",
+    accent:"#1e1c17",
+    cards:[
+      {
+        q:"What internal carbon or biodiversity metric would completely kill this 'regenerative movement' initiative if you actually measured it with total scientific transparency",
+        ctx:"Every sustainability initiative has a metric it is not measuring. The number that would invalidate the narrative is the number that is most important. If Ornua's total land-use footprint, herd methane output, or transport emissions were included in its regenerative scorecard, what changes"
+      },
+      {
+        q:"What is the precise difference between the glossy sustainability reports you send to stakeholders and the raw operational metrics discussed behind closed doors",
+        ctx:"The gap between public sustainability reporting and internal operational data is where organizational self-deception lives. This question surfaces whether the 'movement' is being built on genuine operational progress or narrative management."
+      },
+      {
+        q:"What specific number regarding soil degradation or herd-size limitations are you terrified to find out the real truth about",
+        ctx:"The most important measurement is always the one being avoided. If there is a soil metric, yield metric, or carbon metric that would require a fundamental strategic revision, the current strategy is being built on an uninvestigated assumption."
+      },
+      {
+        q:"What is the exact premium percentage consumers are actually willing to pay for 'regenerative' over 'grass-fed' when standing in a grocery aisle during an economic downturn — and why are you hiding from that data",
+        ctx:"This is the commercial ground truth that the entire strategy depends on. If the willingness-to-pay delta between 'grass-fed' and 'regenerative' is smaller than the cost of achieving genuine regenerative certification, the strategy is financially insolvent. Hiding from this number is the most expensive decision Ornua can make.",
+        detonation: true
+      }
+    ]
+  }
+];
+
+let flipped = new Set();
+let currentFilter = 'all';
+
+function totalVisible() {
+  if (currentFilter === 'all') return VECTORS.reduce((a,v) => a + v.cards.length, 0);
+  const selected = VECTORS.find(v => v.id === currentFilter);
+  return selected ? selected.cards.length : 0;
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  VECTORS.forEach(vec => {
+    if (currentFilter !== 'all' && currentFilter !== vec.id) return;
+
+    const section = document.createElement('div');
+    section.className = 'vector-section';
+
+    const header = document.createElement('div');
+    header.className = 'vector-header';
+    header.innerHTML = `
+      <span class="vector-number">${vec.number}</span>
+      <h2 class="vector-name">${vec.name}</h2>
+      <span class="vector-tagline">${vec.tagline}</span>
+    `;
+    section.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+
+    vec.cards.forEach((card, idx) => {
+      const cardId = `${vec.id}-${idx}`;
+      const isFlipped = flipped.has(cardId);
+      const isDet = !!card.detonation;
+
+      const el = document.createElement('div');
+      el.className = `flip-card${isFlipped ? ' flipped' : ''}${isDet ? ' detonation' : ''}`;
+      if (!isDet) el.style.setProperty('--v-accent', vec.accent);
+
+      const frontAccent = isDet ? '#ffc000' : vec.accent;
+
+      el.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="border-top-color:${frontAccent}">
+            <div>
+              ${isDet ? '<div class="detonation-tag">? Detonation Question</div>' : ''}
+              <div class="card-vector-label" style="color:${frontAccent}">${vec.number} · ${vec.name}</div>
+              <div class="card-question">${card.q}</div>
+            </div>
+            <div class="card-footer">
+              <span class="antigen-wordmark">antigen</span>
+              <span class="flip-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0 1 16-3.3M20 15a9 9 0 0 1-16 3.3"/></svg>
+                Reveal
+              </span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <div>
+              <div class="back-label">Strategic Context</div>
+              <div class="back-context">${card.ctx}</div>
+            </div>
+            <div class="back-footer">
+              <span class="back-vector-name">${vec.name}</span>
+              <span class="back-hint">Flip back</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      el.addEventListener('click', () => {
+        el.classList.toggle('flipped');
+        flipped[el.classList.contains('flipped') ? 'add' : 'delete'](cardId);
+        updateProgress();
+      });
+
+      grid.appendChild(el);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  updateProgress();
+}
+
+function filterVector(id, btn) {
+  currentFilter = id;
+  document.querySelectorAll('.vnav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function updateProgress() {
+  const total = totalVisible();
+  const revealed = [...flipped].filter(id =>
+    currentFilter === 'all' || id.startsWith(currentFilter)
+  ).length;
+  document.getElementById('progressFill').style.width = total > 0 ? (revealed/total*100)+'%' : '0%';
+  document.getElementById('progressCount').textContent = `${revealed} / ${total}`;
+}
+
+function resetAll() { flipped.clear(); render(); }
+
+render();
+</script>
+</body>
+</html>

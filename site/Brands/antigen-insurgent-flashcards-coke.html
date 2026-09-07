@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Insurgent Questions · Coca-Cola Gen Z</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ───────────────────────────────────────────────── */
+:root {
+  --color-red: #e31d28;
+  --color-magenta: #e3195b;
+  --color-crimson: #b11226;
+  --color-black: #111111;
+  --color-ink: #1e1c17;
+  --color-white: #ffffff;
+  --color-paper: #f8f7f6;
+  --color-smoke: #e8e8e8;
+  --color-grey: #9fa2a4;
+  --color-blue: #08a7d8;
+  --color-yellow: #ffc000;
+  --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-display: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+  --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+  --rule: 1px solid rgba(17,17,17,.14);
+  --shadow-hard: 8px 8px 0 rgba(17,17,17,.95);
+  --shadow-red: 8px 8px 0 rgba(227,29,40,.95);
+  --page-pad: clamp(1.25rem, 4vw, 3.5rem);
+
+  /* Vector accent colours — used only as left-border accents on V3 system */
+  --v1: #e31d28;
+  --v2: #e3195b;
+  --v3: #08a7d8;
+  --v4: #b11226;
+  --v5: #e31d28;
+  --v6: #1e1c17;
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-paper);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  font-size: clamp(.95rem, 1.1vw, 1.1rem);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+::selection { background: var(--color-yellow); color: var(--color-black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--color-red); }
+
+/* ── HEADER — insurgence gradient ───────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--gradient-insurgence);
+  padding: 2.5rem var(--page-pad) 2rem;
+  color: var(--color-white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(0,0,0,.22), transparent 36%),
+    linear-gradient(90deg, rgba(0,0,0,.14), transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .5rem;
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: .85;
+  letter-spacing: -.01em;
+  color: var(--color-white);
+  margin-bottom: .4rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.header-badge {
+  text-align: right;
+  border-left: 4px solid var(--color-yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.badge-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: .2rem;
+}
+.badge-count {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-yellow);
+  letter-spacing: .03em;
+}
+.badge-note {
+  font-size: .68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  margin-top: .2rem;
+}
+
+/* ── PHASE 01 BLOCK ──────────────────────────────────────────────────── */
+.phase-section {
+  background: var(--color-ink);
+  padding: 3rem var(--page-pad);
+}
+.phase-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase-eyebrow {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: .75rem;
+}
+.phase-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.02em;
+  color: var(--color-white);
+  margin-bottom: 2.5rem;
+}
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  border-color: rgba(255,255,255,.1);
+}
+.phase-block {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.phase-block:last-child { border-right: none; }
+.phase-block-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.phase-block-body {
+  font-size: .88rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.78);
+  line-height: 1.7;
+}
+.phase-block-body strong {
+  color: var(--color-white);
+  font-weight: 800;
+}
+.phase-block.gap-block {
+  border-left: 4px solid var(--color-red);
+  padding-left: calc(2rem - 4px);
+}
+.phase-block.gap-block .phase-block-label { color: var(--color-red); }
+
+/* ── VECTOR NAV ──────────────────────────────────────────────────────── */
+.vector-nav {
+  background: var(--color-white);
+  border-bottom: var(--rule);
+  padding: 0 var(--page-pad);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.vector-nav::-webkit-scrollbar { display: none; }
+.vnav-btn {
+  padding: .75rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--color-grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  flex-shrink: 0;
+}
+.vnav-btn:hover { color: var(--color-black); }
+.vnav-btn.active { color: var(--color-red); border-bottom-color: var(--color-red); }
+
+/* ── MAIN ────────────────────────────────────────────────────────────── */
+.main {
+  padding: 3rem var(--page-pad) 5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ── VECTOR SECTION ──────────────────────────────────────────────────── */
+.vector-section { margin-bottom: 4rem; }
+
+.vector-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-black);
+  flex-wrap: wrap;
+}
+.vector-number {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  flex-shrink: 0;
+}
+.vector-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--color-black);
+}
+.vector-tagline {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-grey);
+  margin-left: auto;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* ── CARD GRID ───────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ── FLIP CARD ───────────────────────────────────────────────────────── */
+.flip-card {
+  perspective: 1200px;
+  height: 360px;
+  cursor: pointer;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .5s cubic-bezier(.45,.05,.55,.95);
+  transform-style: preserve-3d;
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* FRONT — evidence-style: white, ruled, red top border */
+.flip-front {
+  background: var(--color-white);
+  border: var(--rule);
+  border-top: 6px solid var(--v-accent, var(--color-red));
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.card-vector-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 1rem;
+}
+.card-question {
+  font-family: var(--font-sans);
+  font-size: clamp(.88rem, 1.2vw, 1rem);
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.5;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: var(--rule);
+}
+.antigen-wordmark {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+.flip-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.flip-hint svg { width: 11px; height: 11px; }
+
+/* BACK — insurgence gradient */
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--gradient-insurgence);
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.back-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.back-context {
+  font-size: clamp(.85rem, 1.1vw, .95rem);
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1.65;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.back-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+.back-vector-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  color: var(--color-yellow);
+}
+.back-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--color-ink);
+  padding: .75rem var(--page-pad);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+}
+.progress-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  white-space: nowrap;
+}
+.progress-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.1);
+}
+.progress-fill {
+  height: 100%;
+  background: var(--color-yellow);
+  transition: width .4s ease;
+}
+.progress-count {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-yellow);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.reset-btn {
+  padding: .35rem .9rem;
+  border: 1.5px solid rgba(255,255,255,.2);
+  background: none;
+  color: rgba(255,255,255,.4);
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .15s;
+}
+.reset-btn:hover { border-color: var(--color-yellow); color: var(--color-yellow); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .phase-grid { grid-template-columns: 1fr; }
+  .phase-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .phase-block:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .main { padding: 2rem 1.25rem 5rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .flip-card { height: 320px; }
+  .vector-tagline { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN — Insurgent Questions Protocol · Coca-Cola Gen Z · Phase 01</div>
+      <h1 class="header-title">Assumption<br>Detonation<br>Deck</h1>
+      <div class="header-sub">6 Vectors · 19 Questions · Click to reveal strategic context</div>
+    </div>
+    <div class="header-badge">
+      <div class="badge-label">Insurgent Questions™</div>
+      <div class="badge-count">19</div>
+      <div class="badge-note">Coca-Cola · Gen Z Recruitment</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 01 -->
+<section class="phase-section">
+  <div class="phase-inner">
+    <div class="phase-eyebrow">Phase 01 · Naive Enquiry</div>
+    <h2 class="phase-title">Naive<br>Enquiry</h2>
+    <div class="phase-grid">
+      <div class="phase-block">
+        <div class="phase-block-label">What you told me</div>
+        <p class="phase-block-body">"Coca-Cola is failing to convert Gen Z into regular consumers despite claiming 'high brand love.' This term 'brand love' is corporate fluff; I need the mechanical reality of how sentiment is measured if it results in <strong>zero transactional velocity.</strong> You are effectively saying people like the idea of the product but refuse to put it in their mouths."</p>
+      </div>
+      <div class="phase-block">
+        <div class="phase-block-label">What I heard</div>
+        <p class="phase-block-body">You are assuming that <strong>brand sentiment is a leading indicator of sales</strong>, that Gen Z's definition of 'habit' aligns with your current distribution model, and that the product's value proposition is still relevant if only the 'recruitment' strategy is fixed. You assume the problem lies in the <strong>bridge between affinity and action</strong>, rather than the product itself.</p>
+      </div>
+      <div class="phase-block gap-block">
+        <div class="phase-block-label">The Gap</div>
+        <p class="phase-block-body">There is a fundamental contradiction between 'high brand love' and a lack of 'trial.' If they love it, they would try it. This suggests <strong>'brand love' is a vanity metric masking a deeper irrelevance.</strong> You have also omitted the mechanical barriers: price elasticity, health-conscious substitution, and the fact that a 100-year-old sugar-water habit may be <strong>culturally incompatible with Gen Z's daily mechanics.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VECTOR NAV -->
+<nav class="vector-nav" id="vectorNav">
+  <button class="vnav-btn active" onclick="filterVector('all',this)">All Vectors</button>
+  <button class="vnav-btn" onclick="filterVector('v1',this)">V1 · Assumption Archaeology</button>
+  <button class="vnav-btn" onclick="filterVector('v2',this)">V2 · Consensus Forensics</button>
+  <button class="vnav-btn" onclick="filterVector('v3',this)">V3 · Audience Inversion</button>
+  <button class="vnav-btn" onclick="filterVector('v4',this)">V4 · Category Heresy</button>
+  <button class="vnav-btn" onclick="filterVector('v5',this)">V5 · Future Blindness</button>
+  <button class="vnav-btn" onclick="filterVector('v6',this)">V6 · Measurement Theater</button>
+</nav>
+
+<!-- CARDS -->
+<main class="main" id="main"></main>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <span class="progress-label">Revealed</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="progress-count" id="progressCount">0 / 19</span>
+  <button class="reset-btn" onclick="resetAll()">Reset</button>
+</div>
+
+<script>
+const VECTORS = [
+  {
+    id:"v1", number:"Vector 01", name:"Assumption Archaeology",
+    tagline:"Exhuming the beliefs that have become invisible.",
+    accent:"#e31d28",
+    cards:[
+      { q:"Does our internal definition of brand love assume a level of physical routine that no longer exists in a decentralized Gen Z retail landscape?",
+        ctx:"It challenges the core assumption that sentiment automatically converts to consumption without the legacy retail infrastructure that supported previous generations." },
+      { q:"To what extent is the Coca-Cola with food pairing a biological truth we rely on versus a cultural relic that has lost its relevance in Gen Z's snacking-first diet?",
+        ctx:"If the primary consumption occasion for the category is decaying, brand love becomes a decorative metric rather than a commercial driver." },
+      { q:"Why is the original taste consistency treated as a non-negotiable asset rather than a potential liability in a demographic that prioritizes experimentation and rotation over loyalty?",
+        ctx:"This targets the invisible belief that formulaic consistency is the brand's greatest strength, which may actually be a barrier to habit formation in new cohorts." },
+      { q:"Have we interrogated whether the concept of refreshment remains the primary driver for soda, or is it an invisible dogma masking a shift toward functional benefits we refuse to provide?",
+        ctx:"If the definition of refreshment has evolved from carbonation and coldness to hydration and health, the current product core is fundamentally misaligned with its stated purpose." }
+    ]
+  },
+  {
+    id:"v2", number:"Vector 02", name:"Consensus Forensics",
+    tagline:"Identifying where agreement masks a lack of conviction.",
+    accent:"#e3195b",
+    cards:[
+      { q:"Which internal data points regarding the disconnect between Gen Z sentiment and actual volume were minimized to maintain the narrative that high brand love is the ultimate leading indicator of success?",
+        ctx:"If the organization assumes sentiment leads to consumption, they ignore the reality that Gen Z can admire a brand's heritage while choosing competitors for their functional needs." },
+      { q:"What specific internal dissent regarding the health-first pivot of the portfolio was categorized as 'brand-damaging' to protect the legacy consensus of the sugar-based core product?",
+        ctx:"Manufacturing a consensus around brand purity prevents the radical evolution required to meet Gen Z's health-conscious and functional beverage expectations." },
+      { q:"How was the internal agreement reached that high-production lifestyle marketing is more effective for Gen Z conversion than tactical utility-based interventions, and who challenged this assumption?",
+        ctx:"If dissent regarding the ROI of high-level brand building was suppressed, the company may be over-investing in awareness for a cohort that is already aware but remains unconverted." },
+      { q:"During budget allocation, what evidence of Gen Z's permanent shift toward functional beverages was deprioritized to ensure a unified front behind traditional sparkling category growth targets?",
+        ctx:"Consensus on category dominance can create a false sense of security, masking the structural decline in the product's role within the target audience's daily routine." }
+    ]
+  },
+  {
+    id:"v3", number:"Vector 03", name:"Audience Inversion",
+    tagline:"Focusing on the voices you've filtered out.",
+    accent:"#08a7d8",
+    cards:[
+      { q:"What insights are we losing by ignoring the Gen Z 'purists' who view liquid sugar and artificial sweeteners not as treats, but as fundamental biological contaminants?",
+        ctx:"Ignoring the most extreme health-conscious segments prevents the brand from seeing the emerging 'clean' baseline that is slowly becoming the standard for the entire generation." },
+      { q:"If we interviewed the Gen Z cohort that views Coca-Cola exclusively as an environmental pollutant, what product truths would emerge that our high brand love metrics are currently masking?",
+        ctx:"Brand love is often a superficial sentiment that collapses when it meets the ethical and environmental friction points that prevent Gen Z from moving from affinity to actual purchase." },
+      { q:"Which Gen Z subcultures have we deemed 'brand-incompatible' or un-aspirational, and how is that exclusion creating a vacuum for niche competitors to establish dominant habits?",
+        ctx:"Strategic exclusion based on legacy brand standards often ignores the pragmatic spaces where mass consumption actually occurs, leaving the door open for insurgent brands to claim the 'real' daily routine." },
+      { q:"How does our recruitment strategy change if we focus entirely on the Gen Z demographic that finds the sensory experience of our flagship product overwhelming, medicinal, or outdated?",
+        ctx:"Habit formation is impossible if the core sensory experience is a legacy holdover that no longer aligns with the evolving, lighter, and more functional palate of the current youth population." }
+    ]
+  },
+  {
+    id:"v4", number:"Vector 04", name:"Category Heresy",
+    tagline:"Challenging the unwritten rules of the category.",
+    accent:"#b11226",
+    cards:[
+      { q:"Why do we maintain the industry-standard belief that refreshment must be liquid, instead of exploring how the Coke essence can be habituated through non-beverage or hybrid delivery systems that fit Gen Z digital and physical lifestyles?",
+        ctx:"By tethering the brand strictly to liquid consumption, we may be ignoring the cultural ways Gen Z interacts with brands, potentially missing opportunities to integrate into their daily routines through alternative formats." },
+      { q:"Why do we continue to anchor our consumption model on meal-pairing and refreshment when Gen Z increasingly views beverage choice as a functional health decision or a social badge rather than a simple thirst-quencher?",
+        ctx:"The category reliance on traditional meal-time occasions is outdated for a generation that snacks irregularly and prioritizes functional benefits or identity signaling over basic hydration." },
+      { q:"What if the Secret Formula is actually a liability? Why do we treat the unchanging taste profile as a sacred asset when Gen Z consumption habits are driven by variety, seasonal drops, and hyper-localization?",
+        ctx:"Industry convention values consistency above all, but Gen Z habituation is often triggered by novelty and the fear of missing out on limited, specialized, or community-specific experiences." },
+      { q:"Why do we adhere to a mass-market distribution model that prioritizes ubiquity, when Gen Z habit is often formed through exclusive access, niche community endorsement, and insider availability?",
+        ctx:"Making the product available everywhere reduces its perceived value as a curated lifestyle choice, leading to high brand recognition but low personal relevance and daily commitment." }
+    ]
+  },
+  {
+    id:"v5", number:"Vector 05", name:"Future Blindness",
+    tagline:"Signals from the future being treated as noise.",
+    accent:"#e31d28",
+    cards:[
+      { q:"If Gen Z views beverage consumption as functional mood-regulation — prioritizing adaptogens and gut health — how much of our decline is due to ignoring the shift from 'refreshment' to 'utility'?",
+        ctx:"We are perfecting a flavor-first product for a generation that increasingly views liquids as tools for physiological outcomes rather than simple thirst quenchers." },
+      { q:"How are we accounting for the 'Emotional Support Water Bottle' trend, which favors permanent hardware and DIY hydration over the single-use, high-frequency SKU model we rely on?",
+        ctx:"Our business model is built on high-velocity disposable purchases, while the target demographic is shifting toward ritualized, reusable systems that make soda an occasional interloper." },
+      { q:"Are we ignoring the signal that plastic packaging has transitioned from a sustainability 'problem to solve' into a fundamental social liability that erodes the status of the consumer?",
+        ctx:"High brand love cannot survive the friction of a product that creates social dissonance. If holding our packaging feels 'outdated,' the habit will never form regardless of taste." },
+      { q:"To what extent is our recruitment failure a result of ignoring the death of 'The Big Meal' as a social anchor, replaced by fragmented, snack-based, and digital-first lifestyles?",
+        ctx:"Coke is historically optimized for the dining table. If the next generation lacks a centralized eating ritual, our primary consumption occasion is a ghost of a previous era's social structure." }
+    ]
+  },
+  {
+    id:"v6", number:"Vector 06", name:"Measurement Theater",
+    tagline:"Metrics that validate rather than inform.",
+    accent:"#1e1c17",
+    cards:[
+      { q:"If brand love scores remain industry-leading while Gen Z market share stagnates, what utility does 'sentiment' actually serve in our performance dashboard beyond internal validation?",
+        ctx:"It challenges the assumption that emotional affinity is a lead indicator for revenue, potentially exposing brand love as a vanity metric that masks commercial irrelevance." },
+      { q:"Does our 'Reach' metric distinguish between a Gen Z consumer passively viewing an impression and one who has actually integrated the product into a recurring daily ritual?",
+        ctx:"It targets the confusion between awareness and behavioral adoption, forcing a focus on habit formation over mere exposure." },
+      { q:"Are we over-weighting 'Positive Engagement' from a small vocal minority of existing fans to ignore the statistical silence of the vast majority who do not purchase?",
+        ctx:"It exposes how consensus-based metrics can create a filter bubble, shielding the organization from the reality of widespread Gen Z indifference." },
+      { q:"By reporting 'First-Time Trial' as a primary KPI, are we intentionally masking a failure to convert one-off experimental purchases into sustainable consumption habits?",
+        ctx:"It distinguishes between successful marketing (trial) and a successful business model (habit), revealing where the growth engine is actually stalling." }
+    ]
+  }
+];
+
+let flipped = new Set();
+let currentFilter = 'all';
+
+function totalVisible() {
+  if (currentFilter === 'all') return VECTORS.reduce((a,v) => a + v.cards.length, 0);
+  return VECTORS.find(v => v.id === currentFilter)?.cards.length ?? 0;
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  VECTORS.forEach(vec => {
+    if (currentFilter !== 'all' && currentFilter !== vec.id) return;
+
+    const section = document.createElement('div');
+    section.className = 'vector-section';
+
+    const header = document.createElement('div');
+    header.className = 'vector-header';
+    header.innerHTML = `
+      <span class="vector-number">${vec.number}</span>
+      <h2 class="vector-name">${vec.name}</h2>
+      <span class="vector-tagline">${vec.tagline}</span>
+    `;
+    section.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+
+    vec.cards.forEach((card, idx) => {
+      const cardId = `${vec.id}-${idx}`;
+      const isFlipped = flipped.has(cardId);
+
+      const el = document.createElement('div');
+      el.className = `flip-card${isFlipped ? ' flipped' : ''}`;
+      el.style.setProperty('--v-accent', vec.accent);
+
+      el.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="border-top-color:${vec.accent}">
+            <div>
+              <div class="card-vector-label" style="color:${vec.accent}">${vec.number} · ${vec.name}</div>
+              <div class="card-question">${card.q}</div>
+            </div>
+            <div class="card-footer">
+              <span class="antigen-wordmark">antigen</span>
+              <span class="flip-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0 1 16-3.3M20 15a9 9 0 0 1-16 3.3"/></svg>
+                Reveal
+              </span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <div>
+              <div class="back-label">Strategic Context</div>
+              <div class="back-context">${card.ctx}</div>
+            </div>
+            <div class="back-footer">
+              <span class="back-vector-name">${vec.name}</span>
+              <span class="back-hint">Flip back</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      el.addEventListener('click', () => {
+        el.classList.toggle('flipped');
+        flipped[el.classList.contains('flipped') ? 'add' : 'delete'](cardId);
+        updateProgress();
+      });
+
+      grid.appendChild(el);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  updateProgress();
+}
+
+function filterVector(id, btn) {
+  currentFilter = id;
+  document.querySelectorAll('.vnav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function updateProgress() {
+  const total = totalVisible();
+  const revealed = [...flipped].filter(id =>
+    currentFilter === 'all' || id.startsWith(currentFilter)
+  ).length;
+  document.getElementById('progressFill').style.width = total > 0 ? (revealed/total*100)+'%' : '0%';
+  document.getElementById('progressCount').textContent = `${revealed} / ${total}`;
+}
+
+function resetAll() { flipped.clear(); render(); }
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Service lines for brands</title>
+<meta name="description" content="Five interventions for brand organisations where marketing activity, agency relationships and transformation programmes have stopped producing movement or distinction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F0EB; --ink:#292929; --red:#E33737;
+    --muted:#7C7870; --line:rgba(41,41,41,.18); --line-inv:rgba(242,240,235,.18);
+    --disp:'Bebas Neue', Impact, sans-serif;
+    --body:'Barlow', Arial, sans-serif;
+    --mono:'Courier New', ui-monospace, monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--red);outline-offset:3px}
+  ::selection{background:var(--red);color:var(--paper)}
+
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .redsec{background:var(--red);color:var(--paper)}
+
+  .kicker{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:20px}
+  .redsec .kicker{color:var(--ink)}
+  h1,h2{font-family:var(--disp);font-weight:400;line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+  h1{font-size:clamp(64px,10.5vw,148px)}
+  h2{font-size:clamp(44px,6.5vw,84px);margin-bottom:28px}
+  h3{font-family:var(--disp);font-weight:400;font-size:26px;letter-spacing:.04em;text-transform:uppercase}
+  .lede{font-size:clamp(18px,2vw,21px);max-width:58ch;color:var(--muted)}
+  .mark{font-family:var(--mono);font-size:22px;letter-spacing:-.02em}
+  .mark b{font-weight:700}
+  .src{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--line)}
+  .navrow{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .navlinks{display:flex;gap:26px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .navlinks a{text-decoration:none;color:var(--muted)}
+  .navlinks a:hover{color:var(--red)}
+  .navlinks a[aria-current="page"]{color:var(--ink)}
+  .btn{display:inline-block;background:var(--red);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:13px 26px;border:1px solid var(--red);cursor:pointer;font-family:var(--body)}
+  .btn:hover{background:var(--ink);border-color:var(--ink)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn.small{padding:9px 16px;font-size:11.5px}
+  @media(max-width:820px){.navlinks{display:none}}
+
+  /* hero */
+  .hero{padding:170px 0 90px}
+  .hero h1 .r{color:var(--red)}
+  .hero .lede{margin:30px 0 40px}
+  .heroctas{display:flex;gap:14px;flex-wrap:wrap}
+  .heroticker{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:34px;flex-wrap:wrap}
+  .heroticker span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted)}
+
+  /* sector switcher */
+  .sectors{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;gap:0;flex-wrap:wrap}
+  .sectors a{flex:1 1 auto;min-width:150px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:16px 4px;border-right:1px solid var(--line);text-align:center}
+  .sectors a:last-child{border-right:0}
+  .sectors a:hover{color:var(--red)}
+  .sectors a[aria-current="page"]{background:var(--ink);color:var(--paper)}
+
+  /* selector clinic */
+  .clinic{border:1.5px solid var(--ink);background:#fff}
+  .clinichead{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 26px;border-bottom:1.5px solid var(--ink);flex-wrap:wrap}
+  .clinichead .t{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.12em}
+  #tally{font-family:var(--mono);font-size:13px;letter-spacing:.1em}
+  #tally b{color:var(--red)}
+
+  .selgrid{display:grid;grid-template-columns:386px 1fr}
+  @media(max-width:900px){.selgrid{grid-template-columns:1fr}}
+  .qcol{padding:26px;border-right:1px solid var(--line)}
+  @media(max-width:900px){.qcol{border-right:0;border-bottom:1px solid var(--line)}}
+  .steplab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .qcol h3{font-size:clamp(26px,3vw,34px);line-height:1;margin-bottom:8px}
+  .qsub{font-size:14.5px;color:var(--muted);margin-bottom:22px}
+
+  .opt{display:grid;grid-template-columns:20px 1fr;gap:14px;align-items:start;width:100%;padding:16px 18px;margin-bottom:10px;border:1px solid var(--line);background:#fff;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover,.opt:focus-visible{border-color:var(--red);background:#fffdfd}
+  .opt .k{font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.5}
+  .opt:hover .k,.opt:focus-visible .k{color:var(--red)}
+  .opt .t{font-weight:600;font-size:16px;line-height:1.3;display:block}
+  .opt:hover .t,.opt:focus-visible .t{color:var(--red)}
+  .opt .d{font-size:14px;color:var(--muted);margin-top:5px;display:block;line-height:1.4}
+
+  .trail{list-style:none;margin:22px 0 14px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .trail li{padding:3px 0}
+  .trail li::before{content:"\203A  ";color:var(--red)}
+  .qctrls{display:flex;gap:10px}
+  .qctrls .btn.small.ghost{border-color:var(--line);color:var(--muted)}
+  .qctrls .btn.small.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .qctrls [hidden]{display:none}
+
+  /* plot */
+  .plotcol{padding:22px 26px 26px;min-width:0}
+  .legend{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:8px}
+  .legend span{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .dot{width:11px;height:11px;border-radius:50%;flex:none}
+  .dot.red{background:var(--red)}
+  .dot.ink{background:var(--ink)}
+  .dot.ring{background:var(--ink);box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--muted)}
+  .plothint{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-bottom:6px}
+  .plot{display:flex;align-items:center}
+  svg.matrix{width:100%;height:auto;display:block}
+
+  /* verdict */
+  #dx{display:none;padding:30px 26px;background:var(--ink);color:var(--paper);border-top:1.5px solid var(--ink)}
+  #dx.on{display:block}
+  #dx .dxlab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:rgba(242,240,235,.55);text-transform:uppercase}
+  #dx h3{font-size:clamp(30px,4vw,46px);color:var(--red);margin:8px 0 10px}
+  #dx p{max-width:64ch;color:rgba(242,240,235,.8);font-size:16px}
+  #dx .rx{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  #dx .rx .pill{font-family:var(--mono);font-size:12px;border:1px solid var(--line-inv);padding:7px 12px;letter-spacing:.04em;text-decoration:none}
+  #dx .rx .pill b{color:var(--red)}
+  #dx .dxctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  #dx .btn.ghost{background:transparent;color:var(--paper);border-color:rgba(242,240,235,.45)}
+  #dx .btn.ghost:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  #dx .handoff{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:none}
+  #dx .handoff.on{display:block}
+  .brief .btnrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .brief .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+  .brief .btn.ghost:hover{background:#fff;color:var(--red);border-color:#fff}
+
+  /* ladder */
+  .ladder{border-top:1.5px solid var(--ink)}
+  .rung{border-bottom:1px solid var(--line)}
+  .runghead{display:grid;grid-template-columns:44px 1fr auto auto auto 30px;gap:18px;align-items:center;padding:20px 6px;background:none;border:0;width:100%;cursor:pointer;font:inherit;color:inherit;text-align:left}
+  @media(max-width:900px){.runghead{grid-template-columns:34px 1fr auto 24px}.runghead .inv-tag,.runghead .cond-tag{display:none}}
+  .runghead:hover .rn{color:var(--red)}
+  .rung .idx{font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .rung .rn{font-family:var(--disp);font-size:clamp(22px,3vw,32px);letter-spacing:.03em;text-transform:uppercase;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .rxbadge{display:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;background:var(--red);color:#fff;padding:4px 8px}
+  .rung.rx .rxbadge{display:inline-block}
+  .rung .time{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .inv-tag,.cond-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;border:1px solid var(--line);padding:4px 9px;color:var(--muted);white-space:nowrap;text-transform:uppercase}
+  .cond-tag{border-color:var(--red);color:var(--red)}
+  .rung .chev{font-family:var(--mono);color:var(--muted);text-align:right}
+  .rungbody{display:none;padding:0 6px 26px;max-width:78ch}
+  .rungbody .lab{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+  .rungbody .prob{color:var(--muted);font-size:15.5px;margin-bottom:20px}
+  .rungbody ul{list-style:none;margin:0}
+  .rungbody li{padding:8px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+  .rungbody li::before{content:"\2014  ";color:var(--red)}
+  .rungbody .meta{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-top:16px;color:var(--ink)}
+  .rung.open .rungbody{display:block}
+  .rung.open .chev{color:var(--red)}
+  .rung.rx .rn{color:var(--red)}
+
+  /* brief */
+  .brief h2{font-size:clamp(52px,8vw,110px)}
+  .brief p{font-size:18px;max-width:60ch;color:rgba(255,255,255,.92);margin:18px 0 34px}
+  .brief .mailto{font-family:var(--mono);font-size:clamp(18px,2.6vw,26px);color:#fff;text-decoration:underline;text-underline-offset:6px}
+  .brief .btn{background:var(--ink);border-color:var(--ink)}
+  .brief .btn:hover{background:#fff;color:var(--ink);border-color:#fff}
+
+  footer{background:var(--ink);color:var(--paper);padding:34px 0}
+  .footrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .footrow .src{color:rgba(242,240,235,.45)}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none}}
+
+  /* svg states */
+  .node{cursor:pointer}
+  .node-hit{fill:transparent}
+  .node-dot{transition:r .15s ease,opacity .15s}
+  .node-label{font-family:var(--body);font-size:19px;font-weight:600;fill:var(--ink);stroke:#fff;stroke-width:4;paint-order:stroke fill;transition:fill .15s}
+  .node-condring{stroke:var(--muted);stroke-width:1.5;fill:none}
+  .node-ring{opacity:0;stroke:var(--ink);stroke-width:1.5;fill:none;transition:opacity .15s}
+  .node-strike{opacity:0;stroke:#bdb9b1;stroke-width:1.5;transition:opacity .15s}
+  .node.is-out .node-dot{fill:none;stroke:#cfcbc3;stroke-width:1.5;r:8}
+  .node.is-out .node-condring{stroke:#dedad2}
+  .node.is-out .node-label{fill:#c2beb6;stroke-width:3}
+  .node.is-out .node-strike{opacity:1}
+  .node.is-out{cursor:default}
+  .node.is-live:hover .node-dot,.node.is-live:focus-visible .node-dot{r:19}
+  .node.is-locked .node-dot{r:20}
+  .node.is-locked .node-ring{opacity:1;r:31}
+  .node.is-locked .node-label{font-weight:700;fill:var(--ink)}
+  .axis-line{stroke:var(--ink);stroke-width:1.5}
+  .grid-line{stroke:rgba(41,41,41,.14);stroke-width:1}
+  .axis-label{font-family:var(--mono);font-size:16px;letter-spacing:.1em;fill:var(--ink)}
+  .tick-label{font-family:var(--mono);font-size:15px;letter-spacing:.02em;fill:var(--muted)}
+  .axis-title{font-family:var(--mono);font-size:15px;letter-spacing:.2em;fill:var(--muted)}
+  .axis-label.is-hot,.tick-label.is-hot{fill:var(--red);font-weight:700}
+  .crosshair{stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 5;opacity:0}
+  .crosshair.on{opacity:1;animation:draw .42s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion: reduce){.crosshair.on{stroke-dashoffset:0!important}}
+
+  @media(max-width:900px){
+    .plot{overflow-x:auto;-webkit-overflow-scrolling:touch;display:block;padding-bottom:8px}
+    svg.matrix{width:820px;min-width:820px}
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="wrap navrow">
+    <a href="index.html" class="mark" style="text-decoration:none">anti<b>gen</b></a>
+    <div class="navlinks">
+      <a href="index.html#symptoms">Symptoms</a>
+      <a href="index.html#wound">The wound</a>
+      <a href="index.html#diagnosis">Diagnosis</a>
+      <a href="index.html#treatment">Treatment</a>
+      <a href="#selector" aria-current="page">Services</a>
+      <a href="index.html#proof">Proof</a>
+    </div>
+    <a class="btn small" href="booking.html">Book a call</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="kicker">For brands</span>
+    <h1>Marketing moves. <span class="r">Growth doesn't.</span></h1>
+    <p class="lede">For brand organisations where activity, agency relationships, transformation programmes and public thinking are no longer producing sufficient movement or distinction. Name the condition and the matrix eliminates everything else.</p>
+    <div class="heroctas">
+      <a class="btn" href="#selector">Run the selector</a>
+      <a class="btn ghost" href="#ladder">See the full set</a>
+    </div>
+    <div class="heroticker" aria-hidden="true"><span>5 INTERVENTIONS</span><span>1–2 DAYS TO ONGOING</span><span>EPISODIC · PROJECT · ASSIGNMENT</span><span>A USABLE ASSET EVERY TIME</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="sectors" role="navigation" aria-label="Sectors"><a href="agency-services.html">Agencies</a><a href="brands-services.html" aria-current="page">Brands</a><a href="adtech-services.html">Adtech</a><a href="startup-services.html">Startups</a></div>
+</div>
+
+<section id="selector">
+  <div class="wrap">
+    <span class="kicker">Navigate</span>
+    <h2>Time × Involvement.</h2>
+    <p class="lede" style="margin-bottom:36px">Every intervention plotted by how long it takes against how deep it sits inside your system. Diagnose the condition first — or go straight to any live node.</p>
+
+    <div class="clinic reveal" role="group" aria-label="Service selector">
+      <div class="clinichead">
+        <span class="t">SERVICE SELECTOR · PATIENT: YOUR BRAND</span>
+        <span id="tally">IN PLAY <b>5</b>/5</span>
+      </div>
+
+      <div class="selgrid">
+        <div class="qcol" id="qcol"></div>
+        <div class="plotcol">
+          <div class="legend"><span><i class="dot red"></i>Sameness</span><span><i class="dot ink"></i>Stagnation</span><span><i class="dot ring"></i>Suppression</span></div>
+          <p class="plothint" id="plothint">Answer a question — or click any live node</p>
+          <div class="plot">
+            <svg class="matrix" id="matrix" viewBox="0 0 1080 500" role="img"
+                 aria-label="Service lines plotted by engagement time against involvement depth"></svg>
+          </div>
+        </div>
+      </div>
+
+      <div id="dx" role="status" aria-live="polite">
+        <p class="handoff" id="handoff">Carried over from your symptom check</p>
+        <span class="dxlab">Prescribed intervention</span>
+        <h3 id="dxname"></h3>
+        <p id="dxcopy"></p>
+        <div class="rx" id="rxlist"></div>
+        <div class="dxctas">
+          <a class="btn" href="#ladder" id="dxcta">Open it in the ladder</a>
+          <a class="btn ghost" href="booking.html">Book a call</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ladder" style="padding-top:0">
+  <div class="wrap">
+    <span class="kicker">The intervention ladder</span>
+    <h2>Choose the problem before the product.</h2>
+    <p class="lede" style="margin-bottom:44px">Five interventions, from a one-day leadership session to embedded transformation stewardship. Escalate only when sustained ownership is genuinely necessary. <span id="rxnote" style="display:none;color:var(--red);font-weight:600">Your prescribed entry point is flagged below.</span></p>
+    <div class="ladder reveal" id="ladderlist"></div>
+    <p class="src" style="margin-top:20px">Every engagement produces a usable strategic asset, a clearer decision, or a changed operating capability — not presentation volume.</p>
+  </div>
+</section>
+
+<section class="redsec brief" id="brief">
+  <div class="wrap reveal">
+    <span class="kicker">How to start</span>
+    <h2>Bring the hard problem. We build the cell.</h2>
+    <p>Choose the problem before the product. Name the condition, then take the smallest intervention capable of changing it.</p>
+    <p><a class="mailto" href="mailto:sid@1antigen.com?subject=Brief%20for%20ANTIGEN">sid@1antigen.com</a></p>
+    <div class="btnrow">
+      <a class="btn" href="booking.html">Book a 30-minute diagnostic</a>
+      <a class="btn ghost" href="mailto:sid@1antigen.com?subject=Brief%20for%20ANTIGEN&body=1.%20The%20problem%2C%20in%20one%20sentence%3A%0A2.%20What%20we%27ve%20already%20tried%3A%0A3.%20What%20happens%20if%20it%20stays%20unsolved%3A">Brief us by email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footrow">
+    <span class="mark">anti<b>gen</b></span>
+    <span class="src">Composable. Distributed. Insurgent. · getantigen.com</span>
+  </div>
+</footer>
+
+<script>
+var COLS = ["1–2 DAYS", "1–5 DAYS", "5–10 DAYS", "10–30 DAYS", "ONGOING"];
+var SERVICES = [
+  {
+    "id": "wshop",
+    "n": "Executive Workshop",
+    "label": [
+      "Executive",
+      "Workshop"
+    ],
+    "pos": "above",
+    "col": 1,
+    "row": "EPISODIC",
+    "cond": "Suppression",
+    "area": "Capability",
+    "t": "1–2 DAYS",
+    "inv": "EPISODIC",
+    "problem": "The leadership team is nominally aligned, but difficult evidence, competing incentives and political risk prevent the organisation from making the choice the growth problem requires.",
+    "solution": [
+      "Half-day or full-day facilitated session for leadership teams",
+      "Topics: transformation roadmapping, agency model optimisation, AI-driven marketing futures",
+      "Structured dissent and decision protocols",
+      "Deliverable: workshop deck and decision memo with strategic priorities"
+    ],
+    "kind": "ink",
+    "ring": true
+  },
+  {
+    "id": "sb",
+    "n": "Strategy Breakthrough",
+    "label": [
+      "Strategy",
+      "Breakthrough"
+    ],
+    "pos": "below",
+    "col": 2,
+    "row": "PROJECT",
+    "cond": "Stagnation",
+    "area": "Brand Growth",
+    "t": "1–5 DAYS",
+    "inv": "PROJECT",
+    "problem": "Marketing activity continues, but growth does not. Fragmented attention, measurement noise and inherited planning routines make it difficult to connect spend, strategy and business outcomes.",
+    "solution": [
+      "Intensive 2–3 day engagement to crack a specific strategic challenge",
+      "Deliverable: Strategic POV document (10–15 pages) with actionable recommendations",
+      "Use cases: growth diagnosis, creative and media mix strategy, channel prioritisation",
+      "MarTech stack audit and AI adoption roadmap"
+    ],
+    "kind": "ink",
+    "ring": false
+  },
+  {
+    "id": "tl",
+    "n": "Thought Leadership & POV Development",
+    "label": [
+      "Thought Leadership",
+      "& POV Development"
+    ],
+    "pos": "above",
+    "col": 3,
+    "row": "PROJECT",
+    "cond": "Sameness",
+    "area": "Knowledge",
+    "t": "5–10 DAYS",
+    "inv": "PROJECT",
+    "problem": "The brand's thinking is visible but not distinctive. Content, trend commentary and executive narratives reproduce the same category assumptions as competitors.",
+    "solution": [
+      "White papers, industry POVs and trend reports",
+      "Original thesis and evidence development",
+      "Speaking engagement support: keynote development and panel preparation",
+      "Executive narrative and editorial system"
+    ],
+    "kind": "red",
+    "ring": false
+  },
+  {
+    "id": "ars",
+    "n": "Agency Review & Selection",
+    "label": [
+      "Agency Review",
+      "& Selection"
+    ],
+    "pos": "below",
+    "col": 4,
+    "row": "PROJECT",
+    "cond": "Stagnation",
+    "area": "Operations",
+    "t": "10–30 DAYS",
+    "inv": "PROJECT",
+    "problem": "The agency model no longer fits the growth problem, but inherited rosters, procurement routines and conventional RFPs keep reproducing the same relationships and disappointing outcomes.",
+    "solution": [
+      "Agency model design: capabilities required and roster structure",
+      "RFP development with diagnostic questions and red flags",
+      "Pitch facilitation and structured evaluation",
+      "Commercial negotiation support",
+      "Onboarding blueprint tied to operating behaviours and outcomes"
+    ],
+    "kind": "ink",
+    "ring": false
+  },
+  {
+    "id": "mtda",
+    "n": "Marketing Transformation & Digital Acceleration",
+    "label": [
+      "Marketing Transformation",
+      "& Digital Acceleration"
+    ],
+    "pos": "above",
+    "col": 5,
+    "row": "ASSIGNMENT",
+    "cond": "Stagnation",
+    "area": "Operations",
+    "t": "ONGOING",
+    "inv": "ASSIGNMENT",
+    "problem": "Transformation generates roadmaps, tools and workstreams, but the operating system does not change. Momentum dissipates, adoption stalls, and the organisation returns to familiar behaviour.",
+    "solution": [
+      "Digital maturity assessment and prioritised roadmap",
+      "MarTech stack audit and optimisation",
+      "Performance marketing framework design",
+      "AI integration roadmap: where to automate and where to differentiate",
+      "Team upskilling and operating-model adoption",
+      "Progress telemetry tied to behaviour and business outcomes"
+    ],
+    "kind": "ink",
+    "ring": false
+  }
+];
+var STEPS = {
+  "q1": {
+    "n": "Question 01 of 02",
+    "q": "Which condition is holding you?",
+    "sub": "Diagnose the mechanism before you pick the intervention.",
+    "opts": [
+      {
+        "t": "Stagnation",
+        "d": "Motion without meaningful progress. Activity accumulates; growth does not compound.",
+        "keep": [
+          "sb",
+          "ars",
+          "mtda"
+        ],
+        "next": "q2",
+        "trail": "Condition: stagnation",
+        "cond": "stagnation"
+      },
+      {
+        "t": "Sameness",
+        "d": "Convergence toward the category mean. Your thinking reads like everyone else's.",
+        "keep": [
+          "tl"
+        ],
+        "next": null,
+        "trail": "Condition: sameness",
+        "cond": "sameness"
+      },
+      {
+        "t": "Suppression",
+        "d": "Necessary challenge is inhibited. The disagreement that matters never happens.",
+        "keep": [
+          "wshop"
+        ],
+        "next": null,
+        "trail": "Condition: suppression",
+        "cond": "suppression"
+      }
+    ]
+  },
+  "q2": {
+    "n": "Question 02 of 02",
+    "q": "Where is it stuck?",
+    "sub": "Three things stall for different reasons. Only one of them is yours.",
+    "opts": [
+      {
+        "t": "In the strategy itself",
+        "d": "Spend, strategy and outcomes have come apart. You need a defensible point of view, fast.",
+        "keep": [
+          "sb"
+        ],
+        "next": null,
+        "trail": "Stuck in the strategy"
+      },
+      {
+        "t": "In the agency roster",
+        "d": "The model no longer fits the problem, but the roster keeps reproducing itself.",
+        "keep": [
+          "ars"
+        ],
+        "next": null,
+        "trail": "Stuck in the roster"
+      },
+      {
+        "t": "In the operating system",
+        "d": "Transformation produces roadmaps and tools, but behaviour reverts every time.",
+        "keep": [
+          "mtda"
+        ],
+        "next": null,
+        "trail": "Stuck in the operating system"
+      }
+    ]
+  }
+};
+
+/* geometry */
+var PLOT_L = 200, PLOT_R = 890;
+var COLW = COLS.length > 1 ? (PLOT_R - PLOT_L) / (COLS.length - 1) : 0;
+function cx(i){ return PLOT_L + (i - 1) * COLW; }
+var ROW = { EPISODIC:400, PROJECT:250, ASSIGNMENT:100 };
+var AX_X = 140, AX_TOP = 62, AX_BOT = 410, AX_RIGHT = 985;
+
+SERVICES.forEach(function(s){ s.x = cx(s.col); s.y = ROW[s.row]; });
+
+var byId = {}; SERVICES.forEach(function(s){ byId[s.id] = s; });
+var CSSV = getComputedStyle(document.documentElement);
+var FILL = { red:CSSV.getPropertyValue("--red").trim() || "#E33737",
+             ink:CSSV.getPropertyValue("--ink").trim() || "#292929" };
+
+var state = { step:"q1", inPlay:SERVICES.map(function(s){return s.id;}), locked:null, history:[], trail:[] };
+
+/* matrix */
+var SVGNS = "http://www.w3.org/2000/svg";
+var svg = document.getElementById("matrix");
+var nodeEls = {}, tickEls = {}, rowEls = {};
+
+function el(tag, attrs, text){
+  var n = document.createElementNS(SVGNS, tag);
+  for (var k in attrs){ if (attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, attrs[k]); }
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+function buildMatrix(){
+  var f = document.createDocumentFragment();
+  [ROW.ASSIGNMENT, ROW.PROJECT].forEach(function(y){
+    f.appendChild(el("line",{x1:AX_X,y1:y,x2:AX_RIGHT,y2:y,"class":"grid-line"}));
+  });
+  f.appendChild(el("line",{x1:AX_X,y1:AX_TOP,x2:AX_X,y2:AX_BOT,"class":"axis-line"}));
+  f.appendChild(el("line",{x1:AX_X,y1:AX_BOT,x2:AX_RIGHT,y2:AX_BOT,"class":"axis-line"}));
+
+  [["ASSIGNMENT",ROW.ASSIGNMENT],["PROJECT",ROW.PROJECT],["EPISODIC",ROW.EPISODIC]].forEach(function(r){
+    var t = el("text",{x:AX_X-16,y:r[1]+5,"text-anchor":"end","class":"axis-label"},r[0]);
+    rowEls[r[0]] = t; f.appendChild(t);
+  });
+  COLS.forEach(function(c,i){
+    var t = el("text",{x:cx(i+1),y:AX_BOT+30,"text-anchor":"middle","class":"tick-label"},c);
+    tickEls[c] = t; f.appendChild(t);
+  });
+  f.appendChild(el("text",{x:(AX_X+AX_RIGHT)/2,y:AX_BOT+68,"text-anchor":"middle","class":"axis-title"},"TIME (DAYS)"));
+
+  f.appendChild(el("line",{"class":"crosshair",id:"chX"}));
+  f.appendChild(el("line",{"class":"crosshair",id:"chY"}));
+
+  SERVICES.forEach(function(s){
+    var g = el("g",{"class":"node is-live",tabindex:"0",role:"button",
+                    "aria-label":s.n + ", " + s.cond + ", " + s.t + ", " + s.inv});
+    g.appendChild(el("circle",{cx:s.x,cy:s.y,r:26,"class":"node-hit"}));
+    if (s.ring) g.appendChild(el("circle",{cx:s.x,cy:s.y,r:22,"class":"node-condring"}));
+    g.appendChild(el("circle",{cx:s.x,cy:s.y,r:15,"class":"node-ring"}));
+    g.appendChild(el("circle",{cx:s.x,cy:s.y,r:15,fill:FILL[s.kind],"class":"node-dot"}));
+    g.appendChild(el("line",{x1:s.x-9,y1:s.y-9,x2:s.x+9,y2:s.y+9,"class":"node-strike"}));
+
+    var lines = s.label;
+    var startY = s.pos === "above" ? (s.y - 46 - (lines.length-1)*22) : (s.y + 56);
+    lines.forEach(function(ln,i){
+      g.appendChild(el("text",{x:s.x,y:startY+i*22,"text-anchor":"middle","class":"node-label"},ln));
+    });
+
+    g.addEventListener("click", function(){ pickNode(s.id); });
+    g.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); pickNode(s.id); }
+    });
+    nodeEls[s.id] = g;
+    f.appendChild(g);
+  });
+  svg.appendChild(f);
+}
+
+function snapshot(){
+  return { step:state.step, inPlay:state.inPlay.slice(), trail:state.trail.slice(), locked:state.locked };
+}
+function pickNode(id){
+  if (state.inPlay.indexOf(id) === -1 || state.locked === id) return;
+  state.history.push(snapshot());
+  state.trail = state.trail.concat(["Selected from the plot"]);
+  state.inPlay = [id]; state.locked = id; state.step = null;
+  render();
+}
+
+/* ladder */
+var ladderEl = document.getElementById("ladderlist");
+SERVICES.forEach(function(s,i){
+  var div = document.createElement("div");
+  div.className = "rung"; div.id = "svc-" + s.id;
+  div.innerHTML =
+    '<button class="runghead" aria-expanded="false">' +
+      '<span class="idx">0' + (i+1) + '</span>' +
+      '<span class="rn">' + s.n + ' <span class="rxbadge">PRESCRIBED</span></span>' +
+      '<span class="cond-tag">' + s.cond + '</span>' +
+      '<span class="time">' + s.t + '</span>' +
+      '<span class="inv-tag">' + s.inv + '</span>' +
+      '<span class="chev">+</span>' +
+    '</button>' +
+    '<div class="rungbody">' +
+      '<p class="lab">The problem</p><p class="prob">' + s.problem + '</p>' +
+      '<p class="lab">The Antigen solution</p><ul>' +
+        s.solution.map(function(b){ return "<li>" + b + "</li>"; }).join("") +
+      '</ul>' +
+      '<p class="meta">' + s.cond + ' &nbsp;·&nbsp; ' + s.area + ' &nbsp;·&nbsp; ' + s.t + ' &nbsp;·&nbsp; ' + s.inv + '</p>' +
+    '</div>';
+  ladderEl.appendChild(div);
+});
+ladderEl.addEventListener("click", function(e){
+  var head = e.target.closest(".runghead"); if(!head) return;
+  var rung = head.parentElement;
+  var open = rung.classList.toggle("open");
+  head.setAttribute("aria-expanded", open);
+  head.querySelector(".chev").textContent = open ? "\u2013" : "+";
+});
+
+/* render */
+var qcol = document.getElementById("qcol");
+var tallyB = document.querySelector("#tally b");
+var plothint = document.getElementById("plothint");
+var dx = document.getElementById("dx");
+var dxname = document.getElementById("dxname");
+var dxcopy = document.getElementById("dxcopy");
+var rxlist = document.getElementById("rxlist");
+var rxnote = document.getElementById("rxnote");
+var dxcta = document.getElementById("dxcta");
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];
+  });
+}
+function isNarrow(){ return window.matchMedia && window.matchMedia("(max-width: 900px)").matches; }
+
+function renderMatrix(){
+  SERVICES.forEach(function(s){
+    var g = nodeEls[s.id];
+    var live = state.inPlay.indexOf(s.id) !== -1;
+    g.setAttribute("class","node " + (state.locked === s.id ? "is-locked" : (live ? "is-live" : "is-out")));
+    if (live) g.setAttribute("tabindex","0"); else g.removeAttribute("tabindex");
+  });
+  for (var k in tickEls) tickEls[k].classList.remove("is-hot");
+  for (var r in rowEls) rowEls[r].classList.remove("is-hot");
+
+  var chX = document.getElementById("chX"), chY = document.getElementById("chY");
+  chX.classList.remove("on"); chY.classList.remove("on");
+
+  if (state.locked){
+    var s = byId[state.locked];
+    if (tickEls[s.t]) tickEls[s.t].classList.add("is-hot");
+    if (rowEls[s.row]) rowEls[s.row].classList.add("is-hot");
+    chX.setAttribute("x1",AX_X); chX.setAttribute("y1",s.y); chX.setAttribute("x2",s.x); chX.setAttribute("y2",s.y);
+    chX.setAttribute("stroke-dashoffset",Math.abs(s.x-AX_X));
+    chY.setAttribute("x1",s.x); chY.setAttribute("y1",AX_BOT); chY.setAttribute("x2",s.x); chY.setAttribute("y2",s.y);
+    chY.setAttribute("stroke-dashoffset",Math.abs(AX_BOT-s.y));
+    void chX.getBoundingClientRect();
+    chX.classList.add("on"); chY.classList.add("on");
+  }
+}
+
+function renderStatus(){
+  tallyB.textContent = state.inPlay.length;
+  plothint.textContent = state.locked
+    ? (isNarrow() ? "Swipe the plot to see the crosshairs" : "Crosshairs mark the cell")
+    : (isNarrow() ? "Swipe the plot — or tap any live node" : "Answer a question — or click any live node");
+}
+
+function renderQuestions(){
+  qcol.innerHTML = "";
+  var head = document.createElement("div");
+  if (state.locked){
+    var s = byId[state.locked];
+    head.innerHTML =
+      '<div class="steplab">Result</div>' +
+      '<h3>' + esc(s.n) + '</h3>' +
+      '<p class="qsub">' + esc(s.cond) + ' · ' + esc(s.area) + '</p>' +
+      '<p style="font-size:15px;color:var(--muted)">Coordinates locked at <b style="color:var(--ink)">' +
+        esc(s.t) + ' \u00d7 ' + esc(s.row) + '</b>. The crosshairs on the plot mark the cell.</p>';
+  } else {
+    var st = STEPS[state.step];
+    head.innerHTML =
+      '<div class="steplab">' + esc(st.n) + '</div>' +
+      '<h3>' + esc(st.q) + '</h3>' +
+      '<p class="qsub">' + esc(st.sub) + '</p>';
+  }
+  qcol.appendChild(head);
+
+  if (!state.locked){
+    STEPS[state.step].opts.forEach(function(o,i){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt";
+      b.innerHTML = '<span class="k">0' + (i+1) + '</span><span><span class="t">' + esc(o.t) +
+                    '</span><span class="d">' + esc(o.d) + '</span></span>';
+      b.addEventListener("click", function(){ answer(o); });
+      b.addEventListener("mouseenter", function(){ preview(o.keep); });
+      b.addEventListener("focus", function(){ preview(o.keep); });
+      b.addEventListener("mouseleave", clearPreview);
+      b.addEventListener("blur", clearPreview);
+      qcol.appendChild(b);
+    });
+  }
+
+  if (state.trail.length){
+    var ul = document.createElement("ul");
+    ul.className = "trail";
+    ul.innerHTML = state.trail.map(function(t){ return "<li>" + esc(t) + "</li>"; }).join("");
+    qcol.appendChild(ul);
+  }
+
+  var ctrls = document.createElement("div");
+  ctrls.className = "qctrls";
+  ctrls.innerHTML =
+    '<button class="btn small ghost" type="button" id="backBtn"' + (state.history.length ? '' : ' hidden') + '>\u2190 Back</button>' +
+    '<button class="btn small ghost" type="button" id="resetBtn"' + (state.history.length ? '' : ' hidden') + '>Start over</button>';
+  qcol.appendChild(ctrls);
+  var bb = document.getElementById("backBtn"), rb = document.getElementById("resetBtn");
+  if (bb) bb.addEventListener("click", goBack);
+  if (rb) rb.addEventListener("click", reset);
+}
+
+function renderVerdict(){
+  document.querySelectorAll(".rung").forEach(function(r){ r.classList.remove("rx"); });
+  if (!state.locked){ dx.classList.remove("on"); rxnote.style.display = "none"; return; }
+  var s = byId[state.locked];
+  dxname.textContent = s.n;
+  dxcopy.textContent = s.problem;
+  rxlist.innerHTML =
+    '<span class="pill" style="border-color:var(--red)"><b>Rx</b></span>' +
+    '<span class="pill">' + esc(s.cond) + '</span>' +
+    '<span class="pill">' + esc(s.area) + '</span>' +
+    '<span class="pill">' + esc(s.t) + '</span>' +
+    '<span class="pill">' + esc(s.inv) + '</span>';
+  dxcta.setAttribute("href", "#svc-" + s.id);
+  var rung = document.getElementById("svc-" + s.id);
+  if (rung){
+    rung.classList.add("rx");
+    if (!rung.classList.contains("open")){
+      rung.classList.add("open");
+      var h = rung.querySelector(".runghead");
+      h.setAttribute("aria-expanded","true");
+      h.querySelector(".chev").textContent = "\u2013";
+    }
+  }
+  rxnote.style.display = "inline";
+  dx.classList.add("on");
+}
+
+function preview(keep){
+  if (state.locked) return;
+  SERVICES.forEach(function(s){
+    if (state.inPlay.indexOf(s.id) === -1) return;
+    nodeEls[s.id].setAttribute("class","node " + (keep.indexOf(s.id) !== -1 ? "is-live" : "is-out"));
+  });
+}
+function clearPreview(){ if (!state.locked) renderMatrix(); }
+
+function answer(o){
+  state.history.push(snapshot());
+  state.inPlay = state.inPlay.filter(function(id){ return o.keep.indexOf(id) !== -1; });
+  state.trail = state.trail.concat([o.trail]);
+  if (o.next && state.inPlay.length > 1){ state.step = o.next; state.locked = null; }
+  else { state.locked = state.inPlay[0]; state.step = null; }
+  render();
+}
+function goBack(){
+  var prev = state.history.pop(); if (!prev) return;
+  state.step = prev.step; state.inPlay = prev.inPlay; state.trail = prev.trail; state.locked = prev.locked;
+  render();
+}
+function reset(){
+  state = { step:"q1", inPlay:SERVICES.map(function(s){return s.id;}), locked:null, history:[], trail:[] };
+  render();
+}
+function render(){ renderMatrix(); renderStatus(); renderQuestions(); renderVerdict(); }
+
+buildMatrix();
+render();
+
+/* Accept a condition handed over from the homepage symptom check: ?cond=sameness */
+(function(){
+  var m = /[?&]cond=([a-zA-Z]+)/.exec(location.search);
+  if (!m || !STEPS.q1) return;
+  var want = m[1].toLowerCase();
+  var hits = STEPS.q1.opts.filter(function(o){ return (o.cond || "").toLowerCase() === want; });
+  if (hits.length !== 1) return;
+  answer(hits[0]);
+  var h = document.getElementById("handoff");
+  if (h) h.classList.add("on");
+})();
+
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

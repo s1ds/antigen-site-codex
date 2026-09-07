@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indian BFSI Buyer Journey with Sales Simulator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --color-red: #e31d28;
+      --color-magenta: #e3195b;
+      --color-crimson: #b11226;
+      --color-blush: #f0448e;
+      --color-white: #ffffff;
+      --color-paper: #f8f7f6;
+      --color-smoke: #e8e8e8;
+      --color-black: #111111;
+      --color-ink: #1e1c17;
+      --color-grey: #9fa2a4;
+      --color-mute: #6e6e6e;
+      --color-yellow: #ffc000;
+      --color-blue: #08a7d8;
+      --fg1: var(--color-black);
+      --fg2: var(--color-mute);
+      --fg3: var(--color-grey);
+      --bg1: var(--color-white);
+      --bg2: var(--color-paper);
+      --bg3: var(--color-smoke);
+      --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+      --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+      --font-display: 'Bebas Neue', 'Oswald', Impact, 'Arial Narrow', sans-serif;
+      --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+      --font-typewriter: 'Special Elite', 'Courier Prime', 'American Typewriter', ui-monospace, monospace;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--fg1);
+      background: var(--bg1);
+      font-family: var(--font-sans);
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      padding: 56px 0 22px;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 460px;
+      height: 460px;
+      right: -140px;
+      top: -180px;
+      background: radial-gradient(circle, rgba(227, 29, 40, 0.10), transparent 68%);
+    }
+
+    .hero::after {
+      width: 520px;
+      height: 520px;
+      left: -180px;
+      top: 20px;
+      background: radial-gradient(circle, rgba(17, 17, 17, 0.06), transparent 68%);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 17, 17, 0.10);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--color-red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gradient-insurgence);
+      box-shadow: 0 0 0 6px rgba(227, 29, 40, 0.10);
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      color: var(--fg1);
+      font-family: var(--font-display);
+      font-size: clamp(64px, 8vw, 120px);
+      line-height: 0.84;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      max-width: 920px;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--fg2);
+      font-size: clamp(17px, 2vw, 20px);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .snapshot {
+      border: 1px solid rgba(17, 17, 17, 0.10);
+      border-radius: var(--radius);
+      background: var(--bg2);
+      box-shadow: 0 1px 2px rgba(17,17,17,.06), 0 4px 16px rgba(17,17,17,.05);
+      padding: 24px;
+    }
+
+    .snapshot h2 {
+      margin: 0 0 16px;
+      color: var(--fg1);
+      font-family: var(--font-display);
+      font-size: 28px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .signal {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--color-white);
+      border: 1px solid rgba(17, 17, 17, 0.08);
+    }
+
+    .signal strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--fg1);
+      font-family: var(--font-display);
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .signal span {
+      display: block;
+      color: var(--fg3);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.75fr);
+      gap: 20px;
+      align-items: start;
+      padding: 18px 0 54px;
+    }
+
+    .section-head {
+      margin: 10px 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 22px;
+      align-items: end;
+    }
+
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--color-red);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: var(--font-sans);
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--fg1);
+      font-family: var(--font-display);
+      font-size: clamp(44px, 6vw, 88px);
+      line-height: 0.86;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--fg2);
+      font-size: 17px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .journey {
+      display: grid;
+      gap: 16px;
+    }
+
+    .stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: 76px minmax(200px, 0.7fr) minmax(0, 2fr);
+      gap: 16px;
+      align-items: stretch;
+      padding-top: 4px;
+      scroll-margin-top: 16px;
+      min-width: 0;
+    }
+
+    .stage.active {
+      transform: translateY(-1px);
+    }
+
+    .stage.active .stage-no {
+      background: var(--gradient-insurgence);
+    }
+
+    .stage-no {
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      background: var(--color-black);
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 900;
+      box-shadow: 0 16px 30px rgba(8, 34, 74, 0.18);
+    }
+
+    .stage-title {
+      padding: 20px 18px;
+      border-radius: 20px;
+      background: var(--bg2);
+      color: var(--fg1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 168px;
+      border: 1px solid rgba(17,17,17,.08);
+      min-width: 0;
+    }
+
+    .stage-title .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(227, 29, 40, 0.08);
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .stage-title h3 {
+      margin: 0;
+      color: var(--fg1);
+      font-family: var(--font-display);
+      font-size: 31px;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    .stage-title p {
+      margin: 12px 0 0;
+      color: var(--fg2);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cell {
+      min-height: 170px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      background: var(--color-white);
+      min-width: 0;
+    }
+
+    .cell h4 {
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--fg1);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .cell p,
+    .cell li {
+      color: var(--fg2);
+      font-size: 12.5px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .cell p { margin: 0; }
+    .cell ul { margin: 0; padding-left: 18px; }
+
+    .what,
+    .stakeholders,
+    .questions,
+    .nuance {
+      border-top: 3px solid transparent;
+    }
+
+    .what { background: var(--color-paper); border-top-color: var(--color-red); }
+    .stakeholders { background: var(--color-white); border-top-color: var(--color-black); }
+    .questions { background: var(--color-paper); border-top-color: var(--color-grey); }
+    .nuance { background: var(--color-white); border-top-color: var(--color-yellow); }
+
+    .simulator {
+      position: sticky;
+      top: 22px;
+      align-self: start;
+      border: 1px solid rgba(17, 17, 17, 0.10);
+      border-radius: 26px;
+      background: var(--bg2);
+      box-shadow: 0 1px 2px rgba(17,17,17,.06), 0 4px 16px rgba(17,17,17,.05);
+      overflow: hidden;
+    }
+
+    .sim-head {
+      padding: 22px 22px 18px;
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+
+    .sim-head h2 {
+      margin: 8px 0 8px;
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-size: 42px;
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .sim-head p {
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .sim-body {
+      padding: 18px 22px 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--fg1);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .field select,
+    .field textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(17, 17, 17, 0.10);
+      background: #fff;
+      color: var(--fg1);
+      font-family: var(--font-sans);
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(227, 29, 40, 0.55);
+      box-shadow: 0 0 0 4px rgba(227, 29, 40, 0.10);
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .stage-pills {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .pill {
+      border: 1px solid rgba(17, 17, 17, 0.10);
+      background: #fff;
+      color: var(--fg1);
+      padding: 9px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .pill:hover { transform: translateY(-1px); }
+    .pill.active {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-color: var(--color-black);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 16px;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--color-black);
+      color: #fff;
+      border: 2px solid var(--color-black);
+      box-shadow: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--fg1);
+      border: 2px solid var(--color-black);
+    }
+
+    .result-meta {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--color-white);
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      color: var(--fg2);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+      min-width: 0;
+    }
+
+    .results {
+      display: grid;
+      gap: 12px;
+    }
+
+    .persona {
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 18px;
+      padding: 14px;
+      background: #fff;
+      min-width: 0;
+    }
+
+    .persona-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      min-width: 0;
+    }
+
+    .persona h3 {
+      margin: 0;
+      color: var(--fg1);
+      font-family: var(--font-display);
+      font-size: 16px;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      min-width: 0;
+    }
+
+    .stance {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--color-paper);
+      color: var(--fg1);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .quote {
+      margin: 10px 0 8px;
+      color: var(--fg1);
+      font-family: var(--font-typewriter);
+      font-size: 14px;
+      font-style: italic;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .fear {
+      margin: 0;
+      color: var(--fg2);
+      font-size: 13px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .action-link {
+      margin-top: 10px;
+      border: 0;
+      background: transparent;
+      color: var(--color-red);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .reply-box {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(17, 17, 17, 0.10);
+      display: grid;
+      gap: 10px;
+    }
+
+    .reply-box textarea {
+      width: 100%;
+      min-height: 92px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(17, 17, 17, 0.10);
+      font-family: var(--font-sans);
+      resize: vertical;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .mini-note {
+      margin: 0;
+      color: var(--fg3);
+      font-size: 12px;
+    }
+
+    .helper {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--color-white);
+      border: 1px solid rgba(17, 17, 17, 0.08);
+    }
+
+    .helper strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--fg1);
+      font-family: var(--font-sans);
+      font-size: 14px;
+    }
+
+    .helper p {
+      margin: 0;
+      color: var(--fg2);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      hyphens: auto;
+    }
+
+    .footer {
+      padding: 12px 0 42px;
+      color: var(--fg3);
+      font-size: 13px;
+    }
+
+    .footer-line {
+      padding-top: 18px;
+      border-top: 1px solid rgba(17, 17, 17, 0.10);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .shell,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        grid-template-columns: 64px 1fr;
+      }
+
+      .stage-grid {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding-left: 80px;
+      }
+
+      .simulator {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page { width: min(100% - 20px, 1240px); }
+      .hero { padding-top: 34px; }
+      .signal-grid,
+      .stage-grid,
+      .stage-pills {
+        grid-template-columns: 1fr;
+      }
+      .stage {
+        grid-template-columns: 1fr;
+      }
+      .stage-grid {
+        padding-left: 0;
+      }
+      .stage-no {
+        width: 54px;
+        height: 54px;
+        border-radius: 18px;
+      }
+      .stage-title {
+        min-height: auto;
+      }
+      .footer-line {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="page hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> India BFSI · Transformation · PPM</div>
+        <h1>Indian BFSI Buyer Decision Journey with a Sales Simulator</h1>
+        <p>This version keeps the buyer journey as the main narrative and pins the BFSI Sales Simulator beside it, so the stage, objections, and response practice feel like part of the same flow.</p>
+      </div>
+
+      <aside class="snapshot" aria-label="Executive snapshot">
+        <h2>Executive snapshot</h2>
+        <div class="signal-grid">
+          <div class="signal"><strong>9</strong><span>decision stages</span></div>
+          <div class="signal"><strong>5</strong><span>stakeholder clusters</span></div>
+          <div class="signal"><strong>1</strong><span>sticky simulator rail</span></div>
+          <div class="signal"><strong>0</strong><span>backend dependency</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page shell">
+    <section>
+      <div class="section-head">
+        <div>
+          <p class="kicker">Journey map</p>
+          <h2 class="section-title">The buying process is a governance journey, not a software-shopping journey.</h2>
+        </div>
+        <p>Use the simulator to practice the conversation at the exact stage the buyer is in. Click any stage card on the left and the right rail will jump to that moment in the deal.</p>
+      </div>
+
+      <div class="journey">
+        <article class="stage" id="stage-1" data-stage-card="1">
+          <div class="stage-no">1</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">🎯</div>
+              <h3>Trigger / Need Recognition</h3>
+            </div>
+            <p>Transformation pressure, compliance load, and portfolio sprawl create the first opening for PPM.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>Transformation complexity rises. Project tracking fragments. Leaders feel the pain of weak visibility across change portfolios.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>CIO / CTO</li>
+                <li>Transformation Office</li>
+                <li>PMO / EPMO</li>
+                <li>Business Heads</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Why now? What pain is severe enough to solve?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Urgency is created by modernization, compliance pressure, and growth, but budget often needs a sharper governance story.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-2" data-stage-card="2">
+          <div class="stage-no">2</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">🤝</div>
+              <h3>Internal Mobilisation & Problem Framing</h3>
+            </div>
+            <p>The institution defines the problem and decides whether this is a planning, resource, or governance issue.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The team maps current planning and governance processes and clarifies the capabilities that are missing.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>PMO / EPMO</li>
+                <li>Strategy</li>
+                <li>Transformation Leads</li>
+                <li>Enterprise Architecture</li>
+                <li>Business Unit Leaders</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Is this a project problem or an operating-model problem?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>There are usually multiple change agendas running at once across retail, corporate, operations, and technology.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-3" data-stage-card="3">
+          <div class="stage-no">3</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">📄</div>
+              <h3>Business Case & Requirements</h3>
+            </div>
+            <p>Value, integration, reporting, security, and audit needs become concrete evaluation criteria.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The sponsor team builds the ROI case, defines use cases, and captures must-have requirements.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>Sponsor</li>
+                <li>PMO / EPMO</li>
+                <li>Finance</li>
+                <li>CIO team</li>
+                <li>Enterprise Architecture</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>How will this improve prioritisation, governance, speed, and capital allocation?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>The case usually needs measurable control and productivity gains, not just software efficiency.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-4" data-stage-card="4">
+          <div class="stage-no">4</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">🔎</div>
+              <h3>Market Scan & Longlist</h3>
+            </div>
+            <p>Vendors are compared against scale, governance depth, and enterprise fit.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The team scans vendors, analyst views, peer references, and known enterprise platforms.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>PMO</li>
+                <li>CIO office</li>
+                <li>Procurement</li>
+                <li>Architecture</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Which vendors fit our scale, governance model, and support expectations?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Enterprise credibility and implementation maturity matter as much as feature breadth.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-5" data-stage-card="5">
+          <div class="stage-no">5</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">🧪</div>
+              <h3>Evaluation, Demos & PoC</h3>
+            </div>
+            <p>Fit-gap, sandbox testing, security checks, and reference calls start to narrow the field.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The buyer runs workshops, fit-gap reviews, scoring, and reference validation.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>Evaluation team</li>
+                <li>Power users</li>
+                <li>InfoSec</li>
+                <li>Implementation lead</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Can it integrate with our stack? Can users adopt it quickly?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Integration, onboarding effort, and process fit often decide whether enthusiasm survives the demo.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-6" data-stage-card="6">
+          <div class="stage-no">6</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">🛡️</div>
+              <h3>Risk, Compliance & Procurement Diligence</h3>
+            </div>
+            <p>Security, privacy, legal, commercials, and third-party risk gates become decisive.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The deal goes through risk checks, privacy review, legal scrutiny, SLA review, and procurement negotiation.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>InfoSec</li>
+                <li>Risk</li>
+                <li>Legal</li>
+                <li>Procurement</li>
+                <li>Vendor management</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Is the vendor safe, compliant, and contractable on our terms?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Cloud posture, data residency, and auditability become high-stakes objections here.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-7" data-stage-card="7">
+          <div class="stage-no">7</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">✅</div>
+              <h3>Approval & Selection</h3>
+            </div>
+            <p>The final recommendation needs executive confidence, not just technical fit.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The team presents the recommendation and asks for budget release and selection approval.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>Executive sponsor</li>
+                <li>Steering committee</li>
+                <li>Finance</li>
+                <li>Procurement</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Does this align with the transformation roadmap, budget cycle, and operating priorities?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Consensus is rarely enough. A credible business case and risk story are both required.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-8" data-stage-card="8">
+          <div class="stage-no">8</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">🚀</div>
+              <h3>Deployment & Change Adoption</h3>
+            </div>
+            <p>Implementation, training, migration, and operating model change begin to prove the decision.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The team designs rollout, configures the platform, migrates data, and trains users.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>Implementation partner</li>
+                <li>Platform owner</li>
+                <li>PMO</li>
+                <li>Change lead</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Who will own the platform, and how fast will adoption happen?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Successful rollouts usually start with a small, high-credibility use case and then expand.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage" id="stage-9" data-stage-card="9">
+          <div class="stage-no">9</div>
+          <div class="stage-title">
+            <div>
+              <div class="icon">📈</div>
+              <h3>Usage, Value Realisation & Expansion</h3>
+            </div>
+            <p>Adoption, reporting quality, and portfolio governance determine whether the platform scales.</p>
+          </div>
+          <div class="stage-grid">
+            <div class="cell what">
+              <h4>What happens</h4>
+              <p>The institution measures adoption, business value, and opportunities to extend the platform to more teams.</p>
+            </div>
+            <div class="cell stakeholders">
+              <h4>Key stakeholders</h4>
+              <ul>
+                <li>PMO / EPMO</li>
+                <li>Platform owner</li>
+                <li>Business leaders</li>
+                <li>Transformation office</li>
+              </ul>
+            </div>
+            <div class="cell questions">
+              <h4>Buyer questions</h4>
+              <p>Are we getting value? What should we expand next?</p>
+            </div>
+            <div class="cell nuance">
+              <h4>India BFSI nuance</h4>
+              <p>Renewal and expansion depend on proof that the platform improved control, coordination, and decision speed.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="simulator" aria-label="BFSI sales simulator">
+      <div class="sim-head">
+        <p class="kicker" style="color: rgba(255,255,255,0.8); margin: 0;">Buyer journey companion</p>
+        <h2>BFSI Sales Simulator</h2>
+        <p>Pick the stage, describe the challenge, and practice your reply against the likely personas in the room.</p>
+      </div>
+
+      <div class="sim-body">
+        <div class="helper">
+          <strong>How to use this rail</strong>
+          <p>Choose the current buyer stage, add a live challenge, then run the simulation. Use the response box to test your answer and rerun the scenario.</p>
+        </div>
+
+        <div class="field">
+          <label for="stageSelect">Decision stage</label>
+          <select id="stageSelect"></select>
+        </div>
+
+        <div class="stage-pills" id="stagePills" aria-label="Quick stage shortcuts"></div>
+
+        <div class="field">
+          <label for="challengeInput">Customer challenge</label>
+          <textarea id="challengeInput">InfoSec concerns about cloud hosting</textarea>
+        </div>
+
+        <button class="btn btn-primary" id="runBtn">Run Simulation</button>
+
+        <div class="result-meta" id="contextBox">Pick a stage to see the current stage context.</div>
+
+        <div class="results" id="results"></div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="page footer">
+    <div class="footer-line">
+      <span>Indian BFSI Buyer Decision Journey for PPM Software</span>
+      <span>Fresh HTML build with a persistent simulator rail.</span>
+    </div>
+  </footer>
+
+  <script>
+    const stageData = {
+      "1": {
+        label: "1 - Trigger / Need Recognition",
+        title: "Trigger / Need Recognition",
+        icon: "🎯",
+        context: "Transformation complexity, regulatory pressure, cost control, poor prioritisation, and weak visibility across change portfolios create urgency.",
+        strategy: "Anchor the conversation in business pain, not product features. Show how the platform creates visibility, prioritisation, and control.",
+        personas: [
+          { role: "CIO", stance: "open but cautious", objection: "I need a credible reason to invest now, not a generic platform pitch.", fear: "Buying too early without a clear governance case." },
+          { role: "PMO Lead", stance: "problem owner", objection: "Our tracking is fragmented, but I need agreement on the real operating pain.", fear: "Treating a process problem like a tool problem." },
+          { role: "Business Head", stance: "skeptical", objection: "How does this help my teams deliver faster, not just add reporting work?", fear: "Extra admin with little business impact." }
+        ]
+      },
+      "2": {
+        label: "2 - Internal Mobilisation & Problem Framing",
+        title: "Internal Mobilisation & Problem Framing",
+        context: "The buyer maps current governance, defines the real problem, and aligns the change agenda across teams.",
+        strategy: "Help the buyer frame the problem in operational terms. Show how portfolio visibility, resourcing, and governance connect.",
+        personas: [
+          { role: "PMO Director", stance: "analytical", objection: "We need to know whether this is portfolio, resource, or execution governance.", fear: "Getting the charter wrong and buying the wrong capability." },
+          { role: "Enterprise Architect", stance: "guarded", objection: "Show me where this fits with our existing stack and process model.", fear: "Another disconnected platform." },
+          { role: "Operations Head", stance: "pragmatic", objection: "If this changes our workflow, I need to see the operating benefit quickly.", fear: "Disruption without adoption." }
+        ]
+      },
+      "3": {
+        label: "3 - Business Case & Requirements",
+        title: "Business Case & Requirements",
+        context: "Value case, integration requirements, reporting needs, and security expectations become formal buying criteria.",
+        strategy: "Move from concept to evidence. Quantify control, productivity, and decision-speed benefits, then map them to requirements.",
+        personas: [
+          { role: "Finance Sponsor", stance: "numbers-first", objection: "Show me measurable ROI and a realistic payback story.", fear: "Funding a platform that cannot prove value." },
+          { role: "CIO Team", stance: "technical", objection: "Integration, reporting, and auditability are not optional for us.", fear: "Hidden implementation complexity." },
+          { role: "PMO", stance: "detail-oriented", objection: "We need clear requirements before we let this into the evaluation phase.", fear: "Scope creep and unclear ownership." }
+        ]
+      },
+      "4": {
+        label: "4 - Market Scan & Longlist",
+        title: "Market Scan & Longlist",
+        context: "The buyer compares vendors, analyst views, references, and enterprise fit before shortlisting.",
+        strategy: "Lead with enterprise credibility, implementation maturity, and evidence from similar institutions.",
+        personas: [
+          { role: "Procurement", stance: "screening", objection: "We need a shortlist that is defensible and commercially realistic.", fear: "Unvetted vendors wasting evaluation time." },
+          { role: "CIO Office", stance: "selective", objection: "Which vendors can actually support our scale and governance needs?", fear: "Choosing a vendor that cannot handle enterprise complexity." },
+          { role: "Architecture", stance: "filtering", objection: "I want to know which platforms will survive our security and integration checks.", fear: "Wasting time on poor-fit tools." }
+        ]
+      },
+      "5": {
+        label: "5 - Evaluation, Demos & PoC",
+        title: "Evaluation, Demos & PoC",
+        context: "Workshops, fit-gap checks, sandbox testing, security review, and references drive the next decision.",
+        strategy: "Demonstrate workflow fit, onboarding simplicity, and security readiness. Make the product feel usable in their environment.",
+        personas: [
+          { role: "Evaluation Lead", stance: "evidence-driven", objection: "The demo needs to match our actual workflows, not a generic story.", fear: "Presentation polish hiding execution gaps." },
+          { role: "InfoSec Reviewer", stance: "watchful", objection: "We will need detailed answers on hosting, controls, and access management.", fear: "A security exception becoming a future incident." },
+          { role: "Power User", stance: "practical", objection: "If this takes too long to learn, teams will reject it.", fear: "Low adoption after launch." }
+        ]
+      },
+      "6": {
+        label: "6 - Risk, Compliance & Procurement Diligence",
+        title: "Risk, Compliance & Procurement Diligence",
+        context: "Security, privacy, legal, commercial, and third-party risk gates can accelerate or stop the deal.",
+        strategy: "Answer objections with a crisp trust package: data controls, hosting posture, certifications, SLA coverage, and contract clarity.",
+        personas: [
+          { role: "InfoSec", stance: "high scrutiny", objection: "Cloud hosting is fine only if the control story is airtight.", fear: "Data residency, access control, or audit gaps." },
+          { role: "Risk", stance: "protective", objection: "We need evidence that the vendor will not create operational or compliance exposure.", fear: "Third-party risk and weak governance." },
+          { role: "Procurement", stance: "commercial", objection: "Commercial terms, scope, and service commitments need to be clean.", fear: "Unclear contract liabilities or hidden costs." }
+        ]
+      },
+      "7": {
+        label: "7 - Approval & Selection",
+        title: "Approval & Selection",
+        context: "The recommendation is tested at executive level, where budget and political alignment matter.",
+        strategy: "Make the final story simple: business value, risk reduction, and fit with the transformation roadmap.",
+        personas: [
+          { role: "Executive Sponsor", stance: "decisive", objection: "I need confidence that this supports the broader change agenda.", fear: "Approving a tool without strategic alignment." },
+          { role: "CFO", stance: "budget conscious", objection: "Show me why this should be funded now instead of later.", fear: "Budget leakage without clear returns." },
+          { role: "Steering Committee", stance: "consensus-seeking", objection: "We need a recommendation that is easy to defend across functions.", fear: "A split decision that creates delay." }
+        ]
+      },
+      "8": {
+        label: "8 - Deployment & Change Adoption",
+        title: "Deployment & Change Adoption",
+        context: "Implementation, migration, training, and operating model change determine whether the decision sticks.",
+        strategy: "Shift from selling the tool to selling the adoption plan. Reduce change risk with phased rollout and clear ownership.",
+        personas: [
+          { role: "Implementation Lead", stance: "delivery-focused", objection: "We need a rollout plan that fits our team capacity.", fear: "Over-ambitious delivery commitments." },
+          { role: "Change Lead", stance: "adoption-minded", objection: "If users do not see value fast, adoption will stall.", fear: "Launch without behavior change." },
+          { role: "Platform Owner", stance: "accountable", objection: "Who will own support and governance after go-live?", fear: "No one taking responsibility post-launch." }
+        ]
+      },
+      "9": {
+        label: "9 - Usage, Value Realisation & Expansion",
+        title: "Usage, Value Realisation & Expansion",
+        context: "The buyer measures adoption, value realization, and the case for extending the platform further.",
+        strategy: "Prove value with usage, reporting quality, governance gains, and visible expansion opportunities.",
+        personas: [
+          { role: "PMO / EPMO", stance: "value tracker", objection: "We need evidence that the platform improved governance, not just process chatter.", fear: "A stalled deployment with no measurable impact." },
+          { role: "Business Leader", stance: "results-oriented", objection: "What tangible outcomes have improved for my team?", fear: "Process overhead without business payoff." },
+          { role: "Executive Sponsor", stance: "growth-minded", objection: "If this is working, where should we expand next?", fear: "Missing the chance to scale success." }
+        ]
+      }
+    };
+
+    const stageSelect = document.getElementById("stageSelect");
+    const stagePills = document.getElementById("stagePills");
+    const challengeInput = document.getElementById("challengeInput");
+    const runBtn = document.getElementById("runBtn");
+    const contextBox = document.getElementById("contextBox");
+    const results = document.getElementById("results");
+    const stageCards = Array.from(document.querySelectorAll("[data-stage-card]"));
+    let currentStage = "6";
+    let currentChallenge = challengeInput.value.trim();
+
+    function detectSignal(text) {
+      const t = (text || "").toLowerCase();
+      const signals = [
+        { keys: ["cloud", "saas", "hosting"], label: "cloud hosting", fear: "data residency and control", angle: "Lead with hosting options, residency controls, and audit evidence." },
+        { keys: ["security", "infosec", "risk"], label: "security review", fear: "security and third-party exposure", angle: "Open with your controls, certifications, and access model." },
+        { keys: ["integration", "api", "legacy"], label: "integration complexity", fear: "implementation drag", angle: "Show how the platform fits the existing stack and avoids hidden complexity." },
+        { keys: ["cost", "budget", "price", "commercial"], label: "commercial scrutiny", fear: "budget leakage and weak ROI", angle: "Tie the cost to measurable governance and productivity gains." },
+        { keys: ["adoption", "change", "users", "training"], label: "adoption risk", fear: "low usage after go-live", angle: "Focus on rollout design, training, and fast time-to-value." }
+      ];
+      return signals.find(signal => signal.keys.some(key => t.includes(key))) || {
+        label: "general buyer concern",
+        fear: "unknown downside",
+        angle: "Keep the answer crisp, credible, and rooted in the buyer's operating reality."
+      };
+    }
+
+    function setActiveStage(stageKey, { syncSelect = true } = {}) {
+      currentStage = stageKey;
+      if (syncSelect) stageSelect.value = stageKey;
+
+      stagePills.querySelectorAll(".pill").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.stage === stageKey);
+      });
+      stageCards.forEach(card => {
+        card.classList.toggle("active", card.dataset.stageCard === stageKey);
+      });
+    }
+
+    function renderStageOptions() {
+      stageSelect.innerHTML = Object.entries(stageData).map(([key, value]) =>
+        `<option value="${key}">${value.label}</option>`
+      ).join("");
+
+      stagePills.innerHTML = Object.entries(stageData).map(([key, value]) =>
+        `<button class="pill" type="button" data-stage="${key}">${key}. ${value.title}</button>`
+      ).join("");
+    }
+
+    function stageContextText(stageKey, challenge, signal) {
+      const stage = stageData[stageKey];
+      return `${stage.label}. ${stage.context} Current challenge: ${challenge}. Signal detected: ${signal.label}.`;
+    }
+
+    function simulate(continuedChallenge) {
+      if (continuedChallenge) {
+        currentChallenge = continuedChallenge;
+        challengeInput.value = continuedChallenge;
+      } else {
+        currentChallenge = challengeInput.value.trim() || "No challenge provided";
+      }
+
+      const stage = stageData[currentStage];
+      const signal = detectSignal(currentChallenge);
+      contextBox.textContent = stageContextText(currentStage, currentChallenge, signal);
+
+      const personas = stage.personas.map(persona => ({
+        ...persona,
+        verbatim_objection: persona.objection,
+        underlying_fear: persona.fear
+      }));
+
+      const counterStrategy = `${stage.strategy} ${signal.angle}`;
+
+      results.innerHTML = [
+        `<div class="result-meta"><strong>Counter strategy</strong><div style="margin-top:6px;">${counterStrategy}</div></div>`,
+        ...personas.map(persona => `
+          <div class="persona">
+            <div class="persona-top">
+              <h3>${persona.role}</h3>
+              <span class="stance">${persona.stance}</span>
+            </div>
+            <div class="quote">"${persona.verbatim_objection}"</div>
+            <p class="fear">Fear: ${persona.underlying_fear}</p>
+            <button class="action-link" type="button" data-reply="${persona.role}">Try Response</button>
+            <div class="reply-box" data-reply-box="${persona.role}" hidden>
+              <textarea data-reply-input="${persona.role}" placeholder="Reply to ${persona.role}..."></textarea>
+              <button class="btn btn-ghost" type="button" data-submit-reply="${persona.role}">Submit Reply</button>
+            </div>
+          </div>
+        `).join("")
+      ].join("");
+
+      results.querySelectorAll("[data-reply]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const role = btn.getAttribute("data-reply");
+          document.querySelectorAll("[data-reply-box]").forEach(box => {
+            box.hidden = box.getAttribute("data-reply-box") !== role;
+          });
+          const box = document.querySelector(`[data-reply-box="${role}"]`);
+          if (box) box.hidden = false;
+          const input = document.querySelector(`[data-reply-input="${role}"]`);
+          if (input) input.focus();
+        });
+      });
+
+      results.querySelectorAll("[data-submit-reply]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const role = btn.getAttribute("data-submit-reply");
+          const input = document.querySelector(`[data-reply-input="${role}"]`);
+          const replyText = input ? input.value.trim() : "";
+          if (!replyText) return;
+          const nextChallenge = `${currentChallenge}. [${role} objected, so I replied: ${replyText}]`;
+          simulate(nextChallenge);
+        });
+      });
+    }
+
+    renderStageOptions();
+    setActiveStage(currentStage);
+    simulate();
+
+    stageSelect.addEventListener("change", () => {
+      setActiveStage(stageSelect.value);
+      simulate();
+    });
+
+    stagePills.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-stage]");
+      if (!button) return;
+      setActiveStage(button.dataset.stage);
+      simulate();
+      document.getElementById(`stage-${button.dataset.stage}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    stageCards.forEach(card => {
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("button, a, textarea, select")) return;
+        const stageKey = card.dataset.stageCard;
+        setActiveStage(stageKey);
+        simulate();
+        stageSelect.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+
+    runBtn.addEventListener("click", () => simulate());
+    challengeInput.addEventListener("change", () => {
+      currentChallenge = challengeInput.value.trim();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!-- antigen-kia-ev2-germany-market-entry-map-v1.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ANTIGEN — KIA EV2 Germany Market Entry Map</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:'Montserrat',sans-serif;background:#f8f7f6;color:#1e1c17;-webkit-font-smoothing:antialiased;}
+button{cursor:pointer;font-family:'Montserrat',sans-serif;}
+@keyframes calloutIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:#e31d28;}
+.ng{cursor:pointer;}
+.ng:hover .nr{filter:brightness(0.93);}
+.eg{cursor:pointer;}
+.eg:hover .ep{stroke-width:2.5px!important;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ─── DESIGN TOKENS ────────────────────────────────────────────────────────
+const RED='#e31d28',INK='#1e1c17',WHITE='#ffffff',PAPER='#f8f7f6';
+const ASH='#e8e8e8',MUTED='#9fa2a4',BLUE='#08a7d8',YELLOW='#ffc000';
+const GREEN_GRP='#2a9d5c',PURPLE='#8e44ad';
+
+const NS={
+  healthy:   {fill:'#eef7f2',stroke:'#2a9d5c',text:'#1a6e3c',label:'Healthy'},
+  stressed:  {fill:'#fff8e6',stroke:'#d4930a',text:'#7a5700',label:'Stressed'},
+  failing:   {fill:'#fde8e9',stroke:'#e31d28',text:'#b11226',label:'Failing'},
+  misrouted: {fill:'#e6f4fb',stroke:'#08a7d8',text:'#065a7a',label:'Misrouted'},
+  disruption:{fill:'#f3e8f9',stroke:'#8e44ad',text:'#5b2c6f',label:'Disruption'}
+};
+const ES={
+  active:    {stroke:'#aaaaaa',dash:'none',label:'Active'},
+  distorted: {stroke:'#d4930a',dash:'6 3', label:'Distorted'},
+  missing:   {stroke:'#e31d28',dash:'7 4', label:'Missing'},
+  disruption:{stroke:'#8e44ad',dash:'4 4', label:'Disruption'}
+};
+const TY={
+  unchanged:{bg:'#e8e8e8',text:'#6e6e6e',border:'#9fa2a4',label:'UNCHANGED',desc:'No structural change'},
+  changing: {bg:'#fff3cc',text:'#7a5700',border:'#d4930a',label:'CHANGING', desc:'Under pressure / transitioning'},
+  changed:  {bg:'#fde8e9',text:'#b11226',border:'#e31d28',label:'CHANGED',  desc:'Already fundamentally altered'}
+};
+const GROUPS={
+  revenue:   {label:'COMMERCIAL ARCHITECTURE',color:RED},
+  ops:       {label:'OPERATIONAL SYSTEMS',    color:BLUE},
+  client:    {label:'CHANNEL & CONSUMER',     color:GREEN_GRP},
+  disruption:{label:'DISRUPTION OVERLAY',     color:PURPLE}
+};
+
+// ─── NODE DATA ─────────────────────────────────────────────────────────────
+const NODES=[
+  {
+    id:'US', label:'EV2 Unit Sales', sub:'Monthly Registrations',
+    group:'revenue', state:'stressed', typo:'changing', x:145, y:148,
+    ins:{
+      headline:'The Primary Commercial Output — Under Volume Compression',
+      body:'EV2 Unit Sales is stressed and changing under severe pressure from two simultaneous forces: the elimination of the federal Umweltbonus subsidy and aggressive price-cutting by domestic and Chinese competitors. The system is failing to generate the registration velocity required to secure a top-five market position because volume targets remain coupled to rigid dealer margin expectations that prevent competitive retail pricing.',
+      implication:'Failure to meet the top-five market share mandate leads directly to stranded production capacity at the Korean manufacturing level. Volume and margin cannot be simultaneously optimised under current channel architecture.'
+    }
+  },
+  {
+    id:'DM', label:'Dealer Margin', sub:'Structure',
+    group:'revenue', state:'failing', typo:'unchanged', x:145, y:280,
+    ins:{
+      headline:'THE PRIMARY FAILING NODE — Legacy Commission Lock-In Choking Volume',
+      body:'Dealer Margin Structure is the primary failing node. German Autohäuser rely on high unit margins to sustain physical operations — a financial architecture built around premium combustion vehicles. This creates a direct, irreconcilable conflict with the low-cost, high-volume pricing strategy required for the EV2 to compete. The ZDK (Zentralverband Deutsches Kraftfahrzeuggewerbe) margin agreements are legally binding. Dealers structurally deprioritise EV2 sales in favour of higher-margin legacy ICE or premium EV inventory.',
+      implication:'Dealer incentive misalignment is not a sales management problem. It is an architectural problem. Fixing it requires redesigning the handoff protocol between the digital buyer journey and the physical dealer — not pressuring dealers to perform differently within a broken model.'
+    }
+  },
+  {
+    id:'MS', label:'Legacy Marketing', sub:'Spend',
+    group:'revenue', state:'misrouted', typo:'unchanged', x:270, y:195,
+    ins:{
+      headline:'MISROUTED — Brand Awareness Spend in a Direct Conversion Crisis',
+      body:'Legacy Marketing Spend is misrouted. Capital is disproportionately allocated to broad brand-awareness campaigns through legacy agency agreements that reward top-of-funnel metrics over direct conversion. In a market where the buyer journey has fundamentally shifted to digital configuration and reservation, awareness spend is feeding into a funnel that has a broken exit. The agency attribution contracts compound the problem by making performance measurement opaque.',
+      implication:'High customer acquisition costs erode the already thin margins of the EV2 vehicle class. Increasing the marketing budget without fixing the digital funnel is explicitly forbidden — the spend leaks through an unfixed hole.'
+    }
+  },
+  {
+    id:'FA', label:'Fleet Allocation', sub:'Engine',
+    group:'ops', state:'misrouted', typo:'changing', x:430, y:120,
+    ins:{
+      headline:'MISROUTED — Algorithm Starving the Corporate Channel',
+      body:'Fleet Allocation Engine is misrouted. The allocation algorithm prioritises low-volume retail buyers over high-volume corporate fleet accounts to preserve nominal per-unit margins. This creates a self-defeating loop: the corporate fleet channel — which is the fastest route to rapid volume penetration in Germany — is being starved of inventory precisely because the system is optimising for the wrong variable.',
+      implication:'Loss of major corporate fleet contracts to BYD, VW ID.3, and Stellantis competitors that have already built automated, high-volume fleet allocation models. The corporate channel does not wait.'
+    }
+  },
+  {
+    id:'AM', label:'Agency Model', sub:'Transition',
+    group:'ops', state:'stressed', typo:'changing', x:430, y:240,
+    ins:{
+      headline:'Hybrid Channel Friction — Half-Implemented Transition',
+      body:'Agency Model Transition is stressed and changing. KIA is mid-transition to a direct-to-consumer agency model — a strategy that eliminates dealer margin by having the manufacturer set the retail price. German dealers are resisting aggressively, withholding sales support and customer data. The result is fragmented data flows, inconsistent pricing across physical and digital touchpoints, and active legal disputes with the ZDK dealer association.',
+      implication:'A half-implemented agency model is worse than either extreme. Dealers are being antagonised without being replaced, producing maximum operational friction at the exact moment market velocity is critical.'
+    }
+  },
+  {
+    id:'IH', label:'Inventory Holding', sub:'Drag',
+    group:'ops', state:'failing', typo:'unchanged', x:430, y:365,
+    ins:{
+      headline:'THE SECOND FAILING NODE — Capital Stranded in Premium Segments',
+      body:'Inventory Holding Drag is failing. Unsold high-end EV6 and EV9 inventory is occupying dealer lots and locking up dealer working capital through floorplan financing obligations. Dealers cannot physically or financially accept new EV2 shipments while this premium inventory overhang remains. The EV2 launch is being throttled not by demand failure but by an inventory architecture problem in the tier above it.',
+      implication:'Dealers refuse new EV2 allocations due to floorplan financing constraints. The EV2 market entry is losing its launch window to an inventory problem that originated in a different product segment.'
+    }
+  },
+  {
+    id:'CT', label:'Consumer Brand', sub:'Trust',
+    group:'client', state:'stressed', typo:'changed', x:665, y:130,
+    ins:{
+      headline:'The Domestic Bias Barrier — Structurally Disadvantaged at Entry Level',
+      body:'Consumer Brand Trust is stressed and changed. German EV buyers exhibit a strong structural preference for domestic brands — VW, BMW, Mercedes — when purchasing entry-level vehicles. This is not a product quality issue. It is a heritage and familiarity premium that KIA cannot currently command in the German market. The value proposition is undermined by a perceived lack of premium engineering heritage at the point of initial digital consideration.',
+      implication:'Increased reliance on aggressive discounting to convert non-loyal buyers, which further erodes the already compressed margins of the EV2 class. Trust cannot be bought with the same discounting that is destroying the margin structure.'
+    }
+  },
+  {
+    id:'DB', label:'Digital Buyer', sub:'Journey',
+    group:'client', state:'failing', typo:'changed', x:665, y:265,
+    ins:{
+      headline:'THE THIRD FAILING NODE — Digital-to-Physical Disconnect',
+      body:'Digital Buyer Journey is the third and most commercially acute failing node. The online configuration and reservation system is structurally disconnected from the physical dealer delivery handoff. High-intent buyers complete a digital configuration, generate a reservation, and then encounter a high-friction, inconsistent transition when attempting to convert to a physical vehicle purchase. Cart-abandonment rates at this handoff are destroying the economics of the entire digital acquisition spend.',
+      implication:'Wasted digital marketing spend and lost sales at the final conversion point. Every euro spent driving traffic to the digital configurator is being incinerated at the digital-to-physical boundary. This is the connection the mandate names as the primary architectural failure.'
+    }
+  },
+  {
+    id:'SV', label:'German Subsidy', sub:'Void',
+    group:'disruption', state:'disruption', typo:'changed', x:450, y:453,
+    ins:{
+      headline:'🔴 The Regulatory Shockwave — Permanent Disruption, Not a Cycle',
+      body:'The German Subsidy Void is a permanent, structural disruption. The abrupt termination of the federal Umweltbonus at the end of 2023 instantly inflated the net acquisition cost of EVs by up to €6,000 for German consumers. This external shock triggered an immediate and intense price war across the segment, forcing every manufacturer — including KIA — to absorb part of the cost difference through internal discounting. The subsidy will not return in its previous form.',
+      implication:'Severe margin compression as KIA is forced to self-fund consumer discounts that were previously government-funded. The system must be redesigned for a permanently zero-subsidy environment, not optimised for the return of the Umweltbonus.'
+    }
+  }
+];
+
+// ─── EDGE DATA (derived from Section 5.0) ─────────────────────────────────
+const EDGES=[
+  {
+    from:'SV', to:'US', label:'suppresses demand', state:'disruption', typo:'changed',
+    ins:{
+      headline:'Regulatory Shockwave Directly Reducing Addressable Market',
+      body:'The removal of the Umweltbonus subsidy directly reduces the addressable market for entry-level EVs by inflating net acquisition cost. The EV2\'s competitive price point becomes structurally less viable against legacy combustion vehicles the moment the consumer-side cost differential disappears.',
+      implication:'Immediate drop in organic retail order intake. Every volume forecast built on subsidy-era demand curves is now wrong by definition.'
+    }
+  },
+  {
+    from:'DM', to:'US', label:'restricts volume', state:'distorted', typo:'unchanged',
+    ins:{
+      headline:'Margin Preservation Block — Dealers Refusing Competitive Pricing',
+      body:'Dealers refuse to discount the EV2 to match competitor price cuts because their commission structure is tied to fixed vehicle margins set under ZDK agreements. This creates retail price rigidity that alienates the price-sensitive German entry-level buyer who has multiple lower-priced alternatives.',
+      implication:'Retail price rigidity that alienates the core target buyer. The dealer is not obstructing out of malice — they are responding rationally to an incentive structure that makes EV2 volume incompatible with their own financial survival.'
+    }
+  },
+  {
+    from:'AM', to:'DM', label:'threatens commission', state:'distorted', typo:'changing',
+    ins:{
+      headline:'Agency Model Transition Triggering Active Dealer Resistance',
+      body:'The transition toward a direct-to-consumer agency model threatens the traditional dealer commission model, causing dealers to actively withhold sales support, customer data, and inventory promotion for the EV2. The threat to their commission structure converts dealers from channel partners into structural opponents.',
+      implication:'Sabotage of direct-to-consumer sales initiatives by the physical dealer network. A channel architecture in transition produces maximum resistance from the parties being transitioned out of ownership.'
+    }
+  },
+  {
+    from:'IH', to:'DM', label:'drains liquidity', state:'distorted', typo:'unchanged',
+    ins:{
+      headline:'Inventory Holding Costs Destroying Dealer Financial Capacity',
+      body:'High-end EV6 and EV9 inventory holding costs drain dealer working capital through floorplan financing obligations, making dealers financially unable to purchase and stock the volumes of EV2 required for a market-penetration launch. The premium inventory overhang is a direct financial barrier to the entry-level volume strategy.',
+      implication:'Dealer resistance to accepting new EV2 inventory is not a motivation problem. It is a liquidity problem. Resolving it requires addressing the EV6/EV9 overhang, not incentivising EV2 uptake.'
+    }
+  },
+  {
+    from:'FA', to:'US', label:'starves fleet channel', state:'active', typo:'changing',
+    ins:{
+      headline:'Allocation Algorithm Blocking the Fastest Volume Pathway',
+      body:'The fleet allocation engine\'s bias toward retail buyers prevents high-volume corporate fleet accounts from securing the vehicle batches needed for procurement decisions. In Germany, corporate fleets represent a disproportionate share of new vehicle registrations — and they operate on bulk allocation timelines that do not accommodate retail-optimised inventory release models.',
+      implication:'Under-penetration in the critical German corporate fleet segment while competitors with automated, high-volume fleet models capture the contracts. Fleet volume, once lost, does not return mid-cycle.'
+    }
+  },
+  {
+    from:'MS', to:'DB', label:'wastes spend on broken funnel', state:'active', typo:'unchanged',
+    ins:{
+      headline:'Marketing Spend Driving Traffic Into a Broken Exit',
+      body:'Legacy Marketing Spend drives awareness traffic into the Digital Buyer Journey — which has a structurally broken digital-to-physical handoff at the exit point. The result is high bounce rates and wasted advertising capital as high-intent visitors complete the configuration process and abandon at the dealer handoff.',
+      implication:'Inefficient marketing spend that generates qualified digital leads that are then lost to a conversion failure outside marketing\'s control. Increasing spend amplifies the waste rather than the outcome.'
+    }
+  },
+  {
+    from:'CT', to:'DB', label:'fails to feed organically', state:'active', typo:'changed',
+    ins:{
+      headline:'Brand Trust Deficit Suppressing Organic Digital Funnel Entry',
+      body:'Low Consumer Brand Trust in the German EV market prevents buyers from initiating the online configuration process. German buyers with unresolved brand confidence questions default to established domestic brand portals — VW, BMW — where the trust threshold for digital engagement has already been met.',
+      implication:'Low organic traffic to the EV2 digital configuration tool, making the entire digital acquisition programme dependent on paid traffic — which routes into a broken funnel and produces the waste loop described in MS→DB.'
+    }
+  },
+  {
+    from:'DB', to:'US', label:'conversion leakage', state:'missing', typo:'changed',
+    ins:{
+      headline:'THE CRITICAL MISSING CONNECTION — Digital Intent Not Converting to Units',
+      body:'Digital Buyer Journey should be converting configured reservations into physical vehicle sales. This connection is broken. The handoff between online completion and dealer delivery is producing high cart-abandonment rather than closed transactions. This is the connection the mandate identifies as the critical failure between Dealer Margin Structure and Digital Buyer Journey — the architectural boundary where two incompatible systems collide.',
+      implication:'High digital acquisition costs with near-zero realised sales volume at the handoff point. Fixing this single connection — the digital-to-physical dealer handoff protocol — is the highest-leverage intervention available in the current system.'
+    }
+  }
+];
+
+const LOCK_INS=[
+  'German dealer association (ZDK) margin agreements binding KIA to fixed dealer commission structures',
+  'Legacy floorplan financing models built for high-end EVs, creating capital lock-in that prevents EV2 stocking',
+  'Outmoded agency media attribution contracts that reward top-of-funnel metrics over direct digital conversion'
+];
+const CONSTRAINTS=[
+  'Zero federal EV subsidies in Germany — the Umweltbonus is terminated and will not be reinstated in its previous form',
+  'High domestic electricity and charging tariffs reducing the total-cost-of-ownership advantage of the EV2',
+  'Dealer network veto power over direct sales pricing under ZDK agreements'
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let activeTab='map', activeFilter='all';
+
+function findNode(id){return NODES.find(n=>n.id===id);}
+
+function arcPath(from,to,curved){
+  if(!curved){
+    const mx=from.x+.5*(to.x-from.x), my=from.y+.5*(to.y-from.y)-.06*Math.abs(to.x-from.x);
+    return `M ${from.x} ${from.y} Q ${mx} ${my} ${to.x} ${to.y}`;
+  }
+  const dx=to.x-from.x,dy=to.y-from.y,r=.72*Math.sqrt(dx*dx+dy*dy);
+  return `M ${from.x} ${from.y} A ${r} ${r} 0 0 0 ${to.x} ${to.y}`;
+}
+
+function getNodeOpacity(node){
+  if(activeFilter==='all') return 1;
+  if(activeFilter===node.state||activeFilter===node.typo||activeFilter===node.group) return 1;
+  if(Object.keys(ES).includes(activeFilter)){
+    const vis=new Set();
+    EDGES.forEach(e=>{if(e.state===activeFilter){vis.add(e.from);vis.add(e.to);}});
+    return vis.has(node.id)?.45:.07;
+  }
+  return .07;
+}
+function getEdgeOpacity(edge){
+  if(activeFilter==='all') return .82;
+  if(activeFilter===edge.state||activeFilter===edge.typo) return 1;
+  if(Object.keys(ES).includes(activeFilter)) return .05;
+  const fn=findNode(edge.from),tn=findNode(edge.to);
+  if(fn&&tn&&getNodeOpacity(fn)>=.4&&getNodeOpacity(tn)>=.4) return .45;
+  return .05;
+}
+
+// ─── DOM HELPERS ──────────────────────────────────────────────────────────
+function mkGroup(label){
+  const wrap=document.createElement('div');
+  wrap.style.cssText='display:flex;flex-direction:column;gap:4px;';
+  const lbl=document.createElement('div');
+  lbl.style.cssText='font-size:8px;font-weight:900;letter-spacing:.16em;color:#9fa2a4;text-transform:uppercase;';
+  lbl.textContent=label;
+  const row=document.createElement('div');
+  row.style.cssText='display:flex;gap:4px;flex-wrap:wrap;';
+  wrap.appendChild(lbl);
+  wrap.appendChild(row);
+  return {el:wrap, add:(child)=>row.appendChild(child)};
+}
+function mkBtn(label,active){
+  const b=document.createElement('button');
+  b.style.cssText=`padding:4px 10px;border:1.5px solid ${active?'#555':'#e8e8e8'};background:${active?'#e8e8e8':'#fff'};font-family:Montserrat,sans-serif;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:${active?'#333':'#9fa2a4'};transition:all .15s;cursor:pointer;`;
+  b.textContent=label;
+  return b;
+}
+function mkDiv(){
+  const d=document.createElement('div');
+  d.style.cssText='width:1px;background:#e8e8e8;align-self:stretch;';
+  return d;
+}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────
+function render(){
+  const app=document.getElementById('app');
+  app.innerHTML='';
+  const wrap=document.createElement('div');
+  wrap.style.cssText='background:#f8f7f6;min-height:100vh;font-family:Montserrat,sans-serif;';
+
+  // ── HEADER (automotive / tech gradient)
+  wrap.innerHTML+=`
+  <div style="background:linear-gradient(135deg,#0a1628 0%,#0d2952 55%,#0a3d6b 100%);padding:18px 28px 16px;color:#fff;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.28),transparent 55%);pointer-events:none"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;position:relative;z-index:2;">
+      <div>
+        <div style="font-size:9px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:5px">ANTIGEN — Phase II / Define · System Interrogator · MAP-1782983676583</div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.6vw,42px);letter-spacing:.04em;line-height:1;margin-bottom:4px">KIA EV2 — Germany Market Entry Map</h1>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.68">North Star: EV2 Unit Sales · Diagnosis: July 2, 2026</div>
+      </div>
+      <div style="text-align:right;background:rgba(0,0,0,.18);padding:10px 14px;border-left:4px solid #ffc000">
+        <div style="font-size:8px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;opacity:.68;margin-bottom:2px">Structural Typology</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#ffc000;letter-spacing:.08em">ARCHITECTURAL</div>
+        <div style="font-size:9px;font-weight:700;opacity:.65;margin-top:2px">Components viable · Relationships broken</div>
+      </div>
+    </div>
+  </div>`;
+
+  // ── TABS
+  const tabBar=document.createElement('div');
+  tabBar.style.cssText='background:#fff;border-bottom:1px solid #e8e8e8;padding:0 24px;display:flex;';
+  [['map','System Map'],['mandate','Shift Mandate'],['payload','Phase III Payload']].forEach(([id,label])=>{
+    const btn=document.createElement('button');
+    btn.style.cssText=`padding:11px 18px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;border:none;border-bottom:3px solid ${activeTab===id?RED:'transparent'};background:none;color:${activeTab===id?RED:MUTED};transition:all .15s;cursor:pointer;`;
+    btn.textContent=label;
+    btn.onclick=()=>{activeTab=id;render();};
+    tabBar.appendChild(btn);
+  });
+  wrap.appendChild(tabBar);
+
+  if(activeTab==='map') renderMap(wrap);
+  else if(activeTab==='mandate') renderMandate(wrap);
+  else renderPayload(wrap);
+
+  app.appendChild(wrap);
+  if(activeTab==='map') attachMapEvents();
+}
+
+// ─── MAP TAB ───────────────────────────────────────────────────────────────
+function renderMap(wrap){
+  // Filter bar
+  const fb=document.createElement('div');
+  fb.style.cssText='background:#fff;border-bottom:1px solid #e8e8e8;padding:9px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;';
+
+  const nsGrp=mkGroup('Node State');
+  Object.entries(NS).forEach(([k,v])=>{
+    const b=mkBtn(v.label,activeFilter===k);
+    if(activeFilter===k){b.style.background=v.fill;b.style.borderColor=v.stroke;b.style.color=v.text;}
+    b.onclick=()=>{activeFilter=activeFilter===k?'all':k;render();};
+    nsGrp.add(b);
+  });
+  fb.appendChild(nsGrp.el);
+  fb.appendChild(mkDiv());
+
+  const esGrp=mkGroup('Connection Type');
+  Object.entries(ES).forEach(([k,v])=>{
+    const on=activeFilter===k;
+    const b=document.createElement('button');
+    b.style.cssText=`display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border:1.5px solid ${on?v.stroke:'#e8e8e8'};background:${on?v.stroke+'14':'#fff'};cursor:pointer;font-family:Montserrat,sans-serif;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:${on?v.stroke:'#9fa2a4'};transition:all .15s;`;
+    b.innerHTML=`<svg width="22" height="10" style="flex-shrink:0"><line x1="0" y1="5" x2="16" y2="5" stroke="${v.stroke}" stroke-width="2" ${v.dash!=='none'?`stroke-dasharray="${v.dash}"`:''}/><polygon points="13,2 17,5 13,8" fill="${v.stroke}"/></svg>${v.label}`;
+    b.onclick=()=>{activeFilter=activeFilter===k?'all':k;render();};
+    esGrp.add(b);
+  });
+  fb.appendChild(esGrp.el);
+  fb.appendChild(mkDiv());
+
+  const tyGrp=mkGroup('Typology Layer');
+  ['unchanged','changing','changed'].forEach(k=>{
+    const t=TY[k], on=activeFilter===k;
+    const b=document.createElement('button');
+    b.style.cssText=`display:inline-flex;flex-direction:column;padding:5px 10px;border:2px solid ${on?t.border:'#e8e8e8'};background:${on?t.bg:'#fff'};cursor:pointer;font-family:Montserrat,sans-serif;transition:all .15s;text-align:left;`;
+    b.innerHTML=`<span style="font-size:9px;font-weight:900;letter-spacing:.14em;color:${on?t.text:'#9fa2a4'};text-transform:uppercase">${t.label}</span><span style="font-size:8.5px;color:${on?t.text:'#ccc'};font-weight:500;margin-top:2px">${t.desc}</span>`;
+    b.onclick=()=>{activeFilter=activeFilter===k?'all':k;render();};
+    tyGrp.add(b);
+  });
+  fb.appendChild(tyGrp.el);
+
+  const rst=document.createElement('button');
+  rst.style.cssText=`margin-left:auto;align-self:flex-end;padding:5px 12px;border:1.5px solid ${activeFilter==='all'?RED:'#e8e8e8'};background:${activeFilter==='all'?RED:'#fff'};color:${activeFilter==='all'?'#fff':'#9fa2a4'};font-family:Montserrat,sans-serif;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;transition:all .15s;`;
+  rst.textContent='RESET';
+  rst.onclick=()=>{activeFilter='all';render();};
+  fb.appendChild(rst);
+  wrap.appendChild(fb);
+
+  // SVG map
+  const mapWrap=document.createElement('div');
+  mapWrap.id='mapWrap';
+  mapWrap.style.cssText='position:relative;overflow-x:auto;background:#fff;border-bottom:1px solid #e8e8e8;';
+
+  const SVG='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(SVG,'svg');
+  svg.id='mapSvg';
+  svg.setAttribute('viewBox','0 0 900 520');
+  svg.style.cssText='display:block;width:100%;min-width:680px;height:auto;max-height:62vh;';
+
+  // Defs: markers + gradients
+  const defs=document.createElementNS(SVG,'defs');
+  Object.entries(ES).forEach(([k,v])=>{
+    const m=document.createElementNS(SVG,'marker');
+    m.setAttribute('id',`ar-${k}`);m.setAttribute('viewBox','0 0 10 10');
+    m.setAttribute('refX','9');m.setAttribute('refY','5');
+    m.setAttribute('markerWidth','6');m.setAttribute('markerHeight','6');
+    m.setAttribute('orient','auto-start-reverse');
+    const p=document.createElementNS(SVG,'path');
+    p.setAttribute('d','M 0 0 L 10 5 L 0 10 z');
+    p.setAttribute('fill',v.stroke);p.setAttribute('opacity','.9');
+    m.appendChild(p);defs.appendChild(m);
+  });
+  Object.entries(GROUPS).forEach(([k,v])=>{
+    const g=document.createElementNS(SVG,'radialGradient');
+    g.setAttribute('id',`gf-${k}`);g.setAttribute('cx','50%');g.setAttribute('cy','50%');g.setAttribute('r','50%');
+    const s1=document.createElementNS(SVG,'stop');s1.setAttribute('offset','0%');s1.setAttribute('stop-color',v.color);s1.setAttribute('stop-opacity','0.07');
+    const s2=document.createElementNS(SVG,'stop');s2.setAttribute('offset','100%');s2.setAttribute('stop-color',v.color);s2.setAttribute('stop-opacity','0.01');
+    g.appendChild(s1);g.appendChild(s2);defs.appendChild(g);
+  });
+  svg.appendChild(defs);
+
+  // Group zones
+  [
+    {g:'revenue',   x:44,  y:36,  w:280, h:305},
+    {g:'ops',       x:336, y:36,  w:275, h:395},
+    {g:'client',    x:623, y:36,  w:246, h:305},
+    {g:'disruption',x:285, y:415, w:395, h:78}
+  ].forEach(z=>{
+    const grp=document.createElementNS(SVG,'g');
+    const r=document.createElementNS(SVG,'rect');
+    r.setAttribute('x',z.x);r.setAttribute('y',z.y);
+    r.setAttribute('width',z.w);r.setAttribute('height',z.h);
+    r.setAttribute('rx','2');r.setAttribute('fill',`url(#gf-${z.g})`);
+    r.setAttribute('stroke',GROUPS[z.g].color);r.setAttribute('stroke-width','.6');
+    r.setAttribute('stroke-opacity','.25');r.setAttribute('stroke-dasharray','5 4');
+    const t=document.createElementNS(SVG,'text');
+    t.setAttribute('x',z.x+7);t.setAttribute('y',z.y-2);
+    t.setAttribute('font-family','Montserrat,sans-serif');t.setAttribute('font-size','7.5');
+    t.setAttribute('font-weight','900');t.setAttribute('fill',GROUPS[z.g].color);
+    t.setAttribute('opacity','.7');t.setAttribute('letter-spacing','2');
+    t.textContent=GROUPS[z.g].label;
+    grp.appendChild(r);grp.appendChild(t);svg.appendChild(grp);
+  });
+
+  // Edges
+  EDGES.forEach(edge=>{
+    const fn=findNode(edge.from),tn=findNode(edge.to);
+    if(!fn||!tn) return;
+    const es=ES[edge.state]||ES.active;
+    const key=`${edge.from}-${edge.to}`;
+
+    const g=document.createElementNS(SVG,'g');
+    g.setAttribute('class','eg');
+    g.style.opacity=getEdgeOpacity(edge);
+    g.style.transition='opacity .2s';
+    g.dataset.edgeKey=key;
+
+    const hit=document.createElementNS(SVG,'path');
+    hit.setAttribute('d',arcPath(fn,tn,edge.curved));
+    hit.setAttribute('fill','none');hit.setAttribute('stroke','transparent');hit.setAttribute('stroke-width','14');
+
+    const path=document.createElementNS(SVG,'path');
+    path.setAttribute('class','ep');
+    path.setAttribute('d',arcPath(fn,tn,edge.curved));
+    path.setAttribute('fill','none');path.setAttribute('stroke',es.stroke);path.setAttribute('stroke-width','1.5');
+    if(es.dash!=='none') path.setAttribute('stroke-dasharray',es.dash);
+    path.setAttribute('marker-end',`url(#ar-${edge.state})`);
+
+    g.appendChild(hit);g.appendChild(path);
+    svg.appendChild(g);
+  });
+
+  // Nodes
+  NODES.forEach(node=>{
+    const ns=NS[node.state]||NS.stressed;
+    const ty=TY[node.typo]||TY.unchanged;
+    const x=node.x-48, y=node.y-24;
+
+    const g=document.createElementNS(SVG,'g');
+    g.setAttribute('class','ng');
+    g.dataset.nodeId=node.id;
+    g.style.opacity=getNodeOpacity(node);
+    g.style.transition='opacity .2s';
+
+    const rect=document.createElementNS(SVG,'rect');
+    rect.setAttribute('class','nr');
+    rect.setAttribute('x',x);rect.setAttribute('y',y);
+    rect.setAttribute('width','96');rect.setAttribute('height','48');rect.setAttribute('rx','1');
+    rect.setAttribute('fill',ns.fill);rect.setAttribute('stroke',ns.stroke);rect.setAttribute('stroke-width','1.2');
+
+    const band=document.createElementNS(SVG,'rect');
+    band.setAttribute('x',x);band.setAttribute('y',y);
+    band.setAttribute('width','96');band.setAttribute('height','4');
+    band.setAttribute('rx','1');band.setAttribute('fill',ty.border);band.setAttribute('opacity','.85');
+
+    const lbl=document.createElementNS(SVG,'text');
+    lbl.setAttribute('x',node.x);lbl.setAttribute('y',node.y-(node.sub?5.5:1));
+    lbl.setAttribute('text-anchor','middle');lbl.setAttribute('font-family','Montserrat,sans-serif');
+    lbl.setAttribute('font-size','9');lbl.setAttribute('font-weight','800');lbl.setAttribute('fill',ns.text);
+    lbl.style.pointerEvents='none';lbl.textContent=node.label;
+
+    g.appendChild(rect);g.appendChild(band);g.appendChild(lbl);
+
+    if(node.sub){
+      const sub=document.createElementNS(SVG,'text');
+      sub.setAttribute('x',node.x);sub.setAttribute('y',node.y+9);
+      sub.setAttribute('text-anchor','middle');sub.setAttribute('font-family','Montserrat,sans-serif');
+      sub.setAttribute('font-size','8');sub.setAttribute('font-weight','600');sub.setAttribute('fill',ns.text);
+      sub.setAttribute('opacity','.75');sub.style.pointerEvents='none';sub.textContent=node.sub;
+      g.appendChild(sub);
+    }
+    svg.appendChild(g);
+  });
+
+  mapWrap.appendChild(svg);
+  const co=document.createElement('div');
+  co.id='callout';co.style.display='none';
+  mapWrap.appendChild(co);
+  wrap.appendChild(mapWrap);
+
+  // Mandate strip
+  const strip=document.createElement('div');
+  strip.style.cssText='background:#1e1c17;padding:18px 24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;';
+  strip.innerHTML=`
+    <div style="flex:1 1 400px">
+      <div style="font-size:8px;font-weight:900;letter-spacing:.2em;color:#ffc000;text-transform:uppercase;margin-bottom:8px;font-family:Montserrat,sans-serif">▸ Systemic Shift Mandate — Locked</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.9vw,19px);color:#fff;line-height:1.35;letter-spacing:.04em">The primary growth constraint is the structural misalignment between legacy dealer margin incentives and direct-to-consumer digital allocation channels. The critical failure exists between Dealer Margin Structure and Digital Buyer Journey. The organisation must redesign its channel architecture to bypass intermediary margin lock-ins without collapsing the physical service network.</div>
+    </div>
+    <div style="border-left:2px solid rgba(255,255,255,.15);padding-left:22px;min-width:260px">
+      <div style="font-size:8px;font-weight:900;letter-spacing:.16em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:10px;font-family:Montserrat,sans-serif">Critical Missing Connection</div>
+      ${[['DB','US','Digital intent not converting to unit sales'],['DM','US','Margin structure blocking competitive pricing'],['FA','US','Fleet channel starved of allocation']].map(([f,t,l])=>`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span style="font-size:10px;font-weight:800;color:#fff;font-family:Montserrat,sans-serif;min-width:22px">${f}</span>
+        <svg width="28" height="10" style="flex-shrink:0"><line x1="0" y1="5" x2="22" y2="5" stroke="${RED}" stroke-width="1.5" stroke-dasharray="5 3"/><polygon points="18,2 22,5 18,8" fill="${RED}"/></svg>
+        <span style="font-size:10px;font-weight:800;color:#fff;font-family:Montserrat,sans-serif;min-width:22px">${t}</span>
+        <span style="font-size:8px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.04em;font-family:Montserrat,sans-serif">${l}</span>
+      </div>`).join('')}
+    </div>`;
+  wrap.appendChild(strip);
+
+  // Legend
+  const leg=document.createElement('div');
+  leg.style.cssText='background:#f8f7f6;padding:9px 22px;border-top:1px solid #e8e8e8;display:flex;flex-wrap:wrap;gap:12px;align-items:center;';
+  leg.innerHTML=`
+    <div style="font-size:8px;font-weight:900;letter-spacing:.18em;color:#9fa2a4;text-transform:uppercase;margin-right:3px">Node band →</div>
+    ${['unchanged','changing','changed'].map(k=>{const t=TY[k];return`<div style="display:flex;align-items:center;gap:5px"><div style="width:18px;height:4px;background:${t.border};border-radius:1px"></div><span style="font-size:9px;font-weight:700;color:${t.text};letter-spacing:.06em;text-transform:uppercase">${t.label}</span></div>`;}).join('')}
+    <div style="width:1px;background:#e8e8e8;align-self:stretch"></div>
+    ${Object.entries(NS).map(([k,v])=>`<div style="display:flex;align-items:center;gap:5px"><div style="width:9px;height:9px;border-radius:50%;background:${v.stroke}"></div><span style="font-size:9px;font-weight:700;color:${v.text};letter-spacing:.06em;text-transform:uppercase">${v.label}</span></div>`).join('')}
+    <div style="margin-left:auto;font-size:8px;font-weight:700;color:#9fa2a4;letter-spacing:.06em">Click nodes or connections · Click legend to filter</div>`;
+  wrap.appendChild(leg);
+}
+
+// ─── CALLOUT ───────────────────────────────────────────────────────────────
+function showCallout(ins,state,typo,title,sub){
+  const co=document.getElementById('callout');
+  if(!co) return;
+  const ns=NS[state]||{};
+  const esObj=ES[state];
+  const isEdge=!!esObj&&!ns.fill;
+  const color=isEdge?esObj.stroke:(ns.stroke||RED);
+  const stateLabel=isEdge?esObj.label:(ns.label||state);
+  const ty=TY[typo]||TY.unchanged;
+
+  co.style.cssText=`display:block;position:absolute;width:326px;z-index:200;background:#fff;border:2px solid ${color};box-shadow:6px 6px 0 ${color}33;font-family:Montserrat,sans-serif;animation:calloutIn .16s ease;`;
+  co.innerHTML=`
+    <div style="background:${color};padding:10px 14px;display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;line-height:1;letter-spacing:.05em">${title}</div>
+        ${sub?`<div style="font-size:9px;color:rgba(255,255,255,.72);margin-top:2px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">${sub}</div>`:''}
+      </div>
+      <button onclick="closeCallout()" style="background:none;border:none;color:#fff;font-size:17px;line-height:1;padding:0 2px;margin-left:8px;opacity:.8;cursor:pointer">×</button>
+    </div>
+    <div style="display:flex;gap:6px;padding:7px 12px;border-bottom:1px solid #e8e8e8;background:#f8f7f6">
+      <span style="font-size:9px;font-weight:800;letter-spacing:.09em;padding:3px 8px;background:${ns.fill||'#fff'};border:1.5px solid ${color};color:${color};text-transform:uppercase">${stateLabel}</span>
+      <span style="font-size:9px;font-weight:800;letter-spacing:.09em;padding:3px 8px;background:${ty.bg};border:1.5px solid ${ty.border};color:${ty.text};text-transform:uppercase">${ty.label}</span>
+    </div>
+    <div style="padding:12px 14px">
+      <div style="font-size:10.5px;font-weight:800;color:${color};margin-bottom:6px;line-height:1.3;text-transform:uppercase;letter-spacing:.02em">${ins.headline}</div>
+      <div style="font-size:11.5px;color:#444;line-height:1.65;margin-bottom:10px;font-weight:500">${ins.body}</div>
+      <div style="padding:8px 10px;background:${color}12;border-left:3px solid ${color};font-size:11px;color:${color};line-height:1.5;font-weight:700;font-style:italic">${ins.implication}</div>
+    </div>`;
+  return co;
+}
+
+function positionCallout(co,posX,posY){
+  const mapWrap=document.getElementById('mapWrap');
+  if(!mapWrap||!co) return;
+  const cw=mapWrap.clientWidth;
+  const left=posX+326+32>cw?Math.max(8,posX-326-12):posX+12;
+  co.style.left=left+'px';
+  co.style.top=Math.max(8,posY-36)+'px';
+}
+
+function closeCallout(){
+  const co=document.getElementById('callout');
+  if(co) co.style.display='none';
+}
+window.closeCallout=closeCallout;
+
+// ─── MAP EVENTS ────────────────────────────────────────────────────────────
+function attachMapEvents(){
+  const svg=document.getElementById('mapSvg');
+  const mapWrap=document.getElementById('mapWrap');
+  if(!svg||!mapWrap) return;
+
+  document.querySelectorAll('.ng').forEach(g=>{
+    g.addEventListener('click',ev=>{
+      ev.stopPropagation();
+      const node=NODES.find(n=>n.id===g.dataset.nodeId);
+      if(!node) return;
+      const rect=g.querySelector('.nr').getBoundingClientRect();
+      const wrap=mapWrap.getBoundingClientRect();
+      const co=showCallout(node.ins,node.state,node.typo,node.label,node.sub);
+      positionCallout(co,rect.left-wrap.left+rect.width/2,rect.top-wrap.top);
+    });
+    g.addEventListener('mouseenter',()=>{const r=g.querySelector('.nr');if(r)r.style.filter='brightness(.93)';});
+    g.addEventListener('mouseleave',()=>{const r=g.querySelector('.nr');if(r)r.style.filter='';});
+  });
+
+  document.querySelectorAll('.eg').forEach(g=>{
+    g.addEventListener('click',ev=>{
+      ev.stopPropagation();
+      const [fid,tid]=g.dataset.edgeKey.split('-');
+      const edge=EDGES.find(e=>e.from===fid&&e.to===tid);
+      const fn=findNode(fid),tn=findNode(tid);
+      if(!edge||!fn||!tn) return;
+      const path=g.querySelector('.ep');
+      const rect=path.getBoundingClientRect();
+      const wrap=mapWrap.getBoundingClientRect();
+      const co=showCallout(edge.ins,edge.state,edge.typo,`${fn.label} → ${tn.label}`,edge.label);
+      positionCallout(co,rect.left-wrap.left+rect.width/2,rect.top-wrap.top);
+    });
+    g.addEventListener('mouseenter',()=>{const p=g.querySelector('.ep');if(p)p.style.strokeWidth='2.5px';});
+    g.addEventListener('mouseleave',()=>{const p=g.querySelector('.ep');if(p)p.style.strokeWidth='1.5px';});
+  });
+
+  svg.addEventListener('click',ev=>{if(ev.target===svg||ev.target.tagName==='svg')closeCallout();});
+}
+
+// ─── MANDATE TAB ───────────────────────────────────────────────────────────
+function renderMandate(wrap){
+  const div=document.createElement('div');
+  div.style.cssText='padding:32px 28px;max-width:860px;background:#f8f7f6;min-height:70vh;';
+  div.innerHTML=`
+    <div style="font-size:9px;font-weight:900;letter-spacing:.22em;color:${RED};text-transform:uppercase;margin-bottom:14px;font-family:Montserrat,sans-serif">Architectural Typology — Henderson &amp; Clark Classification</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4.6vw,48px);color:#1e1c17;line-height:.95;letter-spacing:.03em;margin-bottom:24px">Systemic Shift Mandate</div>
+    <div style="background:#1e1c17;padding:24px 28px;border-left:6px solid #ffc000;margin-bottom:28px">
+      <div style="font-size:8px;font-weight:900;letter-spacing:.18em;color:#ffc000;text-transform:uppercase;margin-bottom:10px;font-family:Montserrat,sans-serif">Locked Statement</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2vw,21px);color:#fff;line-height:1.3;letter-spacing:.04em">Architectural — The primary growth constraint is the structural misalignment between legacy dealer margin incentives and direct-to-consumer digital allocation channels. The critical failure exists between Dealer Margin Structure and Digital Buyer Journey. The organisation must redesign its channel architecture to bypass intermediary margin lock-ins without collapsing the physical service network.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+      <div style="background:#fff;border:1px solid #e8e8e8;padding:18px 20px">
+        <div style="font-size:8px;font-weight:900;letter-spacing:.18em;color:#2a9d5c;text-transform:uppercase;margin-bottom:12px;font-family:Montserrat,sans-serif">✓ Authorised Systemic Actions</div>
+        ${[
+          'Redesigning the digital-to-physical dealer handoff protocol',
+          'Reallocating marketing spend from brand awareness to direct digital conversion',
+          'Restructuring fleet allocation algorithms to prioritize high-volume corporate buyers'
+        ].map(t=>`
+        <div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-start">
+          <span style="color:#2a9d5c;font-weight:900;font-size:13px;flex-shrink:0">↗</span>
+          <div style="font-size:12px;color:#333;line-height:1.55;font-weight:500;font-family:Montserrat,sans-serif">${t}</div>
+        </div>`).join('')}
+      </div>
+      <div style="background:#fde8e9;border:1px solid rgba(227,29,40,.15);padding:18px 20px">
+        <div style="font-size:8px;font-weight:900;letter-spacing:.18em;color:${RED};text-transform:uppercase;margin-bottom:12px;font-family:Montserrat,sans-serif">✗ Forbidden System Actions</div>
+        ${[
+          'Direct price-cutting that violates dealer margin agreements',
+          'Bypassing the physical dealer network entirely for vehicle servicing',
+          'Increasing overall marketing budget without first fixing the digital funnel'
+        ].map(t=>`
+        <div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-start">
+          <span style="color:${RED};font-weight:900;font-size:13px;flex-shrink:0">✗</span>
+          <div style="font-size:12px;color:#b11226;line-height:1.55;font-weight:500;font-family:Montserrat,sans-serif">${t}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #e8e8e8;padding:18px 20px;margin-bottom:20px">
+      <div style="font-size:8px;font-weight:900;letter-spacing:.18em;color:#d4930a;text-transform:uppercase;margin-bottom:12px;font-family:Montserrat,sans-serif">⚠ Legacy Lock-In Indices</div>
+      ${LOCK_INS.map((t,i)=>`
+      <div style="display:flex;gap:12px;margin-bottom:8px;align-items:flex-start;padding-bottom:8px;border-bottom:${i<LOCK_INS.length-1?'1px solid #e8e8e8':'none'}">
+        <span style="color:#d4930a;font-weight:900;font-size:11px;flex-shrink:0;font-family:monospace">${String(i+1).padStart(2,'0')}</span>
+        <div style="font-size:12px;color:#555;line-height:1.55;font-weight:500;font-family:Montserrat,sans-serif">${t}</div>
+      </div>`).join('')}
+    </div>
+    <div style="background:#fff;border:1px solid #e8e8e8;padding:18px 20px">
+      <div style="font-size:8px;font-weight:900;letter-spacing:.18em;color:${BLUE};text-transform:uppercase;margin-bottom:12px;font-family:Montserrat,sans-serif">◼ Hard System Constraints</div>
+      ${CONSTRAINTS.map((t,i)=>`
+      <div style="display:flex;gap:12px;margin-bottom:8px;align-items:flex-start;padding-bottom:8px;border-bottom:${i<CONSTRAINTS.length-1?'1px solid #e8e8e8':'none'}">
+        <span style="color:${BLUE};font-weight:900;font-size:11px;flex-shrink:0;font-family:monospace">${String(i+1).padStart(2,'0')}</span>
+        <div style="font-size:12px;color:#555;line-height:1.55;font-weight:500;font-family:Montserrat,sans-serif">${t}</div>
+      </div>`).join('')}
+    </div>`;
+  wrap.appendChild(div);
+}
+
+// ─── PAYLOAD TAB ───────────────────────────────────────────────────────────
+function renderPayload(wrap){
+  const payload={
+    typology:'architectural',
+    north_star:'EV2 Unit Sales',
+    diagnosis_date:'2026-07-02',
+    map_id:'MAP-1782983676583',
+    stressed_components:['EV2 Unit Sales','Agency Model Transition','Consumer Brand Trust','Charging Infrastructure'],
+    failing_components:['Dealer Margin Structure','Inventory Holding Drag','Digital Buyer Journey'],
+    misrouted_components:['Legacy Marketing Spend','Fleet Allocation Engine'],
+    disruption_nodes:['German Subsidy Void'],
+    broken_relationships:[
+      {from:'DB',to:'US',reason:'Digital-to-physical dealer handoff is structurally disconnected — high-intent configured reservations are abandoned before physical delivery, producing zero conversion from digital spend'},
+      {from:'DM',to:'US',reason:'ZDK dealer margin agreements prevent retail price flexibility — dealers deprioritise EV2 in favour of higher-margin ICE and premium EV inventory'},
+      {from:'FA',to:'US',reason:'Fleet allocation algorithm biased toward retail channels — corporate fleet accounts cannot secure bulk allocations, blocking the fastest volume-penetration pathway'}
+    ],
+    reinforcing_loops:[
+      'Inventory Holding Drag (IH) → drains Dealer Margin Structure (DM) → restricts EV2 Unit Sales (US) → forces capital into Legacy Marketing Spend (MS) → leaks through broken Digital Buyer Journey (DB) → back to suppressed Unit Sales (REINFORCING — compound failure loop)'
+    ],
+    legacy_lockins:LOCK_INS,
+    hard_constraints:CONSTRAINTS,
+    permitted_interventions:[
+      'Redesigning the digital-to-physical dealer handoff protocol',
+      'Reallocating marketing spend from brand awareness to direct digital conversion',
+      'Restructuring fleet allocation algorithms to prioritize high-volume corporate buyers'
+    ],
+    forbidden_interventions:[
+      'Direct price-cutting that violates dealer margin agreements',
+      'Bypassing the physical dealer network entirely for vehicle servicing',
+      'Increasing overall marketing budget without first fixing the digital funnel'
+    ],
+    sidekick_constraint:'What-If provocations must operate at the connection level. The permitted intervention space is how Dealer Margin Structure and Digital Buyer Journey connect through a redesigned digital-to-physical handoff protocol. Component-level solutions, direct price cuts, and dealer network elimination are out of scope.'
+  };
+  const div=document.createElement('div');
+  div.style.cssText='padding:32px 28px;max-width:880px;background:#f8f7f6;min-height:70vh;';
+  div.innerHTML=`
+    <div style="font-size:9px;font-weight:900;letter-spacing:.22em;color:${RED};text-transform:uppercase;margin-bottom:14px;font-family:Montserrat,sans-serif">Phase III Handoff — Strategy Sidekick Payload</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.8vw,40px);color:#1e1c17;line-height:.95;letter-spacing:.03em;margin-bottom:24px">Machine Key Registry — JSON Export</div>
+    <div style="background:#1e1c17;padding:20px 22px;border-left:4px solid #ffc000;overflow-x:auto">
+      <pre style="margin:0;white-space:pre-wrap;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:#a5d6a7;line-height:1.7">${JSON.stringify(payload,null,2)}</pre>
+    </div>`;
+  wrap.appendChild(div);
+}
+
+// ─── BOOT ──────────────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
