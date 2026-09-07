@@ -210,7 +210,8 @@
   .cellfacts b{font-family:var(--mono);color:var(--red);letter-spacing:.04em}
 
   /* stack */
-  .contrast{width:100%;border-collapse:collapse;margin:40px 0 56px;font-size:15.5px}
+  .contrastwrap{overflow-x:auto;margin:40px 0 56px}
+  .contrast{width:100%;min-width:480px;border-collapse:collapse;font-size:15.5px}
   .contrast th,.contrast td{border:1px solid var(--line-inv);padding:16px 18px;text-align:left;vertical-align:top}
   .contrast th{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,235,.55);font-weight:400}
   .contrast td:last-child{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
@@ -466,14 +467,16 @@
     <span class="kicker">The AI stack</span>
     <h2>Everyone else's AI makes content or efficiency. Ours makes thinking.</h2>
 
-    <table class="contrast reveal">
-      <thead><tr><th style="width:18%"></th><th>Generative AI</th><th>Process AI</th><th>Antigen AI</th></tr></thead>
-      <tbody>
-        <tr><th>Makes</th><td>Content</td><td>Efficiency</td><td>Thinking</td></tr>
-        <tr><th>Optimises for</th><td>Volume</td><td>Cost</td><td>Divergence</td></tr>
-        <tr><th>Effect on sameness</th><td>Accelerates it</td><td>Locks it in</td><td>Attacks it</td></tr>
-      </tbody>
-    </table>
+    <div class="contrastwrap reveal">
+      <table class="contrast">
+        <thead><tr><th style="width:18%"></th><th>Generative AI</th><th>Process AI</th><th>Antigen AI</th></tr></thead>
+        <tbody>
+          <tr><th>Makes</th><td>Content</td><td>Efficiency</td><td>Thinking</td></tr>
+          <tr><th>Optimises for</th><td>Volume</td><td>Cost</td><td>Divergence</td></tr>
+          <tr><th>Effect on sameness</th><td>Accelerates it</td><td>Locks it in</td><td>Attacks it</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="typogrid reveal">
       <div class="typo"><h3>The Synthesizer</h3><div class="tag">Institutional memory</div><div class="motto">Knows everything. Forgets nothing.</div><p>A RAG knowledge graph compounding market intelligence, precedent and category memory — instant collective wisdom that mathematically prevents unoriginality.</p></div>
