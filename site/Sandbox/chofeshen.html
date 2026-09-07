@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHOFESH // Autonomous Operating Layer for Israeli Travellers</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0d0d0d;
+            color: #f5f5f4;
+        }
+        .gradient-border {
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+        .radial-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden relative">
+
+    <!-- Ambient Glow BG -->
+    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] radial-glow pointer-events-none z-0"></div>
+    <div class="absolute top-[1200px] right-10 w-[500px] h-[500px] radial-glow pointer-events-none z-0"></div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <span class="text-amber-500 font-extrabold tracking-widest text-2xl">CHOFESH</span>
+                    <span class="text-neutral-500 text-xs tracking-wider border border-neutral-800 px-2 py-0.5 rounded uppercase hidden sm:inline-block">AOL Layer // 2026</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">The Paradox</a>
+                    <a href="#map-section" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">Live Sentiment Map</a>
+                    <a href="#configurator-section" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">Build Your Shield</a>
+                    <a href="#simulator-section" class="text-neutral-400 hover:text-amber-500 text-sm font-medium transition-colors">Contingency Demo</a>
+                </div>
+                <div>
+                    <a href="#configurator-section" class="inline-flex items-center justify-center px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold text-sm rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-amber-500/10">
+                        Deploy AOL Shield
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-24 sm:pt-20 sm:pb-32 px-4">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Alert Badge -->
+            <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Tactical Intel: Redefining Post-Army Independence
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+                Your Adventure. Your Terms.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500">
+                    We've pre-solved the friction.
+                </span>
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed mb-10 font-light">
+                The post-army backpacking dream is non-negotiable. But in the 2026 geopolitical environment, constant vigilance is exhausting. CHOFESH delivers an invisible security layer—guaranteeing your way home, screening safe neighborhoods, and shielding your identity while preserving <span class="text-white font-semibold">100% of your autonomy</span>.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#configurator-section" class="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-extrabold text-base rounded-xl transition-all shadow-xl shadow-amber-500/20 text-center">
+                    Configure Your Shield
+                </a>
+                <a href="#map-section" class="w-full sm:w-auto px-8 py-4 bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-base rounded-xl border border-neutral-800 transition-all text-center">
+                    Explore Safe Map
+                </a>
+            </div>
+
+            <!-- Trusted / Live status banner -->
+            <div class="mt-16 pt-8 border-t border-neutral-900 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">Aviation Contingency</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> El Al Safe-Corridor Active
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">Vetted Neighborhoods</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1">142 Cities Scanned</p>
+                </div>
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">WhatsApp Support Response</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1">&lt; 90 Seconds</p>
+                </div>
+                <div>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">Control Architecture</p>
+                    <p class="text-sm font-semibold text-neutral-200 mt-1">Zero Hand-Holding</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE PARADOX SECTION -->
+    <section id="about" class="py-20 bg-neutral-950 border-y border-neutral-900 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white tracking-tight">The Modern Travel Paradox</h2>
+                <p class="text-neutral-400 mt-2 max-w-2xl mx-auto">Conventional package tours strip away your freedom. But planning alone places a heavy anxiety tax on your mind. Here is how CHOFESH changes the equation.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Box 1 -->
+                <div class="bg-neutral-900/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-neutral-700/60 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6">
+                        <!-- Plane Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-neutral-100 mb-2">Aviation Fragility</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">
+                        Foreign carriers cancel at the first drop of tension, leaving you stranded with invalid insurance. We build routing templates utilizing high-continuity carriers, pre-arranged land-exit checkpoints, and backup regional flight arrangements.
+                    </p>
+                </div>
+
+                <!-- Box 2 -->
+                <div class="bg-neutral-900/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-neutral-700/60 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6">
+                        <!-- Shield Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-neutral-100 mb-2">Identity & Dignity Integrity</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">
+                        Safety is a dignity condition. You shouldn't have to lie about where you're from to feel safe. CHOFESH screens global neighborhoods down to a street-by-street level, ensuring you spend your money in places that openly accept you.
+                    </p>
+                </div>
+
+                <!-- Box 3 -->
+                <div class="bg-neutral-900/40 p-8 rounded-2xl border border-neutral-800/80 hover:border-neutral-700/60 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6">
+                        <!-- Compass Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-neutral-100 mb-2">Total Autonomy Preserved</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">
+                        We reject standard sight-seeing tours and crowded tour buses. With CHOFESH, you rent standard hostels, explore winding trails, and hang out in local cafes. We simply operate as an invisible backup shield in your pocket.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE LIVE MAP / SENTIMENT PORTAL -->
+    <section id="map-section" class="py-24 px-4 bg-neutral-900/20">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12">
+                <div>
+                    <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">Active Screening</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">The Israeli-Friendly Live Map</h2>
+                </div>
+                <p class="text-neutral-400 max-w-md lg:text-right mt-4 lg:mt-0">
+                    Calculated street-by-street from lived experiences and secure community updates. Updated hourly for June 2026 travel corridors.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <!-- Left Nav: Destination Selectors -->
+                <div class="lg:col-span-4 flex flex-col gap-3">
+                    <button onclick="switchMapTab('greece')" id="btn-greece" class="map-tab-btn active text-left p-5 rounded-2xl bg-neutral-900 border border-amber-500/40 text-white transition-all shadow-lg shadow-amber-500/5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">Greece (Athens & Islands)</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Stable Comfort</span>
+                        </div>
+                        <p class="text-xs text-neutral-400 mt-2">Minimal local friction, robust direct flight corridor</p>
+                    </button>
+
+                    <button onclick="switchMapTab('vietnam')" id="btn-vietnam" class="map-tab-btn text-left p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900/50 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">East Asia (Vietnam & Thailand)</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">High Acceptance</span>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-2">Extremely popular post-army node with local community bases</p>
+                    </button>
+
+                    <button onclick="switchMapTab('balkans')" id="btn-balkans" class="map-tab-btn text-left p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900/50 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">Balkans (Bulgaria & Albania)</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">Modest Security</span>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-2">Cost-effective wilderness and hiking loops with zero visa delay</p>
+                    </button>
+
+                    <button onclick="switchMapTab('london')" id="btn-london" class="map-tab-btn text-left p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900/50 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">London, United Kingdom</span>
+                            <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/30">Protest Alert</span>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-2">Urban environment requiring micro-neighborhood screening</p>
+                    </button>
+                </div>
+
+                <!-- Right Display: Dynamic Dashboard -->
+                <div class="lg:col-span-8 bg-neutral-900/80 border border-neutral-800 p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+                    
+                    <div id="sentiment-content" class="relative z-10">
+                        <!-- Dynamic Header -->
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 pb-6 border-b border-neutral-800">
+                            <div>
+                                <h3 id="panel-title" class="text-2xl font-extrabold text-white">Greece (Athens & Aegean Hub)</h3>
+                                <p id="panel-desc" class="text-neutral-400 text-sm mt-1">Excellent option for premium low-vigilance beach relaxation & ancient trails.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs uppercase text-neutral-500 font-bold">Reliability Index:</span>
+                                <span id="panel-grade" class="px-3.5 py-1 text-sm font-extrabold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">GRADE A</span>
+                            </div>
+                        </div>
+
+                        <!-- Grid Ratings -->
+                        <div class="grid sm:grid-cols-3 gap-6 my-8">
+                            <!-- Metric 1 -->
+                            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800">
+                                <span class="text-xs text-neutral-500 uppercase font-semibold">Public Identity Integrity</span>
+                                <div class="flex items-end justify-between mt-2">
+                                    <span id="panel-identity-score" class="text-2xl font-bold text-white">96%</span>
+                                    <span class="text-xs text-emerald-400">Speak Hebrew freely</span>
+                                </div>
+                                <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3">
+                                    <div id="panel-identity-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 96%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800">
+                                <span class="text-xs text-neutral-500 uppercase font-semibold">Aviation Guarantee Status</span>
+                                <div class="flex items-end justify-between mt-2">
+                                    <span id="panel-flight-score" class="text-2xl font-bold text-white">High</span>
+                                    <span class="text-xs text-emerald-400">El Al + Bluebird Active</span>
+                                </div>
+                                <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3">
+                                    <div id="panel-flight-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800">
+                                <span class="text-xs text-neutral-500 uppercase font-semibold">Protest Proximity Level</span>
+                                <div class="flex items-end justify-between mt-2">
+                                    <span id="panel-protest-score" class="text-2xl font-bold text-white">Safe</span>
+                                    <span id="panel-protest-sub" class="text-xs text-emerald-400">No active closures</span>
+                                </div>
+                                <div class="w-full bg-neutral-800 h-1.5 rounded-full mt-3">
+                                    <div id="panel-protest-bar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Feed Insight -->
+                        <div class="bg-neutral-950/60 p-6 rounded-2xl border border-neutral-800/80">
+                            <h4 class="text-xs text-amber-500 uppercase tracking-wider font-extrabold mb-4 flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Verified Community Whisper Reports (Last 72 Hours)
+                            </h4>
+                            <div class="space-y-4">
+                                <div class="border-b border-neutral-900 pb-3 last:border-0 last:pb-0">
+                                    <div class="flex items-center justify-between text-xs text-neutral-500 mb-1">
+                                        <span class="font-semibold text-neutral-300">Yoni R. (Hiked Pelion)</span>
+                                        <span>Yesterday at 14:22</span>
+                                    </div>
+                                    <p id="panel-comment-1" class="text-sm text-neutral-400">
+                                        "Spent 4 days hiking around Pelion and staying in local homestays. Felt 100% welcomed. Spoke Hebrew openly without any second thoughts. Highly recommend Aegean regional pathways."
+                                    </p>
+                                </div>
+                                <div class="pb-3 last:border-0 last:pb-0">
+                                    <div class="flex items-center justify-between text-xs text-neutral-500 mb-1">
+                                        <span class="font-semibold text-neutral-300">Adi K. (Athens Central)</span>
+                                        <span>2 days ago</span>
+                                    </div>
+                                    <p id="panel-comment-2" class="text-sm text-neutral-400">
+                                        "Athens is fantastic right now. Avoid the central protest zones near Syntagma on Thursday evenings just to be absolutely certain of logistics, but overall safety and warmth towards Israelis is fully solid."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Download briefing button -->
+                        <div class="mt-6 flex flex-wrap gap-4 items-center justify-between pt-6 border-t border-neutral-800">
+                            <span class="text-xs text-neutral-500">Includes secure emergency WhatsApp corridor & localized translation scripts.</span>
+                            <button onclick="triggerDownloadBriefing()" class="inline-flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-amber-400 px-4 py-2 rounded-lg text-xs font-bold transition-colors border border-neutral-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                </svg>
+                                Request Tactical Briefing
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE MODULE CONFIGURATOR -->
+    <section id="configurator-section" class="py-24 px-4 bg-neutral-950 border-t border-neutral-900 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">Confidence Architecture</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Build Your Autonomous Operating Layer</h2>
+                <p class="text-neutral-400 mt-2">Activate only the protective shields your adventure demands. Retain total freedom while shielding specific strategic risk parameters.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                <!-- Configuration Options -->
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <!-- Module 1 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-flight" checked onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">A: "Get Me Home" Flight Resilience Layer</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$3.50 / day</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">Automatic transition to high-continuity airlines (El Al/Arkia hubs), pre-solved backup air connections, alternate overland exit checklists (Cyprus/Jordan nodes), and immediate emergency liquidity buffers.</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Module 2 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-map" checked onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">B: Identity Curation Updates & Live Proximity Alerts</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$2.00 / day</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">Direct integration of live neighborhood maps down to sub-district level. Active geographical alerts flag street demonstrations, local sentiment shifts, and optimal transit coordinates in real time.</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Module 3 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-support" checked onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">C: Digital Logistical Assistant & WhatsApp SOS</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$1.50 / day</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">24/7 localized support desk operating via lightweight end-to-end encryption. Instantly resolves border questioning concerns, visa processing glitches, and customs regulations with zero friction.</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Module 4 -->
+                    <label class="block p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/60 cursor-pointer transition-all relative">
+                        <div class="flex items-start gap-4">
+                            <div class="pt-1">
+                                <input type="checkbox" id="mod-guide" onchange="recalculateShield()" class="w-5 h-5 accent-amber-500 rounded bg-neutral-800 border-neutral-700 focus:ring-amber-500">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-lg">D: "On-Demand" Vetted Guide Network</h3>
+                                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">$4.00 / day</span>
+                                </div>
+                                <p class="text-sm text-neutral-400 mt-1">Direct modular access to shelter-aware local drivers and verified guides for specific high-risk exploration sequences. Zero permanent schedules—activate them only for single-day journeys.</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Live Shield Output Panel -->
+                <div class="lg:col-span-5 bg-gradient-to-b from-neutral-900 to-neutral-950 border border-neutral-800 p-8 rounded-3xl sticky top-28 glow-orange">
+                    <h3 class="text-xl font-extrabold text-white mb-6 flex items-center gap-2">
+                        <!-- Shield Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                        </svg>
+                        Deployable AOL Architecture
+                    </h3>
+
+                    <!-- Confidence Gauge -->
+                    <div class="mb-8 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs text-neutral-400 uppercase font-semibold">Security Confidence Quotient</span>
+                            <span id="calc-confidence" class="text-lg font-extrabold text-amber-400">92%</span>
+                        </div>
+                        <div class="w-full bg-neutral-900 h-2.5 rounded-full">
+                            <div id="calc-confidence-bar" class="bg-amber-500 h-2.5 rounded-full transition-all duration-500" style="width: 92%"></div>
+                        </div>
+                        <p class="text-xs text-neutral-500 mt-3 leading-relaxed">
+                            A confidence level over 85% significantly lowers psychological stress tax, keeping the backpacker spirit fully functional.
+                        </p>
+                    </div>
+
+                    <!-- Selected Shields List -->
+                    <div class="space-y-3 mb-8">
+                        <span class="text-xs uppercase text-neutral-500 font-bold block">Active Shields</span>
+                        <div id="active-shields-container" class="space-y-2">
+                            <!-- Dynamic additions -->
+                        </div>
+                    </div>
+
+                    <!-- Pricing Calc -->
+                    <div class="pt-6 border-t border-neutral-800 flex justify-between items-center mb-8">
+                        <div>
+                            <span class="text-xs text-neutral-400 uppercase font-semibold block">Estimated Shield Cost</span>
+                            <span class="text-xs text-neutral-500 italic">No locking contracts. Cancel anytime.</span>
+                        </div>
+                        <div class="text-right">
+                            <span id="calc-price" class="text-3xl font-black text-white">$7.00</span>
+                            <span class="text-neutral-400 text-sm block">/ day</span>
+                        </div>
+                    </div>
+
+                    <button onclick="triggerDeployLayer()" class="w-full py-4 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-black text-center rounded-xl transition-all shadow-xl shadow-amber-500/10">
+                        Deploy Secure Path Protocol
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE FLIGHT CONTINUITY DEMO (SIMULATOR) -->
+    <section id="simulator-section" class="py-24 px-4 bg-neutral-900/10 border-t border-neutral-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left Details -->
+                <div>
+                    <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">Real-time Continuity</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2">Flight Contingency Simulator</h2>
+                    <p class="text-neutral-400 mt-4 leading-relaxed">
+                        In 2026, foreign air connectivity is highly unstable. When a carrier suspends operations to Tel Aviv, average travellers face days of stressful booking queues, expired travel insurance, and immense logistical friction.
+                    </p>
+                    <p class="text-neutral-400 mt-4 leading-relaxed">
+                        The **Get Me Home Guarantee** acts instantly. Our automated system handles the panic quietly. Choose a simulation scenario below to watch how our network reroutes routes, rebooks carriers, and alerts you with zero panic.
+                    </p>
+
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <button onclick="runSimulation('suspension')" class="bg-amber-500 hover:bg-amber-600 text-neutral-950 font-extrabold px-6 py-3 rounded-xl transition-all">
+                            Simulate Cancelled Carrier
+                        </button>
+                        <button onclick="resetSimulation()" class="bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold px-6 py-3 rounded-xl transition-all border border-neutral-700">
+                            Reset Timeline
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Visual Terminal -->
+                <div class="bg-neutral-950 border border-neutral-800 p-6 sm:p-8 rounded-3xl font-mono">
+                    <div class="flex items-center justify-between pb-4 border-b border-neutral-900 mb-6 text-xs text-neutral-500">
+                        <span>ROUTING LOGISTICS CENTER // v2.6</span>
+                        <span class="text-emerald-500 animate-pulse flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> LIVE TERMINAL
+                        </span>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <!-- Step 1 -->
+                        <div id="sim-step-1" class="flex gap-3 text-neutral-400 transition-all duration-300">
+                            <span class="text-amber-500 font-bold">[09:00]</span>
+                            <div>
+                                <p class="font-bold text-neutral-200">Trip Initialized</p>
+                                <p class="text-neutral-500">Carrier: Foreign Airline. Destination: Rome FCO to Tel Aviv TLV.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div id="sim-step-2" class="flex gap-3 text-neutral-400 opacity-30 transition-all duration-300">
+                            <span class="text-amber-500 font-bold">[14:15]</span>
+                            <div>
+                                <p id="sim-carrier-header" class="font-bold text-neutral-200">Contingency Monitor Scan</p>
+                                <p id="sim-carrier-sub" class="text-neutral-500">Checking European airspace alerts. Status normal.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div id="sim-step-3" class="flex gap-3 text-neutral-400 opacity-30 transition-all duration-300">
+                            <span id="sim-time-3" class="text-amber-500 font-bold">[15:30]</span>
+                            <div>
+                                <p id="sim-action-header" class="font-bold text-neutral-200">Contingency Trigger Ready</p>
+                                <p id="sim-action-sub" class="text-neutral-500">Awaiting status signal update.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div id="sim-step-4" class="flex gap-3 text-neutral-400 opacity-30 transition-all duration-300">
+                            <span id="sim-time-4" class="text-amber-500 font-bold">[15:32]</span>
+                            <div>
+                                <p id="sim-result-header" class="font-bold text-neutral-200">Resolution Complete</p>
+                                <p id="sim-result-sub" class="text-neutral-500">Standby status update.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress bar simulated visual tracker -->
+                    <div class="mt-8 pt-6 border-t border-neutral-900">
+                        <span class="text-[10px] uppercase text-neutral-500 font-bold block mb-2">Automated Contingency Shield</span>
+                        <div class="w-full bg-neutral-900 h-1.5 rounded-full">
+                            <div id="sim-progress" class="bg-amber-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT STAGING STAYS (THE 1-3 MONTHブルー) -->
+    <section class="py-24 px-4 bg-neutral-950 border-t border-neutral-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">Purposeful Long Stays</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Designed for Self-Placement</h2>
+                <p class="text-neutral-400 mt-2">Backpacking is not just about visiting places; it is about identity development. Choose structured long-stay tracks designed for 1-3 months.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Track 1 -->
+                <div class="bg-neutral-900/30 border border-neutral-800/80 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Himalayan Safe Haven Concept</div>
+                        <h3 class="text-xl font-bold text-neutral-100 mb-3">Community Hub Stays</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            Set up camp in high-comfort, female-powered or certified supportive community homestay networks across safe destinations. Live securely like a local with zero neighborhood friction.
+                        </p>
+                    </div>
+                    <button onclick="triggerShowInterest('Community Hub Stays')" class="w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-bold rounded-lg transition-colors">
+                        Inquire About Hubs
+                    </button>
+                </div>
+
+                <!-- Track 2 -->
+                <div class="bg-neutral-900/30 border border-neutral-800/80 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Social Exchange Blueprints</div>
+                        <h3 class="text-xl font-bold text-neutral-100 mb-3">Vetted Volunteering Stays</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            Constructive long-stays aligned with regional non-profits, ecological organic tea farms, and local family business development initiatives. Create deep ties and feel useful while exploring.
+                        </p>
+                    </div>
+                    <button onclick="triggerShowInterest('Vetted Volunteering Stays')" class="w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-bold rounded-lg transition-colors">
+                        Inquire About Volunteering
+                    </button>
+                </div>
+
+                <!-- Track 3 -->
+                <div class="bg-neutral-900/30 border border-neutral-800/80 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Identity Blueprints</div>
+                        <h3 class="text-xl font-bold text-neutral-100 mb-3">Cultural Immersion & Stays</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            Combine language programs, regional wellness meditation retreats, and local culinary masterclasses with premium community housing blueprints. Deep immersion upgraded to luxury safety standards.
+                        </p>
+                    </div>
+                    <button onclick="triggerShowInterest('Cultural Immersion')" class="w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-bold rounded-lg transition-colors">
+                        Inquire About Immersion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION / BRIEFING REGISTRY -->
+    <section class="py-24 px-4 bg-gradient-to-t from-neutral-950 to-neutral-900 border-t border-neutral-900">
+        <div class="max-w-4xl mx-auto bg-neutral-900 border border-neutral-800 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+            <div class="absolute inset-0 radial-glow pointer-events-none"></div>
+
+            <div class="relative z-10 text-center max-w-2xl mx-auto">
+                <span class="text-xs text-amber-500 font-extrabold uppercase tracking-widest">Immediate Deployment</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">Step into the Autonomous Layer</h2>
+                <p class="text-neutral-400 leading-relaxed mb-8">
+                    Get active details on secure destination indices, flight guaranteed paths, and our encrypted local WhatsApp backup numbers. Prepare your next backpacking route with absolute peace of mind.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" id="subscriber-email" placeholder="Enter your email" class="flex-1 bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500">
+                    <button onclick="triggerSubscribe()" class="bg-amber-500 hover:bg-amber-600 text-neutral-950 font-black px-6 py-3 rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10">
+                        Request Safe Path Setup
+                    </button>
+                </div>
+                <p class="text-xs text-neutral-500 mt-3">Absolutely zero spam. Secure, transparent peer information only.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-neutral-950 border-t border-neutral-900 py-12 px-4 text-xs text-neutral-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <span class="text-amber-500 font-extrabold tracking-widest text-lg">CHOFESH</span>
+                <span>© 2026 CHOFESH Inc. All rights reserved.</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-amber-400 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">Terms of Autonomy</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // Tab Data for Live Sentiment Map
+        const tabData = {
+            greece: {
+                title: "Greece (Athens & Aegean Hub)",
+                desc: "Excellent option for premium low-vigilance beach relaxation, safe island loops, and historical walking paths.",
+                grade: "GRADE A",
+                identityScore: "96%",
+                identityWidth: "96%",
+                flightScore: "High",
+                flightWidth: "90%",
+                protestScore: "Safe",
+                protestSub: "No active closures",
+                protestWidth: "95%",
+                comment1: {
+                    user: "Yoni R. (Hiked Pelion)",
+                    time: "Yesterday at 14:22",
+                    text: '"Spent 4 days hiking around Pelion and staying in local homestays. Felt 100% welcomed. Spoke Hebrew openly without any second thoughts. Highly recommend Aegean regional pathways."'
+                },
+                comment2: {
+                    user: "Adi K. (Athens Central)",
+                    time: "2 days ago",
+                    text: '"Athens is fantastic right now. Avoid the central protest zones near Syntagma on Thursday evenings just to be absolutely certain of logistics, but overall safety and warmth towards Israelis is fully solid."'
+                }
+            },
+            vietnam: {
+                title: "East Asia (Vietnam & Thailand)",
+                desc: "The classic post-army sanctuary. Massive supportive community bases, high acceptance levels, and cheap living.",
+                grade: "GRADE A+",
+                identityScore: "98%",
+                identityWidth: "98%",
+                flightScore: "Very High",
+                flightWidth: "95%",
+                protestScore: "Negligible",
+                protestSub: "Stable country context",
+                protestWidth: "98%",
+                comment1: {
+                    user: "May S. (Hanoi Cafe Trails)",
+                    time: "3 days ago",
+                    text: '"Vietnam is an absolute paradise. Spent three weeks in Hanoi and Sapa. Met so many other young Israelis. There are local hubs, organic farm networks, and the locals are super helpful. Zero anxiety."'
+                },
+                comment2: {
+                    user: "Noam L. (Koh Phangan Hub)",
+                    time: "Last week",
+                    text: '"If you are stepping out of the army and need to completely breathe without checking your back, Thailand/Vietnam is the absolute default choice. Unparalleled peace of mind."'
+                }
+            },
+            balkans: {
+                title: "Balkans (Bulgaria & Albania)",
+                desc: "Highly cost-effective wilderness backpacking with incredible alpine loops, beautiful lakes, and zero visa congestion.",
+                grade: "GRADE B+",
+                identityScore: "88%",
+                identityWidth: "88%",
+                flightScore: "Medium-High",
+                flightWidth: "80%",
+                protestScore: "Low Friction",
+                protestSub: "Occasional capital rallies",
+                protestWidth: "85%",
+                comment1: {
+                    user: "Amit G. (Rila Mountains)",
+                    time: "5 days ago",
+                    text: '"Rila mountains are beautiful and very affordable. Stayed in local cottages. Locals are hospitable. It\'s quiet. Very low stress index overall."'
+                },
+                comment2: {
+                    user: "Tomer E. (Sofia Hub)",
+                    time: "2 weeks ago",
+                    text: '"Sofia has great nightlife and cafes. It feels completely normal. Just standard pre-flight checking recommended since airlines switch around sometimes, but CHOFESH keeps you updated."'
+                }
+            },
+            london: {
+                title: "London, United Kingdom",
+                desc: "High-density city requiring selective geographic pathing. Outstanding culture, but calls for strategic sub-neighborhood screening.",
+                grade: "GRADE C+",
+                identityScore: "68%",
+                identityWidth: "68%",
+                flightScore: "Very High",
+                flightWidth: "95%",
+                protestScore: "Moderate Alert",
+                protestSub: "Avoid central rallies",
+                protestWidth: "55%",
+                comment1: {
+                    user: "Dan B. (Camden Markets)",
+                    time: "Yesterday",
+                    text: '"London is amazing for museums and parks, but be strategic. Spoke Hebrew in North London with absolute ease, but keep a lower identity profile around central areas during Saturday rallies."'
+                },
+                comment2: {
+                    user: "Lia T. (Kensington Stays)",
+                    time: "4 days ago",
+                    text: '"Use the live proximity alerts in your app. It tells you exactly where public rallies are concentrated and routes you around them. With that layer active, it\'s fully beautiful."'
+                }
+            }
+        };
+
+        // Function to Switch Map Tabs
+        function switchMapTab(tabKey) {
+            // Remove active classes
+            document.querySelectorAll('.map-tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-amber-500/40', 'bg-neutral-900', 'text-white');
+                btn.classList.add('bg-neutral-950', 'border-neutral-800', 'text-neutral-400');
+            });
+
+            // Set active class
+            const activeBtn = document.getElementById(`btn-${tabKey}`);
+            activeBtn.classList.add('active', 'border-amber-500/40', 'bg-neutral-900', 'text-white');
+            activeBtn.classList.remove('bg-neutral-950', 'border-neutral-800', 'text-neutral-400');
+
+            // Load data
+            const data = tabData[tabKey];
+            document.getElementById('panel-title').innerText = data.title;
+            document.getElementById('panel-desc').innerText = data.desc;
+            document.getElementById('panel-grade').innerText = data.grade;
+
+            // Update scores
+            document.getElementById('panel-identity-score').innerText = data.identityScore;
+            document.getElementById('panel-identity-bar').style.width = data.identityWidth;
+
+            document.getElementById('panel-flight-score').innerText = data.flightScore;
+            document.getElementById('panel-flight-bar').style.width = data.flightWidth;
+
+            document.getElementById('panel-protest-score').innerText = data.protestScore;
+            document.getElementById('panel-protest-sub').innerText = data.protestSub;
+            document.getElementById('panel-protest-bar').style.width = data.protestWidth;
+
+            // Update comment 1 & 2
+            document.getElementById('panel-comment-1').innerHTML = `"${data.comment1.text.replace(/"/g, '')}"`;
+            document.getElementById('panel-comment-1').previousElementSibling.innerHTML = `<span class="font-semibold text-neutral-300">${data.comment1.user}</span><span>${data.comment1.time}</span>`;
+
+            document.getElementById('panel-comment-2').innerHTML = `"${data.comment2.text.replace(/"/g, '')}"`;
+            document.getElementById('panel-comment-2').previousElementSibling.innerHTML = `<span class="font-semibold text-neutral-300">${data.comment2.user}</span><span>${data.comment2.time}</span>`;
+
+            // Adjust grade borders
+            const gradeEl = document.getElementById('panel-grade');
+            if (data.grade.includes('C')) {
+                gradeEl.className = "px-3.5 py-1 text-sm font-extrabold rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/20";
+            } else if (data.grade.includes('B')) {
+                gradeEl.className = "px-3.5 py-1 text-sm font-extrabold rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20";
+            } else {
+                gradeEl.className = "px-3.5 py-1 text-sm font-extrabold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            }
+
+            showToast(`Map Switched: Loading ${data.title} metrics.`);
+        }
+
+        // Configurator Calculation
+        function recalculateShield() {
+            const hasFlight = document.getElementById('mod-flight').checked;
+            const hasMap = document.getElementById('mod-map').checked;
+            const hasSupport = document.getElementById('mod-support').checked;
+            const hasGuide = document.getElementById('mod-guide').checked;
+
+            let price = 0;
+            let confidence = 40; // DIY baseline
+            const activeShields = [];
+
+            if (hasFlight) {
+                price += 3.50;
+                confidence += 25;
+                activeShields.push("Aviation Contingency Protection");
+            }
+            if (hasMap) {
+                price += 2.00;
+                confidence += 15;
+                activeShields.push("Real-time Street Alert Layer");
+            }
+            if (hasSupport) {
+                price += 1.50;
+                confidence += 12;
+                activeShields.push("Encrypted WhatsApp Assistant");
+            }
+            if (hasGuide) {
+                price += 4.00;
+                confidence += 6;
+                activeShields.push("On-Demand Tactical Guide Access");
+            }
+
+            // Update UI
+            document.getElementById('calc-price').innerText = `$${price.toFixed(2)}`;
+            document.getElementById('calc-confidence').innerText = `${confidence}%`;
+            document.getElementById('calc-confidence-bar').style.width = `${confidence}%`;
+
+            // Render Active Shield Badges
+            const container = document.getElementById('active-shields-container');
+            container.innerHTML = "";
+            if (activeShields.length === 0) {
+                container.innerHTML = `<span class="text-xs text-neutral-500 italic block py-1">No shields currently activated. Travelling on 100% DIY baseline risk parameters.</span>`;
+            } else {
+                activeShields.forEach(sh => {
+                    container.innerHTML += `
+                        <div class="flex items-center gap-2 text-xs text-neutral-300 bg-neutral-950 px-3 py-1.5 rounded-lg border border-neutral-800">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${sh}
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // Interactive Flight Simulator Logic
+        let simInterval = null;
+        function runSimulation(type) {
+            // Clear past runs
+            resetSimulation();
+
+            const progress = document.getElementById('sim-progress');
+            const step1 = document.getElementById('sim-step-1');
+            const step2 = document.getElementById('sim-step-2');
+            const step3 = document.getElementById('sim-step-3');
+            const step4 = document.getElementById('sim-step-4');
+
+            showToast("Simulation initialized. Watching foreign airline corridor...");
+
+            // Step 1: Active Monitoring
+            progress.style.width = "25%";
+            step1.style.opacity = "1";
+            step1.classList.add('text-amber-400');
+
+            setTimeout(() => {
+                // Step 2: Hazard Alert detected
+                progress.style.width = "50%";
+                step2.style.opacity = "1";
+                step2.classList.add('text-orange-400');
+                document.getElementById('sim-carrier-header').innerText = "ALERT: Carrier Suspension Detected";
+                document.getElementById('sim-carrier-sub').innerText = "Foreign airline halts Tel Aviv flights with immediate effect.";
+                showToast("System Alert: Airspace suspension detected!");
+            }, 1200);
+
+            setTimeout(() => {
+                // Step 3: Get Me Home Guarantee trigger
+                progress.style.width = "75%";
+                step3.style.opacity = "1";
+                step3.classList.add('text-amber-500');
+                document.getElementById('sim-time-3').innerText = "[15:31]";
+                document.getElementById('sim-action-header').innerText = "GUARANTEE ACTIVATED";
+                document.getElementById('sim-action-sub').innerText = "Rerouting to Athens high-continuity El Al terminal + booking secure regional hub.";
+                showToast("CHOFESH is calculating alternate exit coordinates...");
+            }, 2600);
+
+            setTimeout(() => {
+                // Step 4: Fully resolved
+                progress.style.width = "100%";
+                step4.style.opacity = "1";
+                step4.classList.add('text-emerald-400');
+                document.getElementById('sim-time-4').innerText = "[15:35]";
+                document.getElementById('sim-result-header').innerText = "REROUTED // ZERO COST";
+                document.getElementById('sim-result-sub').innerText = "Rebooked successfully on El Al direct flight (ATH - TLV) for tomorrow morning. Alert and boarding pass pushed via encrypted chat.";
+                showToast("Simulation Successful: Traveler rebooked on safe-carrier alternative.");
+            }, 4500);
+        }
+
+        function resetSimulation() {
+            const progress = document.getElementById('sim-progress');
+            progress.style.width = "0%";
+
+            const step1 = document.getElementById('sim-step-1');
+            const step2 = document.getElementById('sim-step-2');
+            const step3 = document.getElementById('sim-step-3');
+            const step4 = document.getElementById('sim-step-4');
+
+            // Reset step 1
+            step1.style.opacity = "1";
+            step1.className = "flex gap-3 text-neutral-400 transition-all duration-300";
+            
+            // Reset step 2
+            step2.style.opacity = "0.3";
+            step2.className = "flex gap-3 text-neutral-400 opacity-30 transition-all duration-300";
+            document.getElementById('sim-carrier-header').innerText = "Contingency Monitor Scan";
+            document.getElementById('sim-carrier-sub').innerText = "Checking European airspace alerts. Status normal.";
+
+            // Reset step 3
+            step3.style.opacity = "0.3";
+            step3.className = "flex gap-3 text-neutral-400 opacity-30 transition-all duration-300";
+            document.getElementById('sim-time-3').innerText = "[15:30]";
+            document.getElementById('sim-action-header').innerText = "Contingency Trigger Ready";
+            document.getElementById('sim-action-sub').innerText = "Awaiting status signal update.";
+
+            // Reset step 4
+            step4.style.opacity = "0.3";
+            step4.className = "flex gap-3 text-neutral-400 opacity-30 transition-all duration-300";
+            document.getElementById('sim-time-4').innerText = "[15:32]";
+            document.getElementById('sim-result-header').innerText = "Resolution Complete";
+            document.getElementById('sim-result-sub').innerText = "Standby status update.";
+        }
+
+        // CUSTOM TOAST NOTIFICATION
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "flex items-center gap-3 bg-neutral-900 border border-neutral-800 text-neutral-100 text-xs px-4 py-3 rounded-xl shadow-2xl pointer-events-auto transform translate-y-5 opacity-0 transition-all duration-300 max-w-sm";
+            toast.innerHTML = `
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+            }, 10);
+
+            // Remove toast after duration
+            setTimeout(() => {
+                toast.classList.add('translate-y-5', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Actions
+        function triggerDownloadBriefing() {
+            showToast("Generating custom 2026 tactical intelligence report...");
+            setTimeout(() => {
+                showToast("Report generated successfully. Directing secure PDF payload to your browser window.");
+            }, 1500);
+        }
+
+        function triggerDeployLayer() {
+            showToast("Constructing customized AOL travel profile...");
+            setTimeout(() => {
+                showToast("Pathways secured! We are preparing your dedicated WhatsApp monitoring key.");
+            }, 1500);
+        }
+
+        function triggerShowInterest(trackName) {
+            showToast(`Registered interest for: ${trackName}. Our community coordinators will contact you shortly.`);
+        }
+
+        function triggerSubscribe() {
+            const email = document.getElementById('subscriber-email').value;
+            if (!email) {
+                showToast("Please input a valid email coordinate.");
+                return;
+            }
+            showToast("Securing connection tunnel... Verification sent.");
+        }
+
+        // Initialize configurator calculation on mount
+        window.onload = function() {
+            recalculateShield();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INTO 10 Buyer Decision Journey</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600&family=Montserrat:wght@500;600;700;800;900&family=Special+Elite&display=swap');
+
+    :root {
+      --red: #e31d28;
+      --magenta: #e3195b;
+      --blush: #f0448e;
+      --yellow: #ffc000;
+      --black: #111111;
+      --ink: #1e1c17;
+      --mute: #6e6e6e;
+      --grey: #9fa2a4;
+      --smoke: #e8e8e8;
+      --paper: #f8f7f6;
+      --white: #ffffff;
+      --blue-dark: #e31d28;
+      --line: rgba(17,17,17,.12);
+      --line-strong: rgba(17,17,17,.22);
+      --card: #ffffff;
+      --gradient-red: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+      --shadow: 0 24px 70px rgba(17, 17, 17, .13);
+      --soft-shadow: 0 12px 30px rgba(17, 17, 17, .08);
+      --radius: 24px;
+      --stage-width: 380px;
+      --font-display: 'Bebas Neue', Impact, sans-serif;
+      --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+      --font-type: 'Special Elite', ui-monospace, monospace;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--black);
+      background:
+        radial-gradient(circle at 8% 2%, rgba(227,29,40,.08), transparent 26%),
+        radial-gradient(circle at 92% 8%, rgba(255,192,0,.14), transparent 22%),
+        linear-gradient(180deg, var(--white) 0%, var(--paper) 58%, var(--white) 100%);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .page { max-width: 1480px; margin: 0 auto; padding: 28px 24px 64px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 590px;
+      display: grid;
+      align-content: end;
+      color: var(--white);
+      background: var(--gradient-red);
+      border-radius: 0;
+      padding: clamp(34px, 5vw, 64px);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "01";
+      position: absolute;
+      right: -12px;
+      top: -66px;
+      z-index: -1;
+      color: rgba(255,255,255,.095);
+      font-family: var(--font-display);
+      font-size: clamp(210px, 28vw, 430px);
+      line-height: .75;
+      letter-spacing: -.05em;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -140px -160px auto;
+      width: 470px;
+      height: 470px;
+      border: 2px solid rgba(255,255,255,.28);
+      border-radius: 50%;
+      opacity: .9;
+    }
+
+    .eyebrow,
+    .kicker {
+      color: var(--red);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      opacity: 1;
+    }
+    .hero .eyebrow { color: var(--yellow); }
+    .eyebrow::before { content: "— "; }
+
+    h1 {
+      max-width: 1040px;
+      margin: 20px 0 20px;
+      font-family: var(--font-display);
+      font-size: clamp(74px, 11vw, 164px);
+      line-height: .78;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    h1 .outline {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 3px currentColor;
+      -webkit-text-stroke-color: var(--white);
+      text-stroke: 3px var(--white);
+    }
+    h1 .signal { color: var(--yellow); }
+
+    .hero p {
+      max-width: 860px;
+      margin: 0;
+      color: rgba(255,255,255,.84);
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 600;
+      line-height: 1.42;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+      max-width: 1120px;
+    }
+    .metric {
+      background: rgba(17,17,17,.18);
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: 0;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+    }
+    .metric strong {
+      display: block;
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 400;
+      line-height: .84;
+    }
+    .metric span {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.38;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 8;
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 380px);
+      gap: 18px;
+      align-items: stretch;
+      margin: 28px 0;
+      padding: 16px;
+      background: rgba(248,247,246,.92);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 44px rgba(17,17,17,.08);
+      backdrop-filter: blur(14px);
+    }
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .chip {
+      border: 1px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      padding: 10px 13px;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      transition: 160ms ease;
+    }
+    .chip:hover { transform: translateY(-1px); box-shadow: 4px 4px 0 var(--black); }
+    .chip.active { background: var(--black); color: var(--white); border-color: var(--black); }
+    .search {
+      display: flex;
+      min-width: 0;
+      background: var(--white);
+      border: 2px solid var(--black);
+      overflow: hidden;
+    }
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      padding: 0 14px;
+      color: var(--black);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .search button {
+      border: 0;
+      background: var(--black);
+      color: var(--white);
+      padding: 0 18px;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .section-title {
+      position: relative;
+      margin: 54px 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(300px, .75fr);
+      gap: 24px;
+      align-items: end;
+      isolation: isolate;
+    }
+    .section-title::before {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: -16px;
+      z-index: -1;
+      width: 130px;
+      height: 130px;
+      background: var(--smoke);
+      opacity: .55;
+    }
+    .section-title h2 {
+      margin: 0;
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 400;
+      line-height: .82;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+    }
+    .section-title p {
+      margin: 0;
+      color: var(--mute);
+      max-width: 760px;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .journey-wrap { overflow-x: auto; padding: 2px 0 20px; }
+    .journey {
+      min-width: calc((var(--stage-width) * 6) + 80px);
+      display: grid;
+      grid-template-columns: repeat(6, var(--stage-width));
+      gap: 16px;
+    }
+    .stage {
+      background: var(--white);
+      border: 1px solid var(--line-strong);
+      border-top: 6px solid var(--red);
+      border-radius: 0;
+      padding: 18px;
+      box-shadow: var(--soft-shadow);
+    }
+    .stage-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+    .stage-num {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--smoke);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 34px;
+      line-height: .9;
+      font-weight: 400;
+    }
+    .stage h3 {
+      margin: 0;
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 400;
+      line-height: .88;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .stage .buying-job {
+      margin-bottom: 15px;
+      color: var(--mute);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .stake-card {
+      position: relative;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--black);
+      border-radius: 0;
+      padding: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+    .stake-card:hover { transform: translateY(-2px); border-left-color: var(--red); box-shadow: 5px 5px 0 var(--black); }
+    .stake-card.dimmed { opacity: .2; filter: grayscale(.8); }
+    .stake-card.hidden { display: none; }
+    .stake-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .role { color: var(--black); font-size: 13px; font-weight: 900; line-height: 1.2; }
+    .tag {
+      flex: 0 0 auto;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 5px 7px;
+      background: var(--yellow);
+      color: var(--black);
+      white-space: nowrap;
+    }
+    .stake-card p { margin: 0; color: var(--ink); line-height: 1.42; font-size: 12.5px; font-weight: 600; }
+    .stake-card .ask { margin-top: 10px; color: var(--mute); font-family: var(--font-mono); font-size: 11px; line-height: 1.4; }
+
+    .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .insight {
+      background: var(--white);
+      border: 1px solid var(--line-strong);
+      border-top: 6px solid var(--red);
+      border-radius: 0;
+      padding: 24px;
+      box-shadow: var(--soft-shadow);
+    }
+    .insight h3 {
+      margin: 0 0 12px;
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 400;
+      line-height: .86;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .insight p { margin: 0; color: var(--mute); line-height: 1.55; font-size: 14px; font-weight: 600; }
+    .insight .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: var(--red);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .dot { width: 10px; height: 10px; background: var(--red); display: inline-block; }
+    .dot.green, .dot.amber, .dot.red, .dot.violet { background: var(--yellow); }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(17,17,17,.72);
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal { width: min(900px, 100%); background: var(--white); box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--black); }
+    .modal-header { padding: 28px 30px; background: var(--black); color: var(--white); display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+    .modal-header h3 { margin: 0; color: var(--white); font-family: var(--font-display); font-size: 52px; font-weight: 400; line-height: .86; letter-spacing: -.025em; text-transform: uppercase; }
+    .modal-header p { margin: 10px 0 0; color: rgba(255,255,255,.72); font-size: 14px; font-weight: 600; }
+    .close { border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--white); width: 42px; height: 42px; font-size: 28px; line-height: 1; cursor: pointer; }
+    .modal-body { padding: 28px 30px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--paper); }
+    .modal-block { border: 1px solid var(--line); background: var(--white); padding: 16px; }
+    .modal-block h4 { margin: 0 0 8px; color: var(--red); font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .13em; }
+    .modal-block p, .modal-block li { color: var(--ink); line-height: 1.52; font-size: 14px; font-weight: 600; }
+    .modal-block ul { margin: 8px 0 0; padding-left: 18px; }
+    .modal-wide { grid-column: 1 / -1; }
+
+    .simulator-section { margin-top: 30px; display: grid; grid-template-columns: minmax(320px, .72fr) minmax(0, 1.28fr); gap: 18px; align-items: start; }
+    .sim-panel {
+      position: sticky;
+      top: 118px;
+      padding: 28px;
+      color: var(--white);
+      background: var(--black);
+      border: 1px solid var(--black);
+      box-shadow: var(--shadow);
+    }
+    .sim-panel .eyebrow { color: var(--yellow) !important; }
+    .sim-panel h3 { margin: 10px 0 14px; color: var(--white); font-family: var(--font-display); font-size: 58px; font-weight: 400; line-height: .84; letter-spacing: -.025em; text-transform: uppercase; }
+    .sim-panel p { margin: 0 0 16px; color: rgba(255,255,255,.72); line-height: 1.55; font-size: 14px; font-weight: 600; }
+    .sim-uses { display: grid; gap: 10px; margin-top: 18px; }
+    .sim-use { border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); padding: 14px; }
+    .sim-use strong { display: block; color: var(--yellow); margin-bottom: 5px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; }
+    .sim-use span { display: block; color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.42; font-weight: 600; }
+
+    .simulator-app { overflow: hidden; background: var(--white); border: 1px solid var(--black); box-shadow: var(--shadow); }
+    .sim-head { padding: 28px; color: var(--white); background: var(--gradient-red); }
+    .sim-head .eyebrow { color: var(--yellow); }
+    .sim-head h3 { margin: 10px 0 10px; color: var(--white); font-family: var(--font-display); font-size: clamp(54px, 7vw, 92px); font-weight: 400; line-height: .8; letter-spacing: -.03em; text-transform: uppercase; }
+    .sim-head p { margin: 0; color: rgba(255,255,255,.82); max-width: 760px; font-size: 15px; font-weight: 600; line-height: 1.48; }
+    .sim-body { padding: 22px; display: grid; gap: 14px; background: var(--paper); }
+    .sim-field label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .sim-field select,
+    .sim-field textarea {
+      width: 100%;
+      border: 2px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      padding: 13px 14px;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 0;
+    }
+    .sim-field textarea { min-height: 118px; resize: vertical; line-height: 1.45; }
+    .sim-field select:focus,
+    .sim-field textarea:focus { box-shadow: 5px 5px 0 var(--yellow); }
+    .sim-shortcuts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .stage-pill {
+      border: 1px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      padding: 10px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      cursor: pointer;
+      border-radius: 0;
+      transition: 160ms ease;
+    }
+    .stage-pill:hover { transform: translateY(-1px); box-shadow: 3px 3px 0 var(--black); }
+    .stage-pill.active { background: var(--black); color: var(--white); }
+    .sim-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .sim-btn {
+      border: 2px solid var(--black);
+      padding: 13px 16px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      cursor: pointer;
+      border-radius: 0;
+      transition: 160ms ease;
+    }
+    .sim-btn:hover { transform: translateY(-1px); box-shadow: 4px 4px 0 var(--black); }
+    .sim-btn.primary { background: var(--black); color: var(--white); }
+    .sim-btn.ghost { background: var(--yellow); color: var(--black); }
+    .context-box {
+      border: 1px solid var(--line-strong);
+      border-left: 5px solid var(--red);
+      background: var(--white);
+      padding: 15px;
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+    .sim-results { display: grid; gap: 12px; }
+    .persona-card { background: var(--white); border: 1px solid var(--line-strong); border-top: 5px solid var(--black); padding: 16px; }
+    .persona-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .persona-card h4 { margin: 0; color: var(--black); font-family: var(--font-display); font-size: 34px; font-weight: 400; line-height: .88; letter-spacing: -.025em; text-transform: uppercase; }
+    .stance { flex: 0 0 auto; background: var(--yellow); color: var(--black); padding: 6px 8px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
+    .quote {
+      margin: 0 0 12px;
+      padding-left: 12px;
+      border-left: 3px solid var(--red);
+      color: var(--black);
+      font-family: var(--font-type);
+      font-size: 15px;
+      line-height: 1.5;
+      letter-spacing: -.02em;
+    }
+    .fear, .counter { margin: 0 0 10px; color: var(--mute); font-size: 13px; line-height: 1.48; font-weight: 600; }
+    .counter { color: var(--ink); background: var(--paper); border: 1px solid var(--line); padding: 11px; }
+    .try-link {
+      border: 0;
+      background: transparent;
+      color: var(--red);
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      cursor: pointer;
+    }
+    .reply-box { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+    .reply-box textarea { width: 100%; min-height: 92px; padding: 12px; border: 2px solid var(--black); resize: vertical; font-family: var(--font-sans); font-weight: 700; border-radius: 0; }
+    .score-box { border-left: 5px solid var(--yellow); background: var(--black); color: rgba(255,255,255,.82); padding: 12px; font-size: 13px; line-height: 1.5; font-weight: 600; }
+    .score-box strong { color: var(--yellow); }
+
+    .conversion {
+      position: relative;
+      margin-top: 48px;
+      padding: 40px;
+      color: var(--white);
+      background: var(--black);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .conversion::after {
+      content: "04";
+      position: absolute;
+      right: -20px;
+      top: -50px;
+      color: rgba(255,255,255,.06);
+      font-family: var(--font-display);
+      font-size: 280px;
+      line-height: .75;
+    }
+    .conversion h2 { position: relative; margin: 0 0 12px; color: var(--white); font-family: var(--font-display); font-size: clamp(58px, 7vw, 98px); font-weight: 400; line-height: .82; letter-spacing: -.03em; text-transform: uppercase; }
+    .conversion p { position: relative; color: rgba(255,255,255,.72); line-height: 1.55; max-width: 980px; font-weight: 600; }
+    .steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .step { border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); padding: 18px; }
+    .step strong { display: block; color: var(--yellow); font-size: 12px; margin-bottom: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+    .step span { display: block; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.45; font-weight: 600; }
+
+    footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--mute); font-family: var(--font-mono); font-size: 11px; line-height: 1.6; }
+    footer a { color: var(--red); }
+
+    @media (max-width: 1160px) {
+      .simulator-section { grid-template-columns: 1fr; }
+      .sim-panel { position: static; }
+      .section-title { grid-template-columns: 1fr; }
+      .steps, .insight-grid, .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 14px 12px 42px; }
+      .hero { min-height: 520px; padding: 28px 22px; }
+      h1 { font-size: clamp(62px, 19vw, 104px); }
+      h1 .outline { -webkit-text-stroke-width: 2px; }
+      .toolbar { grid-template-columns: 1fr; position: static; padding: 12px; }
+      .filters { gap: 8px; }
+      .chip { width: auto; font-size: 10px; padding: 9px 10px; }
+      .journey { min-width: calc((300px * 6) + 70px); grid-template-columns: repeat(6, 300px); }
+      :root { --stage-width: 300px; }
+      .sim-shortcuts, .sim-actions, .steps, .insight-grid, .hero-metrics { grid-template-columns: 1fr; }
+      .modal-body { grid-template-columns: 1fr; }
+      .modal-header h3 { font-size: 42px; }
+      .section-title h2 { font-size: clamp(48px, 15vw, 74px); }
+      .sim-panel h3 { font-size: 50px; }
+      .sim-head, .sim-body, .sim-panel, .conversion { padding: 22px; }
+    }
+
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">INTO 10 GTM Asset</div>
+      <h1>Buyer Decision <span class="outline">Journey for AI</span><span class="signal">Performance Enablement</span></h1>
+      <p>An interactive map for approaching, informing, de-risking, and converting CBOs, CHROs, and the full enterprise buying network for INTO 10. The core frame: move the buyer from training intent to measurable frontline readiness.</p>
+      <div class="hero-metrics">
+        <div class="metric"><strong>13</strong><span>Average internal stakeholders in a modern B2B buying decision.</span></div>
+        <div class="metric"><strong>9</strong><span>External influencers often shape validation and de-risking.</span></div>
+        <div class="metric"><strong>6</strong><span>Nonlinear buying jobs: problem, solution, requirements, supplier, validation, consensus.</span></div>
+        <div class="metric"><strong>1</strong><span>Strategic wedge: turn business knowledge into frontline performance.</span></div>
+      </div>
+    </section>
+
+    <div class="toolbar" aria-label="Interactive controls">
+      <div class="filters" id="filters">
+        <button class="chip active" data-role="all">All stakeholders</button>
+        <button class="chip" data-role="cbo">CBO / Business</button>
+        <button class="chip" data-role="chro">CHRO</button>
+        <button class="chip" data-role="ld">L&D / CLO</button>
+        <button class="chip" data-role="enablement">Sales / Service Enablement</button>
+        <button class="chip" data-role="it">IT / Security</button>
+        <button class="chip" data-role="finance">Finance / Procurement</button>
+        <button class="chip" data-role="legal">Legal / Compliance</button>
+        <button class="chip" data-role="manager">Managers</button>
+        <button class="chip" data-role="employee">Employees</button>
+      </div>
+      <form class="search" id="searchForm">
+        <input id="searchInput" placeholder="Search objection, KPI, stakeholder..." />
+        <button type="submit">Find</button>
+      </form>
+    </div>
+
+    <section class="section-title">
+      <div>
+        <div class="eyebrow" style="color: var(--blue-dark); opacity:1;">Journey map</div>
+        <h2>How the buying network moves from pain to pilot</h2>
+      </div>
+      <p>Click any stakeholder card for the message, objection, proof asset, and conversion action. Use the role filters to isolate the decision journey for one stakeholder group.</p>
+    </section>
+
+    <section class="journey-wrap">
+      <div class="journey" id="journey"></div>
+    </section>
+
+
+
+    <section class="section-title" id="persona-simulator">
+      <div>
+        <div class="eyebrow" style="color: var(--blue-dark); opacity:1;">Persona simulator</div>
+        <h2>Practice the room before the room happens</h2>
+      </div>
+      <p>This simulator adapts the buyer journey into live stakeholder reactions. Choose the buying stage, describe the current objection, and see how the CBO, CHRO, L&D, IT, Finance, Legal, managers, and users are likely to respond.</p>
+    </section>
+
+    <section class="simulator-section" aria-label="INTO 10 persona simulator">
+      <aside class="sim-panel">
+        <div class="eyebrow" style="color: var(--blue-dark); opacity:1;">How to use</div>
+        <h3>Use it as a sales rehearsal layer.</h3>
+        <p>The original uploaded app pattern has been retained: select a stage, enter the customer challenge, run the simulation, then test replies against the relevant personas. The content is now fully adapted to INTO 10 and stripped of BFSI references.</p>
+        <div class="sim-uses">
+          <div class="sim-use"><strong>Before a discovery call</strong><span>Use Problem Recognition or Solution Exploration to anticipate how the CBO and CHRO will frame the pain.</span></div>
+          <div class="sim-use"><strong>Before a demo</strong><span>Use Requirements Building or Supplier Selection to prepare proof assets, objections, and stakeholder-specific talk tracks.</span></div>
+          <div class="sim-use"><strong>Before procurement</strong><span>Use Validation or Consensus to pressure-test IT, Legal, Finance, adoption, and employee-trust concerns.</span></div>
+        </div>
+      </aside>
+
+      <div class="simulator-app">
+        <div class="sim-head">
+          <div class="eyebrow">INTO 10 sales companion</div>
+          <h3>Buyer Persona Simulator</h3>
+          <p>Practice selling AI performance enablement as a business outcome, a capability system, and a governed enterprise platform.</p>
+        </div>
+        <div class="sim-body">
+          <div class="sim-field">
+            <label for="simStageSelect">Decision stage</label>
+            <select id="simStageSelect"></select>
+          </div>
+          <div class="sim-shortcuts" id="simStagePills" aria-label="Simulator stage shortcuts"></div>
+          <div class="sim-field">
+            <label for="simChallengeInput">Customer challenge or objection</label>
+            <textarea id="simChallengeInput">The CHRO likes the idea, but the CBO is asking how this improves revenue rather than just training completion.</textarea>
+          </div>
+          <div class="sim-actions">
+            <button class="sim-btn primary" id="simRunBtn" type="button">Run Simulation</button>
+            <button class="sim-btn ghost" id="simResetBtn" type="button">Reset Challenge</button>
+          </div>
+          <div class="context-box" id="simContextBox">Choose a stage and run the simulation.</div>
+          <div class="sim-results" id="simResults"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section-title">
+      <div>
+        <div class="eyebrow" style="color: var(--blue-dark); opacity:1;">Conversion logic</div>
+        <h2>What INTO 10 must prove</h2>
+      </div>
+    </section>
+
+    <section class="insight-grid">
+      <article class="insight">
+        <div class="badge"><span class="dot"></span>CBO trigger</div>
+        <h3>Revenue leaks in the customer conversation.</h3>
+        <p>The CBO does not buy “learning.” The CBO buys reduced mis-selling, faster launch ramp, sharper objection handling, stronger closures, better service resolution, and less dependence on heroic managers.</p>
+      </article>
+      <article class="insight">
+        <div class="badge"><span class="dot green"></span>CHRO mandate</div>
+        <h3>Capability must become measurable.</h3>
+        <p>The CHRO buys a scalable capability system that moves beyond course completion into role-based readiness, manager coaching, governance, and defensible employee development.</p>
+      </article>
+      <article class="insight">
+        <div class="badge"><span class="dot amber"></span>Risk control</div>
+        <h3>The AI claim creates scrutiny.</h3>
+        <p>IT, Legal, Finance, and Procurement will slow the deal unless INTO 10 arrives with security architecture, data handling, SSO, privacy, ROI, and pilot governance assets ready.</p>
+      </article>
+    </section>
+
+    <section class="conversion">
+      <h2>Recommended deal motion</h2>
+      <p>Do not sell a platform first. Sell a contained Performance Readiness Pilot. Use one business-critical cohort, one product or process, one set of customer moments, and one measurable business proxy.</p>
+      <div class="steps">
+        <div class="step"><strong>1. Capability Leakage Audit</strong><span>Name where knowledge decays, where teams improvise, and which customer moments cost money.</span></div>
+        <div class="step"><strong>2. 10-Day Prototype</strong><span>Convert one deck, SOP, FAQ, objection bank, or product policy into AI Xpert, practice roleplay, and readiness scoring.</span></div>
+        <div class="step"><strong>3. 45-Day Paid Pilot</strong><span>Baseline users, run simulations, measure readiness lift, manager hours saved, and movement in one business proxy.</span></div>
+        <div class="step"><strong>4. Role Expansion</strong><span>Expand into onboarding, launch readiness, sales certification, service recovery, partner training, and manager coaching.</span></div>
+      </div>
+    </section>
+
+    <footer>
+      Built as a standalone strategy page for INTO 10 with an adapted persona simulator. Public grounding: INTO 10’s product pages describe AI-led learning, guided simulations, roleplay, AI Xpert support, and performance readiness; Forrester’s 2026 business-buying research states that buying decisions now involve wider internal and external networks; Gartner frames B2B buying as nonlinear buying jobs rather than a simple funnel.
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle"></h3>
+          <p id="modalSub"></p>
+        </div>
+        <button class="close" id="closeModal" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const stages = [
+      { id: 'problem', title: 'Problem Recognition', job: 'Problem identification' },
+      { id: 'explore', title: 'Solution Exploration', job: 'Solution exploration' },
+      { id: 'requirements', title: 'Requirements Building', job: 'Requirements building' },
+      { id: 'supplier', title: 'Supplier Selection', job: 'Supplier selection' },
+      { id: 'validation', title: 'Validation', job: 'Validation and risk reduction' },
+      { id: 'consensus', title: 'Consensus and Purchase', job: 'Consensus creation' }
+    ];
+
+    const roles = {
+      cbo: 'CBO / Business Head',
+      chro: 'CHRO',
+      ld: 'CLO / L&D',
+      enablement: 'Sales / Service Enablement',
+      it: 'IT / Security',
+      finance: 'Finance / Procurement',
+      legal: 'Legal / Compliance',
+      manager: 'Frontline Managers',
+      employee: 'Employees / Users'
+    };
+
+    const data = {
+      problem: {
+        cbo: ['Sees missed revenue, inconsistent pitch quality, slow ramp-up, weak cross-sell, and product-launch leakage.', 'Will this improve conversion, activation, retention, or service outcomes?', 'Capability Leakage Audit with top five revenue moments and measurable business proxy.', 'Open with commercial leakage, not learning transformation.'],
+        chro: ['Sees capability gaps, inconsistent manager coaching, weak learning impact, and pressure to make AI useful.', 'Can this scale capability without becoming another tool nobody uses?', 'Role-based readiness map, adoption design, governance model.', 'Position INTO 10 as measurable capability infrastructure.'],
+        ld: ['Sees training completion without performance transfer.', 'How do we protect learning quality and content governance?', 'Rubrics, content approval workflow, competency matrix.', 'Make L&D owner of standards, not bypassed by business.'],
+        enablement: ['Sees coaching overload and uneven execution across sellers or agents.', 'Can this reduce manual coaching and improve practice quality?', 'Scenario library and manager-time-saved model.', 'Promise unlimited practice plus better manager prioritization.'],
+        it: ['Sees a new AI system touching employee and enterprise knowledge data.', 'What data is processed and where does it go?', 'Architecture note, SSO, RBAC, tenant isolation, model policy.', 'Bring security assets into the first serious meeting.'],
+        finance: ['Sees another SaaS cost in an already crowded stack.', 'What is the ROI and what existing system does this replace or complement?', 'Readiness-to-revenue calculator and pilot cost guardrails.', 'Sell a contained pilot with explicit success metrics.'],
+        legal: ['Sees employee scoring, transcripts, audio, and AI feedback risk.', 'Who sees what, and how will it affect employees?', 'DPA, retention rules, visibility policy, employee notice templates.', 'Address surveillance anxiety early.'],
+        manager: ['Sees uneven team capability and limited time to coach.', 'Will this help me coach or create admin work?', 'Team dashboard mockup and coaching-priority view.', 'Show manager lift, not manager burden.'],
+        employee: ['Feels training is generic, boring, or punitive.', 'Will this help me perform better or expose me?', 'Private practice promise, language support, transparent scoring.', 'Frame as safe rehearsal before real customer pressure.']
+      },
+      explore: {
+        cbo: ['Compares INTO 10 with internal training, sales enablement, CRM content, and manager coaching.', 'Why now, and why not use what we already have?', 'Before-and-after demo using buyer content.', 'Show how static knowledge becomes live performance rehearsal.'],
+        chro: ['Compares against LMS, LXP, academies, and AI learning vendors.', 'Is this learning tech, talent tech, or performance tech?', 'Capability architecture map and integration story.', 'Define category as AI Performance Enablement.'],
+        ld: ['Evaluates authoring, learning journeys, assessments, and reporting.', 'Can we control the instructional design?', 'Sample journey: lesson, quiz, roleplay, feedback, manager view.', 'Make content governance visible.'],
+        enablement: ['Tests scenario realism and roleplay quality.', 'Can it simulate our real customers and objections?', 'Persona and objection-bank demo.', 'Use their actual battlecards and product scripts.'],
+        it: ['Explores implementation and integration burden.', 'Does it support SSO, roles, audit, and data controls?', 'Technical pre-read and implementation checklist.', 'Reduce unknowns before procurement begins.'],
+        finance: ['Explores price bands and budget owner.', 'Is this HR budget, sales budget, or transformation budget?', 'Budget routing map and pilot economics.', 'Anchor budget to business outcome, not course seats.'],
+        legal: ['Explores privacy, consent, and AI governance.', 'Does AI scoring create legal exposure?', 'AI assessment policy, human override, rubric transparency.', 'Separate developmental scoring from formal appraisal.'],
+        manager: ['Explores whether team dashboards are actionable.', 'Can I see who needs help and where?', 'Manager cockpit demo.', 'Show coaching cues by scenario, not vanity analytics.'],
+        employee: ['Explores usefulness through the first practice attempt.', 'Is feedback specific and practical?', 'Instant transcript, score explanation, suggested retry.', 'Make first-use value immediate.']
+      },
+      requirements: {
+        cbo: ['Defines success around a KPI proxy and cohort.', 'Which role, product, region, or process should we pilot?', 'Pilot charter with business KPI, cohort, baseline, and timeline.', 'Force a narrow use case with high executive pain.'],
+        chro: ['Defines scale requirements, employee experience, and governance.', 'How will this fit our capability agenda?', 'Operating model: HR sponsor, business owner, L&D standards, manager cadence.', 'Create a joint CBO-CHRO ownership model.'],
+        ld: ['Defines competency model and assessment rubric.', 'What does good performance actually mean?', 'Role-skill-scenario matrix.', 'Translate business goals into observable behaviours.'],
+        enablement: ['Defines scenario bank, personas, objection taxonomy, and coaching workflow.', 'Can we localize for business reality?', 'Scenario blueprint and content ingestion checklist.', 'Co-create the first scenario library.'],
+        it: ['Defines security requirements and procurement controls.', 'What must be true before approval?', 'Security questionnaire responses and SSO/RBAC details.', 'Pre-empt enterprise vendor risk review.'],
+        finance: ['Defines spend ceiling and success threshold.', 'What improvement justifies expansion?', 'Break-even model: conversion lift, manager hours saved, productivity ramp.', 'Make renewal dependent on measurable movement.'],
+        legal: ['Defines data retention, access permissions, and employee communication.', 'Can managers access raw transcripts or only summaries?', 'Access-control policy and retention settings.', 'Offer configurable visibility by role.'],
+        manager: ['Defines coaching rhythm and responsibilities.', 'How much time will this require each week?', 'Weekly manager playbook.', 'Make manager action lightweight and specific.'],
+        employee: ['Defines comfort needs: language, privacy, fairness, and relevance.', 'Can I practice in my language and improve without being embarrassed?', 'User onboarding script and psychological safety note.', 'Lead with private practice, then team development.']
+      },
+      supplier: {
+        cbo: ['Assesses whether INTO 10 is a serious business-performance partner.', 'Do they understand our revenue mechanics?', 'Vertical demo and commercial case study.', 'Use the buyer’s language: closures, activation, attach rate, resolution.'],
+        chro: ['Assesses vendor maturity and enterprise fit.', 'Can this scale across roles without chaos?', 'Enterprise roadmap and governance controls.', 'Show repeatable operating model.'],
+        ld: ['Assesses content quality, instructional control, and analytics.', 'Will this degrade learning into gamified shortcuts?', 'Learning design principles and sample rubric.', 'Protect quality while adding speed.'],
+        enablement: ['Assesses roleplay engine depth and feedback precision.', 'Is the AI coach better than generic feedback?', 'Side-by-side roleplay output and coaching analysis.', 'Demonstrate specificity in feedback.'],
+        it: ['Assesses security maturity.', 'Are claims backed by documents?', 'VAPT plan, subprocessor list, model-routing note, SOC/ISO roadmap if applicable.', 'Do not leave IT to chase documentation.'],
+        finance: ['Assesses vendor viability and commercial flexibility.', 'Can we start small without being trapped?', 'Paid pilot SOW and expansion pricing bands.', 'Avoid enterprise lock-in before proof.'],
+        legal: ['Assesses contractual risk.', 'Can the contract handle AI outputs and employee data?', 'DPA, acceptable use, liability and data deletion clauses.', 'Use plain-language legal guardrails.'],
+        manager: ['Assesses whether rollout will help their team.', 'Will leadership use this to punish low scores?', 'Manager and employee communication pack.', 'Make developmental intent explicit.'],
+        employee: ['Assesses whether the tool is worth repeated use.', 'Will it help me handle real situations?', 'Role-specific practice paths and language options.', 'Make practice feel close to the actual job.']
+      },
+      validation: {
+        cbo: ['Needs proof that readiness improvement can move business outcomes.', 'What changed versus baseline?', 'Pilot dashboard with before/after readiness and KPI proxy.', 'Review in business terms, not product usage terms.'],
+        chro: ['Needs proof of adoption, fairness, and capability lift.', 'Did people use it, trust it, and improve?', 'Adoption funnel, sentiment, skill movement, manager feedback.', 'Show organizational capability gain.'],
+        ld: ['Needs proof that learning transfer happened.', 'Did users demonstrate proficiency?', 'Completion-to-performance comparison.', 'Show why LMS completion alone was insufficient.'],
+        enablement: ['Needs proof of manager hours saved and better coaching focus.', 'Did this reduce manual reviews?', 'Manager-time-saved and coaching-priority report.', 'Quantify enablement productivity.'],
+        it: ['Needs proof of secure implementation.', 'Were there incidents, data issues, or integration blockers?', 'Security sign-off pack.', 'Keep pilot technically clean.'],
+        finance: ['Needs proof that expansion is economically rational.', 'What is the minimum lift needed to pay back?', 'ROI readout with conservative assumptions.', 'Use low, base, and upside scenarios.'],
+        legal: ['Needs proof that privacy commitments held.', 'Was data handled according to policy?', 'Audit log, retention confirmation, access report.', 'Close legal loop before scale.'],
+        manager: ['Needs proof team members improved in visible ways.', 'Who improved, where, and what should I coach next?', 'Team readiness heatmap.', 'Translate analytics into manager action.'],
+        employee: ['Needs proof that practice helped performance.', 'Did I get better and more confident?', 'Personal progress view and improvement trail.', 'Celebrate improvement, not ranking.']
+      },
+      consensus: {
+        cbo: ['Approves expansion if business case is visible.', 'Where should we scale next?', 'Expansion map by role, product, region, or channel.', 'Tie rollout to business priorities.'],
+        chro: ['Approves enterprise capability rollout if governance is mature.', 'Can this become a capability operating system?', 'Role academy roadmap and adoption governance.', 'Position as shared HR-business infrastructure.'],
+        ld: ['Commits if learning ownership is protected.', 'How do we maintain content freshness?', 'Content refresh workflow and rubric calibration cadence.', 'Make L&D the system steward.'],
+        enablement: ['Commits if workflow improves coaching efficiency.', 'Can this become certification and launch readiness process?', 'Certification pathway and monthly readiness review.', 'Embed into enablement rituals.'],
+        it: ['Approves production if enterprise controls are acceptable.', 'Can we support this at scale?', 'Production implementation plan and admin controls.', 'Standardize integration and access management.'],
+        finance: ['Approves contract if pilot economics hold.', 'What is the renewal and expansion logic?', 'Commercial proposal with success-based expansion milestones.', 'Avoid vague value claims.'],
+        legal: ['Approves if contracts and policies are clean.', 'Are employee rights and data obligations clear?', 'Final DPA, notices, retention, and AI governance appendix.', 'Make compliance part of product governance.'],
+        manager: ['Adopts if dashboards create better coaching rhythm.', 'How do I use this every week?', 'Manager cadence: review, coach, retry, certify.', 'Make the behaviour change operational.'],
+        employee: ['Adopts if the system helps them win.', 'Will this remain useful after launch?', 'Ongoing AI Xpert, fresh scenarios, progress history.', 'Keep adding live job relevance.']
+      }
+    };
+
+    const tagText = {
+      cbo: 'Outcome owner', chro: 'Scale owner', ld: 'Standards owner', enablement: 'Workflow owner', it: 'Risk gate', finance: 'Value gate', legal: 'Policy gate', manager: 'Adoption owner', employee: 'Usage owner'
+    };
+
+    let activeRole = 'all';
+    let searchTerm = '';
+
+    function renderJourney() {
+      const journey = document.getElementById('journey');
+      journey.innerHTML = '';
+      stages.forEach((stage, idx) => {
+        const col = document.createElement('article');
+        col.className = 'stage';
+        col.innerHTML = `<div class="stage-head"><div><h3>${stage.title}</h3></div><div class="stage-num">${idx + 1}</div></div><div class="buying-job">${stage.job}</div>`;
+        Object.keys(roles).forEach(role => {
+          const item = data[stage.id][role];
+          const haystack = [roles[role], stage.title, stage.job, ...item].join(' ').toLowerCase();
+          const matchesRole = activeRole === 'all' || activeRole === role;
+          const matchesSearch = !searchTerm || haystack.includes(searchTerm.toLowerCase());
+          const card = document.createElement('div');
+          card.className = 'stake-card';
+          if (!matchesRole) card.classList.add('dimmed');
+          if (!matchesSearch) card.classList.add('hidden');
+          card.dataset.stage = stage.id;
+          card.dataset.role = role;
+          card.innerHTML = `<div class="stake-top"><div class="role">${roles[role]}</div><div class="tag">${tagText[role]}</div></div><p>${item[0]}</p><div class="ask">Buyer question: ${item[1]}</div>`;
+          card.addEventListener('click', () => openModal(stage, role, item));
+          col.appendChild(card);
+        });
+        journey.appendChild(col);
+      });
+    }
+
+    function openModal(stage, role, item) {
+      document.getElementById('modalTitle').textContent = `${roles[role]}: ${stage.title}`;
+      document.getElementById('modalSub').textContent = `${stage.job} · ${tagText[role]}`;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="modal-block"><h4>What they are thinking</h4><p>${item[0]}</p></div>
+        <div class="modal-block"><h4>Core buyer question</h4><p>${item[1]}</p></div>
+        <div class="modal-block"><h4>Proof asset needed</h4><p>${item[2]}</p></div>
+        <div class="modal-block"><h4>INTO 10 conversion move</h4><p>${item[3]}</p></div>
+        <div class="modal-block modal-wide"><h4>Sales implication</h4><p>Do not push a generic product demo at this point. Match the conversation to this stakeholder’s buying job. The same platform must be translated into commercial outcome for the CBO, capability governance for the CHRO, learning integrity for L&D, security assurance for IT, and user trust for employees.</p></div>
+      `;
+      document.getElementById('modalBackdrop').classList.add('active');
+    }
+
+    document.getElementById('closeModal').addEventListener('click', () => document.getElementById('modalBackdrop').classList.remove('active'));
+    document.getElementById('modalBackdrop').addEventListener('click', e => { if (e.target.id === 'modalBackdrop') e.currentTarget.classList.remove('active'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('modalBackdrop').classList.remove('active'); });
+
+    document.getElementById('filters').addEventListener('click', e => {
+      if (!e.target.matches('.chip')) return;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      e.target.classList.add('active');
+      activeRole = e.target.dataset.role;
+      renderJourney();
+    });
+
+    document.getElementById('searchForm').addEventListener('submit', e => {
+      e.preventDefault();
+      searchTerm = document.getElementById('searchInput').value.trim();
+      renderJourney();
+    });
+    document.getElementById('searchInput').addEventListener('input', e => {
+      searchTerm = e.target.value.trim();
+      renderJourney();
+    });
+
+
+
+    const simulatorData = {
+      problem: {
+        label: 'Problem Recognition',
+        context: 'The buyer has not yet accepted that training failure is a commercial execution problem. Your job is to name capability leakage clearly.',
+        strategy: 'Do not lead with AI. Lead with leakage: lost revenue, inconsistent pitch quality, slow launch ramp, weak objection handling, avoidable escalations, and overburdened managers.',
+        personas: [
+          { role: 'CBO / Business Head', stance: 'Urgent but outcome-first', objection: 'I do not need another learning tool. Show me where this changes field execution.', fear: 'Training spend that does not move conversion, activation, retention, or service quality.' },
+          { role: 'CHRO', stance: 'Interested in scale', objection: 'We have learning programs already. What makes this capability building rather than content delivery?', fear: 'Fragmenting the learning ecosystem with another point solution.' },
+          { role: 'Sales / Service Enablement', stance: 'Problem-aware', objection: 'Our managers already run coaching. Why would teams practice with AI?', fear: 'A tool that creates novelty but no better readiness.' }
+        ]
+      },
+      explore: {
+        label: 'Solution Exploration',
+        context: 'The buyer is comparing categories: LMS, LXP, sales enablement, coaching, knowledge base, roleplay tool, or AI assistant.',
+        strategy: 'Position INTO 10 as the performance layer that converts existing content into learning, practice, AI Xpert guidance, readiness scoring, and manager action.',
+        personas: [
+          { role: 'CBO / Business Head', stance: 'Commercially skeptical', objection: 'Is this a sales tool, HR tool, or AI experiment?', fear: 'Unclear ownership and weak business impact.' },
+          { role: 'L&D / CLO', stance: 'Protective of standards', objection: 'Will this bypass instructional design and create uncontrolled AI content?', fear: 'Loss of learning governance and inconsistent content quality.' },
+          { role: 'IT / Security', stance: 'Early risk scanner', objection: 'What data goes into the platform, and how is AI being used?', fear: 'Sensitive business content, transcripts, or employee data leaking into uncontrolled models.' }
+        ]
+      },
+      requirements: {
+        label: 'Requirements Building',
+        context: 'The buyer is translating intent into use cases, success criteria, integrations, content governance, privacy, and pilot design.',
+        strategy: 'Force a narrow use case. Define role, customer moment, content source, practice scenario, proficiency bar, manager cadence, and business KPI proxy.',
+        personas: [
+          { role: 'CHRO', stance: 'Governance-focused', objection: 'How do we make this fair, scalable, and aligned to our capability agenda?', fear: 'Employee backlash or an ungoverned performance-scoring system.' },
+          { role: 'Finance / Procurement', stance: 'ROI-driven', objection: 'What improvement would justify this spend?', fear: 'AI premium pricing without measurable payback.' },
+          { role: 'Frontline Managers', stance: 'Practical', objection: 'How much extra work will this create for me?', fear: 'Another dashboard without useful coaching actions.' }
+        ]
+      },
+      supplier: {
+        label: 'Supplier Selection',
+        context: 'The buyer is judging whether INTO 10 is credible enough versus incumbents, internal tools, generic LMS/LXP platforms, and AI roleplay vendors.',
+        strategy: 'Use the buyer’s own product deck, SOP, FAQ, objection bank, and role scripts to create a fast prototype. Specificity beats feature lists.',
+        personas: [
+          { role: 'CBO / Business Head', stance: 'Proof-demanding', objection: 'Show me how this would handle our actual product objections.', fear: 'A polished generic demo that fails in the real customer conversation.' },
+          { role: 'IT / Security', stance: 'Documentation-first', objection: 'We need SSO, RBAC, encryption, retention, tenant isolation, and model controls documented.', fear: 'Vendor immaturity during enterprise security review.' },
+          { role: 'Legal / Compliance', stance: 'Guarded', objection: 'Can managers see raw transcripts and scores? How will employees be informed?', fear: 'Surveillance risk, privacy issues, and ambiguous AI accountability.' }
+        ]
+      },
+      validation: {
+        label: 'Validation',
+        context: 'The buyer needs evidence that a pilot improved readiness and created a credible business case without creating risk.',
+        strategy: 'Report baseline versus post-pilot readiness, manager hours saved, usage quality, sentiment, security sign-off, and movement in one business proxy.',
+        personas: [
+          { role: 'CBO / Business Head', stance: 'Outcome validator', objection: 'What changed that I can take to the business review?', fear: 'A usage report dressed up as ROI.' },
+          { role: 'CHRO', stance: 'Adoption validator', objection: 'Did employees trust it and improve, or did they just complete assigned tasks?', fear: 'Forced adoption without real capability lift.' },
+          { role: 'Finance / Procurement', stance: 'Expansion gatekeeper', objection: 'What is the conservative expansion case?', fear: 'Pilot enthusiasm turning into uncontrolled software spend.' }
+        ]
+      },
+      consensus: {
+        label: 'Consensus and Purchase',
+        context: 'The buyer needs a clean internal story that satisfies business value, HR governance, learning quality, security, legal, finance, and manager adoption.',
+        strategy: 'Give the champion role-specific one-pagers and an expansion plan by role, product, region, or channel. Consensus needs translation, not repetition.',
+        personas: [
+          { role: 'Executive Sponsor', stance: 'Decision-oriented', objection: 'Why should this be approved now?', fear: 'Approving a tool before the organization is ready to absorb it.' },
+          { role: 'L&D / CLO', stance: 'Stewardship-focused', objection: 'How do we keep scenarios, rubrics, and content fresh after rollout?', fear: 'A successful pilot that decays into stale content and poor calibration.' },
+          { role: 'Employees / Users', stance: 'Trust-sensitive', objection: 'Will this help me improve, or will my score be used against me?', fear: 'Being ranked, exposed, or penalized by AI feedback.' }
+        ]
+      }
+    };
+
+    function simDetectSignal(text) {
+      const t = (text || '').toLowerCase();
+      const signals = [
+        { keys: ['revenue', 'sales', 'conversion', 'closure', 'business'], label: 'commercial impact', angle: 'Translate readiness into a business KPI proxy: conversion lift, activation speed, cross-sell quality, resolution rate, or manager hours saved.' },
+        { keys: ['chro', 'hr', 'employee', 'fair', 'trust', 'surveillance'], label: 'employee trust and HR governance', angle: 'Separate private practice from manager-visible reporting. Explain visibility rules, developmental intent, and governance.' },
+        { keys: ['lms', 'lxp', 'existing', 'already have', 'workday', 'cornerstone'], label: 'incumbent platform drag', angle: 'Do not claim replacement. Position INTO 10 as a performance layer on top of existing content and learning systems.' },
+        { keys: ['security', 'it', 'data', 'privacy', 'legal', 'transcript', 'audio', 'model'], label: 'risk and data scrutiny', angle: 'Lead with the trust pack: SSO, RBAC, tenant isolation, encryption, retention controls, model policy, and DPA.' },
+        { keys: ['cost', 'budget', 'procurement', 'finance', 'price', 'roi'], label: 'commercial approval', angle: 'Offer a contained paid pilot with conservative success thresholds and expansion only after proof.' },
+        { keys: ['manager', 'adoption', 'usage', 'frontline', 'change'], label: 'adoption risk', angle: 'Show manager cadence, employee onboarding, language support, and weekly coaching actions.' }
+      ];
+      return signals.find(s => s.keys.some(k => t.includes(k))) || { label: 'general stakeholder resistance', angle: 'Keep the answer specific to the buying stage and avoid generic AI claims.' };
+    }
+
+    function renderSimulatorOptions() {
+      const select = document.getElementById('simStageSelect');
+      const pills = document.getElementById('simStagePills');
+      if (!select || !pills) return;
+      select.innerHTML = stages.map(s => `<option value="${s.id}">${s.title}</option>`).join('');
+      pills.innerHTML = stages.map((s, i) => `<button class="stage-pill" type="button" data-sim-stage="${s.id}">${i + 1}. ${s.title}</button>`).join('');
+      select.value = 'problem';
+    }
+
+    function setSimulatorStage(stageId) {
+      const select = document.getElementById('simStageSelect');
+      if (select) select.value = stageId;
+      document.querySelectorAll('[data-sim-stage]').forEach(btn => btn.classList.toggle('active', btn.dataset.simStage === stageId));
+    }
+
+    function renderSimulation() {
+      const select = document.getElementById('simStageSelect');
+      const input = document.getElementById('simChallengeInput');
+      const contextBox = document.getElementById('simContextBox');
+      const results = document.getElementById('simResults');
+      if (!select || !input || !contextBox || !results) return;
+
+      const stageId = select.value || 'problem';
+      setSimulatorStage(stageId);
+      const stage = simulatorData[stageId];
+      const challenge = input.value.trim() || 'No challenge entered.';
+      const signal = simDetectSignal(challenge);
+      contextBox.innerHTML = `<strong>${stage.label}</strong><br>${stage.context}<br><br><strong>Detected signal:</strong> ${signal.label}. ${signal.angle}`;
+
+      results.innerHTML = [
+        `<div class="context-box"><strong>Recommended counter-strategy</strong><br>${stage.strategy} ${signal.angle}</div>`,
+        ...stage.personas.map((p, idx) => `
+          <article class="persona-card">
+            <div class="persona-topline"><h4>${p.role}</h4><span class="stance">${p.stance}</span></div>
+            <p class="quote">“${p.objection}”</p>
+            <p class="fear"><strong>Underlying fear:</strong> ${p.fear}</p>
+            <div class="counter"><strong>Best response angle:</strong> ${buildResponseAngle(p.role, signal.label, stageId)}</div>
+            <button class="try-link" type="button" data-sim-reply="${idx}">Try Response</button>
+            <div class="reply-box" data-sim-reply-box="${idx}" hidden>
+              <textarea placeholder="Write your reply to ${p.role}..."></textarea>
+              <button class="sim-btn ghost" type="button" data-score-reply="${idx}">Score Reply</button>
+              <div class="score-box" data-score-box="${idx}" hidden></div>
+            </div>
+          </article>`)
+      ].join('');
+
+      results.querySelectorAll('[data-sim-reply]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = btn.dataset.simReply;
+          results.querySelectorAll('[data-sim-reply-box]').forEach(box => box.hidden = box.dataset.simReplyBox !== idx);
+          const box = results.querySelector(`[data-sim-reply-box="${idx}"]`);
+          if (box) { box.hidden = false; box.querySelector('textarea')?.focus(); }
+        });
+      });
+
+      results.querySelectorAll('[data-score-reply]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = btn.dataset.scoreReply;
+          const box = results.querySelector(`[data-sim-reply-box="${idx}"]`);
+          const scoreBox = results.querySelector(`[data-score-box="${idx}"]`);
+          const text = box?.querySelector('textarea')?.value.trim() || '';
+          if (!scoreBox) return;
+          const hasMetric = /\d|roi|conversion|readiness|baseline|pilot|hours|kpi|security|privacy|dpa|sso|rbac/i.test(text);
+          const hasEmpathy = /understand|agree|valid|concern|risk|fair|protect|govern/i.test(text);
+          const score = Math.min(10, 5 + (hasMetric ? 3 : 0) + (hasEmpathy ? 2 : 0));
+          scoreBox.hidden = false;
+          scoreBox.innerHTML = `<strong>Reply score: ${score}/10.</strong> ${score >= 8 ? 'Strong. It balances the buyer concern with proof.' : 'Needs more precision. Add one proof asset, one measurable success criterion, and one risk-control statement.'}`;
+        });
+      });
+    }
+
+    function buildResponseAngle(role, signal, stageId) {
+      if (/CBO|Business|Executive/.test(role)) return 'Frame INTO 10 as revenue and execution insurance. Use a narrow pilot KPI, not a broad learning promise.';
+      if (/CHRO/.test(role)) return 'Frame it as measurable capability architecture with employee trust, fairness, and manager enablement built in.';
+      if (/L&D|CLO/.test(role)) return 'Show control over journeys, rubrics, content governance, calibration, and learning transfer.';
+      if (/IT|Security/.test(role)) return 'Answer with documentation: SSO, RBAC, encryption, retention, tenant isolation, model policy, and audit trail.';
+      if (/Finance|Procurement/.test(role)) return 'Use pilot economics: cost per cohort, manager hours saved, readiness lift, and expansion thresholds.';
+      if (/Legal|Compliance/.test(role)) return 'Clarify privacy, transcript access, data retention, employee notice, and AI output accountability.';
+      if (/Manager/.test(role)) return 'Show how dashboards translate into weekly coaching actions and do not add heavy admin load.';
+      if (/Employees/.test(role)) return 'Protect psychological safety: private practice first, clear feedback, language support, and developmental framing.';
+      return 'Make the answer concrete, stage-specific, and proof-led.';
+    }
+
+    function initSimulator() {
+      renderSimulatorOptions();
+      setSimulatorStage('problem');
+      renderSimulation();
+      document.getElementById('simStageSelect')?.addEventListener('change', renderSimulation);
+      document.getElementById('simRunBtn')?.addEventListener('click', renderSimulation);
+      document.getElementById('simResetBtn')?.addEventListener('click', () => {
+        const input = document.getElementById('simChallengeInput');
+        if (input) input.value = 'The CHRO likes the idea, but the CBO is asking how this improves revenue rather than just training completion.';
+        renderSimulation();
+      });
+      document.getElementById('simStagePills')?.addEventListener('click', e => {
+        const btn = e.target.closest('[data-sim-stage]');
+        if (!btn) return;
+        document.getElementById('simStageSelect').value = btn.dataset.simStage;
+        renderSimulation();
+      });
+    }
+
+    renderJourney();
+    initSimulator();
+  </script>
+</body>
+</html>

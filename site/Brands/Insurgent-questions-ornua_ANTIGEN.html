@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTIGEN &mdash; Ornua Insurgent Questions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#1e1c17',
+                            card: '#27231f',
+                            crimson: '#e31d28',
+                            gold: '#ffc000',
+                            gray: '#9fa2a4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
+                        serif: ['Bebas Neue', 'Impact', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .preserve-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #e11d48;
+        }
+        /* Custom flip transitions */
+        .card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+    
+        /* ANTIGEN standalone shell */
+        body { padding-top: 80px; background: #050505; }
+        .antigen-site-header {
+            position: fixed; left: 0; right: 0; top: 0; z-index: 9999; min-height: 80px;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px;
+            background: rgba(0,0,0,.94); color: #fff; padding: 20px clamp(20px,5vw,64px);
+            backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+        .site-wordmark { font-family: Montserrat, system-ui, sans-serif; font-size: 26px; line-height: 1; letter-spacing: .08em; color: #fff; text-decoration: none; text-transform: lowercase; }
+        .site-wordmark strong { font-weight: 900; letter-spacing: 0; }
+        .antigen-site-nav { display: flex; align-items: center; gap: 20px; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+        .antigen-site-nav a { color: #fff; text-decoration: none; }
+        .antigen-site-nav a:hover { color: #ffc000; }
+        .app-control-header { top: 80px !important; border-bottom-color: rgba(255,255,255,.1) !important; }
+        .bg-brand-crimson { background-color: #e31d28 !important; }
+        .text-brand-crimson { color: #e31d28 !important; }
+        .border-brand-crimson { border-color: #e31d28 !important; }
+        .border-brand-crimson/50 { border-color: rgba(227,29,40,.5) !important; }
+        .hover\:border-brand-crimson:hover { border-color: #e31d28 !important; }
+        .hover\:text-brand-crimson:hover { color: #e31d28 !important; }
+        .bg-brand-gold { background-color: #ffc000 !important; }
+        .text-brand-gold { color: #ffc000 !important; }
+        .bg-brand-black { background-color: #050505 !important; }
+        .bg-brand-dark { background-color: #1e1c17 !important; }
+        .bg-brand-card { background-color: #27231f !important; }
+        .rounded, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-full { border-radius: 0 !important; }
+        .font-serif { font-family: 'Bebas Neue', Impact, sans-serif !important; letter-spacing: .02em; }
+        .antigen-upload-footer {
+            background: #000; color: #fff; padding: 28px clamp(20px,5vw,64px);
+            display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+            border-top: 2px solid #000;
+        }
+        .footer-wordmark { font-family: Montserrat, system-ui, sans-serif; font-size: 26px; letter-spacing: .08em; text-transform: lowercase; }
+        .footer-wordmark strong { font-weight: 900; letter-spacing: 0; }
+        .footer-wordmark span { color: #ffc000; }
+        .footer-meta { color: rgba(255,255,255,.58); font-size: .72rem; font-weight: 800; letter-spacing: .1em; line-height: 1.7; text-transform: uppercase; text-align: right; }
+        .footer-actions { display: flex; gap: 16px; justify-content: flex-end; flex-wrap: wrap; margin-top: 8px; }
+        .footer-actions button { color: rgba(255,255,255,.6); font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+        .footer-actions button:hover { color: #ffc000; }
+        @media (max-width: 767px) {
+            body { padding-top: 72px; }
+            .antigen-site-header { min-height: 72px; }
+            .antigen-site-nav { display: none; }
+            .app-control-header { top: 72px !important; }
+            .footer-meta { text-align: left; }
+        }
+
+    </style>
+</head>
+<body class="bg-brand-black text-zinc-100 font-sans antialiased min-h-screen flex flex-col justify-between overflow-x-hidden" id="top">
+    <header class="antigen-site-header">
+        <a class="site-wordmark" href="#top" aria-label="ANTIGEN home">anti<strong>gen</strong></a>
+        <nav class="antigen-site-nav" aria-label="Primary navigation">
+            <a href="https://1antigen.com/why">Why</a>
+            <a href="https://1antigen.com/what">What</a>
+            <a href="https://1antigen.com/who">Who</a>
+            <a href="https://1antigen.com/how">How</a>
+            <a href="https://1antigen.com/pov">POV</a>
+            <a href="https://1antigen.com/contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Toast Notification (Custom modal alert fallback) -->
+    <div id="toast" class="fixed top-6 right-6 z-50 bg-brand-crimson text-white px-6 py-4 rounded-lg shadow-2xl border border-rose-500 transform translate-y-[-150%] transition-transform duration-300 pointer-events-none flex items-center gap-3">
+        <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        <span id="toast-message" class="font-bold uppercase tracking-wider text-sm"></span>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="app-control-header border-b border-zinc-800 bg-brand-black sticky top-0 z-40 px-4 md:px-8 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <span class="bg-brand-crimson text-black font-black px-2.5 py-1 text-xs tracking-widest uppercase">ANTIGEN</span>
+            <div class="h-4 w-[1px] bg-zinc-800 hidden sm:block"></div>
+            <span class="text-zinc-500 text-xs tracking-wider uppercase font-semibold hidden sm:inline-block">V1.0 Beta Interrogator</span>
+        </div>
+        
+        <!-- Target Brand Label -->
+        <div class="text-center">
+            <h1 class="text-xs tracking-[0.2em] font-extrabold uppercase text-zinc-400">TARGET AUDIT // <span class="text-white bg-zinc-900 px-2 py-0.5 border border-zinc-800">ORNUA</span></h1>
+        </div>
+
+        <!-- View Controls -->
+        <div class="flex gap-2">
+            <button onclick="switchView('deck')" id="btn-view-deck" class="px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-brand-crimson text-white">Deck</button>
+            <button onclick="switchView('list')" id="btn-view-list" class="px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white">List View</button>
+            <button onclick="switchView('dashboard')" id="btn-view-dashboard" class="px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white">Diagnostics</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow flex flex-col max-w-6xl w-full mx-auto p-4 md:p-8">
+        
+        <!-- INTRO HERO BLOCK -->
+        <section class="mb-8 border border-zinc-800 bg-brand-dark p-6 md:p-8 rounded-lg relative overflow-hidden flex flex-col justify-between">
+            <div class="absolute top-0 right-0 p-2 text-zinc-800 font-bold font-serif text-8xl pointer-events-none select-none opacity-20">CO-OP</div>
+            <div class="max-w-2xl relative z-10">
+                <span class="text-xs uppercase font-bold tracking-widest text-brand-crimson">The Strategic Pivot</span>
+                <h2 class="text-2xl md:text-4xl font-serif font-bold text-white mt-2 mb-4 leading-tight">Can Ornua transition from "Grass-Fed" claim to "Regenerative Movement"</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    A product claim is easy. A global movement requires real operational friction, deep supply chain pain, and absolute transparency. Use these cards to expose where the consensus fractures and where your organization is playing theater.
+                </p>
+            </div>
+            
+            <!-- Quick stats bar -->
+            <div class="mt-6 pt-6 border-t border-zinc-800 flex flex-wrap gap-6 items-center text-xs text-zinc-500">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-crimson"></span>
+                    <span>24 Insurgent Prompts</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                    <span>6 Strategic Vectors</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    <span>Live Reaction Tracking</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 1: INTERACTIVE DECK -->
+        <section id="view-deck" class="flex-grow flex flex-col items-center justify-center py-6">
+            <!-- Vector selection pills -->
+            <div class="w-full flex gap-2 overflow-x-auto pb-4 mb-6 custom-scrollbar snap-x">
+                <button onclick="filterByVector(0)" id="vector-btn-0" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-white text-black">All Vectors</button>
+                <button onclick="filterByVector(1)" id="vector-btn-1" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white">1. Archaeology</button>
+                <button onclick="filterByVector(2)" id="vector-btn-2" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white">2. Consensus</button>
+                <button onclick="filterByVector(3)" id="vector-btn-3" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white">3. Audience</button>
+                <button onclick="filterByVector(4)" id="vector-btn-4" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white">4. Heresy</button>
+                <button onclick="filterByVector(5)" id="vector-btn-5" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white">5. Time</button>
+                <button onclick="filterByVector(6)" id="vector-btn-6" class="vector-filter-btn snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white">6. Theater</button>
+            </div>
+
+            <!-- Card Stack Area -->
+            <div class="relative w-full max-w-2xl h-[420px] md:h-[380px] perspective-1000 select-none">
+                
+                <!-- Inner Card Shell (With Flip Support) -->
+                <div id="flashcard-inner" class="card-inner w-full h-full preserve-3d cursor-pointer relative rounded-2xl shadow-2xl border border-zinc-800 bg-brand-dark transition-all duration-500">
+                    
+                    <!-- FRONT: The Question -->
+                    <div class="absolute inset-0 backface-hidden flex flex-col justify-between p-6 md:p-8 rounded-2xl bg-brand-dark overflow-hidden">
+                        <!-- Top header of card -->
+                        <div class="flex justify-between items-start">
+                            <div class="flex flex-col">
+                                <span id="card-vector-lbl" class="text-xs font-black tracking-widest text-zinc-500 uppercase">VECTOR 1 // ASSUMPTION ARCHAEOLOGY</span>
+                                <span id="card-category-lbl" class="text-[10px] text-zinc-600 uppercase font-semibold mt-0.5">Focus: Invisible foundations & institutional memory</span>
+                            </div>
+                            <span id="detonation-tag" class="hidden bg-brand-crimson text-black font-black text-[9px] px-2 py-0.5 tracking-wider uppercase animate-pulse">DETONATION CARD</span>
+                        </div>
+
+                        <!-- Card Body (The Question) -->
+                        <div class="my-auto py-4">
+                            <p id="card-question-text" class="text-lg md:text-2xl font-serif text-white font-bold leading-relaxed">
+                                Loading insurgent question...
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="flex justify-between items-center border-t border-zinc-800/80 pt-4">
+                            <div class="text-[11px] font-mono text-zinc-500">
+                                CARD <span id="card-index-current">01</span> / <span id="card-index-total">24</span>
+                            </div>
+                            <button onclick="flipCard(event)" class="text-xs tracking-wider uppercase text-zinc-400 hover:text-brand-crimson font-black flex items-center gap-1.5 border border-zinc-800 hover:border-brand-crimson bg-zinc-900 px-3 py-1.5 rounded transition-all">
+                                <span>Reveal Antigen Probe</span>
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- BACK: The Probe (Critical Context) -->
+                    <div class="absolute inset-0 backface-hidden rotate-y-180 flex flex-col justify-between p-6 md:p-8 rounded-2xl bg-zinc-950 border border-brand-crimson/50 overflow-hidden">
+                        <!-- Top Header -->
+                        <div class="flex justify-between items-start border-b border-zinc-900 pb-3">
+                            <div class="flex flex-col">
+                                <span class="text-xs font-black tracking-widest text-brand-crimson uppercase">THE ANTIGEN PROBE</span>
+                                <span id="card-probe-heading" class="text-[10px] text-zinc-500 uppercase font-semibold">Exposing hidden architectural friction</span>
+                            </div>
+                            <button onclick="flipCard(event)" class="text-[10px] tracking-wider uppercase font-extrabold text-zinc-400 hover:text-white bg-zinc-900 px-2 py-1 rounded">
+                                Back to Question
+                            </button>
+                        </div>
+
+                        <!-- Core Context / Diagnosis helper -->
+                        <div class="my-auto py-2">
+                            <span class="text-xs text-brand-crimson font-mono uppercase tracking-widest font-bold">Why this matters:</span>
+                            <p id="card-probe-context" class="text-sm md:text-base text-zinc-300 leading-relaxed mt-1 font-sans">
+                                Loading strategic context...
+                            </p>
+                        </div>
+
+                        <!-- Action prompt -->
+                        <div class="border-t border-zinc-900 pt-3">
+                            <p class="text-[11px] text-zinc-500 leading-normal italic">
+                                Use the control panel below to log how much resistance this friction point generates in your organization.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Bottom shadows/stack simulation -->
+                <div class="absolute bottom-[-8px] left-[2%] right-[2%] h-[8px] bg-brand-dark/50 border border-zinc-800/50 rounded-b-xl -z-10"></div>
+                <div class="absolute bottom-[-16px] left-[4%] right-[4%] h-[8px] bg-brand-dark/20 border border-zinc-800/30 rounded-b-xl -z-20"></div>
+            </div>
+
+            <!-- Interactivity Controller (Friction Logging Panel) -->
+            <div class="w-full max-w-2xl mt-8 flex flex-col gap-4">
+                <div class="text-center">
+                    <span class="text-xs uppercase font-extrabold text-zinc-500 tracking-[0.2em]">Interrogate & Log Friction</span>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-2 md:gap-4">
+                    <!-- Action Button 1: Hit (High Resistance) -->
+                    <button onclick="logReaction('punch')" class="flex flex-col items-center justify-center p-3 md:p-4 rounded-xl border border-zinc-800 bg-brand-dark hover:border-brand-crimson group transition-all text-center">
+                        <span class="text-lg md:text-2xl mb-1 filter grayscale group-hover:grayscale-0 transition-all">🥊</span>
+                        <span class="text-[10px] md:text-xs font-black uppercase text-zinc-400 group-hover:text-brand-crimson tracking-wider">High Resistance</span>
+                        <span class="text-[8px] text-zinc-600 group-hover:text-rose-500/80 hidden sm:inline mt-0.5">Defensiveness triggered</span>
+                    </button>
+
+                    <!-- Action Button 2: Pillow (Uncomfortable but True) -->
+                    <button onclick="logReaction('defensive')" class="flex flex-col items-center justify-center p-3 md:p-4 rounded-xl border border-zinc-800 bg-brand-dark hover:border-brand-gold group transition-all text-center">
+                        <span class="text-lg md:text-2xl mb-1 filter grayscale group-hover:grayscale-0 transition-all">🛑</span>
+                        <span class="text-[10px] md:text-xs font-black uppercase text-zinc-400 group-hover:text-brand-gold tracking-wider">Defensiveness</span>
+                        <span class="text-[8px] text-zinc-600 group-hover:text-amber-500/80 hidden sm:inline mt-0.5">Organizational bypass</span>
+                    </button>
+
+                    <!-- Action Button 3: Safe (Comfortable Consensus) -->
+                    <button onclick="logReaction('pillow')" class="flex flex-col items-center justify-center p-3 md:p-4 rounded-xl border border-zinc-800 bg-brand-dark hover:border-zinc-400 group transition-all text-center">
+                        <span class="text-lg md:text-2xl mb-1 filter grayscale group-hover:grayscale-0 transition-all">☁️</span>
+                        <span class="text-[10px] md:text-xs font-black uppercase text-zinc-400 group-hover:text-zinc-200 tracking-wider">Safe Consensus</span>
+                        <span class="text-[8px] text-zinc-600 group-hover:text-zinc-400 hidden sm:inline mt-0.5">Comfortable path</span>
+                    </button>
+                </div>
+
+                <!-- Deck Navigation (Back/Next) -->
+                <div class="flex justify-between items-center mt-2 px-2">
+                    <button onclick="prevCard()" class="text-xs uppercase font-extrabold text-zinc-500 hover:text-white flex items-center gap-1.5 py-2 px-3 hover:bg-zinc-900 rounded transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        <span>Previous</span>
+                    </button>
+                    
+                    <button onclick="nextCard()" class="text-xs uppercase font-extrabold text-zinc-300 hover:text-white flex items-center gap-1.5 py-2 px-3 hover:bg-zinc-900 rounded transition-all">
+                        <span>Skip / Next</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: FULL LIST AUDIT -->
+        <section id="view-list" class="hidden flex-col gap-6 py-4">
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-4">
+                <div>
+                    <h3 class="text-xl font-serif font-bold text-white">Consolidated Question Register</h3>
+                    <p class="text-xs text-zinc-500 mt-1">Audit all 24 questions across 6 key investigative vectors</p>
+                </div>
+                <!-- Mini Diagnostics Summary button -->
+                <button onclick="switchView('dashboard')" class="text-xs uppercase font-extrabold bg-brand-crimson text-black px-4 py-2 hover:bg-rose-600 transition-all">
+                    View Live Diagnostics
+                </button>
+            </div>
+
+            <!-- Vector Blocks -->
+            <div id="list-vectors-container" class="space-y-8">
+                <!-- Programmatically generated list of vectors goes here -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: LIVE DIAGNOSTICS & SYNTHESIS -->
+        <section id="view-dashboard" class="hidden flex-col gap-8 py-4">
+            
+            <!-- Real-Time Metrics Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1: Engagement Tracker -->
+                <div class="border border-zinc-800 bg-brand-dark p-6 rounded-lg flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider">Audit Engagement Progress</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span id="dashboard-progress-percentage" class="text-4xl font-serif font-black text-white">0%</span>
+                            <span class="text-xs text-zinc-500">Completed</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-zinc-800 h-2 rounded-full overflow-hidden mt-4">
+                        <div id="dashboard-progress-bar" class="bg-brand-crimson h-full w-0 transition-all duration-500"></div>
+                    </div>
+                    <span class="text-[10px] text-zinc-500 mt-2 block"><span id="dashboard-answered-count">0</span> of 24 logged responses</span>
+                </div>
+
+                <!-- Card 2: Strategic Friction Hotspot -->
+                <div class="border border-zinc-800 bg-brand-dark p-6 rounded-lg flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider">Highest Resistance Vector</span>
+                        <h4 id="dashboard-highest-friction-lbl" class="text-lg font-serif font-bold text-brand-crimson mt-2 leading-snug">NO FRICTION DETECTED</h4>
+                        <p id="dashboard-highest-friction-desc" class="text-xs text-zinc-500 mt-1">Log reactions (🥊 High Resistance) on cards to see your core organizational blindspots map out here in real time.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Culture Index -->
+                <div class="border border-zinc-800 bg-brand-dark p-6 rounded-lg flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase text-zinc-500 tracking-wider">Echo Chamber Risk Profile</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span id="dashboard-risk-lbl" class="text-3xl font-serif font-bold text-zinc-400">UNAUDITED</span>
+                        </div>
+                        <p id="dashboard-risk-desc" class="text-xs text-zinc-500 mt-1">High "Safe Consensus" signals indicate extreme groupthink risk.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Chart Breakdown -->
+            <div class="border border-zinc-800 bg-brand-dark p-6 rounded-lg">
+                <h3 class="text-sm font-black uppercase text-zinc-400 tracking-widest border-b border-zinc-800 pb-3">Vector Resistance Map</h3>
+                
+                <div id="vector-charts" class="space-y-6 mt-6">
+                    <!-- Dynamic rendering of vector bar charts based on reactions -->
+                </div>
+            </div>
+
+            <!-- Synthesis & Action Plan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Left: Static synthesis provocation -->
+                <div class="border border-zinc-800 bg-zinc-950 p-6 rounded-lg relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 p-2 font-serif text-6xl text-zinc-900 pointer-events-none select-none font-bold">CORE</div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-black tracking-widest text-brand-crimson uppercase">SYNTHESIS PROVOCATION</span>
+                        <p class="text-lg font-serif font-bold text-white mt-3 leading-relaxed">
+                            Are you genuinely trying to transform the physical reality of Irish agriculture to save your margins, or are you trying to buy a temporary marketing shield because you are terrified that "grass-fed" has reached its natural expiration date as a premium narrative
+                        </p>
+                        <p class="text-xs text-zinc-500 leading-relaxed mt-4">
+                            Regenerative dairy demands radical supply-chain changes. If individual farmers are not paid direct premiums for transitions, or if yields decline with no co-op protection mechanisms, the "Patagonia movement" collapses into visual greenwash.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Actionable Audit Report generator -->
+                <div class="border border-zinc-800 bg-brand-dark p-6 rounded-lg flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-black tracking-widest text-brand-crimson uppercase">GENERATE ACTION REPORT</span>
+                        <h4 class="text-sm font-bold text-zinc-200 mt-2">Generate your custom strategic briefing document</h4>
+                        <p class="text-xs text-zinc-500 mt-1">Compiles your logged friction points, highlights the high-resistance vectors, and drafts an internal agenda for leadership context.</p>
+                    </div>
+
+                    <div class="mt-4 space-y-2">
+                        <button onclick="copyAuditReport()" class="w-full bg-brand-crimson hover:bg-rose-600 text-black font-black text-xs py-3 rounded uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                            <span>Copy Custom Briefing Report</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagnostic Signals / Dynamic Narrative -->
+            <div class="border border-zinc-800 bg-brand-dark p-6 rounded-lg">
+                <span class="text-xs font-black tracking-widest text-zinc-400 uppercase">METHODOLOGY PRE-FLIGHT</span>
+                <div class="mt-4 text-xs text-zinc-400 leading-relaxed space-y-2">
+                    <p><strong>Friction signals are healthy.</strong> In Antigen methodology, resistance points out where comfort operates as truth. If a vector triggers immediate irritation, defensiveness, or pushback, do not abandon it—it contains the critical threat your competitors will leverage next.</p>
+                    <p>Treat the results above as an interactive diagnosis of your cooperative readiness. Share these flashcards with others across different organizational layers to track the delta between boardrooms and operational hubs.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="antigen-upload-footer">
+        <div>
+            <div class="footer-wordmark">anti<strong>gen</strong><span>.</span></div>
+        </div>
+        <div>
+            <div class="footer-meta">
+                Ornua Insurgent Questions ? Standalone HTML Export<br>
+                Composable. Distributed. Insurgent.
+            </div>
+            <div class="footer-actions">
+                <button type="button" onclick="showMethodologyModal()">Our Creed</button>
+                <button type="button" onclick="resetAllReactions()">Reset Interactive State</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- METHODOLOGY CREED MODAL -->
+    <div id="creed-modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-brand-dark border border-zinc-800 max-w-md w-full p-6 rounded-xl relative">
+            <button onclick="closeMethodologyModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white font-bold text-lg">&times;</button>
+            <span class="bg-brand-crimson text-black font-black px-2 py-0.5 text-[9px] tracking-widest uppercase">ANTIGEN DOCTRINE</span>
+            <h3 class="text-xl font-serif font-bold text-white mt-3 mb-2">The Insurgent Ethos</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                We do not exist to comfort. Comfort is the breeding ground of market displacement. When a strategy feels too aligned, too polished, and too agreeable, it is almost certainly dead on arrival. 
+            </p>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+                Antigen forces organizations to stare directly into operational realities, power dynamics, and the quiet failures everyone notices but stays silent to survive.
+            </p>
+            <div class="bg-zinc-950 p-3 rounded border border-zinc-900">
+                <span class="text-[10px] font-bold text-brand-crimson block uppercase">Diagnostic Rule:</span>
+                <p class="text-[11px] text-zinc-500 italic">"Defensiveness is never an obstacle to strategy. Defensiveness is the truest form of strategic data."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Scripting -->
+    <script>
+        // Data Structure
+        const flashcardData = [
+            {
+                id: 1,
+                vectorId: 1,
+                vectorName: "Assumption Archaeology",
+                vectorDesc: "Invisible foundations & institutional decisions",
+                question: "You assume 'grass-fed' will inevitably commoditize, but what if the premium on genuine grass-fed actually increases as industrial dairy faces harsher climate regulations globally",
+                isDetonation: false,
+                probe: "If environmental taxes choke off synthetic or feed-lot dairy competitors, your present position is incredibly defensible. Swapping it for a complex movement might destroy a reliable premium."
+            },
+            {
+                id: 2,
+                vectorId: 1,
+                vectorName: "Assumption Archaeology",
+                vectorDesc: "Invisible foundations & institutional decisions",
+                question: "Who originally decided that copying a vertically integrated, privately held outdoor apparel company (Patagonia) is a viable blueprint for a massive, multi-tiered agricultural cooperative",
+                isDetonation: false,
+                probe: "Patagonia controls its supply chain by making consumer choices on apparel with high margins. A dairy cooperative has to convert thousands of rural micro-businesses with low margins. The comparison is structurally broken."
+            },
+            {
+                id: 3,
+                vectorId: 1,
+                vectorName: "Assumption Archaeology",
+                vectorDesc: "Invisible foundations & institutional decisions",
+                question: "What happens to this strategy if the consumer defines 'regenerative' differently than your farmers do—and who is looking for that misalignment right now",
+                isDetonation: false,
+                probe: "If consumers expect rewilding and farmers deliver reduced chemical fertilizers, the gap in understanding will expose the initiative as greenwashing. Define boundaries before branding."
+            },
+            {
+                id: 4,
+                vectorId: 1,
+                vectorName: "Assumption Archaeology",
+                vectorDesc: "Invisible foundations & institutional decisions",
+                question: "What is the most expensive operational lie embedded in the assumption that you can turn thousands of fiercely independent Irish dairy farmers into climate activists without cutting their margins",
+                isDetonation: true,
+                probe: "Farmers prioritize cash flow and yield survival. Expecting massive soil and ecological compliance metrics without matching payout raises is the corporate blindspot that triggers producer rebellion."
+            },
+            {
+                id: 5,
+                vectorId: 2,
+                vectorName: "Consensus Forensics",
+                vectorDesc: "Suppressed dissent vs manufactured alignment",
+                question: "Who wasn't in the room when the Patagonia analogy was approved—and what would the head of supply chain or a third-generation farmer say if they heard it",
+                isDetonation: false,
+                probe: "If operational directors and farm representatives aren't driving this policy, it is purely a marketing exercise. This guarantees immediate gridlock on execution."
+            },
+            {
+                id: 6,
+                vectorId: 2,
+                vectorName: "Consensus Forensics",
+                vectorDesc: "Suppressed dissent vs manufactured alignment",
+                question: "What is the career risk within Ornua for pointing out that 'regenerative dairy' at scale might be a logistical and financial impossibility under the current co-op payout model",
+                isDetonation: false,
+                probe: "If critical realism is suppressed in favor of ESG targets, you are setting up a systemic reporting failure. Unchallenged targets create paper successes and operational decay."
+            },
+            {
+                id: 7,
+                vectorId: 2,
+                vectorName: "Consensus Forensics",
+                vectorDesc: "Suppressed dissent vs manufactured alignment",
+                question: "How many times has 'alignment' on sustainability goals been achieved merely because the targets are set far enough in the future (e.g., 2030 or 2035) that no one alive today feels accountable for them",
+                isDetonation: false,
+                probe: "Long-term goals are comfortable because they demand no immediate trade-offs. The ultimate cop-out of modern strategy is shifting responsibility to leadership cohorts not yet hired."
+            },
+            {
+                id: 8,
+                vectorId: 2,
+                vectorName: "Consensus Forensics",
+                vectorDesc: "Suppressed dissent vs manufactured alignment",
+                question: "If you asked every member of the executive team to define 'regenerative' on a blank sheet of paper, how many fundamentally irreconcilable strategies would you discover",
+                isDetonation: true,
+                probe: "Without exact alignment on definition, the brand team will sell one story, the processors will run standard factories, and your farm audits will be arbitrary."
+            },
+            {
+                id: 9,
+                vectorId: 3,
+                vectorName: "Audience Inversion",
+                vectorDesc: "Excluded groups & forgotten stakeholders",
+                question: "Which massive B2B ingredients buyers will immediately delist you if your pivot to 'movement' marketing drives up input costs by even 2%",
+                isDetonation: false,
+                probe: "Industrial food buyers operate on basis points and fractions of a cent. If a movement makes your powdered ingredients premium-only, you shrink your core commodity market."
+            },
+            {
+                id: 10,
+                vectorId: 3,
+                vectorName: "Audience Inversion",
+                vectorDesc: "Excluded groups & forgotten stakeholders",
+                question: "What would your most skeptical, margin-pinched dairy farmers say about this strategy if guaranteed absolute anonymity",
+                isDetonation: false,
+                probe: "Local producers often see sustainability agendas as elite corporate hobby horses designed to satisfy supermarket criteria at the farmer's expense."
+            },
+            {
+                id: 11,
+                vectorId: 3,
+                vectorName: "Audience Inversion",
+                vectorDesc: "Excluded groups & forgotten stakeholders",
+                question: "Who have you decided cannot or will not buy regenerative dairy—and when was the purchasing power of that cynical, budget-conscious demographic last tested",
+                isDetonation: false,
+                probe: "By boxing yourself into an ultra-premium category, you might ignore a vast volume of consumers who want moderate, realistic progress over high-gloss moral standards."
+            },
+            {
+                id: 12,
+                vectorId: 3,
+                vectorName: "Audience Inversion",
+                vectorDesc: "Excluded groups & forgotten stakeholders",
+                question: "Which fast-moving consumer goods (FMCG) giant is currently building an alternative supply chain to bypass Ornua completely because they think your sustainability claims are just public relations",
+                isDetonation: true,
+                probe: "Your large enterprise customers must hit global scope 3 targets. If they suspect Ornua's progress is mere packaging, they will go straight to processors or competitive origins to lock in verified carbon metrics."
+            },
+            {
+                id: 13,
+                vectorId: 4,
+                vectorName: "Category Heresy",
+                vectorDesc: "Invisible unwritten rules & strategic mimicry",
+                question: "What would the Irish dairy sector look like if it were invented today, globally, with zero legacy processing plants or historical cooperative agreements",
+                isDetonation: false,
+                probe: "You'd likely build agile, localized, low-density processing assets instead of huge centralized drying factories. Your strategy is anchored heavily in assets optimized for yesterday's volume goals."
+            },
+            {
+                id: 14,
+                vectorId: 4,
+                vectorName: "Category Heresy",
+                vectorDesc: "Invisible unwritten rules & strategic mimicry",
+                question: "What industry convention protects Ornua’s traditional export model but directly prevents it from achieving true, localized, circular-economy regenerative metrics",
+                isDetonation: false,
+                probe: "Shipping millions of tons of heavy cargo across oceans is fundamentally at odds with local circularity. You are exporting raw nutrients globally while calling it local care."
+            },
+            {
+                id: 15,
+                vectorId: 4,
+                vectorName: "Category Heresy",
+                vectorDesc: "Invisible unwritten rules & strategic mimicry",
+                question: "What is considered 'best practice' in dairy marketing that modern, hyper-skeptical Gen Z and Millennial consumers actually find deeply greenwashed and annoying",
+                isDetonation: false,
+                probe: "Watercolors of meadows, smiling multi-generational families, and hand-written fonts have hit absolute fatigue levels. Skepticism is at an all-time high."
+            },
+            {
+                id: 16,
+                vectorId: 4,
+                vectorName: "Category Heresy",
+                vectorDesc: "Invisible unwritten rules & strategic mimicry",
+                question: "What are you copying from Arla, Fonterra, or Kerry Group without realizing it, simply because you are afraid to look un-corporate",
+                isDetonation: true,
+                probe: "The herd instinct of agribusiness leads to identical reports and target metrics. If you duplicate the corporate playbook, you share their generic future without competitive upside."
+            },
+            {
+                id: 17,
+                vectorId: 5,
+                vectorName: "Future Blindness",
+                vectorDesc: "Systemic delay, risk aversion & blindspots",
+                question: "What synthetic biology or precision-fermentation dairy signal are you explicitly ignoring because it threatens the fundamental existence of your farming base",
+                isDetonation: false,
+                probe: "Ignoring precision-fermentation as 'unnatural' or 'lab-born' is a massive defensive blindspot. In B2B contexts (whey, proteins, cheese inputs), cost and carbon metrics win, not rural narratives."
+            },
+            {
+                id: 18,
+                vectorId: 5,
+                vectorName: "Future Blindness",
+                vectorDesc: "Systemic delay, risk aversion & blindspots",
+                question: "Which multi-million dollar processing investments made in the last three years would a disruptive competitor building a lean supply chain next year never touch",
+                isDetonation: false,
+                probe: "High capital lock-in means you must prioritize feeding the machine (processing volumes) over improving land metrics, which may call for downscaling total milk output."
+            },
+            {
+                id: 19,
+                vectorId: 5,
+                vectorName: "Future Blindness",
+                vectorDesc: "Systemic delay, risk aversion & blindspots",
+                question: "What is happening at the radical edge of the vegan and lab-grown milk markets that you have internal data proving 'doesn't matter,' but actually does",
+                isDetonation: false,
+                probe: "Relying on surveys that comfort you with 'consumers prefer real dairy' masks the speed at which commercial food prep and institutional kitchens swap raw inputs for cheaper bio-alternatives."
+            },
+            {
+                id: 20,
+                vectorId: 5,
+                vectorName: "Future Blindness",
+                vectorDesc: "Systemic delay, risk aversion & blindspots",
+                question: "What would you do differently tomorrow morning if you had to bet your own job on the survival of Irish dairy's pricing power five years from now",
+                isDetonation: true,
+                probe: "Forces you to drop five-year planning cycles designed to look good on charts and take radical structural control over premium niches right now."
+            },
+            {
+                id: 21,
+                vectorId: 6,
+                vectorName: "Measurement Theater",
+                vectorDesc: "Performance KPIs designed to comfort, not clarify",
+                question: "What internal carbon or biodiversity metric would completely kill this 'regenerative movement' initiative if you actually measured it with total scientific transparency",
+                isDetonation: false,
+                probe: "When absolute scientific measurement is set up, the actual soil carbon capture of modern intensive grass farming often conflicts directly with the corporate sustainability targets."
+            },
+            {
+                id: 22,
+                vectorId: 6,
+                vectorName: "Measurement Theater",
+                vectorDesc: "Performance KPIs designed to comfort, not clarify",
+                question: "What is the precise difference between the glossy sustainability reports you send to stakeholders and the raw operational metrics discussed behind closed doors",
+                isDetonation: false,
+                probe: "The delta between marketing-driven reports and raw, worrying supply-chain data is where your true systemic liability lies. Close this gap before external investigations do."
+            },
+            {
+                id: 23,
+                vectorId: 6,
+                vectorName: "Measurement Theater",
+                vectorDesc: "Performance KPIs designed to comfort, not clarify",
+                question: "What specific number regarding soil degradation or herd-size limitations are you terrified to find out the real truth about",
+                isDetonation: false,
+                probe: "If the true health of pasture soils calls for a 15% reduction in stock density to achieve regeneration, are you willing to accept the direct loss in volume and cooperative processing margins"
+            },
+            {
+                id: 24,
+                vectorId: 6,
+                vectorName: "Measurement Theater",
+                vectorDesc: "Performance KPIs designed to comfort, not clarify",
+                question: "What is the exact premium percentage consumers are actually willing to pay for 'regenerative' over 'grass-fed' when standing in a grocery aisle during an economic downturn—and why are you hiding from that data",
+                isDetonation: true,
+                probe: "Everyone praises sustainability in surveys. Almost no one pays for it at checkout during inflation. If the consumer premium margin isn't real, the co-op carries the entire transition cost."
+            }
+        ];
+
+        const vectorMetas = {
+            1: { name: "Assumption Archaeology", desc: "Invisible foundations & institutional assumptions" },
+            2: { name: "Consensus Forensics", desc: "Suppressed dissent vs manufactured alignment" },
+            3: { name: "Audience Inversion", desc: "Forgotten stakeholders & excluded groups" },
+            4: { name: "Category Heresy", desc: "Category conventions & copycat behaviors" },
+            5: { name: "Future Blindness", desc: "Systemic delays, timing risks & blindspots" },
+            6: { name: "Measurement Theater", desc: "Performance indicators designed to comfort" }
+        };
+
+        // Application State
+        let activeView = 'deck';
+        let currentFilterVector = 0; // 0 = all
+        let filteredCardIndexes = []; // holds the indices of data in flashcardData that match the current filter
+        let currentDeckIndex = 0; // index inside filteredCardIndexes
+        let reactions = JSON.parse(localStorage.getItem('antigen_ornua_reactions')) || {};
+
+        // On Page Load
+        window.onload = function() {
+            rebuildFilterIndexes();
+            renderCard();
+            renderList();
+            renderDashboard();
+            
+            // Swipe recognition for mobile
+            initSwipeControls();
+        }
+
+        // State & Navigation Functions
+        function rebuildFilterIndexes() {
+            filteredCardIndexes = [];
+            for (let i = 0; i < flashcardData.length; i++) {
+                if (currentFilterVector === 0 || flashcardData[i].vectorId === currentFilterVector) {
+                    filteredCardIndexes.push(i);
+                }
+            }
+            // Reset position to first card of filtered list
+            currentDeckIndex = 0;
+        }
+
+        function switchView(targetView) {
+            activeView = targetView;
+            
+            // Hide all views
+            document.getElementById('view-deck').classList.add('hidden');
+            document.getElementById('view-list').classList.add('hidden');
+            document.getElementById('view-dashboard').classList.add('hidden');
+            
+            // Toggle active classes on buttons
+            document.getElementById('btn-view-deck').className = "px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white";
+            document.getElementById('btn-view-list').className = "px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white";
+            document.getElementById('btn-view-dashboard').className = "px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white";
+
+            // Show and configure target view
+            if (targetView === 'deck') {
+                document.getElementById('view-deck').classList.remove('hidden');
+                document.getElementById('view-deck').classList.add('flex');
+                document.getElementById('btn-view-deck').className = "px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-brand-crimson text-white";
+                renderCard();
+            } else if (targetView === 'list') {
+                document.getElementById('view-list').classList.remove('hidden');
+                document.getElementById('view-list').classList.add('flex');
+                document.getElementById('btn-view-list').className = "px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-brand-crimson text-white";
+                renderList();
+            } else if (targetView === 'dashboard') {
+                document.getElementById('view-dashboard').classList.remove('hidden');
+                document.getElementById('view-dashboard').classList.add('flex');
+                document.getElementById('btn-view-dashboard').className = "px-3 py-1.5 rounded text-xs uppercase font-extrabold tracking-wider transition-all bg-brand-crimson text-white";
+                renderDashboard();
+            }
+        }
+
+        function filterByVector(vectorNum) {
+            currentFilterVector = vectorNum;
+            
+            // Update filter pill styles
+            document.querySelectorAll('.vector-filter-btn').forEach(btn => {
+                btn.className = "snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-zinc-900 border border-zinc-800 text-zinc-500 hover:text-white";
+            });
+            document.getElementById(`vector-btn-${vectorNum}`).className = "snap-start shrink-0 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-extrabold bg-white text-black";
+            
+            rebuildFilterIndexes();
+            
+            // Ensure card is flipped back to front when filtering
+            document.getElementById('flashcard-inner').classList.remove('is-flipped');
+            
+            renderCard();
+        }
+
+        // Render Card Content
+        function renderCard() {
+            if (filteredCardIndexes.length === 0) {
+                // Edge case handling (should not happen since we have static questions)
+                return;
+            }
+
+            const activeIndexInRawData = filteredCardIndexes[currentDeckIndex];
+            const cardData = flashcardData[activeIndexInRawData];
+
+            // Set up DOM targets
+            const cardInner = document.getElementById('flashcard-inner');
+            const vectorLbl = document.getElementById('card-vector-lbl');
+            const categoryLbl = document.getElementById('card-category-lbl');
+            const isDetonationTag = document.getElementById('detonation-tag');
+            const questionText = document.getElementById('card-question-text');
+            const indexCurrent = document.getElementById('card-index-current');
+            const indexTotal = document.getElementById('card-index-total');
+            const probeHeading = document.getElementById('card-probe-heading');
+            const probeContext = document.getElementById('card-probe-context');
+
+            // Apply card values
+            vectorLbl.textContent = `VECTOR ${cardData.vectorId} // ${cardData.vectorName.toUpperCase()}`;
+            categoryLbl.textContent = `Focus: ${cardData.vectorDesc}`;
+            questionText.textContent = cardData.question;
+            probeHeading.textContent = `CRITICAL DECONSTRUCTION ON V${cardData.vectorId}`;
+            probeContext.textContent = cardData.probe;
+
+            // Handle card index rendering
+            indexCurrent.textContent = String(currentDeckIndex + 1).padStart(2, '0');
+            indexTotal.textContent = String(filteredCardIndexes.length).padStart(2, '0');
+
+            // Detonation Highlight Styling
+            if (cardData.isDetonation) {
+                isDetonationTag.classList.remove('hidden');
+                cardInner.classList.remove('border-zinc-800');
+                cardInner.classList.add('border-brand-crimson/80', 'ring-1', 'ring-brand-crimson/50');
+            } else {
+                isDetonationTag.classList.add('hidden');
+                cardInner.classList.remove('border-brand-crimson/80', 'ring-1', 'ring-brand-crimson/50');
+                cardInner.classList.add('border-zinc-800');
+            }
+
+            // Reaction styling of active card in the current deck view
+            applyActiveCardReactionState(cardData.id);
+        }
+
+        function flipCard(event) {
+            if (event) {
+                event.stopPropagation(); // Stop click bubbling
+            }
+            const inner = document.getElementById('flashcard-inner');
+            inner.classList.toggle('is-flipped');
+        }
+
+        function nextCard() {
+            if (currentDeckIndex < filteredCardIndexes.length - 1) {
+                currentDeckIndex++;
+            } else {
+                // Wrap around
+                currentDeckIndex = 0;
+                showNotification("DECK RESET TO CARD 01");
+            }
+            // Ensure card is showing front
+            document.getElementById('flashcard-inner').classList.remove('is-flipped');
+            
+            // Simple visual animation trigger
+            const inner = document.getElementById('flashcard-inner');
+            inner.style.transform = "scale(0.96)";
+            setTimeout(() => {
+                renderCard();
+                inner.style.transform = "";
+            }, 100);
+        }
+
+        function prevCard() {
+            if (currentDeckIndex > 0) {
+                currentDeckIndex--;
+            } else {
+                currentDeckIndex = filteredCardIndexes.length - 1;
+                showNotification("JUMPED TO LAST CARD IN VECTOR");
+            }
+            // Ensure card is showing front
+            document.getElementById('flashcard-inner').classList.remove('is-flipped');
+            
+            // Scale bounce
+            const inner = document.getElementById('flashcard-inner');
+            inner.style.transform = "scale(0.96)";
+            setTimeout(() => {
+                renderCard();
+                inner.style.transform = "";
+            }, 100);
+        }
+
+        // Swipe handler (mobile friendly)
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        function initSwipeControls() {
+            const cardEl = document.getElementById('flashcard-inner');
+            cardEl.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            cardEl.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleGesture();
+            }, {passive: true});
+        }
+
+        function handleGesture() {
+            const threshold = 50;
+            // Only swap cards if not flipped to keep flipping accessible via swipe-up/down or click
+            if (document.getElementById('flashcard-inner').classList.contains('is-flipped')) return;
+            
+            if (touchendX < touchstartX - threshold) {
+                nextCard();
+            }
+            if (touchendX > touchstartX + threshold) {
+                prevCard();
+            }
+        }
+
+        // Log Friction Action States
+        function logReaction(type) {
+            const rawIndex = filteredCardIndexes[currentDeckIndex];
+            const cardData = flashcardData[rawIndex];
+            
+            // Set response in global tracking
+            reactions[cardData.id] = type;
+            localStorage.setItem('antigen_ornua_reactions', JSON.stringify(reactions));
+
+            // Visual toast feedback
+            if (type === 'punch') {
+                showNotification(`LOGGED HIGH RESISTANCE ON CARD #${cardData.id}`);
+            } else if (type === 'defensive') {
+                showNotification(`LOGGED ORGANIZATIONAL BYPASS ON CARD #${cardData.id}`);
+            } else {
+                showNotification(`MARKED COMFORTABLE CONSENSUS ON CARD #${cardData.id}`);
+            }
+
+            // Visual reaction animation helper
+            applyActiveCardReactionState(cardData.id);
+
+            // Auto advance card to maintain fluid dynamic flow
+            setTimeout(() => {
+                nextCard();
+            }, 600);
+        }
+
+        function applyActiveCardReactionState(cardId) {
+            const container = document.getElementById('flashcard-inner');
+            const state = reactions[cardId];
+            
+            // Reset borders first
+            container.classList.remove('shadow-red-900/30', 'shadow-amber-900/20', 'shadow-zinc-800/10');
+            
+            if (state === 'punch') {
+                container.classList.add('shadow-red-900/30');
+            } else if (state === 'defensive') {
+                container.classList.add('shadow-amber-900/20');
+            } else if (state === 'pillow') {
+                container.classList.add('shadow-zinc-800/10');
+            }
+        }
+
+        // List Generation (View 2)
+        function renderList() {
+            const listContainer = document.getElementById('list-vectors-container');
+            listContainer.innerHTML = ''; // reset
+
+            // Group by vector
+            for (let vId = 1; vId <= 6; vId++) {
+                const vectorQuestions = flashcardData.filter(q => q.vectorId === vId);
+                const meta = vectorMetas[vId];
+                
+                const vectorSection = document.createElement('div');
+                vectorSection.className = "border border-zinc-800 bg-brand-dark p-6 rounded-lg";
+                
+                let questionsHtml = '';
+                vectorQuestions.forEach(q => {
+                    const reaction = reactions[q.id];
+                    let reactionBadge = '';
+                    
+                    if (reaction === 'punch') {
+                        reactionBadge = `<span class="text-[9px] bg-brand-crimson text-black font-extrabold px-2 py-0.5 uppercase tracking-wider ml-2">High Resistance</span>`;
+                    } else if (reaction === 'defensive') {
+                        reactionBadge = `<span class="text-[9px] bg-brand-gold text-black font-extrabold px-2 py-0.5 uppercase tracking-wider ml-2">Defensive</span>`;
+                    } else if (reaction === 'pillow') {
+                        reactionBadge = `<span class="text-[9px] bg-zinc-600 text-white font-extrabold px-2 py-0.5 uppercase tracking-wider ml-2">Pillow</span>`;
+                    }
+
+                    const detonationStyle = q.isDetonation ? 'border-l-4 border-brand-crimson pl-4 bg-brand-crimson/5 py-2 my-2' : '';
+                    const labelPrefix = q.isDetonation ? 'DETONATION: ' : '';
+
+                    questionsHtml += `
+                        <div class="py-4 border-b border-zinc-800/60 last:border-none ${detonationStyle}">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-[10px] font-bold text-zinc-500 font-mono">QUESTION #${q.id}</span>
+                                ${q.isDetonation ? '<span class="text-[8px] bg-brand-crimson text-black font-black px-1.5 uppercase tracking-wider animate-pulse">Critical Detonation</span>' : ''}
+                                ${reactionBadge}
+                            </div>
+                            <p class="text-zinc-200 text-sm font-sans font-medium leading-relaxed">${labelPrefix}${q.question}</p>
+                            
+                            <!-- Expandable Antigen Probe in List View -->
+                            <details class="mt-2 group">
+                                <summary class="text-xs text-brand-crimson font-black uppercase tracking-wider cursor-pointer select-none list-none flex items-center gap-1 hover:text-rose-400 transition-colors">
+                                    <svg class="w-3 h-3 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    <span>Expand Antigen Probe</span>
+                                </summary>
+                                <div class="bg-zinc-950 p-3 mt-2 rounded border border-zinc-800/40 text-xs text-zinc-400 leading-relaxed font-sans">
+                                    <strong class="text-zinc-300 font-bold">Probe Core Objective:</strong> ${q.probe}
+                                </div>
+                            </details>
+                        </div>
+                    `;
+                });
+
+                vectorSection.innerHTML = `
+                    <div class="border-b border-zinc-800 pb-3 mb-4">
+                        <span class="text-[10px] font-black tracking-[0.2em] text-brand-crimson uppercase">VECTOR ${vId}</span>
+                        <h4 class="text-lg font-serif font-bold text-white mt-0.5">${meta.name}</h4>
+                        <p class="text-xs text-zinc-500 font-sans mt-0.5">${meta.desc}</p>
+                    </div>
+                    <div class="divide-y divide-zinc-800">
+                        ${questionsHtml}
+                    </div>
+                `;
+                
+                listContainer.appendChild(vectorSection);
+            }
+        }
+
+        // Live Dashboard Statistics (View 3)
+        function renderDashboard() {
+            // Count reactions
+            let totalAnswered = 0;
+            let vectorScores = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0};
+            let countsByType = {punch: 0, defensive: 0, pillow: 0};
+
+            Object.entries(reactions).forEach(([qId, type]) => {
+                const question = flashcardData.find(q => q.id === Number(qId));
+                if (question) {
+                    totalAnswered++;
+                    countsByType[type]++;
+                    
+                    // Friction scoring: punch adds 3 points, defensive adds 1 point, pillow adds 0 points
+                    if (type === 'punch') {
+                        vectorScores[question.vectorId] += 3;
+                    } else if (type === 'defensive') {
+                        vectorScores[question.vectorId] += 1;
+                    }
+                }
+            });
+
+            // Calculate overall progress percentage
+            const progressPct = Math.round((totalAnswered / flashcardData.length) * 100);
+            
+            // DOM Targets Update
+            document.getElementById('dashboard-progress-percentage').textContent = `${progressPct}%`;
+            document.getElementById('dashboard-progress-bar').style.width = `${progressPct}%`;
+            document.getElementById('dashboard-answered-count').textContent = totalAnswered;
+
+            // Determine Highest Friction Vector
+            let highestVectorId = -1;
+            let highestScore = -1;
+            Object.entries(vectorScores).forEach(([vId, score]) => {
+                if (score > highestScore && score > 0) {
+                    highestScore = score;
+                    highestVectorId = Number(vId);
+                }
+            });
+
+            const highestFrictionLabel = document.getElementById('dashboard-highest-friction-lbl');
+            const highestFrictionDesc = document.getElementById('dashboard-highest-friction-desc');
+            
+            if (highestVectorId !== -1) {
+                const meta = vectorMetas[highestVectorId];
+                highestFrictionLabel.textContent = `V${highestVectorId}. ${meta.name.toUpperCase()}`;
+                highestFrictionDesc.textContent = `Based on your logging, this vector represents the largest concentration of structural and cultural blindspots in the Ornua "regenerative dairy" strategic pivot. Focus discovery sessions heavily here.`;
+            } else {
+                highestFrictionLabel.textContent = "AWAITING INTERROGATIVE DATA";
+                highestFrictionDesc.textContent = "Log reactions (🥊 High Resistance) on the flashcards to pinpoint your organization's highest strategic risk vectors in real time.";
+            }
+
+            // Echo Chamber Risk Profile Calculation
+            const riskLabel = document.getElementById('dashboard-risk-lbl');
+            const riskDesc = document.getElementById('dashboard-risk-desc');
+            
+            if (totalAnswered === 0) {
+                riskLabel.textContent = "UNAUDITED";
+                riskLabel.className = "text-3xl font-serif font-bold text-zinc-500";
+                riskDesc.textContent = "Complete the audit vectors to calculate the alignment distortion risk index.";
+            } else {
+                const ratioSafeToDangerous = countsByType.pillow / totalAnswered;
+                if (ratioSafeToDangerous > 0.6) {
+                    riskLabel.textContent = "CRITICAL COMFORT";
+                    riskLabel.className = "text-3xl font-serif font-bold text-brand-crimson animate-pulse";
+                    riskDesc.textContent = "Severe Echo Chamber threat. High levels of Safe Consensus indicate active operational avoidance and generic mimicry.";
+                } else if (ratioSafeToDangerous > 0.3) {
+                    riskLabel.textContent = "MODERATE ECHO";
+                    riskLabel.className = "text-3xl font-serif font-bold text-brand-gold";
+                    riskDesc.textContent = "Some strategic defensiveness and groupthink detected. Your leadership team holds fragile assumptions.";
+                } else {
+                    riskLabel.textContent = "RADICAL FRICTION";
+                    riskLabel.className = "text-3xl font-serif font-bold text-green-500";
+                    riskDesc.textContent = "Healthy discomfort. Your team is acknowledging systemic problems, providing high actionable discovery signals.";
+                }
+            }
+
+            // Render Vector Bar Charts
+            const chartContainer = document.getElementById('vector-charts');
+            chartContainer.innerHTML = ''; // Clear
+
+            for (let vId = 1; vId <= 6; vId++) {
+                const meta = vectorMetas[vId];
+                const score = vectorScores[vId];
+                
+                // Max potential score for single vector is 4 questions * 3 max points = 12 points
+                const percentage = Math.min(Math.round((score / 12) * 100), 100);
+                
+                // Color scaling
+                let barColor = 'bg-zinc-800';
+                let textColor = 'text-zinc-500';
+                if (percentage > 50) {
+                    barColor = 'bg-brand-crimson';
+                    textColor = 'text-brand-crimson';
+                } else if (percentage > 0) {
+                    barColor = 'bg-brand-gold';
+                    textColor = 'text-brand-gold';
+                }
+
+                // Gather vector answers metrics
+                const vectorQuestions = flashcardData.filter(q => q.vectorId === vId);
+                const vectorQuestionsIds = vectorQuestions.map(q => q.id);
+                let vectorAnsCount = 0;
+                vectorQuestionsIds.forEach(id => {
+                    if (reactions[id]) vectorAnsCount++;
+                });
+
+                const chartRow = document.createElement('div');
+                chartRow.className = "space-y-1.5";
+                chartRow.innerHTML = `
+                    <div class="flex justify-between items-end">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-zinc-300 font-serif">V${vId}. ${meta.name}</span>
+                            <span class="text-[9px] text-zinc-600 uppercase tracking-widest mt-0.5">${vectorAnsCount} of 4 vectors answered</span>
+                        </div>
+                        <span class="text-xs font-mono font-bold ${textColor}">${percentage}% Resistance</span>
+                    </div>
+                    <div class="w-full bg-zinc-950 h-3 rounded-full overflow-hidden border border-zinc-900">
+                        <div class="h-full rounded-full transition-all duration-500 ${barColor}" style="width: ${percentage}%"></div>
+                    </div>
+                `;
+                chartContainer.appendChild(chartRow);
+            }
+        }
+
+        // Custom Notification Handler
+        function showNotification(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = message;
+            
+            // Pop in
+            toast.classList.remove('translate-y-[-150%]');
+            toast.classList.add('translate-y-0');
+            
+            // Auto disappear
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-[-150%]');
+            }, 3000);
+        }
+
+        // Clear State
+        function resetAllReactions() {
+            reactions = {};
+            localStorage.removeItem('antigen_ornua_reactions');
+            
+            // Reset filters
+            filterByVector(0);
+            
+            // Rerenders
+            renderCard();
+            renderList();
+            renderDashboard();
+            
+            showNotification("INTERACTIVE DISRUPTION ENGINE RESET");
+        }
+
+        // Report Generator (Clipboard Strategy Briefing Copy)
+        function copyAuditReport() {
+            // Find worst performing vectors
+            let vectorScores = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0};
+            Object.entries(reactions).forEach(([qId, type]) => {
+                const question = flashcardData.find(q => q.id === Number(qId));
+                if (question) {
+                    if (type === 'punch') vectorScores[question.vectorId] += 3;
+                    if (type === 'defensive') vectorScores[question.vectorId] += 1;
+                }
+            });
+
+            // Sort vectors by raw scoring
+            const sortedVectors = Object.entries(vectorScores).sort((a,b) => b[1] - a[1]);
+            const primaryBlindspotId = Number(sortedVectors[0][0]);
+            const secondaryBlindspotId = Number(sortedVectors[1][0]);
+
+            const primaryMeta = vectorMetas[primaryBlindspotId] || {name: "Assumption Archaeology", desc: "Invisible foundations & decisions"};
+            const secondaryMeta = vectorMetas[secondaryBlindspotId] || {name: "Measurement Theater", desc: "Performance indicators designed to comfort"};
+
+            // Build complete markdown report
+            const reportMarkdown = `# ANTIGEN INTERACTION STRATEGIC REPORT: ORNUA
+Date Generated: ${new Date().toLocaleDateString()}
+Analysis Engine: ANTIGEN INTERROGATOR V1 Beta
+
+## CO-OP REGISTRY DISRUPTION SUMMARY
+Can Ornua transition from a "Grass-Fed" product claim to a true "Regenerative Movement" without destroying its operational base
+
+---
+
+## DYNAMIC BIAS & RESISTANCE DIAGNOSIS
+Based on active interactive logging, your organization's highest vulnerability clusters sit in:
+
+### PRIMARY BLINDSPOT: VECTOR ${primaryBlindspotId} - ${primaryMeta.name.toUpperCase()}
+* Focus area: ${primaryMeta.desc}
+* Priority Action: Cease alignment-driven communications and immediately launch real audit queries into individual farming margins and transition risk protocols before investing heavily in public relations.
+
+### SECONDARY BLINDSPOT: VECTOR ${secondaryBlindspotId} - ${secondaryMeta.name.toUpperCase()}
+* Focus area: ${secondaryMeta.desc}
+* Priority Action: Analyze standard dashboards to identify metric gaps. Stop compiling environmental indicators aimed at institutional comfort and introduce true transparent soil-degradation and consumer retail-premium indexes.
+
+---
+
+## INSURGENT STRATEGY QUESTIONS FOR CORE INVESTIGATION
+1. What happens if the cooperative processing volumes decline under true regenerative soil management rules while global processing capacity is heavily locked in
+2. If consumers refuse to pay a premium at checkout for regenerative milk over simple grass-fed milk, how are individual farmers compensated for transition risks
+
+---
+CONFIDENTIAL STRATEGIC BRIEFING DOCUMENT
+GENERATED BY THE ANTIGEN DISRUPTION INTERPRETER`;
+
+            // Copy to clipboard via legacy standard command safely
+            const dummyTextArea = document.createElement("textarea");
+            document.body.appendChild(dummyTextArea);
+            dummyTextArea.value = reportMarkdown;
+            dummyTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummyTextArea);
+
+            showNotification("STRATEGIC DISRUPTION REPORT COPIED TO CLIPBOARD");
+        }
+
+        // Modal Helpers
+        function showMethodologyModal() {
+            document.getElementById('creed-modal').classList.remove('hidden');
+        }
+
+        function closeMethodologyModal() {
+            document.getElementById('creed-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

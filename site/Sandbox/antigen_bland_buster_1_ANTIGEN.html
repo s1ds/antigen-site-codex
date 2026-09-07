@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTIGEN &mdash; Protocol Bland-Buster</title>
+  
+  <!-- CSS Variables and Google Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2family=Bebas+Neue&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600&family=Montserrat:wght@100;400;600;800;900&display=swap');
+
+    :root {
+      /* Colors */
+      --color-red:      #e31d28;
+      --color-magenta:  #e3195b;
+      --color-crimson:  #b11226;
+      --color-blush:    #f0448e;
+      --color-white:    #ffffff;
+      --color-paper:    #f8f7f6;
+      --color-smoke:    #e8e8e8;
+      --color-black:    #111111;
+      --color-ink:      #1e1c17;
+      --color-grey:     #9fa2a4;
+      --color-mute:     #6e6e6e;
+      --color-yellow:   #ffc000;
+      --color-blue:     #08a7d8;
+
+      /* Semantic Roles */
+      --fg1: var(--color-black);
+      --fg2: var(--color-mute);
+      --fg3: var(--color-grey);
+      --fg-inverse: var(--color-white);
+      --fg-accent: var(--color-red);
+      --fg-signal: var(--color-yellow);
+
+      --bg1: var(--color-white);
+      --bg2: var(--color-paper);
+      --bg3: var(--color-smoke);
+      --bg-insurgence: var(--color-red);
+      --bg-intervention: var(--color-black);
+
+      /* Lines */
+      --rule-soft:    1px solid rgba(17,17,17,.13);
+      --rule-hard:    2px solid rgba(17,17,17,.92);
+      --rule-inverse: 1px solid rgba(255,255,255,.2);
+
+      /* Shadows */
+      --shadow-hard:  8px 8px 0 rgba(17,17,17,.92);
+      --shadow-red:   8px 8px 0 rgba(227,29,40,.92);
+      --shadow-yellow:8px 8px 0 rgba(255,192,0,.92);
+
+      /* Typography */
+      --font-display:    'Bebas Neue', Impact, sans-serif;
+      --font-sans:       'Montserrat', sans-serif;
+      --font-typewriter: 'Special Elite', monospace;
+      --font-mono:       'IBM Plex Mono', monospace;
+
+      /* Scale */
+      --type-hero:     clamp(3.5rem, 8vw, 10rem);
+      --type-display:  clamp(2.5rem, 6vw, 6rem);
+      --type-title:    clamp(1.8rem, 4vw, 4rem);
+      --type-subtitle: clamp(1.2rem, 2vw, 2.2rem);
+      --type-lead:     clamp(1rem, 1.4vw, 1.4rem);
+      --type-body:     1rem;
+      --type-small:    .85rem;
+      --type-micro:    .7rem;
+    }
+
+    /* Base Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-paper);
+      color: var(--color-black);
+      font-family: var(--font-sans);
+      font-size: var(--type-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      padding-bottom: 5rem;
+    }
+
+    /* Selection styling */
+    ::selection {
+      background: var(--color-yellow);
+      color: var(--color-black);
+    }
+
+    /* Typography Classes */
+    .h1, .display-hero {
+      font-family: var(--font-display);
+      font-size: var(--type-hero);
+      line-height: 0.85;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+    }
+
+    .h2, .display-section {
+      font-family: var(--font-display);
+      font-size: var(--type-display);
+      line-height: 0.9;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+    }
+
+    .h3, .display-title {
+      font-family: var(--font-display);
+      font-size: var(--type-title);
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .lead, .body-large {
+      font-family: var(--font-sans);
+      font-size: var(--type-lead);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .typewriter {
+      font-family: var(--font-typewriter);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+    }
+
+    .kicker, .eyebrow {
+      font-family: var(--font-sans);
+      font-size: var(--type-micro);
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    /* Layout structure */
+    .chrome-header {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-bottom: 3px solid var(--color-red);
+      padding: 1.5rem var(--page-pad, 2rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      background: var(--color-red);
+      color: var(--color-white);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--color-grey);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--color-yellow);
+      color: var(--color-yellow);
+    }
+
+    .nav-btn.active {
+      background: var(--color-red);
+      color: var(--color-white);
+      border-color: var(--color-red);
+    }
+
+    .container {
+      max-width: var(--max-page);
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Sub-header banner */
+    .manifesto-banner {
+      background: var(--color-red);
+      color: var(--color-white);
+      padding: 2.5rem;
+      border: var(--rule-hard);
+      box-shadow: var(--shadow-hard);
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto-banner::before {
+      content: "WARNING: EXTREME CONFORMITY ENCOUNTERED";
+      position: absolute;
+      bottom: -15px;
+      right: -20px;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      opacity: 0.08;
+      transform: rotate(-3deg);
+      white-space: nowrap;
+    }
+
+    /* Brutalist Buttons */
+    .btn-brutal {
+      display: inline-block;
+      background: var(--color-white);
+      color: var(--color-black);
+      border: var(--rule-hard);
+      padding: 0.85rem 1.5rem;
+      font-family: var(--font-mono);
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--color-black);
+      transition: all 0.1s ease;
+      position: relative;
+    }
+
+    .btn-brutal:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+
+    .btn-brutal:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--color-black);
+    }
+
+    .btn-brutal.red {
+      background: var(--color-red);
+      color: var(--color-white);
+      box-shadow: 4px 4px 0 var(--color-black);
+    }
+    .btn-brutal.red:hover {
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+
+    .btn-brutal.yellow {
+      background: var(--color-yellow);
+      color: var(--color-black);
+    }
+
+    /* Grid Layouts */
+    .game-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .game-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Game Arena Panels */
+    .arena-panel {
+      background: var(--color-white);
+      border: var(--rule-hard);
+      box-shadow: var(--shadow-hard);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .hud-header {
+      border-bottom: var(--rule-hard);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .compliance-bar-container {
+      width: 100%;
+      height: 25px;
+      background: var(--color-smoke);
+      border: var(--rule-hard);
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    .compliance-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-yellow), var(--color-red));
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .scenario-box {
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 1.5rem;
+      border: var(--rule-hard);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .scenario-box::after {
+      content: "INCIDENT DETECTED";
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-red);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .option-card {
+      background: var(--color-paper);
+      border: var(--rule-hard);
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+      box-shadow: 4px 4px 0 rgba(17,17,17,0.15);
+    }
+
+    .option-card:hover {
+      background: var(--color-white);
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0 var(--color-red);
+    }
+
+    .option-card.correct {
+      background: #4ade80 !important;
+      color: var(--color-black) !important;
+      border-color: var(--color-black) !important;
+      box-shadow: 4px 4px 0 var(--color-black) !important;
+    }
+
+    .option-card.incorrect {
+      background: var(--color-red) !important;
+      color: var(--color-white) !important;
+      border-color: var(--color-black) !important;
+      box-shadow: 4px 4px 0 var(--color-black) !important;
+    }
+
+    /* Terminal Console Panel */
+    .terminal-panel {
+      background: var(--color-black);
+      color: var(--color-white);
+      border: var(--rule-hard);
+      box-shadow: var(--shadow-hard);
+      font-family: var(--font-mono);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 450px;
+    }
+
+    .terminal-log {
+      flex-grow: 1;
+      overflow-y: auto;
+      max-height: 380px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      border: var(--rule-inverse);
+      padding: 1rem;
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 1rem;
+    }
+
+    .terminal-line {
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 0.25rem;
+    }
+
+    .terminal-line.success { color: var(--color-yellow); }
+    .terminal-line.error { color: var(--color-red); }
+    .terminal-line.info { color: var(--color-blue); }
+
+    /* Classification Grid Explorer */
+    .matrix-section {
+      margin-top: 3rem;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--color-white);
+      padding: 1rem;
+      border: var(--rule-hard);
+    }
+
+    .filter-btn {
+      background: var(--color-smoke);
+      border: 1px solid var(--color-grey);
+      padding: 0.4rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .filter-btn.active {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-color: var(--color-black);
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .matrix-card {
+      background: var(--color-white);
+      border: var(--rule-hard);
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 130px;
+      box-shadow: 4px 4px 0 rgba(17,17,17,0.08);
+      transition: all 0.1s ease;
+    }
+
+    .matrix-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-hard);
+    }
+
+    /* Category Specific Borders */
+    .cat-decay { border-left: 8px solid var(--color-red); }
+    .cat-flat { border-left: 8px solid var(--color-grey); }
+    .cat-inertia { border-left: 8px solid var(--color-black); }
+    .cat-deception { border-left: 8px solid var(--color-yellow); }
+    .cat-process { border-left: 8px solid var(--color-blue); }
+
+    .matrix-card-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .matrix-card-desc {
+      font-size: 0.75rem;
+      color: var(--color-mute);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(17,17,17,0.85);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-box {
+      background: var(--color-white);
+      border: var(--rule-hard);
+      box-shadow: var(--shadow-hard);
+      max-width: 600px;
+      width: 100%;
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--color-black);
+      color: var(--color-white);
+      border: none;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-weight: 900;
+      font-family: var(--font-mono);
+    }
+
+    /* Subversive Manifesto Generator Section */
+    .generator-panel {
+      background: var(--color-white);
+      border: var(--rule-hard);
+      box-shadow: var(--shadow-hard);
+      padding: 2.5rem;
+    }
+
+    .manifesto-blueprint {
+      background: var(--color-paper);
+      border: var(--rule-hard);
+      padding: 2rem;
+      margin-top: 1.5rem;
+      min-height: 220px;
+      font-family: var(--font-typewriter);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--color-ink);
+      position: relative;
+      border-style: dashed;
+    }
+
+    .manifesto-blueprint::after {
+      content: "CONFIDENTIAL // ANTIGEN PRESS COLLATERAL";
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-grey);
+    }
+
+    .blueprint-slot {
+      background: var(--color-yellow);
+      color: var(--color-black);
+      padding: 0.1rem 0.5rem;
+      border-bottom: 2px solid var(--color-black);
+      cursor: pointer;
+      font-weight: 800;
+      display: inline-block;
+      margin: 0 0.2rem;
+    }
+
+    .blueprint-slot:hover {
+      background: var(--color-red);
+      color: var(--color-white);
+    }
+
+    .selector-drawer {
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 1.5rem;
+      margin-top: 1rem;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .drawer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .drawer-item {
+      background: #222;
+      border: 1px solid #444;
+      padding: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .drawer-item:hover {
+      background: var(--color-red);
+      color: var(--color-white);
+    }
+
+    /* Sound Control indicator */
+    .sound-toggle {
+      background: none;
+      border: none;
+      color: var(--color-grey);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .sound-toggle.on {
+      color: var(--color-yellow);
+    }
+
+    /* Audio alert flashers */
+    @keyframes glitch-flash {
+      0% { background-color: var(--color-red); }
+      50% { background-color: var(--color-black); }
+      100% { background-color: var(--color-red); }
+    }
+    .flash-alert {
+      animation: glitch-flash 0.15s infinite;
+    }
+
+    /* Custom Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--color-black);
+      color: var(--color-white);
+      border: 3px solid var(--color-yellow);
+      padding: 1rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-hard);
+      display: none;
+      z-index: 10000;
+    }
+  
+
+    /* ANTIGEN standalone upload shell */
+    body { padding-top: 80px; }
+    a { color: inherit; }
+    .antigen-site-header {
+      position: fixed; left: 0; right: 0; top: 0; z-index: 9999; min-height: 80px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      background: rgba(0,0,0,.94); color: #fff; padding: 20px clamp(20px,5vw,64px);
+      backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .site-wordmark { font-family: var(--font-sans, Montserrat, system-ui, sans-serif); font-size: 26px; line-height: 1; letter-spacing: .08em; color: #fff; text-decoration: none; text-transform: lowercase; }
+    .site-wordmark strong { font-weight: 900; letter-spacing: 0; }
+    .antigen-site-nav { display: flex; align-items: center; gap: 20px; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+    .antigen-site-nav a { color: #fff; text-decoration: none; }
+    .antigen-site-nav a:hover { color: var(--color-yellow, #ffc000); }
+    .chrome-header { top: 80px !important; }
+    .antigen-upload-footer {
+      background: #000; color: #fff; padding: 28px clamp(20px,5vw,64px);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+      border-top: 2px solid #000;
+    }
+    .footer-wordmark { font-family: var(--font-sans, Montserrat, system-ui, sans-serif); font-size: 26px; letter-spacing: .08em; text-transform: lowercase; }
+    .footer-wordmark strong { font-weight: 900; letter-spacing: 0; }
+    .footer-wordmark span { color: var(--color-yellow, #ffc000); }
+    .footer-meta { color: rgba(255,255,255,.58); font-size: .72rem; font-weight: 800; letter-spacing: .1em; line-height: 1.7; text-transform: uppercase; text-align: right; }
+    @media (max-width: 767px) {
+      body { padding-top: 72px; }
+      .antigen-site-header { min-height: 72px; }
+      .antigen-site-nav { display: none; }
+      .chrome-header { top: 72px !important; }
+      .footer-meta { text-align: left; }
+    }
+
+  </style>
+</head>
+<body id="top">
+<header class="antigen-site-header">
+  <a class="site-wordmark" href="#top" aria-label="ANTIGEN home">anti<strong>gen</strong></a>
+  <nav class="antigen-site-nav" aria-label="Primary navigation">
+    <a href="https://1antigen.com/why">Why</a>
+    <a href="https://1antigen.com/what">What</a>
+    <a href="https://1antigen.com/who">Who</a>
+    <a href="https://1antigen.com/how">How</a>
+    <a href="https://1antigen.com/pov">POV</a>
+    <a href="https://1antigen.com/contact">Contact</a>
+  </nav>
+</header>
+
+<!-- Chrome Header -->
+  <header class="chrome-header">
+    <div class="brand-group">
+      <div class="brand-logo">A</div>
+      <div>
+        <h1 class="h3" style="line-height: 1; letter-spacing: -0.01em;">ANTIGEN</h1>
+        <p class="mono" style="font-size: 0.65rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 0.15em;">Corporate De-blander v1.0</p>
+      </div>
+    </div>
+    
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="switchTab('arena')">Combat Arena</button>
+      <button class="nav-btn" onclick="switchTab('matrix')">Neologism Matrix</button>
+      <button class="nav-btn" onclick="switchTab('generator')">Manifesto Engine</button>
+    </div>
+
+    <div>
+      <button class="sound-toggle on" id="soundBtn" onclick="toggleSound()">
+        <span id="soundIcon">🔊</span> SOUND [ON]
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Active View: Game Arena -->
+    <section id="view-arena">
+      <div class="manifesto-banner">
+        <span class="kicker">OPERATION: DE-STAGNATE</span>
+        <h2 class="h1" style="color: var(--color-white); margin: 0.5rem 0;">PROTOCOL BLAND-BUSTER</h2>
+        <p class="typewriter" style="max-width: 80ch; font-size: 1.1rem; line-height: 1.4;">
+          The system is dying. Global culture is being flattened. Choose the precise Antigen Neologism to combat specific institutional pathogens before the corporate compliance threshold triggers system failure.
+        </p>
+      </div>
+
+      <div class="game-layout">
+        <!-- Main Game Interface -->
+        <div class="arena-panel" id="gameArena">
+          <div class="hud-header">
+            <div>
+              <span class="eyebrow" style="color: var(--color-grey)">Rebellion Quotient</span>
+              <div class="h2" id="scoreDisplay" style="color: var(--color-red)">00000</div>
+            </div>
+            <div style="text-align: right;">
+              <span class="eyebrow" style="color: var(--color-grey)">System Multiplier</span>
+              <div class="h3" id="multiplierDisplay">1.0x</div>
+            </div>
+          </div>
+
+          <!-- Compliance Limit Warning -->
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="mono" style="font-size: 0.75rem; font-weight: 800;">CORPORATE COMPLIANCE DRIFT</span>
+            <span class="mono" id="timerLabel" style="font-size: 0.75rem; color: var(--color-red);">0.0s</span>
+          </div>
+          <div class="compliance-bar-container">
+            <div class="compliance-bar" id="progressBar"></div>
+          </div>
+
+          <!-- Scenario Statement -->
+          <div class="scenario-box" id="scenarioText">
+            <!-- Loaded dynamically -->
+          </div>
+
+          <!-- Diagnostic Options -->
+          <div class="options-grid" id="optionsGrid">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div class="mono" style="font-size: 0.7rem; color: var(--color-mute);">
+              Active Strain: <span id="currentCategoryDisplay" style="font-weight: 800; color: var(--color-black);">N/A</span>
+            </div>
+            <button class="btn-brutal red" id="controlGameBtn" onclick="initGameRound()">DEPLOY ANTIGEN (START)</button>
+          </div>
+        </div>
+
+        <!-- Brutalist Terminal Logs -->
+        <div class="terminal-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+            <span class="kicker" style="color: var(--color-yellow);">ANTIGEN_INTEL_STREAM</span>
+            <span class="mono" style="font-size: 0.65rem; color: var(--color-grey);">ONLINE</span>
+          </div>
+          <div class="terminal-log" id="terminalLog">
+            <div class="terminal-line info">[SYSTEM INITIALIZED] Awaiting operative instructions...</div>
+            <div class="terminal-line info">[INTEL] 95 high-impact linguistic pathogens loaded.</div>
+          </div>
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: flex; justify-content: space-between;">
+            <div class="mono" style="font-size: 0.65rem; color: var(--color-grey);">COGNITIVE_REBELLION_OK</div>
+            <div class="mono" style="font-size: 0.65rem; color: var(--color-red);">ANTIGEN NETWORK: SHIELDED</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Active View: Neologism Database -->
+    <section id="view-matrix" style="display: none;">
+      <div class="manifesto-banner" style="background: var(--color-black);">
+        <span class="kicker" style="color: var(--color-yellow)">Classified Dossier</span>
+        <h2 class="h1" style="color: var(--color-white); margin: 0.5rem 0;">Linguistic Weaponry Database</h2>
+        <p class="mono" style="max-width: 80ch; font-size: 0.85rem; color: var(--color-grey);">
+          Filter the 95 corporate structural disorders designed by the Antigen project. Harness these terms in meeting rooms, reviews, and community pipelines to deconstruct the mechanisms of sameness.
+        </p>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterMatrix('all', this)">All Pathogens (95)</button>
+        <button class="filter-btn" style="border-left: 6px solid var(--color-red)" onclick="filterMatrix('decay', this)">Platform Decay</button>
+        <button class="filter-btn" style="border-left: 6px solid var(--color-grey)" onclick="filterMatrix('flat', this)">Algorithmic Flattening</button>
+        <button class="filter-btn" style="border-left: 6px solid var(--color-black)" onclick="filterMatrix('inertia', this)">Corporate Cowardice</button>
+        <button class="filter-btn" style="border-left: 6px solid var(--color-yellow)" onclick="filterMatrix('deception', this)">Marketing Deception</button>
+        <button class="filter-btn" style="border-left: 6px solid var(--color-blue)" onclick="filterMatrix('process', this)">Process Fetishism</button>
+      </div>
+
+      <div class="matrix-grid" id="matrixGrid">
+        <!-- POPULATED BY JAVASCRIPT -->
+      </div>
+    </section>
+
+    <!-- Active View: Subversive Manifesto Generator -->
+    <section id="view-generator" style="display: none;">
+      <div class="manifesto-banner" style="background: var(--color-magenta);">
+        <span class="kicker">Manifesto Engine</span>
+        <h2 class="h1" style="color: var(--color-white); margin: 0.5rem 0;">THE REBELLION TRANSMITTER</h2>
+        <p class="typewriter" style="max-width: 80ch; font-size: 1.1rem; line-height: 1.4; color: var(--color-white)">
+          Assemble structural counter-attacks. Choose a host corporate statement from real-world agencies and inject your unlocked neologisms to generate targeted critiques.
+        </p>
+      </div>
+
+      <div class="generator-panel">
+        <h3 class="display-title" style="margin-bottom: 1.5rem;">Draft Counter-Manifesto</h3>
+        
+        <!-- Target Host Blueprint Selector -->
+        <div style="margin-bottom: 1.5rem;">
+          <span class="eyebrow" style="color: var(--color-grey); display: block; margin-bottom: 0.5rem;">TARGET AGENCY HOST BLUEPRINT:</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <button class="filter-btn active" id="btn-tmpl-antigen" onclick="loadTemplate('antigen')">Antigen Original</button>
+            <button class="filter-btn" id="btn-tmpl-wpp" onclick="loadTemplate('wpp')">WPP (wpp.com)</button>
+            <button class="filter-btn" id="btn-tmpl-omnicom" onclick="loadTemplate('omnicom')">Omnicom (omc.com)</button>
+            <button class="filter-btn" id="btn-tmpl-ogilvy" onclick="loadTemplate('ogilvy')">Ogilvy (ogilvy.com)</button>
+            <button class="filter-btn" id="btn-tmpl-publicis" onclick="loadTemplate('publicis')">Publicis Groupe</button>
+            <button class="filter-btn" id="btn-tmpl-accenture" onclick="loadTemplate('accenture')">Accenture Song</button>
+          </div>
+        </div>
+
+        <p class="mono" style="margin-bottom: 1rem; font-size: 0.8rem; color: var(--color-mute);">
+          [INSTRUCTIONS]: Click any yellow element below to swap customized, high-volatility Antigen words into the text.
+        </p>
+
+        <div class="manifesto-blueprint" id="blueprintContainer">
+          <!-- Populated dynamically via loadTemplate() -->
+        </div>
+
+        <div class="selector-drawer" id="selectorDrawer">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <span class="mono" style="color: var(--color-yellow); font-size: 0.8rem;">CHOOSE AN ANTIGEN REACTION:</span>
+            <button onclick="closeDrawer()" style="background: none; border: none; color: white; cursor: pointer; font-family: var(--font-mono)">[CLOSE]</button>
+          </div>
+          <div class="drawer-grid" id="drawerGrid">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+          <button class="btn-brutal red" onclick="copyManifesto()">COPY SUBVERTED TEXT</button>
+          <button class="btn-brutal" onclick="randomizeManifesto()">RANDOMIZE ALL SLOTS</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Neologism Detail Modal -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">X</button>
+      <span class="kicker" id="modalCategory" style="color: var(--color-red);">CATEGORY</span>
+      <h2 class="h2" id="modalTitle" style="margin: 1rem 0; border-bottom: var(--rule-hard); padding-bottom: 0.5rem;">WORD</h2>
+      <p class="typewriter" id="modalDesc" style="font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.5; color: var(--color-ink);">
+        Description
+      </p>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span class="mono" style="font-size: 0.75rem; color: var(--color-grey);">VIRAL RISK FACTOR: CRITICAL</span>
+        <button class="btn-brutal yellow" onclick="weaponizeWordFromModal()">LOAD INTO MANIFESTO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Toast Notification -->
+  <div id="toast">MANIFESTO COPIED TO CLIPBOARD! Ready to broadcast.</div>
+
+  <!-- Database and Game Controller Scripts -->
+<footer class="antigen-upload-footer">
+  <div class="footer-wordmark">anti<strong>gen</strong><span>.</span></div>
+  <div class="footer-meta">
+    Protocol Bland-Buster ? Standalone HTML Export<br>
+    Composable. Distributed. Insurgent.
+  </div>
+</footer>
+
+  <script>
+    // System data: All 95 Neologisms cataloged perfectly
+    const neologisms = [
+      // 1. Platform Decay
+      { name: "Degradaissance", desc: "A systematic, cultural, and technical rebirth of decreasing quality, disguised as progress.", cat: "decay", rank: "Level A Pathogen" },
+      { name: "Qualityfading", desc: "The gradual, barely-noticeable erosion of value and performance in a service over time.", cat: "decay", rank: "Level B Pathogen" },
+      { name: "Exploitification", desc: "The strategic process of aggressively exploiting users once platform dependency has been cemented.", cat: "decay", rank: "Level A Pathogen" },
+      { name: "Valueleaching", desc: "Systematically drawing value out of an ecosystem while supplying less mutual value back.", cat: "decay", rank: "Level B Pathogen" },
+      { name: "Decaypitalism", desc: "The structural corporate drive for digital platforms to rot and become less useful in pursuit of infinite margins.", cat: "decay", rank: "Level A Pathogen" },
+      { name: "Deteriorategy", desc: "A strategic, planned deterioration of service quality designed to maximize short-term extractions.", cat: "decay", rank: "Level B Pathogen" },
+      { name: "Extractionism", desc: "The ideology of squeezing maximum tribute from existing loyalists instead of creating fresh value.", cat: "decay", rank: "Level C Pathogen" },
+      { name: "Userfriction", desc: "The deliberate introduction of system friction to steer frustrated users towards paid bypass options.", cat: "decay", rank: "Level B Pathogen" },
+      { name: "Devaluementality", desc: "A structural corporate outlook that views user quality of life as a liability to be cut.", cat: "decay", rank: "Level C Pathogen" },
+      { name: "Servicerot", desc: "The inevitable operational rot of platforms when user metrics are permanently optimized for advertiser greed.", cat: "decay", rank: "Level A Pathogen" },
+
+      // 2. Algorithmic Flattening
+      { name: "Blandification", desc: "The industrial process of grinding distinctive cultural products into smooth, non-threatening compliance.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Homogeneocene", desc: "An era defined by the algorithmic destruction of human cultural and creative diversity.", cat: "flat", rank: "Catastrophe Event" },
+      { name: "Algorithmonotony", desc: "The grey, uninspired feedback loop of recommending what has already been validated.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Mediocritization", desc: "The deliberate reduction of human ingenuity down to the mathematically derived average.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Averagocracy", desc: "The modern rule over culture by computed average preference metrics.", cat: "flat", rank: "Catastrophe Event" },
+      { name: "Samificationy", desc: "The architectural flattening that ensures every web layout, logo, and sound bite feels indistinguishable.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Algorithmification", desc: "The surrender of curated human selection to automated recommendation loops.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Normcore-ification", desc: "The deliberate design of products to appeal strictly to the unimaginative, secure middle ground.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Distinctocide", desc: "The systematic murder of unique cultural elements in favor of high-performing, safe layouts.", cat: "flat", rank: "Level A Pathogen" },
+      { name: "Meandertia", desc: "An institutional inertia drawing all creative initiatives back to the boring cultural mean.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Midversality", desc: "A universal design philosophy targeting the safest, least challenging common denominator.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Conformitometry", desc: "The metrics used to measure, audit, and enforce standard compliance on creators.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Standardigenesis", desc: "The birth of new technical criteria that subtly choke alternative creativity.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Uniquenession", desc: "A cultural recession characterized by an unprecedented drought in visual and structural uniqueness.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Genericide", desc: "The complete replacement of organic human voice with safe, generative AI representations.", cat: "flat", rank: "Level A Pathogen" },
+      { name: "Samefication", desc: "Designing visual layouts and products to be identically and safe-haven unmemorable.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Algorithmoze", desc: "The hypnotic state of mental fatigue induced by passive scrolling of computed feeds.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Basiconomics", desc: "An economic paradigm where appealing to basic consumer expectations guarantees corporate funding.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Duplication", desc: "Simultaneously educating users on technology while lowering overall quality standards.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Mimicracy", desc: "An organizational ecosystem ruled by copying successful competitors' patterns.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Safetocracy", desc: "Governance of cultural spaces governed entirely by risk-avoidance audits.", cat: "flat", rank: "Catastrophe Event" },
+      { name: "Averagenda", desc: "A silent policy aimed at ensuring no product feature offends or excites anyone.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Massthetics", desc: "Visual aesthetic theories tailored solely to please the broad, undifferentiated public.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Simulsame", desc: "The simulated illusion of choose-your-own-adventure pathways that lead to identical, boring results.", cat: "flat", rank: "Common Pathogen" },
+      { name: "Flatformity", desc: "Conformity manufactured by systemic UI layouts that flatten distinct perspectives.", cat: "flat", rank: "Systemic Virus" },
+      { name: "Copythink", desc: "A collective corporate mindset that automatically defaults to copycat strategies over native solutions.", cat: "flat", rank: "Common Pathogen" },
+
+      // 3. Corporate Cowardice
+      { name: "Quarteritis", desc: "The chronic organizational sickness of choosing brief quarterly gains over long-term vision.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Innovapause", desc: "A complete suspension of active creation while teams ship safe, superficial updates.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Stagnopoly", desc: "Monopoly platforms utilizing their market grip to freeze creative progression.", cat: "inertia", rank: "Catastrophe Event" },
+      { name: "Curiositycide", desc: "The execution of internal exploration programs through strict compliance protocols.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Riskaphobia", desc: "A pathological organizational terror of shipping anything unproven.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Incrementalism", desc: "The comforting myth that tiny, insignificant safe iterations can replace actual innovation.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Shareholder-tyranny", desc: "A corporate hierarchy prioritizing quarterly dividend output above user viability.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Maintainance-economy", desc: "An economic ecosystem optimizing solely for business continuity over structural evolution.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Zombification", desc: "Companies that have ceased genuine growth or value creation but exist indefinitely on line-of-credit lifelines.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Bureaucrasclerosis", desc: "The hardening of design decision arteries by layered levels of internal approval.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Disruptophobia", desc: "An paralyzing corporate fear of industry disruption that prevents them from taking risks.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Mba-ification", desc: "Standardizing dynamic workflows down to dry metrics imported from business schools.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Metricmyopia", desc: "An extreme obsession with immediate numbers that blinds teams to long-term health.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Consultocracy", desc: "Ecosystems governed by generic corporate consultants who recycle identical strategies.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Spreadsheetification", desc: "Devaluing creative nuances into tidy black-and-white cells on financial sheets.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Profit-presentism", desc: "The shortsighted doctrine stating that only immediate earnings justify strategic deployment.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Dividendaddiction", desc: "Dangerous platform behavior resulting from prioritizing payout demands over structural investments.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Boredroom-syndrome", desc: "The mental fog experienced during meetings centered around mitigation instead of expansion.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Strategery", desc: "Complicated, high-minded strategy frameworks entirely detached from reality.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Talentrepulsion", desc: "An institutional design that actively drives creative talent away via stifling micro-management.", cat: "inertia", rank: "Systemic Sickness" },
+      { name: "Mediocare", desc: "The deliberate and careful cultivation of highly safe mediocrity.", cat: "inertia", rank: "Common Inertia" },
+      { name: "Blandemic", desc: "A worldwide contagion of highly risk-mitigated corporate communications.", cat: "inertia", rank: "Catastrophe Event" },
+      { name: "Metricked", desc: "Being duped by micro-conversions into releasing a completely compromised product.", cat: "inertia", rank: "Common Inertia" },
+
+      // 4. Marketing Deception
+      { name: "Attentionfarming", desc: "The non-consensual harvesting of human cognitive focus to auction off to advertisers.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Brandwashing", desc: "Scrubbing any traces of distinctive, controversial personality from a brand to prevent outrage.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Clicksploitation", desc: "The deployment of psychological tricks to force interaction regardless of the page value.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Demotargeting", desc: "Reducing complex human identities into flat, mechanical target categories.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Engagementitis", desc: "A corporate inflammation prioritizing raw, cheap engagement count over real community alignment.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Feardvertising", desc: "Manufacturing user anxiety to position a basic service as an essential remedy.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Genuflection", desc: "Superficial posturing around social values without altering exploitative operations.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Hypeconomy", desc: "A fragile financial system built on manufactured narratives instead of concrete performance.", cat: "deception", rank: "Catastrophe Event" },
+      { name: "Insincerification", desc: "The systemic transformation of human dialogue into artificial, copywritten marketing phrases.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Jargonflation", desc: "Spiraling levels of empty business speak designed to hide a total lack of product evolution.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Metricoholism", desc: "An institutional addiction to viewing numbers, ignoring the fact that they don't reflect health.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Nostalgiabuse", desc: "Vampirizing consumers' happy memories to push inferior, low-quality modern sequels.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Oversaturationing", desc: "Saturating every clean surface of a layout with commercial messaging.", cat: "deception", rank: "Dark Pattern" },
+      { name: "Personalizationtheatre", desc: "The illusion of custom service while actually feeding consumers standard algorithmic outputs.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Quantifieddisenchantment", desc: "The cold, analytical removal of joy and mystery from a platform to isolate monetization points.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Relevanceposturing", desc: "Brands aggressively jumping on organic cultural events with zero actual alignment.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Segmentationmania", desc: "Slicing human audiences into absurdly specific, cold statistical buckets.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Trendjacking", desc: "Infiltrating organic internet trends with hollow commercial content, destroying the original energy.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Uniqueselling-pointlessness", desc: "The total disappearance of unique capabilities in products, replaced by marketing tricks.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Viraldelusion", desc: "The systemic error of thinking a transient viral spike translates to real institutional survival.", cat: "deception", rank: "Marketing Sickness" },
+      { name: "Normvertising", desc: "Advertising campaigns built to enforce and perpetuate safe, status-quo cultural baselines.", cat: "deception", rank: "Dark Pattern" },
+
+      // 5. Process Fetishism
+      { name: "Agilification", desc: "Rigidly enforcing complex 'Agile' routines, converting actual work into meeting exercises.", cat: "process", rank: "Process Trap" },
+      { name: "Scrumptocracy", desc: "A corporate tier where managers command progress entirely via status tickets and standups.", cat: "process", rank: "Process Trap" },
+      { name: "Bestpractitis", desc: "Blindly adopting industry checklists without analyzing whether they fit the problem.", cat: "process", rank: "Administrative Sickness" },
+      { name: "Consultingitis", desc: "Paying external agencies massive sums to produce solutions your internal teams already proposed.", cat: "process", rank: "Administrative Sickness" },
+      { name: "Retrospectacle", desc: "The performative theater of post-project meetings that produce zero actionable iterations.", cat: "process", rank: "Process Trap" },
+      { name: "Frameworking", desc: "Forcing delicate creative puzzles into rigid, pre-constructed procedural boxes.", cat: "process", rank: "Process Trap" },
+      { name: "Iteratopia", desc: "The naive fantasy that mindless, endless minor iterations will naturally equal absolute quality.", cat: "process", rank: "Administrative Sickness" },
+      { name: "Velocitrap", desc: "The management trap of optimizing for sprint output quantity over overall value delivered.", cat: "process", rank: "Process Trap" },
+      { name: "McKinseyitis", desc: "The cold, metrics-driven destruction of company culture inspired by external spreadsheet advisers.", cat: "process", rank: "Administrative Sickness" },
+      { name: "Processification", desc: "Turning fluid human creativity into highly documented, cold assembly lines.", cat: "process", rank: "Process Trap" },
+      { name: "Jiraocracy", desc: "An organization where human judgment is entirely subservient to ticket assignment software.", cat: "process", rank: "Process Trap" },
+      { name: "Standupification", desc: "The daily ritual of standing in circles to justify continuous employment.", cat: "process", rank: "Process Trap" },
+      { name: "Methodnemia", desc: "The lifeless outcomes produced when prioritizing standardized workflows over creativity.", cat: "process", rank: "Process Trap" },
+      { name: "Certifaddiction", desc: "An obsession with acquiring external certifications instead of developing real craft.", cat: "process", rank: "Administrative Sickness" },
+      { name: "Deliverectomy", desc: "The ultimate administrative separation of management processes from actually shipping products.", cat: "process", rank: "Process Trap" }
+    ];
+
+    // Simulated Scenarios for Combat Arena Matchups
+    const scenarios = [
+      { text: "Your platform's update log reveals the third straight month of degraded server performance alongside double the ad count.", answer: "Degradaissance", cat: "decay" },
+      { text: "An executive mandates a 140-slide compliance framework to prevent creators from releasing anything 'eccentric'.", answer: "Safetocracy", cat: "flat" },
+      { text: "A design update changes organic user bookmarks into a series of paid, flashing micro-transaction popups.", answer: "Userfriction", cat: "decay" },
+      { text: "The team decides to completely stop product experiments to guarantee immediate cash flow for the Q3 audit.", answer: "Quarteritis", cat: "inertia" },
+      { text: "A digital agency runs three daily standup syncs and two retro sessions while actual product shipment drops to absolute zero.", answer: "Deliverectomy", cat: "process" },
+      { text: "The streaming home page recommends only things your neighbors watched, slowly driving the neighborhood into total cultural sameness.", answer: "Algorithmonotony", cat: "flat" },
+      { text: "A company fires its craft engineering leads and hires an external firm to convert all specialized workflows into standardized tickets.", answer: "Processification", cat: "process" },
+      { text: "An agency hijacks a delicate, organic mental health support trend to plug their brand's fast-food discount cards.", answer: "Trendjacking", cat: "deception" },
+      { text: "The system is optimized entirely around clicks, causing writers to craft sensationalist titles regardless of actual article quality.", answer: "Clicksploitation", cat: "deception" },
+      { text: "A product relies strictly on a standardized agile board where success is measured exclusively by ticket completion speed.", answer: "Velocitrap", cat: "process" },
+      { text: "Every website in your industry now uses the exact same layout grid, the same icons, and the same corporate sans-serif.", answer: "Samificationy", cat: "flat" },
+      { text: "An educational platform slowly locks standard progress trackers behind subscription banners once their user base is locked in.", answer: "Exploitification", cat: "decay" },
+      { text: "Managers enforce best practices from unrelated massive tech companies, causing a small, agile team to grind to a halt.", answer: "Bestpractitis", cat: "process" },
+      { text: "The brand removes all color, voice, and unique claims from its public copy to completely eliminate the risk of public pushback.", answer: "Brandwashing", cat: "deception" }
+    ];
+
+    // Real Agency Host Templates
+    const templates = {
+      antigen: {
+        title: "Antigen Counter-Manifesto",
+        source: "Antigen Original",
+        text: `"We are witnessing a dangerous trend of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span> throughout our industry. Instead of prioritizing long-term vision, organizations are afflicted by <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, which sacrifices raw creativity at the altar of metrics. We must resist the gravitational pull of <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. Our response is simple: reject the standardized frameworks of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and dismantle the systems of <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span> forever."`
+      },
+      wpp: {
+        title: "WPP (Creative Transformation)",
+        source: "wpp.com",
+        text: `"We are a creative transformation holding company. We use the calculated power of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span> to build a highly optimized future for our clients. By industrializing talent and consolidating our programmatic networks with <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, we completely protect brand safety against rogue human originality. Our core offering delivers a strategic injection of <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span> to guarantee stable, predictable quarters, transforming messy artistic experiments into corporate <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and administrative <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      },
+      omnicom: {
+        title: "Omnicom Group (Interconnected Scale)",
+        source: "omc.com",
+        text: `"Omnicom provides client-centric solutions through a globally inter-connected pipeline of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>. Our global portfolio ensures that individual creative flare is risk-mitigated through <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span> and scaled predictability. We offer clients unmatched scale by standardizing all pipelines with <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>, ensuring that your enterprise remains shielded from authentic risk and enjoys the serene stability of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      },
+      ogilvy: {
+        title: "Ogilvy (Inspire & Impact)",
+        source: "ogilvy.com",
+        text: `"We exist to make brands matter. We inspire people to impact the world through the power of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>. In our pursuit of 'divine compliance', we systematically replace unpredictable ideas with proven, algorithmic <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>. True curiosity is fine, but predictable engagement is better; thus, we focus on scaling <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. This is our formula for converting art into <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and delivering perfect <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span> to our shareholders."`
+      },
+      publicis: {
+        title: "Publicis Groupe (The Power of One)",
+        source: "publicisgroupe.com",
+        text: `"We lead by delivering 'The Power of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>'. Our operational alchemy blends data science, programmatic media, and modular <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>. By dismantling traditional agency walls, we consolidate human labor into a seamless <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span> machine. We don't believe in boutique thinking; we believe in the endless algorithmic distribution of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> to ensure your organization undergoes smooth, friction-free <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      },
+      accenture: {
+        title: "Accenture Song (Relevance-Driven Growth)",
+        source: "accenture.com",
+        text: `"We design growth through systemic, data-driven <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>. Operating at the modern intersection of consulting frameworks, engineering lines, and productized <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, we replace artisanal creative risks with streamlined <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. The future belongs to businesses that can scale their messaging without soul; we achieve this through digital <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and algorithmic <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      }
+    };
+
+    // Sound FX engine via Web Audio API (Fully offline and procedurally synthesized)
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        const now = ctx.currentTime;
+
+        if (type === 'success') {
+          // Bouncy upbeat retro synthesizer double-chime
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(330, now);
+          osc.frequency.setValueAtTime(660, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else if (type === 'error') {
+          // Harsh descending buzz (Brutalist error tone)
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(120, now);
+          osc.frequency.linearRampToValueAtTime(60, now + 0.25);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else if (type === 'click') {
+          // Light high-frequency click
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1000, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.06);
+        } else if (type === 'glitch') {
+          // Low sweeping filter synth sweep
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(80, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.15);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        }
+      } catch (e) {
+        console.warn("Audio Context blocked or un-supported:", e);
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundBtn');
+      if (soundEnabled) {
+        btn.classList.add('on');
+        btn.innerHTML = "🔊 SOUND [ON]";
+        playSound('click');
+      } else {
+        btn.classList.remove('on');
+        btn.innerHTML = "🔇 SOUND [OFF]";
+      }
+    }
+
+    // Tab Switching Mechanics
+    function switchTab(tabId) {
+      playSound('click');
+      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById('view-' + tabId).style.display = 'block';
+      event.target.classList.add('active');
+
+      if (tabId === 'matrix') {
+        renderMatrix('all');
+      }
+    }
+
+    // --- COMBAT ARENA GAMEPLAY MECHANICS ---
+    let score = 0;
+    let multiplier = 1.0;
+    let gameActive = false;
+    let currentScenario = null;
+    let timerInterval = null;
+    let timeElapsed = 0;
+    const timeLimit = 12; // Seconds to answer each scenario
+
+    function logTerminal(message, type = 'info') {
+      const log = document.getElementById('terminalLog');
+      const line = document.createElement('div');
+      line.className = `terminal-line ${type}`;
+      line.innerText = `[${new Date().toLocaleTimeString()}] ${message}`;
+      log.appendChild(line);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function initGameRound() {
+      if (!gameActive) {
+        gameActive = true;
+        document.getElementById('controlGameBtn').innerText = "SKIP / NEXT STRAIN";
+        logTerminal("ANTIGEN COUNTER-MEASURES ACTIVATED.", "success");
+      }
+      
+      playSound('glitch');
+      clearInterval(timerInterval);
+      timeElapsed = 0;
+      updateProgressBar();
+
+      // Choose a random scenario
+      currentScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+      document.getElementById('scenarioText').innerText = `"${currentScenario.text}"`;
+      document.getElementById('currentCategoryDisplay').innerText = currentScenario.cat.toUpperCase();
+      
+      // Select options: Correct + 2 random incorrects
+      let options = [currentScenario.answer];
+      const incorrectPool = neologisms.filter(n => n.name !== currentScenario.answer);
+      
+      while (options.length < 3) {
+        const randOpt = incorrectPool[Math.floor(Math.random() * incorrectPool.length)].name;
+        if (!options.includes(randOpt)) {
+          options.push(randOpt);
+        }
+      }
+      
+      // Shuffle options
+      options.sort(() => Math.random() - 0.5);
+
+      // Render Option Cards
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = "";
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = "option-card";
+        card.innerHTML = `
+          <span class="mono" style="font-weight:700;">${opt}</span>
+          <span class="btn-brutal" style="padding:0.25rem 0.5rem; font-size:0.7rem; box-shadow: 2px 2px 0 #000;">DIAGNOSE</span>
+        `;
+        card.onclick = () => submitAnswer(opt, card);
+        grid.appendChild(card);
+      });
+
+      // Start timer tick
+      timerInterval = setInterval(() => {
+        timeElapsed += 0.1;
+        updateProgressBar();
+        if (timeElapsed >= timeLimit) {
+          handleTimeout();
+        }
+      }, 100);
+    }
+
+    function updateProgressBar() {
+      const percent = (timeElapsed / timeLimit) * 100;
+      const bar = document.getElementById('progressBar');
+      bar.style.width = `${percent}%`;
+      document.getElementById('timerLabel').innerText = `${Math.max(0, (timeLimit - timeElapsed)).toFixed(1)}s`;
+      
+      // Danger colors
+      if (percent > 70) {
+        bar.style.background = 'var(--color-red)';
+      } else {
+        bar.style.background = 'linear-gradient(90deg, var(--color-yellow), var(--color-red))';
+      }
+    }
+
+    function submitAnswer(chosen, element) {
+      if (!gameActive || !currentScenario) return;
+      clearInterval(timerInterval);
+
+      const allCards = document.querySelectorAll('.option-card');
+      allCards.forEach(card => card.style.pointerEvents = 'none');
+
+      if (chosen === currentScenario.answer) {
+        // Success
+        playSound('success');
+        element.classList.add('correct');
+        const pointsAwarded = Math.round((timeLimit - timeElapsed) * 100 * multiplier);
+        score += pointsAwarded;
+        multiplier = parseFloat((multiplier + 0.2).toFixed(1));
+        
+        document.getElementById('scoreDisplay').innerText = score.toString().padStart(5, '0');
+        document.getElementById('multiplierDisplay').innerText = `${multiplier}x`;
+        
+        logTerminal(`[DIAGNOSIS ACCURATE]: Cleansed network of ${chosen}. +${pointsAwarded} pts!`, 'success');
+        
+        // Trigger visual success flash on active panels
+        const arena = document.getElementById('gameArena');
+        arena.style.borderColor = "#4ade80";
+        setTimeout(() => arena.style.borderColor = "var(--color-black)", 400);
+
+      } else {
+        // Failure
+        playSound('error');
+        element.classList.add('incorrect');
+        
+        // Highlight correct answer
+        allCards.forEach(card => {
+          if (card.innerText.includes(currentScenario.answer)) {
+            card.classList.add('correct');
+          }
+        });
+
+        multiplier = 1.0;
+        document.getElementById('multiplierDisplay').innerText = "1.0x";
+        logTerminal(`[CRITICAL WRONG DIAGNOSIS]: Target infected with ${currentScenario.answer}. Network reset.`, 'error');
+        
+        const arena = document.getElementById('gameArena');
+        arena.style.borderColor = "var(--color-red)";
+        setTimeout(() => arena.style.borderColor = "var(--color-black)", 400);
+      }
+
+      // Automatically queue next round after delay
+      setTimeout(() => {
+        initGameRound();
+      }, 1800);
+    }
+
+    function handleTimeout() {
+      clearInterval(timerInterval);
+      playSound('error');
+      logTerminal(`[COMPLIANCE THRESHOLD BREACHED]: System succumbed to ${currentScenario.answer}.`, 'error');
+      
+      const allCards = document.querySelectorAll('.option-card');
+      allCards.forEach(card => {
+        card.style.pointerEvents = 'none';
+        if (card.innerText.includes(currentScenario.answer)) {
+          card.classList.add('correct');
+        }
+      });
+
+      multiplier = 1.0;
+      document.getElementById('multiplierDisplay').innerText = "1.0x";
+      
+      setTimeout(() => {
+        initGameRound();
+      }, 1800);
+    }
+
+
+    // --- NEOLOGISM DATABASE EXPLORER ---
+    function renderMatrix(filterCat) {
+      const grid = document.getElementById('matrixGrid');
+      grid.innerHTML = "";
+
+      const filteredList = filterCat === 'all' ? neologisms : neologisms.filter(n => n.cat === filterCat);
+
+      filteredList.forEach(neo => {
+        const card = document.createElement('div');
+        card.className = `matrix-card cat-${neo.cat}`;
+        card.onclick = () => showDetail(neo);
+        
+        card.innerHTML = `
+          <div>
+            <div class="mono" style="font-size: 0.6rem; color: var(--color-grey); text-transform: uppercase;">${neo.cat} // ${neo.rank}</div>
+            <div class="matrix-card-title">${neo.name}</div>
+          </div>
+          <p class="matrix-card-desc">${neo.desc}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterMatrix(category, btnElement) {
+      playSound('click');
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+      renderMatrix(category);
+    }
+
+    let activeSelectedWord = "";
+
+    function showDetail(neo) {
+      playSound('glitch');
+      activeSelectedWord = neo.name;
+      document.getElementById('modalCategory').innerText = `${neo.cat.toUpperCase()} PATHOGENIC CLASSIFICATION`;
+      document.getElementById('modalTitle').innerText = neo.name;
+      document.getElementById('modalDesc').innerText = neo.desc;
+      
+      // Update color highlight dynamically based on category
+      const borderColors = {
+        decay: 'var(--color-red)',
+        flat: 'var(--color-grey)',
+        inertia: 'var(--color-black)',
+        deception: 'var(--color-yellow)',
+        process: 'var(--color-blue)'
+      };
+      document.getElementById('modalCategory').style.color = borderColors[neo.cat];
+      
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      playSound('click');
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    function weaponizeWordFromModal() {
+      // Switch view and insert word directly into active blueprint
+      closeModal();
+      switchTab('generator');
+      // Highlight the first empty slot or randomly select one to fill
+      const slots = ['slot-1', 'slot-2', 'slot-3', 'slot-4', 'slot-5'];
+      const targetSlot = slots.find(s => document.getElementById(s).innerText.includes('[Select')) || 'slot-1';
+      setSlotValue(targetSlot, activeSelectedWord);
+    }
+
+
+    // --- SUBVERSIVE MANIFESTO GENERATOR ---
+    let currentActiveSlotId = null;
+    let activeTemplateKey = 'antigen';
+
+    function loadTemplate(key) {
+      playSound('glitch');
+      activeTemplateKey = key;
+
+      // Update active state of selector buttons
+      document.querySelectorAll('.generator-panel .filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const selectedBtn = document.getElementById(`btn-tmpl-${key}`);
+      if (selectedBtn) {
+        selectedBtn.classList.add('active');
+      }
+
+      // Load specific HTML content
+      const blueprint = templates[key];
+      const container = document.getElementById('blueprintContainer');
+      container.innerHTML = blueprint.text;
+
+      // Automatically randomize new template slots to make it immediately fun
+      randomizeManifesto();
+
+      logTerminal(`Subversion Target Updated: Loaded statement of ${blueprint.title} (${blueprint.source}). Ready to audit.`, 'info');
+    }
+
+    function openDrawer(slotId) {
+      playSound('click');
+      currentActiveSlotId = slotId;
+      const drawer = document.getElementById('selectorDrawer');
+      const grid = document.getElementById('drawerGrid');
+      grid.innerHTML = "";
+
+      drawer.style.display = 'block';
+
+      // Sort alphabetically and display inside selector drawer
+      const sortedNeo = [...neologisms].sort((a,b) => a.name.localeCompare(b.name));
+      sortedNeo.forEach(neo => {
+        const div = document.createElement('div');
+        div.className = "drawer-item";
+        div.innerText = neo.name;
+        div.onclick = () => {
+          setSlotValue(slotId, neo.name);
+          closeDrawer();
+        };
+        grid.appendChild(div);
+      });
+    }
+
+    function closeDrawer() {
+      document.getElementById('selectorDrawer').style.display = 'none';
+    }
+
+    function setSlotValue(slotId, value) {
+      playSound('success');
+      const slot = document.getElementById(slotId);
+      if (slot) {
+        slot.innerText = value;
+        slot.style.background = 'var(--color-red)';
+        slot.style.color = 'white';
+      }
+    }
+
+    function randomizeManifesto() {
+      playSound('glitch');
+      const slots = ['slot-1', 'slot-2', 'slot-3', 'slot-4', 'slot-5'];
+      slots.forEach(slotId => {
+        const randomWord = neologisms[Math.floor(Math.random() * neologisms.length)].name;
+        setSlotValue(slotId, randomWord);
+      });
+    }
+
+    function copyManifesto() {
+      const container = document.getElementById('blueprintContainer');
+      const text = container.innerText;
+      
+      // Standard clipboard copy fallback structure per rules
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+
+      // Trigger custom Brutalist Toast
+      playSound('success');
+      const toast = document.getElementById('toast');
+      toast.innerText = `SUBVERTED ${activeTemplateKey.toUpperCase()} MANIFESTO COPIED!`;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+
+    // Auto-load on load
+    window.onload = function() {
+      // Render Initial View
+      renderMatrix('all');
+      loadTemplate('antigen'); // Will initialize and auto-randomize slots
+    }
+  </script>
+</body>
+</html>

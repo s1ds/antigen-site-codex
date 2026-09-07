@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Strategy · Maje · Physical Retail Conversion</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ─────────────────────────────────────────────── */
+:root {
+  --red:        #e31d28;
+  --magenta:    #e3195b;
+  --crimson:    #b11226;
+  --black:      #111111;
+  --ink:        #1e1c17;
+  --white:      #ffffff;
+  --paper:      #f8f7f6;
+  --smoke:      #e8e8e8;
+  --grey:       #9fa2a4;
+  --yellow:     #ffc000;
+  --blue:       #08a7d8;
+  --grad-ins:   linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --grad-dark:  linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-d:     'Bebas Neue', Impact, sans-serif;
+  --font-s:     'Montserrat', Arial, sans-serif;
+  --rule:       1px solid rgba(17,17,17,.13);
+  --rule-w:     1px solid rgba(255,255,255,.1);
+  --shadow:     8px 8px 0 rgba(17,17,17,.92);
+  --shadow-r:   8px 8px 0 rgba(227,29,40,.88);
+  --pad:        clamp(1.25rem, 4vw, 3.5rem);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--font-s);
+  font-size: clamp(.93rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ─── STICKY PHASE NAV ─────────────────────────────────────────────── */
+.phase-nav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: var(--white);
+  border-bottom: var(--rule);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 var(--pad);
+}
+.phase-nav::-webkit-scrollbar { display: none; }
+.pnav-btn {
+  flex-shrink: 0;
+  padding: .7rem 1rem;
+  font-family: var(--font-s);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.pnav-btn:hover { color: var(--black); }
+.pnav-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+/* ─── HEADER ───────────────────────────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--grad-ins);
+  padding: 3rem var(--pad) 2.5rem;
+  color: var(--white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0,0,0,.22), transparent 38%),
+    linear-gradient(90deg, rgba(0,0,0,.16), transparent 52%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative; z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.56);
+  margin-bottom: .6rem;
+}
+.header-title {
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: .83;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: .5rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.48);
+  margin-top: .75rem;
+}
+.header-kicker {
+  border-left: 4px solid var(--yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.kicker-label {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.46);
+  margin-bottom: .3rem;
+}
+.kicker-value {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1;
+  color: var(--yellow);
+  letter-spacing: .04em;
+}
+.kicker-note {
+  font-size: .64rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.36);
+  margin-top: .25rem;
+}
+
+/* ─── PHASE WRAPPER ────────────────────────────────────────────────── */
+.phase {
+  padding: 3.5rem var(--pad);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase + .phase { padding-top: 0; }
+
+/* ─── PHASE LABEL ──────────────────────────────────────────────────── */
+.phase-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--black);
+}
+.phase-number {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.phase-name {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--black);
+}
+.phase-tagline {
+  font-size: .8rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--grey);
+  margin-left: auto;
+}
+
+/* ─── GET-TO-BY BLOCK ──────────────────────────────────────────────── */
+.gtb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+}
+.gtb-cell {
+  padding: 1.75rem 2rem;
+  border-right: var(--rule);
+}
+.gtb-cell:last-child { border-right: none; }
+.gtb-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.gtb-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* ─── DARK SECTION WRAPPER ─────────────────────────────────────────── */
+.dark-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.dark-section .phase-label {
+  border-bottom-color: rgba(255,255,255,.15);
+}
+.dark-section .phase-number { color: var(--yellow); }
+.dark-section .phase-name { color: var(--white); }
+.dark-section .phase-tagline { color: rgba(255,255,255,.4); }
+
+/* ─── INSIGHT BLOCK ────────────────────────────────────────────────── */
+.insight-inner { max-width: 1440px; margin: 0 auto; }
+
+.insight-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4.5vw, 4.5rem);
+  line-height: .88;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 2.5rem;
+  max-width: 900px;
+}
+.insight-headline em {
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.tension-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.tension-card {
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.tension-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.tension-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.tension-sub {
+  font-size: .82rem;
+  font-style: italic;
+  color: rgba(255,255,255,.5);
+}
+.tension-vs {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  color: var(--red);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.diagnosis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.diag-card {
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.diag-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.diag-card.wrong .diag-tag { color: var(--grey); }
+.diag-card.right .diag-tag { color: var(--red); }
+.diag-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.78);
+  line-height: 1.65;
+}
+
+.insight-pull {
+  border-left: 6px solid var(--red);
+  padding: 1.5rem 2rem;
+  background: rgba(227,29,40,.08);
+  margin-bottom: 0;
+}
+.insight-pull p {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+  line-height: 1.1;
+  color: var(--white);
+  letter-spacing: .01em;
+}
+.insight-pull span {
+  color: var(--yellow);
+}
+
+/* ─── PROVOCATION ──────────────────────────────────────────────────── */
+.prov-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.prov-sub {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--grey);
+  margin-bottom: 2.5rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.rule-break {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: var(--rule);
+  margin-bottom: 2rem;
+}
+.rule-cell {
+  padding: 1.75rem 2rem;
+}
+.rule-cell:first-child {
+  border-right: var(--rule);
+  background: var(--smoke);
+}
+.rule-cell:last-child { background: var(--white); }
+.rule-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.rule-cell:first-child .rule-tag { color: var(--grey); }
+.rule-cell:last-child .rule-tag { color: var(--red); }
+.rule-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.shift-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: var(--white);
+  border: var(--rule);
+  border-left: 6px solid var(--red);
+}
+.shift-side { }
+.shift-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .5rem;
+}
+.shift-text {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.shift-arrow {
+  font-family: var(--font-d);
+  font-size: 2.2rem;
+  color: var(--red);
+}
+
+.initiative-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.initiative-card {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 6px solid var(--red);
+  padding: 1.75rem 1.5rem;
+}
+.initiative-num {
+  font-family: var(--font-d);
+  font-size: 3rem;
+  color: var(--smoke);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.initiative-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  line-height: 1;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+.initiative-body {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.initiative-body strong {
+  font-weight: 800;
+  color: var(--red);
+}
+
+/* ─── TERRITORY ────────────────────────────────────────────────────── */
+.territory-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--white);
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+.territory-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  line-height: 1.7;
+  max-width: 800px;
+  margin-bottom: 2.5rem;
+}
+
+.space-shift {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.space-side { }
+.space-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: .5rem;
+}
+.space-old { font-size: .9rem; font-weight: 600; color: rgba(255,255,255,.55); line-height: 1.5; }
+.space-new { font-size: .9rem; font-weight: 700; color: var(--yellow); line-height: 1.5; }
+.space-arrow { font-family: var(--font-d); font-size: 2.2rem; color: var(--red); }
+
+.pillar-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2rem;
+}
+.pillar-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.pillar-cell:last-child { border-right: none; }
+.pillar-num {
+  font-family: var(--font-d);
+  font-size: 3.5rem;
+  color: rgba(255,255,255,.08);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.pillar-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  color: var(--white);
+  margin-bottom: .75rem;
+  line-height: 1;
+}
+.pillar-body {
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.65;
+}
+.pillar-body strong {
+  color: var(--yellow);
+  font-weight: 800;
+}
+
+.battle-cry {
+  padding: 2rem;
+  border: 2px solid var(--yellow);
+  text-align: center;
+}
+.battle-cry p {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 3vw, 2.8rem);
+  color: var(--yellow);
+  letter-spacing: .04em;
+  line-height: 1.1;
+}
+
+/* ─── BIG IDEA ─────────────────────────────────────────────────────── */
+.big-idea-hero {
+  background: var(--black);
+  padding: 3rem var(--pad);
+}
+.bi-inner { max-width: 1440px; margin: 0 auto; }
+.bi-eyebrow {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+.bi-title {
+  font-family: var(--font-d);
+  font-size: clamp(4rem, 9vw, 10rem);
+  line-height: .82;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.bi-title span { color: var(--red); }
+.bi-descriptor {
+  font-size: clamp(.9rem, 1.2vw, 1.1rem);
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 3rem;
+}
+
+.bypass-flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2.5rem;
+}
+.bf-step {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+  position: relative;
+}
+.bf-step:last-child { border-right: none; }
+.bf-num {
+  font-family: var(--font-d);
+  font-size: 4rem;
+  color: rgba(255,255,255,.06);
+  line-height: 1;
+  position: absolute;
+  top: 1rem; right: 1.25rem;
+}
+.bf-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.bf-name {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.bf-body {
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.62);
+  line-height: 1.65;
+}
+
+.killed-ideas {
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 1.75rem 2rem;
+}
+.killed-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.25rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.killed-list { list-style: none; }
+.killed-list li {
+  display: flex;
+  gap: 1rem;
+  padding: .75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: .85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
+  line-height: 1.55;
+}
+.killed-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.killed-list li::before {
+  content: '✗';
+  color: var(--red);
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-top: .05rem;
+}
+.killed-list li strong { color: rgba(255,255,255,.85); font-weight: 800; }
+
+/* ─── EXECUTION ────────────────────────────────────────────────────── */
+.exec-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.exec-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--grey);
+  line-height: 1.65;
+  max-width: 700px;
+  margin-bottom: 2.5rem;
+}
+
+.exec-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.exec-step {
+  background: var(--white);
+  border: var(--rule);
+  padding: 1.75rem 1.5rem;
+  position: relative;
+}
+.exec-step-num {
+  font-family: var(--font-d);
+  font-size: 5rem;
+  color: var(--smoke);
+  line-height: 1;
+  margin-bottom: -.75rem;
+}
+.exec-step-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+  margin-top: .25rem;
+}
+.exec-step-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.exec-step-body {
+  font-size: .84rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.exec-step-body strong {
+  font-weight: 800;
+  color: var(--red);
+}
+
+.exec-killed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  background: var(--white);
+}
+.exec-killed-tag {
+  grid-column: 1 / -1;
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding: 1.25rem 2rem .75rem;
+  border-bottom: var(--rule);
+}
+.exec-killed-item {
+  padding: 1.25rem 1.75rem;
+  border-right: var(--rule);
+  font-size: .84rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.exec-killed-item:last-child { border-right: none; }
+.exec-killed-item strong { font-weight: 800; color: var(--black); }
+
+/* ─── SYNTHESIS / SLIDES ───────────────────────────────────────────── */
+.synth-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.synth-inner { max-width: 1440px; margin: 0 auto; }
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.slide-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 2rem;
+}
+.slide-num {
+  font-family: var(--font-d);
+  font-size: 4.5rem;
+  line-height: 1;
+  color: rgba(255,255,255,.06);
+  margin-bottom: -.5rem;
+}
+.slide-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.slide-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.slide-bullets { list-style: none; }
+.slide-bullets li {
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.6;
+  padding: .4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  display: flex;
+  gap: .75rem;
+}
+.slide-bullets li:last-child { border-bottom: none; }
+.slide-bullets li::before {
+  content: '—';
+  color: var(--red);
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.slide-bullets li strong { color: var(--white); font-weight: 800; }
+
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
+.page-footer {
+  background: var(--black);
+  padding: 2rem var(--pad);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-wordmark {
+  font-family: var(--font-d);
+  font-size: 1.8rem;
+  color: var(--white);
+  letter-spacing: .12em;
+}
+.footer-meta {
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  text-align: right;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .initiative-list,
+  .pillar-list,
+  .bypass-flow,
+  .exec-steps { grid-template-columns: 1fr; }
+  .pillar-cell, .bf-step { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .pillar-cell:last-child, .bf-step:last-child { border-bottom: none; }
+  .tension-grid, .space-shift, .shift-flow { grid-template-columns: 1fr; }
+  .tension-vs, .shift-arrow, .space-arrow { display: none; }
+  .rule-break, .diagnosis-grid, .exec-killed, .gtb-grid { grid-template-columns: 1fr; }
+  .rule-cell:first-child { border-right: none; border-bottom: var(--rule); }
+  .exec-killed-item { border-right: none; border-bottom: var(--rule); }
+  .exec-killed-item:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .phase-tagline { display: none; }
+  .slide-grid { grid-template-columns: 1fr; }
+  .gtb-cell { border-right: none; border-bottom: var(--rule); }
+  .gtb-cell:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- PHASE NAV -->
+<nav class="phase-nav" id="phaseNav">
+  <a class="pnav-btn active" href="#phase1">P1 · Input</a>
+  <a class="pnav-btn" href="#phase2">P2 · Insight</a>
+  <a class="pnav-btn" href="#phase3">P3 · Provocation</a>
+  <a class="pnav-btn" href="#phase4">P4 · Territory</a>
+  <a class="pnav-btn" href="#phase5">P5 · Big Idea</a>
+  <a class="pnav-btn" href="#phase6">P6 · Execution</a>
+  <a class="pnav-btn" href="#phase7">P7 · Synthesis</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN — Strategy Output · Maje · Physical Retail · Phase 01–07</div>
+      <h1 class="header-title">Stop<br>Browsing.<br>Start<br>Owning.</h1>
+      <div class="header-sub">7 Phases · Full Strategy · Maje Physical Retail Conversion</div>
+    </div>
+    <div class="header-kicker">
+      <div class="kicker-label">The Mandate</div>
+      <div class="kicker-value">THE<br>BYPASS<br>PROTOCOL</div>
+      <div class="kicker-note">Kill the counter. Save the sale.</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 1: INPUT -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="phase1">
+  <div class="phase" style="padding-bottom:2rem;">
+    <div class="phase-label">
+      <span class="phase-number">Phase 01</span>
+      <h2 class="phase-name">The Input</h2>
+      <span class="phase-tagline">GET · TO · BY</span>
+    </div>
+    <div class="gtb-grid">
+      <div class="gtb-cell">
+        <div class="gtb-tag">GET</div>
+        <p class="gtb-body">High-traffic in-store browsers who admire Maje designs but leave without completing a purchase.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">TO</div>
+        <p class="gtb-body">Recognise the in-store experience as a seamless, immediate destination for finalised high-fashion acquisitions.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">BY</div>
+        <p class="gtb-body">Integrating frictionless mobile checkout options and exclusive in-store styling incentives to drive immediate conversion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 2: INSIGHT -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="dark-section" id="phase2">
+  <div class="insight-inner">
+    <div class="phase-label">
+      <span class="phase-number">Phase 02</span>
+      <h2 class="phase-name">Insight</h2>
+      <span class="phase-tagline">The sharp tension beneath the brief</span>
+    </div>
+
+    <h3 class="insight-headline">Your Fitting Rooms Are a Free Content Studio. Your Registers Are a <em>Tax Audit.</em></h3>
+
+    <div class="tension-grid">
+      <div class="tension-card">
+        <div class="tension-tag">The Fitting Room</div>
+        <div class="tension-title">High-Status Transformation</div>
+        <div class="tension-sub">"I look like a French icon."</div>
+      </div>
+      <div class="tension-vs">VS</div>
+      <div class="tension-card">
+        <div class="tension-tag">The Cash Wrap</div>
+        <div class="tension-title">Administrative Friction</div>
+        <div class="tension-sub">"I am holding a receipt."</div>
+      </div>
+    </div>
+
+    <div class="diagnosis-grid">
+      <div class="diag-card wrong">
+        <div class="diag-tag">The Safe (Wrong) Assumption</div>
+        <p class="diag-body">"Customers are showrooming us to buy cheaper alternatives online."</p>
+      </div>
+      <div class="diag-card right">
+        <div class="diag-tag">The Provocative Reality</div>
+        <p class="diag-body">Customers <em>want</em> the immediate gratification of the purchase, but your checkout process forces them to sober up. They walk out because the physical act of paying is too slow to sustain the high of the mirror.</p>
+      </div>
+    </div>
+
+    <div class="insight-pull">
+      <p>To convert high-fashion browsers, we must make the transaction as <span>invisible as the transformation</span> in the mirror.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 3: PROVOCATION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="phase3">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 03</span>
+      <h2 class="phase-name">Provocation</h2>
+      <span class="phase-tagline">Kill the Museum</span>
+    </div>
+
+    <h3 class="prov-headline">Outlaw "Just Looking"</h3>
+    <p class="prov-sub">Accessible luxury has a polite, polite disease: we treat our stores like galleries and our customers like art critics. Maje's high foot traffic and low conversion isn't a traffic problem — it's a <strong>hospitality trap</strong>. We have made browsing too comfortable and buying too secondary.</p>
+
+    <div class="rule-break">
+      <div class="rule-cell">
+        <div class="rule-tag">The Sacred Rule</div>
+        <p class="rule-body">"Never rush the customer. Make the store a sanctuary of slow discovery."</p>
+      </div>
+      <div class="rule-cell">
+        <div class="rule-tag">The Provocation</div>
+        <p class="rule-body"><strong>Sanctuaries are for dying. Maje is a point of transaction.</strong> We will weaponise friction at the exit and eliminate it at the point of desire.</p>
+      </div>
+    </div>
+
+    <div class="shift-flow">
+      <div class="shift-side">
+        <div class="shift-tag">Old Paradigm</div>
+        <div class="shift-text">Browse → Try On → Think About It → Exit<br><small style="color:var(--grey); font-weight:500;">No friction to leave empty-handed</small></div>
+      </div>
+      <div class="shift-arrow">→</div>
+      <div class="shift-side">
+        <div class="shift-tag">The Provocative Shift</div>
+        <div class="shift-text">Try On → Instant Scan → Walk Out Wearing (Paid)<br><small style="color:var(--grey); font-weight:500;">High social/digital friction to abandon</small></div>
+      </div>
+    </div>
+
+    <div class="initiative-list">
+      <div class="initiative-card">
+        <div class="initiative-num">I</div>
+        <div class="initiative-title">Abolish the Cash Wrap</div>
+        <p class="initiative-body">The traditional cash register is a monument to hesitation. <strong>Every mirror in the fitting room is a terminal.</strong> Every stylist is a walking, tap-to-pay gateway. If a customer has to walk to the front of the store to pay, we have failed.</p>
+      </div>
+      <div class="initiative-card">
+        <div class="initiative-num">II</div>
+        <div class="initiative-title">The Zero-Click Fitting Room</div>
+        <p class="initiative-body">RFID-enabled smart mirrors register the fit the moment a customer hangs an item. A personalised, <strong>expiring "In-Store Acquisition Offer"</strong> appears. Walking out without tapping "Acquire" triggers a polite scarcity countdown.</p>
+      </div>
+      <div class="initiative-card">
+        <div class="initiative-num">III</div>
+        <div class="initiative-title">The Walk-Out Protocol</div>
+        <p class="initiative-body">Put the item on. Tap your phone against the fitting room door sensor. Walk out of the store wearing it. <strong>No bagging. No receipt printing. No transition</strong> from "I look amazing" to "I am swiping my credit card."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 4: TERRITORY -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="dark-section" id="phase4">
+  <div class="insight-inner">
+    <div class="phase-label">
+      <span class="phase-number">Phase 04</span>
+      <h2 class="phase-name">Territory</h2>
+      <span class="phase-tagline">The Urgency of Immediate Identity</span>
+    </div>
+
+    <h3 class="territory-headline">The Grief of the Empty-Handed Exit</h3>
+    <p class="territory-lead">To walk into a Maje store is to enter a temporary contract with your most aspirational self. To walk out empty-handed is to breach that contract. We must claim a fierce, defensive emotional territory: <strong style="color:var(--white);">The Urgency of Immediate Identity.</strong></p>
+
+    <div class="space-shift">
+      <div class="space-side">
+        <div class="space-tag">Old Emotional Space</div>
+        <p class="space-old">"I'll think about it."<br>Rationalisation, delay, eventual cart abandonment.</p>
+      </div>
+      <div class="space-arrow">→</div>
+      <div class="space-side">
+        <div class="space-tag">New Defensive Territory</div>
+        <p class="space-new">"If I leave this behind, I am actively choosing a lesser version of myself today."</p>
+      </div>
+    </div>
+
+    <div class="pillar-list">
+      <div class="pillar-cell">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">The Fitting Room Is the Point of Sale</div>
+        <p class="pillar-body">Eliminate the physical cash wrap entirely. The second a client feels the emotional high, the transaction is completed via frictionless mobile tap-to-pay inside the fitting room. <strong>She wears it out.</strong></p>
+      </div>
+      <div class="pillar-cell">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Rebrand "Hesitation" as "Loss"</div>
+        <p class="pillar-body">Implement the <strong>Hold-and-Hazard protocol.</strong> If a customer hesitates, she is informed — with genuine regret — that leaving the item means forfeiting it to the next client in line. We do not hold for the hesitant; we reward the decisive.</p>
+      </div>
+      <div class="pillar-cell">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">The "Unbought" Tax</div>
+        <p class="pillar-body">Frictionless mobile checkout inside the fitting room unlocks an immediate, exclusive styling benefit. If you go to the traditional queue, you pay the <strong>"tax" of wasted time</strong> and lose the instant tailoring perk.</p>
+      </div>
+    </div>
+
+    <div class="battle-cry">
+      <p>"Wear it out, or leave it behind. There is no middle ground."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 5: BIG IDEA -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="phase5" class="big-idea-hero">
+  <div class="bi-inner">
+    <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+      <span class="phase-number" style="color:var(--yellow);">Phase 05</span>
+      <h2 class="phase-name" style="color:var(--white);">Big Idea</h2>
+      <span class="phase-tagline" style="color:rgba(255,255,255,.35);">The Platform</span>
+    </div>
+
+    <div class="bi-eyebrow">The Big Idea</div>
+    <h3 class="bi-title">THE <span>BYPASS</span><br>PROTOCOL</h3>
+    <p class="bi-descriptor">A permanent, scalable operational and brand platform that redefines the in-store acquisition. It merges invisible RFID/mobile-checkout tech with high-status styling incentives, turning the act of buying into a seamless extension of trying on.</p>
+
+    <div class="bypass-flow">
+      <div class="bf-step">
+        <div class="bf-num">01</div>
+        <div class="bf-tag">The Visitor</div>
+        <div class="bf-name">Admires &amp; Tries On in Cabin</div>
+        <p class="bf-body">Smart mirrors detect items. RFID registers the fit. Peak desire is captured at the exact moment of identity transformation.</p>
+      </div>
+      <div class="bf-step">
+        <div class="bf-num">02</div>
+        <div class="bf-tag">The Bypass</div>
+        <div class="bf-name">One-Tap RFID via Mobile</div>
+        <p class="bf-body">No registers. No lines. Apple Pay or Google Pay in 1.8 seconds. The mirror is the cash register. The fitting room is the cash wrap.</p>
+      </div>
+      <div class="bf-step">
+        <div class="bf-num">03</div>
+        <div class="bf-tag">The Departure</div>
+        <div class="bf-name">Walks Out Wearing It. Fully Acquired.</div>
+        <p class="bf-body">The exit gate flashes green. No bag. No receipt. The purchase is an act of immediate self-transformation — almost like shoplifting. Legally.</p>
+      </div>
+    </div>
+
+    <div class="killed-ideas">
+      <div class="killed-tag">Safe Ideas · Killed</div>
+      <ul class="killed-list">
+        <li><div><strong>"Omnichannel Integration"</strong> — just a slow way of saying "buy it on your phone at home." BYPASS forces the transaction to happen <em>now</em>, in the mirror.</div></li>
+        <li><div><strong>"Clienteling Apps"</strong> — retail staff hate them and rarely use them effectively. BYPASS shifts agency to the consumer's own device.</div></li>
+        <li><div><strong>Standard Mobile POS (Line Busting)</strong> — associates chasing customers with iPads is invasive. High-fashion buyers want autonomy, not a shadow.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 6: EXECUTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="phase6">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 06</span>
+      <h2 class="phase-name">Execution</h2>
+      <span class="phase-tagline">Fit-and-Run · The Earned-First Architecture</span>
+    </div>
+
+    <h3 class="exec-headline">Burn the Cash Wrap</h3>
+    <p class="exec-lead">We are launching an Earned-First execution that turns the transaction into a cultural flex: <strong>The Maje "Fit-and-Run."</strong> We mimic the thrilling ease of shoplifting — completely legally. Try on, pay via a single tap in the fitting room, walk straight out the front door.</p>
+
+    <div class="exec-steps">
+      <div class="exec-step">
+        <div class="exec-step-num">1</div>
+        <div class="exec-step-tag">The Spark</div>
+        <div class="exec-step-title">The Provocation Launch</div>
+        <p class="exec-step-body">A targeted, unannounced stunt in flagship locations (Paris, New York, London). Selected influencers are filmed "shoplifting" from Maje — walking out wearing the clothes. The reveal: <strong>They used the Maje Express Pass.</strong> The headline writes itself.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">2</div>
+        <div class="exec-step-tag">The Mechanics</div>
+        <div class="exec-step-title">Frictionless Execution</div>
+        <p class="exec-step-body">Smart hanger NFC/RFID tag. Smart mirror detects items and prompts <em>"Love it? Tap to walk out in it."</em> 1-click settlement via Apple/Google Pay in <strong>1.8 seconds.</strong> Green gate validation at exit. Zero queue. Zero waiting.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">3</div>
+        <div class="exec-step-tag">The Engine</div>
+        <div class="exec-step-title">Earned Media Architecture</div>
+        <p class="exec-step-body">Carrying a shopping bag is old luxury. Walking out wearing a freshly-purchased blazer with zero baggage is the ultimate modern flex. <strong>No-Bag Premium</strong> — existing clothes couriered home within 2 hrs. Auto-generated TikTok exit video at the gate.</p>
+      </div>
+    </div>
+
+    <div class="exec-killed">
+      <div class="exec-killed-tag">Killed: Safe Alternatives &amp; Why</div>
+      <div class="exec-killed-item">
+        <strong>Styling Appointment Drive</strong><br>Asks for more of the customer's time when they already suffer from time-friction. Appeals only to planners, not high-traffic impulse browsers.
+      </div>
+      <div class="exec-killed-item">
+        <strong>In-Store Discount Tablets</strong><br>Cheapens the Maje brand. Discounting in-store to solve a UX problem is a lazy tax on margin.
+      </div>
+      <div class="exec-killed-item">
+        <strong>Standard Mobile POS (Line Busting)</strong><br>Associates chasing customers with iPads is invasive and awkward. High-fashion buyers want autonomy, not a shadow.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PHASE 7: SYNTHESIS -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="synth-section" id="phase7">
+  <div class="synth-inner">
+    <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+      <span class="phase-number" style="color:var(--yellow);">Phase 07</span>
+      <h2 class="phase-name" style="color:var(--white);">Synthesis</h2>
+      <span class="phase-tagline" style="color:rgba(255,255,255,.35);">7-Slide Distillation</span>
+    </div>
+
+    <div class="slide-grid">
+      <div class="slide-card">
+        <div class="slide-num">01</div>
+        <div class="slide-tag">Slide 01 · Challenge</div>
+        <div class="slide-title">The Store as Gallery. Not Shop.</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Symptom:</strong> Massive foot traffic, chronically low conversion. The store is an aesthetic gallery, not a point of sale.</div></li>
+          <li><div><strong>The Leak:</strong> High-intent shoppers try on, admire, and exit — leaving purchase intent to die online later.</div></li>
+          <li><div><strong>The Mission:</strong> Turn the physical boutique into a high-velocity conversion machine.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">02</div>
+        <div class="slide-tag">Slide 02 · Insight</div>
+        <div class="slide-title">The Hesitation Gap</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Showroom Trap:</strong> Shoppers love the tactile experience but dread the friction of legacy brick-and-mortar.</div></li>
+          <li><div><strong>The Gap:</strong> Any friction between "I love this" and "This is mine" allows rational doubt to set in.</div></li>
+          <li><div><strong>The Opportunity:</strong> Capitalise on peak desire — the exact moment they face the mirror in the garment.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">03</div>
+        <div class="slide-tag">Slide 03 · Provocation</div>
+        <div class="slide-title">Kill the Museum</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Shift:</strong> Stop treating Maje stores as static showrooms.</div></li>
+          <li><div><strong>The Reality:</strong> Every second a customer waits to pay is a second they decide not to buy.</div></li>
+          <li><div><strong>The Mandate:</strong> Transform the boutique into a zero-friction, high-reward acquisition zone.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">04</div>
+        <div class="slide-tag">Slide 04 · Territory</div>
+        <div class="slide-title">Immediate Identity</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Territory:</strong> Frictionless High-Fashion Acquisition.</div></li>
+          <li><div><strong>The Core:</strong> Meld the premium, tactile intimacy of the boutique with the rapid, single-tap convenience of digital-native e-commerce.</div></li>
+          <li><div><strong>The Goal:</strong> Make buying in-store faster, more rewarding, and more personal than ordering online.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">05</div>
+        <div class="slide-tag">Slide 05 · Big Idea</div>
+        <div class="slide-title">Maje: Instantaneous</div>
+        <ul class="slide-bullets">
+          <li><div><strong>The Concept:</strong> An in-store ecosystem that strips away all transactional friction.</div></li>
+          <li><div><strong>The Platform:</strong> BYPASS — self-checkout instantly from the fitting room.</div></li>
+          <li><div><strong>The Reward:</strong> Exclusive, immediate styling upgrades unlockable only in-person.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">06</div>
+        <div class="slide-tag">Slide 06 · Executions</div>
+        <div class="slide-title">Three Moves</div>
+        <ul class="slide-bullets">
+          <li><div><strong>Scan &amp; Go Fitting Rooms:</strong> Smart mirrors + QR + instant mobile pay to bypass checkout entirely.</div></li>
+          <li><div><strong>The "First Wear" Incentive:</strong> Exclusive, in-store-only styling perk for purchases completed within 15 mins of trying on.</div></li>
+          <li><div><strong>VIP Fast-Track Stations:</strong> Security tag removal and beautiful packaging in under 60 seconds.</div></li>
+        </ul>
+      </div>
+      <div class="slide-card">
+        <div class="slide-num">07</div>
+        <div class="slide-tag">Slide 07 · Why It Works</div>
+        <div class="slide-title">The Logic Closes</div>
+        <ul class="slide-bullets">
+          <li><div><strong>Eliminates Decision Lag:</strong> Frictionless checkout at peak desire closes the gap where buyers talk themselves out of a purchase.</div></li>
+          <li><div><strong>Leverages Retail Psychology:</strong> Instant gratification + immediate exclusive incentives makes buying <em>now</em> feel deeply logical.</div></li>
+          <li><div><strong>Optimises Staff:</strong> Automating checkout frees associates for high-value personal styling that drives larger basket sizes.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-wordmark">antigen</div>
+  <div class="footer-meta">
+    Strategy Output · Maje · Physical Retail Conversion<br>
+    ANTIGEN Intelligence Stack · Phase 01–07 · Confidential
+  </div>
+</footer>
+
+<script>
+// Active nav highlight on scroll
+const sections = document.querySelectorAll('section[id], div[id]');
+const btns = document.querySelectorAll('.pnav-btn');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      btns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.25 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
