@@ -1,926 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ANTIGEN &mdash; Protocol Bland-Buster</title>
-  
-  <!-- CSS Variables and Google Fonts -->
-  <style>
-    @import url('https://fonts.googleapis.com/css2family=Bebas+Neue&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600&family=Montserrat:wght@100;400;600;800;900&display=swap');
-
-    :root {
-      /* Colors */
-      --color-red:      #e31d28;
-      --color-magenta:  #e3195b;
-      --color-crimson:  #b11226;
-      --color-blush:    #f0448e;
-      --color-white:    #ffffff;
-      --color-paper:    #f8f7f6;
-      --color-smoke:    #e8e8e8;
-      --color-black:    #111111;
-      --color-ink:      #1e1c17;
-      --color-grey:     #9fa2a4;
-      --color-mute:     #6e6e6e;
-      --color-yellow:   #ffc000;
-      --color-blue:     #08a7d8;
-
-      /* Semantic Roles */
-      --fg1: var(--color-black);
-      --fg2: var(--color-mute);
-      --fg3: var(--color-grey);
-      --fg-inverse: var(--color-white);
-      --fg-accent: var(--color-red);
-      --fg-signal: var(--color-yellow);
-
-      --bg1: var(--color-white);
-      --bg2: var(--color-paper);
-      --bg3: var(--color-smoke);
-      --bg-insurgence: var(--color-red);
-      --bg-intervention: var(--color-black);
-
-      /* Lines */
-      --rule-soft:    1px solid rgba(17,17,17,.13);
-      --rule-hard:    2px solid rgba(17,17,17,.92);
-      --rule-inverse: 1px solid rgba(255,255,255,.2);
-
-      /* Shadows */
-      --shadow-hard:  8px 8px 0 rgba(17,17,17,.92);
-      --shadow-red:   8px 8px 0 rgba(227,29,40,.92);
-      --shadow-yellow:8px 8px 0 rgba(255,192,0,.92);
-
-      /* Typography */
-      --font-display:    'Bebas Neue', Impact, sans-serif;
-      --font-sans:       'Montserrat', sans-serif;
-      --font-typewriter: 'Special Elite', monospace;
-      --font-mono:       'IBM Plex Mono', monospace;
-
-      /* Scale */
-      --type-hero:     clamp(3.5rem, 8vw, 10rem);
-      --type-display:  clamp(2.5rem, 6vw, 6rem);
-      --type-title:    clamp(1.8rem, 4vw, 4rem);
-      --type-subtitle: clamp(1.2rem, 2vw, 2.2rem);
-      --type-lead:     clamp(1rem, 1.4vw, 1.4rem);
-      --type-body:     1rem;
-      --type-small:    .85rem;
-      --type-micro:    .7rem;
-    }
-
-    /* Base Reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--color-paper);
-      color: var(--color-black);
-      font-family: var(--font-sans);
-      font-size: var(--type-body);
-      line-height: 1.5;
-      overflow-x: hidden;
-      padding-bottom: 5rem;
-    }
-
-    /* Selection styling */
-    ::selection {
-      background: var(--color-yellow);
-      color: var(--color-black);
-    }
-
-    /* Typography Classes */
-    .h1, .display-hero {
-      font-family: var(--font-display);
-      font-size: var(--type-hero);
-      line-height: 0.85;
-      letter-spacing: -.03em;
-      text-transform: uppercase;
-    }
-
-    .h2, .display-section {
-      font-family: var(--font-display);
-      font-size: var(--type-display);
-      line-height: 0.9;
-      letter-spacing: -.02em;
-      text-transform: uppercase;
-    }
-
-    .h3, .display-title {
-      font-family: var(--font-display);
-      font-size: var(--type-title);
-      line-height: 0.95;
-      text-transform: uppercase;
-    }
-
-    .lead, .body-large {
-      font-family: var(--font-sans);
-      font-size: var(--type-lead);
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .typewriter {
-      font-family: var(--font-typewriter);
-    }
-
-    .mono {
-      font-family: var(--font-mono);
-      font-size: 0.9em;
-    }
-
-    .kicker, .eyebrow {
-      font-family: var(--font-sans);
-      font-size: var(--type-micro);
-      font-weight: 900;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    /* Layout structure */
-    .chrome-header {
-      background: var(--color-black);
-      color: var(--color-white);
-      border-bottom: 3px solid var(--color-red);
-      padding: 1.5rem var(--page-pad, 2rem);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .brand-logo {
-      background: var(--color-red);
-      color: var(--color-white);
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: var(--color-grey);
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      text-transform: uppercase;
-      font-weight: 600;
-      transition: all 0.15s ease;
-    }
-
-    .nav-btn:hover {
-      border-color: var(--color-yellow);
-      color: var(--color-yellow);
-    }
-
-    .nav-btn.active {
-      background: var(--color-red);
-      color: var(--color-white);
-      border-color: var(--color-red);
-    }
-
-    .container {
-      max-width: var(--max-page);
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    /* Sub-header banner */
-    .manifesto-banner {
-      background: var(--color-red);
-      color: var(--color-white);
-      padding: 2.5rem;
-      border: var(--rule-hard);
-      box-shadow: var(--shadow-hard);
-      margin-bottom: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .manifesto-banner::before {
-      content: "WARNING: EXTREME CONFORMITY ENCOUNTERED";
-      position: absolute;
-      bottom: -15px;
-      right: -20px;
-      font-family: var(--font-display);
-      font-size: 4rem;
-      opacity: 0.08;
-      transform: rotate(-3deg);
-      white-space: nowrap;
-    }
-
-    /* Brutalist Buttons */
-    .btn-brutal {
-      display: inline-block;
-      background: var(--color-white);
-      color: var(--color-black);
-      border: var(--rule-hard);
-      padding: 0.85rem 1.5rem;
-      font-family: var(--font-mono);
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 4px 4px 0 var(--color-black);
-      transition: all 0.1s ease;
-      position: relative;
-    }
-
-    .btn-brutal:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--color-black);
-    }
-
-    .btn-brutal:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 var(--color-black);
-    }
-
-    .btn-brutal.red {
-      background: var(--color-red);
-      color: var(--color-white);
-      box-shadow: 4px 4px 0 var(--color-black);
-    }
-    .btn-brutal.red:hover {
-      box-shadow: 6px 6px 0 var(--color-black);
-    }
-
-    .btn-brutal.yellow {
-      background: var(--color-yellow);
-      color: var(--color-black);
-    }
-
-    /* Grid Layouts */
-    .game-layout {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 2rem;
-    }
-
-    @media (max-width: 900px) {
-      .game-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Game Arena Panels */
-    .arena-panel {
-      background: var(--color-white);
-      border: var(--rule-hard);
-      box-shadow: var(--shadow-hard);
-      padding: 2rem;
-      position: relative;
-    }
-
-    .hud-header {
-      border-bottom: var(--rule-hard);
-      padding-bottom: 1rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .compliance-bar-container {
-      width: 100%;
-      height: 25px;
-      background: var(--color-smoke);
-      border: var(--rule-hard);
-      margin: 1.5rem 0;
-      position: relative;
-    }
-
-    .compliance-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--color-yellow), var(--color-red));
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-
-    .scenario-box {
-      background: var(--color-black);
-      color: var(--color-white);
-      padding: 1.5rem;
-      border: var(--rule-hard);
-      min-height: 140px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-
-    .scenario-box::after {
-      content: "INCIDENT DETECTED";
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--color-red);
-      font-weight: 800;
-      letter-spacing: 0.1em;
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .option-card {
-      background: var(--color-paper);
-      border: var(--rule-hard);
-      padding: 1rem 1.5rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.15s ease;
-      box-shadow: 4px 4px 0 rgba(17,17,17,0.15);
-    }
-
-    .option-card:hover {
-      background: var(--color-white);
-      transform: translateY(-2px);
-      box-shadow: 6px 6px 0 var(--color-red);
-    }
-
-    .option-card.correct {
-      background: #4ade80 !important;
-      color: var(--color-black) !important;
-      border-color: var(--color-black) !important;
-      box-shadow: 4px 4px 0 var(--color-black) !important;
-    }
-
-    .option-card.incorrect {
-      background: var(--color-red) !important;
-      color: var(--color-white) !important;
-      border-color: var(--color-black) !important;
-      box-shadow: 4px 4px 0 var(--color-black) !important;
-    }
-
-    /* Terminal Console Panel */
-    .terminal-panel {
-      background: var(--color-black);
-      color: var(--color-white);
-      border: var(--rule-hard);
-      box-shadow: var(--shadow-hard);
-      font-family: var(--font-mono);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 450px;
-    }
-
-    .terminal-log {
-      flex-grow: 1;
-      overflow-y: auto;
-      max-height: 380px;
-      font-size: 0.8rem;
-      line-height: 1.4;
-      border: var(--rule-inverse);
-      padding: 1rem;
-      background: rgba(255,255,255,0.03);
-      margin-bottom: 1rem;
-    }
-
-    .terminal-line {
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      padding-bottom: 0.25rem;
-    }
-
-    .terminal-line.success { color: var(--color-yellow); }
-    .terminal-line.error { color: var(--color-red); }
-    .terminal-line.info { color: var(--color-blue); }
-
-    /* Classification Grid Explorer */
-    .matrix-section {
-      margin-top: 3rem;
-    }
-
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      background: var(--color-white);
-      padding: 1rem;
-      border: var(--rule-hard);
-    }
-
-    .filter-btn {
-      background: var(--color-smoke);
-      border: 1px solid var(--color-grey);
-      padding: 0.4rem 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      cursor: pointer;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .filter-btn.active {
-      background: var(--color-black);
-      color: var(--color-white);
-      border-color: var(--color-black);
-    }
-
-    .matrix-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-
-    .matrix-card {
-      background: var(--color-white);
-      border: var(--rule-hard);
-      padding: 1rem;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 130px;
-      box-shadow: 4px 4px 0 rgba(17,17,17,0.08);
-      transition: all 0.1s ease;
-    }
-
-    .matrix-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: var(--shadow-hard);
-    }
-
-    /* Category Specific Borders */
-    .cat-decay { border-left: 8px solid var(--color-red); }
-    .cat-flat { border-left: 8px solid var(--color-grey); }
-    .cat-inertia { border-left: 8px solid var(--color-black); }
-    .cat-deception { border-left: 8px solid var(--color-yellow); }
-    .cat-process { border-left: 8px solid var(--color-blue); }
-
-    .matrix-card-title {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      line-height: 1;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.5rem;
-    }
-
-    .matrix-card-desc {
-      font-size: 0.75rem;
-      color: var(--color-mute);
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* Modal Styling */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(17,17,17,0.85);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .modal-box {
-      background: var(--color-white);
-      border: var(--rule-hard);
-      box-shadow: var(--shadow-hard);
-      max-width: 600px;
-      width: 100%;
-      padding: 2.5rem;
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--color-black);
-      color: var(--color-white);
-      border: none;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      font-weight: 900;
-      font-family: var(--font-mono);
-    }
-
-    /* Subversive Manifesto Generator Section */
-    .generator-panel {
-      background: var(--color-white);
-      border: var(--rule-hard);
-      box-shadow: var(--shadow-hard);
-      padding: 2.5rem;
-    }
-
-    .manifesto-blueprint {
-      background: var(--color-paper);
-      border: var(--rule-hard);
-      padding: 2rem;
-      margin-top: 1.5rem;
-      min-height: 220px;
-      font-family: var(--font-typewriter);
-      font-size: 1.15rem;
-      line-height: 1.6;
-      color: var(--color-ink);
-      position: relative;
-      border-style: dashed;
-    }
-
-    .manifesto-blueprint::after {
-      content: "CONFIDENTIAL // ANTIGEN PRESS COLLATERAL";
-      position: absolute;
-      bottom: 5px;
-      right: 10px;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--color-grey);
-    }
-
-    .blueprint-slot {
-      background: var(--color-yellow);
-      color: var(--color-black);
-      padding: 0.1rem 0.5rem;
-      border-bottom: 2px solid var(--color-black);
-      cursor: pointer;
-      font-weight: 800;
-      display: inline-block;
-      margin: 0 0.2rem;
-    }
-
-    .blueprint-slot:hover {
-      background: var(--color-red);
-      color: var(--color-white);
-    }
-
-    .selector-drawer {
-      background: var(--color-black);
-      color: var(--color-white);
-      padding: 1.5rem;
-      margin-top: 1rem;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-    }
-
-    .drawer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.5rem;
-    }
-
-    .drawer-item {
-      background: #222;
-      border: 1px solid #444;
-      padding: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .drawer-item:hover {
-      background: var(--color-red);
-      color: var(--color-white);
-    }
-
-    /* Sound Control indicator */
-    .sound-toggle {
-      background: none;
-      border: none;
-      color: var(--color-grey);
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .sound-toggle.on {
-      color: var(--color-yellow);
-    }
-
-    /* Audio alert flashers */
-    @keyframes glitch-flash {
-      0% { background-color: var(--color-red); }
-      50% { background-color: var(--color-black); }
-      100% { background-color: var(--color-red); }
-    }
-    .flash-alert {
-      animation: glitch-flash 0.15s infinite;
-    }
-
-    /* Custom Toast Notification */
-    #toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--color-black);
-      color: var(--color-white);
-      border: 3px solid var(--color-yellow);
-      padding: 1rem 2rem;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      box-shadow: var(--shadow-hard);
-      display: none;
-      z-index: 10000;
-    }
-  
-
-    /* ANTIGEN standalone upload shell */
-    body { padding-top: 80px; }
-    a { color: inherit; }
-    .antigen-site-header {
-      position: fixed; left: 0; right: 0; top: 0; z-index: 9999; min-height: 80px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-      background: rgba(0,0,0,.94); color: #fff; padding: 20px clamp(20px,5vw,64px);
-      backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .site-wordmark { font-family: var(--font-sans, Montserrat, system-ui, sans-serif); font-size: 26px; line-height: 1; letter-spacing: .08em; color: #fff; text-decoration: none; text-transform: lowercase; }
-    .site-wordmark strong { font-weight: 900; letter-spacing: 0; }
-    .antigen-site-nav { display: flex; align-items: center; gap: 20px; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
-    .antigen-site-nav a { color: #fff; text-decoration: none; }
-    .antigen-site-nav a:hover { color: var(--color-yellow, #ffc000); }
-    .chrome-header { top: 80px !important; }
-    .antigen-upload-footer {
-      background: #000; color: #fff; padding: 28px clamp(20px,5vw,64px);
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
-      border-top: 2px solid #000;
-    }
-    .footer-wordmark { font-family: var(--font-sans, Montserrat, system-ui, sans-serif); font-size: 26px; letter-spacing: .08em; text-transform: lowercase; }
-    .footer-wordmark strong { font-weight: 900; letter-spacing: 0; }
-    .footer-wordmark span { color: var(--color-yellow, #ffc000); }
-    .footer-meta { color: rgba(255,255,255,.58); font-size: .72rem; font-weight: 800; letter-spacing: .1em; line-height: 1.7; text-transform: uppercase; text-align: right; }
-    @media (max-width: 767px) {
-      body { padding-top: 72px; }
-      .antigen-site-header { min-height: 72px; }
-      .antigen-site-nav { display: none; }
-      .chrome-header { top: 72px !important; }
-      .footer-meta { text-align: left; }
-    }
-
-  </style>
-<style data-antigen-header-layout>body{padding-top:58px!important} [id]{scroll-margin-top:78px}
-  .phase-nav,.vector-nav,.sticky-nav,.chrome-header,.filterbar,.toolbar,.topbar{top:58px!important}
-  @media print{body{padding-top:0!important} antigen-header{display:none}}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Protocol Bland-Buster</title>
+<meta name="description" content="Protocol Bland-Buster: a diagnostic sandbox for naming the pathogens of sameness. 95 neologisms, a live diagnosis arena, and a counter-manifesto engine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F0EB; --ink:#292929; --red:#E33737;
+    --muted:#7C7870; --line:rgba(41,41,41,.18); --line-inv:rgba(242,240,235,.18);
+    --disp:'Bebas Neue', Impact, sans-serif;
+    --body:'Barlow', Arial, sans-serif;
+    --mono:'Courier New', ui-monospace, monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--red);outline-offset:3px}
+  ::selection{background:var(--red);color:var(--paper)}
+
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .inv{background:var(--ink);color:var(--paper)}
+
+  .kicker{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:20px}
+  .inv .kicker{color:var(--red)}
+  h1,h2{font-family:var(--disp);font-weight:400;line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+  h1{font-size:clamp(52px,8.5vw,116px)}
+  h2{font-size:clamp(38px,5.5vw,72px);margin-bottom:28px}
+  h3{font-family:var(--disp);font-weight:400;font-size:26px;letter-spacing:.04em;text-transform:uppercase}
+  .lede{font-size:clamp(18px,2vw,21px);max-width:60ch;color:var(--muted)}
+  .inv .lede{color:rgba(242,240,235,.68)}
+  .mark{font-family:var(--mono);font-size:22px;letter-spacing:-.02em}
+  .mark b{font-weight:700}
+  .src{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+
+  /* nav — as per 1antigen.com */
+  nav{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--line)}
+  .navrow{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .navlinks{display:flex;gap:26px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .navlinks a{text-decoration:none;color:var(--muted)}
+  .navlinks a:hover{color:var(--red)}
+  .btn{display:inline-block;background:var(--red);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:13px 26px;border:1px solid var(--red);cursor:pointer;font-family:var(--body)}
+  .btn:hover{background:var(--ink);border-color:var(--ink)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn.small{padding:9px 16px;font-size:11.5px}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  @media(max-width:820px){.navlinks{display:none}}
+
+  .navdrop{position:relative}
+  .navdrop summary{list-style:none;cursor:pointer;font-size:12.5px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .navdrop summary::-webkit-details-marker{display:none}
+  .navdrop summary:hover{color:var(--red)}
+  .navdrop summary::after{content:"▾";margin-left:5px;font-size:10px;display:inline-block;
+    transition:transform .15s ease}
+  .navdrop[open] summary::after{transform:rotate(180deg)}
+  .navdrop-menu{position:absolute;top:100%;left:0;margin-top:14px;background:var(--paper);
+    border:1px solid var(--line);min-width:180px;padding:6px 0;
+    box-shadow:0 8px 24px rgba(41,41,41,.12)}
+  .navdrop-menu a{display:block;padding:10px 16px;font-size:12.5px;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+  .navdrop-menu a:hover,.navdrop-menu a[aria-current="page"]{color:var(--red)}
+
+  .navmobile{display:none}
+  @media(max-width:820px){
+    .navmobile{display:block;position:relative}
+    .navmobile summary{list-style:none;cursor:pointer;width:34px;height:34px;
+      display:flex;align-items:center;justify-content:center}
+    .navmobile summary::-webkit-details-marker{display:none}
+    .hbg,.hbg::before,.hbg::after{content:"";display:block;width:22px;height:2px;
+      background:var(--ink);transition:transform .15s ease,opacity .15s ease}
+    .hbg{position:relative}
+    .hbg::before{position:absolute;top:-7px}
+    .hbg::after{position:absolute;top:7px}
+    .navmobile[open] .hbg{background:transparent}
+    .navmobile[open] .hbg::before{transform:rotate(45deg);top:0}
+    .navmobile[open] .hbg::after{transform:rotate(-45deg);top:0}
+    .navmobile-panel{position:absolute;top:100%;right:auto;left:50%;transform:translateX(-50%);
+      margin-top:14px;background:var(--paper);border:1px solid var(--line);min-width:220px;padding:8px 0;
+      box-shadow:0 8px 24px rgba(41,41,41,.12);display:flex;flex-direction:column;
+      max-height:calc(100dvh - 72px);overflow-y:auto}
+    .navmobile-panel a{padding:12px 20px;font-size:13px;font-weight:600;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--muted);text-decoration:none}
+    .navmobile-panel a:hover,.navmobile-panel a[aria-current="page"]{color:var(--red)}
+  }
+
+  /* page head */
+  .pagehead{padding:118px 0 38px}
+  .pagehead h1 .r{color:var(--red)}
+  .pagehead .lede{margin:22px 0 28px}
+  .headticker{padding-top:16px;border-top:1px solid var(--line);display:flex;gap:10px 30px;flex-wrap:wrap}
+  .headticker span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted)}
+
+  /* tab bar */
+  .tabbar{position:sticky;top:58px;z-index:50;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .tabrow{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line)}
+  .tab{background:none;border:0;border-right:1px solid var(--line);font:inherit;cursor:pointer;
+    font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);padding:14px 10px;text-align:center;white-space:nowrap}
+  .tab:hover{color:var(--red)}
+  .tab .tshort{display:none}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+  .tab[aria-selected="true"]:hover{color:var(--paper)}
+
+  .view{padding:40px 0 72px}
+  .viewhead{margin-bottom:26px}
+  .viewhead p{max-width:70ch;color:var(--muted);font-size:16px;margin-top:8px}
+
+  /* panels */
+  .panel{border:1.5px solid var(--ink);background:#fff}
+  .panelhead{display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:18px 26px;border-bottom:1.5px solid var(--ink);flex-wrap:wrap}
+  .panelhead .t{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .panelbody{padding:26px}
+
+  .arenagrid{display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start}
+  @media(max-width:980px){.arenagrid{grid-template-columns:1fr}}
+
+  .hud{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:22px}
+  .hudlab{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .hudnum{font-family:var(--disp);font-size:clamp(40px,5vw,60px);line-height:1;color:var(--red)}
+  .hudnum.sm{font-size:34px;color:var(--ink)}
+
+  .driftrow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .driftrow span{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+  .driftrow .val{color:var(--red);letter-spacing:.06em}
+  .bartrack{height:14px;border:1px solid var(--ink);background:var(--paper);margin-bottom:26px}
+  .barfill{height:100%;width:0;background:var(--muted);transition:width .1s linear}
+  .barfill.crit{background:var(--red)}
+
+  .scenario{background:var(--ink);color:var(--paper);padding:28px 26px 26px;position:relative;min-height:150px;
+    display:flex;flex-direction:column;justify-content:center}
+  .scenario .tag{position:absolute;top:12px;right:16px;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.2em;color:var(--red)}
+  .scenario p{font-size:18px;line-height:1.45;max-width:62ch}
+  .scenario .idle{color:rgba(242,240,235,.6);font-size:16px}
+
+  .options{display:grid;gap:12px;margin-top:22px}
+  .opt{display:flex;justify-content:space-between;align-items:center;gap:16px;width:100%;text-align:left;
+    font:inherit;color:inherit;cursor:pointer;background:#fff;border:1.5px solid var(--ink);
+    padding:16px 20px;transition:transform .18s,background .18s,color .18s}
+  .opt .n{font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.02em}
+  .opt .go{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .opt:hover:not(:disabled){transform:translate(-3px,-3px);border-color:var(--red)}
+  .opt:hover:not(:disabled) .go{color:var(--red)}
+  .opt:disabled{cursor:default}
+  .opt.correct{background:var(--red);border-color:var(--red);color:var(--paper)}
+  .opt.correct .go{color:var(--paper)}
+  .opt.wrong{background:var(--ink);border-color:var(--ink);color:rgba(242,240,235,.55)}
+  .opt.wrong .n{text-decoration:line-through}
+  .opt.wrong .go{color:rgba(242,240,235,.45)}
+
+  .arenafoot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    margin-top:26px;border-top:1px solid var(--line);padding-top:20px}
+  .arenafoot .strain{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .arenafoot .strain b{color:var(--ink)}
+
+  /* intel stream */
+  .stream{background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);display:flex;flex-direction:column;min-height:440px}
+  .streamhead{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;
+    border-bottom:1px solid var(--line-inv)}
+  .streamhead .t{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
+  .streamhead .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:rgba(242,240,235,.45)}
+  .streamlog{flex:1;overflow-y:auto;max-height:360px;padding:18px 22px;font-family:var(--mono);font-size:12.5px;line-height:1.5}
+  .logline{padding:8px 0;border-bottom:1px solid rgba(242,240,235,.08);color:rgba(242,240,235,.7)}
+  .logline.hit{color:var(--red)}
+  .logline.miss{color:var(--paper)}
+  .streamfoot{display:flex;justify-content:space-between;gap:14px;padding:14px 22px;border-top:1px solid var(--line-inv);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:rgba(242,240,235,.45)}
+
+  /* matrix */
+  .filters{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-bottom:0;margin-bottom:22px;background:#fff}
+  .filter{background:none;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    font:inherit;cursor:pointer;text-align:left;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);padding:13px 14px}
+  .filters .filter:nth-child(3n){border-right:0}
+  .filter:hover{color:var(--red)}
+  .filter[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-left:6px solid var(--ink);padding:22px 22px 20px;
+    cursor:pointer;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:8px;
+    min-height:150px;transition:transform .18s,background .18s,color .18s}
+  .card:hover{background:var(--ink);color:var(--paper);transform:translate(-3px,-3px)}
+  .card .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .card:hover .meta{color:rgba(242,240,235,.55)}
+  .card .name{font-family:var(--disp);font-size:29px;line-height:1;letter-spacing:.02em;text-transform:uppercase;color:var(--red)}
+  .card .desc{font-size:14px;line-height:1.45;color:var(--muted);
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .card:hover .desc{color:rgba(242,240,235,.75)}
+  .card .go{margin-top:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);font-weight:700}
+  .card:hover .go{color:var(--red)}
+
+  /* strain markers — palette-pure differentiation */
+  .c-decay{border-left-style:solid;border-left-color:var(--red)}
+  .c-flat{border-left-style:solid;border-left-color:var(--muted)}
+  .c-inertia{border-left-style:solid;border-left-color:var(--ink)}
+  .c-deception{border-left-style:dashed;border-left-color:var(--red)}
+  .c-process{border-left-style:double;border-left-color:var(--ink);border-left-width:8px}
+  .swatch{display:inline-block;width:14px;height:10px;margin-right:8px;vertical-align:middle;border-left:6px solid var(--ink)}
+  .s-decay{border-left-style:solid;border-left-color:var(--red)}
+  .s-flat{border-left-style:solid;border-left-color:var(--muted)}
+  .s-inertia{border-left-style:solid;border-left-color:var(--ink)}
+  .s-deception{border-left-style:dashed;border-left-color:var(--red)}
+  .s-process{border-left-style:double;border-left-color:var(--ink)}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(41,41,41,.86);z-index:200;display:none;
+    align-items:center;justify-content:center;padding:24px}
+  .overlay.on{display:flex}
+  .modal{background:#fff;border:1.5px solid var(--ink);max-width:640px;width:100%;padding:34px 32px 30px;position:relative}
+  .modal .x{position:absolute;top:14px;right:14px;width:32px;height:32px;background:var(--ink);color:var(--paper);
+    border:0;cursor:pointer;font-family:var(--mono);font-size:13px}
+  .modal .x:hover{background:var(--red)}
+  .modal h2{font-size:clamp(34px,5vw,52px);color:var(--ink);margin:10px 0 14px;border-bottom:1px solid var(--line);padding-bottom:12px}
+  .modal .def{font-family:var(--mono);font-size:15px;line-height:1.6;color:var(--ink);margin-bottom:26px}
+  .modalfoot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+
+  /* generator */
+  .tmplrow{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-bottom:0;background:#fff;margin-bottom:20px}
+  .tmplrow .filter:nth-child(3n){border-right:0}
+  .blueprint{background:var(--paper);border:1px dashed var(--ink);padding:30px 28px 40px;position:relative;
+    font-family:var(--mono);font-size:15.5px;line-height:1.75;min-height:230px}
+  .blueprint::after{content:"CONFIDENTIAL // ANTIGEN COUNTER-COLLATERAL";position:absolute;bottom:10px;right:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--muted)}
+  .blueprint-slot{display:inline-block;margin:0 3px;padding:1px 8px;cursor:pointer;font-weight:700;
+    background:transparent;color:var(--ink);border-bottom:2px dashed var(--ink)}
+  .blueprint-slot:hover{background:var(--ink);color:var(--paper);border-bottom-color:var(--ink)}
+  .blueprint-slot.set{background:var(--red);color:var(--paper);border-bottom:2px solid var(--red)}
+  .blueprint-slot.set:hover{background:var(--ink);border-bottom-color:var(--ink)}
+
+  .drawer{background:var(--ink);color:var(--paper);margin-top:18px;padding:20px 22px;max-height:260px;overflow-y:auto;display:none}
+  .drawer.on{display:block}
+  .drawerhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .drawerhead .t{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+  .drawerhead button{background:none;border:0;color:rgba(242,240,235,.6);font-family:var(--mono);font-size:11px;cursor:pointer;letter-spacing:.12em}
+  .drawerhead button:hover{color:var(--paper)}
+  .drawergrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+  .drawergrid button{background:none;border:1px solid var(--line-inv);color:rgba(242,240,235,.78);
+    font-family:var(--mono);font-size:12px;padding:9px 10px;cursor:pointer;text-align:left}
+  .drawergrid button:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
+
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+  .note{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);margin-bottom:14px}
+
+  /* toast */
+  #toast{position:fixed;bottom:26px;right:26px;background:var(--ink);color:var(--paper);
+    border-left:4px solid var(--red);padding:16px 22px;font-family:var(--mono);font-size:12px;
+    letter-spacing:.1em;text-transform:uppercase;display:none;z-index:300}
+  #toast.on{display:block}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:820px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    .pagehead{padding:92px 0 26px}
+    h1{font-size:clamp(40px,11vw,64px)}
+    h2{font-size:clamp(32px,9vw,52px);margin-bottom:18px}
+    .pagehead .lede{margin:18px 0 22px;font-size:17px}
+    .headticker{gap:8px 20px;padding-top:14px}
+    .headticker span{font-size:11px}
+    .tab{font-size:10.5px;letter-spacing:.08em;padding:12px 4px}
+    .tab .tfull{display:none}
+    .tab .tshort{display:inline}
+    .view{padding:26px 0 48px}
+    .viewhead{margin-bottom:20px}
+    .viewhead p{font-size:15px}
+    .panelhead{padding:14px 18px}
+    .panelbody{padding:18px}
+    .hud{padding-bottom:16px;margin-bottom:18px}
+    .scenario{padding:24px 18px 20px}
+    .scenario p{font-size:16.5px}
+    .opt{padding:14px 16px}
+    .opt .n{font-size:14px}
+    .opt .go{font-size:9.5px;letter-spacing:.12em}
+    .arenafoot{margin-top:20px;padding-top:16px}
+    .arenafoot .btn{width:100%;text-align:center}
+    .stream{min-height:0}
+    .streamlog{max-height:240px;padding:14px 18px;font-size:11.5px}
+    .streamhead{padding:14px 18px}
+    .streamfoot{padding:12px 18px;font-size:9.5px;letter-spacing:.06em}
+    .filters,.tmplrow{grid-template-columns:repeat(2,1fr)}
+    .filters .filter:nth-child(3n),.tmplrow .filter:nth-child(3n){border-right:1px solid var(--line)}
+    .filters .filter:nth-child(2n),.tmplrow .filter:nth-child(2n){border-right:0}
+    .filter{font-size:10.5px;letter-spacing:.06em;padding:12px 12px}
+    .cards{grid-template-columns:1fr;gap:12px}
+    .card{min-height:0;padding:18px}
+    .card .name{font-size:26px}
+    .modal{padding:26px 20px 22px}
+    .modalfoot{gap:12px}
+    .modalfoot .btn{width:100%;text-align:center}
+    .blueprint{padding:22px 18px 34px;font-size:14px;line-height:1.85;min-height:0}
+    .blueprint::after{font-size:9px;right:10px}
+    .drawergrid{grid-template-columns:1fr 1fr}
+    .actions .btn{flex:1 1 auto;text-align:center}
+    #toast{left:18px;right:18px;bottom:18px;text-align:center}
+    body footer{padding:26px 0}
+  }
+  @media(max-width:420px){
+    .tab{font-size:10px;padding:11px 2px}
+    .drawergrid{grid-template-columns:1fr}
+  }
+
+  footer{background:var(--ink);color:var(--paper);padding:34px 0}
+  .footrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .footrow .src{color:rgba(242,240,235,.45)}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
 </head>
-<body id="top">
-<antigen-header><template shadowrootmode="open"><link rel="stylesheet" href="../shared/site-header.css"><nav aria-label="Main">
+<body>
+
+<nav aria-label="Main">
   <div class="wrap navrow">
-    <a href="../index.html" class="mark" style="text-decoration:none">anti<b>gen</b></a>
+    <a href="https://getantigen.com/" class="mark" style="text-decoration:none">anti<b>gen</b></a>
     <div class="navlinks">
-      <a href="../index.html#symptoms">Symptoms</a>
-      <a href="../index.html#wound">The wound</a>
-      <a href="../index.html#diagnosis">Diagnosis</a>
-      <a href="../index.html#treatment">Treatment</a>
-      <a href="../sandbox.html">Sandbox</a>
+      <a href="https://getantigen.com/#symptoms">Symptoms</a>
+      <a href="https://getantigen.com/#wound">The wound</a>
+      <a href="https://getantigen.com/#diagnosis">Diagnosis</a>
+      <a href="https://getantigen.com/#treatment">Treatment</a>
+      <a href="https://getantigen.com/sandbox.html" aria-current="page">Sandbox</a>
       <details class="navdrop">
         <summary>Services</summary>
         <div class="navdrop-menu">
-          <a href="../agency-services.html">Agencies</a>
-          <a href="../brands-services.html">Brands</a>
-          <a href="../adtech-services.html">Adtech &amp; Martech</a>
-          <a href="../startup-services.html">Startups</a>
+          <a href="https://getantigen.com/agency-services.html">Agencies</a>
+          <a href="https://getantigen.com/brands-services.html">Brands</a>
+          <a href="https://getantigen.com/adtech-services.html">Adtech &amp; Martech</a>
+          <a href="https://getantigen.com/startup-services.html">Startups</a>
         </div>
       </details>
     </div>
     <details class="navmobile">
       <summary aria-label="Menu"><span class="hbg"></span></summary>
       <div class="navmobile-panel">
-        <a href="../index.html#symptoms">Symptoms</a>
-        <a href="../index.html#wound">The wound</a>
-        <a href="../index.html#diagnosis">Diagnosis</a>
-        <a href="../index.html#treatment">Treatment</a>
-        <a href="../sandbox.html">Sandbox</a>
-        <a href="../agency-services.html">Agencies</a>
-        <a href="../brands-services.html">Brands</a>
-        <a href="../adtech-services.html">Adtech &amp; Martech</a>
-        <a href="../startup-services.html">Startups</a>
+        <a href="https://getantigen.com/#symptoms">Symptoms</a>
+        <a href="https://getantigen.com/#wound">The wound</a>
+        <a href="https://getantigen.com/#diagnosis">Diagnosis</a>
+        <a href="https://getantigen.com/#treatment">Treatment</a>
+        <a href="https://getantigen.com/sandbox.html" aria-current="page">Sandbox</a>
+        <a href="https://getantigen.com/agency-services.html">Agencies</a>
+        <a href="https://getantigen.com/brands-services.html">Brands</a>
+        <a href="https://getantigen.com/adtech-services.html">Adtech &amp; Martech</a>
+        <a href="https://getantigen.com/startup-services.html">Startups</a>
       </div>
     </details>
-    <a class="btn small" href="../booking.html">Book a call</a>
+    <a class="btn small" href="https://getantigen.com/booking.html">Book a call</a>
   </div>
-</nav></template></antigen-header>
+</nav>
 
-
-
-<!-- Chrome Header -->
-  <header class="chrome-header">
-    <div class="brand-group">
-      <div class="brand-logo">A</div>
-      <div>
-        <h1 class="h3" style="line-height: 1; letter-spacing: -0.01em;">ANTIGEN</h1>
-        <p class="mono" style="font-size: 0.65rem; color: var(--color-grey); text-transform: uppercase; letter-spacing: 0.15em;">Corporate De-blander v1.0</p>
-      </div>
-    </div>
-    
-    <div class="nav-tabs">
-      <button class="nav-btn active" onclick="switchTab('arena')">Combat Arena</button>
-      <button class="nav-btn" onclick="switchTab('matrix')">Neologism Matrix</button>
-      <button class="nav-btn" onclick="switchTab('generator')">Manifesto Engine</button>
-    </div>
-
-    <div>
-      <button class="sound-toggle on" id="soundBtn" onclick="toggleSound()">
-        <span id="soundIcon">🔊</span> SOUND [ON]
-      </button>
-    </div>
-  </header>
-
-  <div class="container">
-
-    <!-- Active View: Game Arena -->
-    <section id="view-arena">
-      <div class="manifesto-banner">
-        <span class="kicker">OPERATION: DE-STAGNATE</span>
-        <h2 class="h1" style="color: var(--color-white); margin: 0.5rem 0;">PROTOCOL BLAND-BUSTER</h2>
-        <p class="typewriter" style="max-width: 80ch; font-size: 1.1rem; line-height: 1.4;">
-          The system is dying. Global culture is being flattened. Choose the precise Antigen Neologism to combat specific institutional pathogens before the corporate compliance threshold triggers system failure.
-        </p>
-      </div>
-
-      <div class="game-layout">
-        <!-- Main Game Interface -->
-        <div class="arena-panel" id="gameArena">
-          <div class="hud-header">
-            <div>
-              <span class="eyebrow" style="color: var(--color-grey)">Rebellion Quotient</span>
-              <div class="h2" id="scoreDisplay" style="color: var(--color-red)">00000</div>
-            </div>
-            <div style="text-align: right;">
-              <span class="eyebrow" style="color: var(--color-grey)">System Multiplier</span>
-              <div class="h3" id="multiplierDisplay">1.0x</div>
-            </div>
-          </div>
-
-          <!-- Compliance Limit Warning -->
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="mono" style="font-size: 0.75rem; font-weight: 800;">CORPORATE COMPLIANCE DRIFT</span>
-            <span class="mono" id="timerLabel" style="font-size: 0.75rem; color: var(--color-red);">0.0s</span>
-          </div>
-          <div class="compliance-bar-container">
-            <div class="compliance-bar" id="progressBar"></div>
-          </div>
-
-          <!-- Scenario Statement -->
-          <div class="scenario-box" id="scenarioText">
-            <!-- Loaded dynamically -->
-          </div>
-
-          <!-- Diagnostic Options -->
-          <div class="options-grid" id="optionsGrid">
-            <!-- Rendered dynamically -->
-          </div>
-
-          <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
-            <div class="mono" style="font-size: 0.7rem; color: var(--color-mute);">
-              Active Strain: <span id="currentCategoryDisplay" style="font-weight: 800; color: var(--color-black);">N/A</span>
-            </div>
-            <button class="btn-brutal red" id="controlGameBtn" onclick="initGameRound()">DEPLOY ANTIGEN (START)</button>
-          </div>
-        </div>
-
-        <!-- Brutalist Terminal Logs -->
-        <div class="terminal-panel">
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.75rem; margin-bottom: 1rem;">
-            <span class="kicker" style="color: var(--color-yellow);">ANTIGEN_INTEL_STREAM</span>
-            <span class="mono" style="font-size: 0.65rem; color: var(--color-grey);">ONLINE</span>
-          </div>
-          <div class="terminal-log" id="terminalLog">
-            <div class="terminal-line info">[SYSTEM INITIALIZED] Awaiting operative instructions...</div>
-            <div class="terminal-line info">[INTEL] 95 high-impact linguistic pathogens loaded.</div>
-          </div>
-          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: flex; justify-content: space-between;">
-            <div class="mono" style="font-size: 0.65rem; color: var(--color-grey);">COGNITIVE_REBELLION_OK</div>
-            <div class="mono" style="font-size: 0.65rem; color: var(--color-red);">ANTIGEN NETWORK: SHIELDED</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Active View: Neologism Database -->
-    <section id="view-matrix" style="display: none;">
-      <div class="manifesto-banner" style="background: var(--color-black);">
-        <span class="kicker" style="color: var(--color-yellow)">Classified Dossier</span>
-        <h2 class="h1" style="color: var(--color-white); margin: 0.5rem 0;">Linguistic Weaponry Database</h2>
-        <p class="mono" style="max-width: 80ch; font-size: 0.85rem; color: var(--color-grey);">
-          Filter the 95 corporate structural disorders designed by the Antigen project. Harness these terms in meeting rooms, reviews, and community pipelines to deconstruct the mechanisms of sameness.
-        </p>
-      </div>
-
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterMatrix('all', this)">All Pathogens (95)</button>
-        <button class="filter-btn" style="border-left: 6px solid var(--color-red)" onclick="filterMatrix('decay', this)">Platform Decay</button>
-        <button class="filter-btn" style="border-left: 6px solid var(--color-grey)" onclick="filterMatrix('flat', this)">Algorithmic Flattening</button>
-        <button class="filter-btn" style="border-left: 6px solid var(--color-black)" onclick="filterMatrix('inertia', this)">Corporate Cowardice</button>
-        <button class="filter-btn" style="border-left: 6px solid var(--color-yellow)" onclick="filterMatrix('deception', this)">Marketing Deception</button>
-        <button class="filter-btn" style="border-left: 6px solid var(--color-blue)" onclick="filterMatrix('process', this)">Process Fetishism</button>
-      </div>
-
-      <div class="matrix-grid" id="matrixGrid">
-        <!-- POPULATED BY JAVASCRIPT -->
-      </div>
-    </section>
-
-    <!-- Active View: Subversive Manifesto Generator -->
-    <section id="view-generator" style="display: none;">
-      <div class="manifesto-banner" style="background: var(--color-magenta);">
-        <span class="kicker">Manifesto Engine</span>
-        <h2 class="h1" style="color: var(--color-white); margin: 0.5rem 0;">THE REBELLION TRANSMITTER</h2>
-        <p class="typewriter" style="max-width: 80ch; font-size: 1.1rem; line-height: 1.4; color: var(--color-white)">
-          Assemble structural counter-attacks. Replace highlighted words to map unique, customized critiques of the stagnation currently plaguing your direct environment.
-        </p>
-      </div>
-
-      <div class="generator-panel">
-        <h3 class="display-title" style="margin-bottom: 1.5rem;">Draft Counter-Manifesto</h3>
-        <p class="mono" style="margin-bottom: 1rem; font-size: 0.8rem; color: var(--color-mute);">
-          [INSTRUCTIONS]: Click the yellow elements to select highly volatile Antigen words to weaponize this copy.
-        </p>
-
-        <div class="manifesto-blueprint" id="blueprintContainer">
-          "We are witnessing a dangerous trend of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span> throughout our industry. Instead of prioritizing long-term vision, organizations are afflicted by <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, which sacrifices raw creativity at the altar of metrics. We must resist the gravitational pull of <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. Our response is simple: reject the standardized frameworks of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and dismantle the systems of <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span> forever."
-        </div>
-
-        <div class="selector-drawer" id="selectorDrawer">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <span class="mono" style="color: var(--color-yellow); font-size: 0.8rem;">CHOOSE AN ANTIGEN REACTION:</span>
-            <button onclick="closeDrawer()" style="background: none; border: none; color: white; cursor: pointer; font-family: var(--font-mono)">[CLOSE]</button>
-          </div>
-          <div class="drawer-grid" id="drawerGrid">
-            <!-- Filled dynamically -->
-          </div>
-        </div>
-
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-          <button class="btn-brutal red" onclick="copyManifesto()">COPY MANIFESTO TEXT</button>
-          <button class="btn-brutal" onclick="randomizeManifesto()">RANDOMIZE ALL SLOTS</button>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- Neologism Detail Modal -->
-  <div class="modal-overlay" id="detailModal">
-    <div class="modal-box">
-      <button class="modal-close" onclick="closeModal()">X</button>
-      <span class="kicker" id="modalCategory" style="color: var(--color-red);">CATEGORY</span>
-      <h2 class="h2" id="modalTitle" style="margin: 1rem 0; border-bottom: var(--rule-hard); padding-bottom: 0.5rem;">WORD</h2>
-      <p class="typewriter" id="modalDesc" style="font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.5; color: var(--color-ink);">
-        Description
-      </p>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span class="mono" style="font-size: 0.75rem; color: var(--color-grey);">VIRAL RISK FACTOR: CRITICAL</span>
-        <button class="btn-brutal yellow" onclick="weaponizeWordFromModal()">LOAD INTO MANIFESTO</button>
-      </div>
+<header class="pagehead">
+  <div class="wrap">
+    <span class="kicker">Sandbox · Protocol Bland-Buster</span>
+    <h1>Name the pathogen <span class="r">before it names you.</span></h1>
+    <p class="lede">Sameness is not an accident. It is a set of specific, repeatable, diagnosable failures — and most organisations have no vocabulary for any of them. This is that vocabulary: 95 terms for the mechanisms of average, a live diagnosis drill, and an engine for turning other people's manifestos against themselves.</p>
+    <div class="headticker" aria-hidden="true">
+      <span>95 PATHOGENS CATALOGUED</span><span>5 STRAIN FAMILIES</span><span>14 LIVE SCENARIOS</span><span>6 HOST MANIFESTOS</span>
     </div>
   </div>
+</header>
 
-  <!-- Custom Toast Notification -->
-  <div id="toast">MANIFESTO COPIED TO CLIPBOARD! Ready to broadcast.</div>
+<div class="tabbar">
+  <div class="wrap">
+    <div class="tabrow" role="tablist" aria-label="Sandbox modules">
+      <button class="tab" role="tab" id="tab-arena" aria-controls="view-arena" aria-selected="true" onclick="switchTab('arena')"><span class="tfull">01 / Diagnosis Arena</span><span class="tshort">01 / Arena</span></button>
+      <button class="tab" role="tab" id="tab-matrix" aria-controls="view-matrix" aria-selected="false" onclick="switchTab('matrix')"><span class="tfull">02 / Pathogen Index</span><span class="tshort">02 / Index</span></button>
+      <button class="tab" role="tab" id="tab-generator" aria-controls="view-generator" aria-selected="false" onclick="switchTab('generator')"><span class="tfull">03 / Counter-Manifesto</span><span class="tshort">03 / Manifesto</span></button>
+    </div>
+  </div>
+</div>
 
-  <!-- Database and Game Controller Scripts -->
-<footer class="antigen-upload-footer">
-  <div class="footer-wordmark">anti<strong>gen</strong><span>.</span></div>
-  <div class="footer-meta">
-    Protocol Bland-Buster ? Standalone HTML Export<br>
-    Composable. Distributed. Insurgent.
+<main>
+  <!-- 01 ARENA -->
+  <section class="view" id="view-arena" role="tabpanel" aria-labelledby="tab-arena">
+    <div class="wrap">
+      <div class="viewhead">
+        <h2>Diagnosis Arena</h2>
+        <p>A symptom appears. You have twelve seconds to name the strain. Accuracy compounds; hesitation resets the multiplier. This is what a diagnosis-first practice feels like under time pressure.</p>
+      </div>
+
+      <div class="arenagrid">
+        <div class="panel">
+          <div class="panelhead">
+            <span class="t">Live diagnostic</span>
+            <span class="src">Session · unscored, unsaved</span>
+          </div>
+          <div class="panelbody">
+            <div class="hud">
+              <div>
+                <span class="hudlab">Rebellion quotient</span>
+                <div class="hudnum" id="scoreDisplay">00000</div>
+              </div>
+              <div style="text-align:right">
+                <span class="hudlab">Multiplier</span>
+                <div class="hudnum sm" id="multiplierDisplay">1.0×</div>
+              </div>
+            </div>
+
+            <div class="driftrow">
+              <span>Compliance drift</span>
+              <span class="val" id="timerLabel">—</span>
+            </div>
+            <div class="bartrack"><div class="barfill" id="progressBar"></div></div>
+
+            <div class="scenario" id="scenarioBox">
+              <span class="tag" id="scenarioTag">STANDBY</span>
+              <p class="idle" id="scenarioText">No incident loaded. Deploy the antigen to begin the drill.</p>
+            </div>
+
+            <div class="options" id="optionsGrid"></div>
+
+            <div class="arenafoot">
+              <div class="strain">Active strain: <b id="currentCategoryDisplay">—</b></div>
+              <button class="btn" id="controlGameBtn" onclick="initGameRound()">Deploy antigen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stream">
+          <div class="streamhead">
+            <span class="t">Antigen_intel_stream</span>
+            <span class="s">Online</span>
+          </div>
+          <div class="streamlog" id="terminalLog" aria-live="polite">
+            <div class="logline">[SYSTEM] Diagnostic bay initialised. Awaiting operator.</div>
+            <div class="logline">[INTEL] 95 linguistic pathogens loaded across 5 strain families.</div>
+          </div>
+          <div class="streamfoot">
+            <span>COGNITIVE_REBELLION_OK</span>
+            <span>NETWORK: SHIELDED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 MATRIX -->
+  <section class="view" id="view-matrix" role="tabpanel" aria-labelledby="tab-matrix" hidden>
+    <div class="wrap">
+      <div class="viewhead">
+        <h2>Pathogen Index</h2>
+        <p>Ninety-five structural disorders, sorted into five families. Every term is a diagnosis you can say out loud in a review, a pitch debrief, or a board paper — which is the only reason to have a vocabulary at all.</p>
+      </div>
+
+      <div class="filters" id="filterBar">
+        <button class="filter" aria-pressed="true" onclick="filterMatrix('all',this)">All · <span id="countAll">95</span></button>
+        <button class="filter" aria-pressed="false" onclick="filterMatrix('decay',this)"><span class="swatch s-decay"></span>Platform decay</button>
+        <button class="filter" aria-pressed="false" onclick="filterMatrix('flat',this)"><span class="swatch s-flat"></span>Algorithmic flattening</button>
+        <button class="filter" aria-pressed="false" onclick="filterMatrix('inertia',this)"><span class="swatch s-inertia"></span>Corporate cowardice</button>
+        <button class="filter" aria-pressed="false" onclick="filterMatrix('deception',this)"><span class="swatch s-deception"></span>Marketing deception</button>
+        <button class="filter" aria-pressed="false" onclick="filterMatrix('process',this)"><span class="swatch s-process"></span>Process fetishism</button>
+      </div>
+
+      <div class="cards" id="matrixGrid"></div>
+    </div>
+  </section>
+
+  <!-- 03 GENERATOR -->
+  <section class="view" id="view-generator" role="tabpanel" aria-labelledby="tab-generator" hidden>
+    <div class="wrap">
+      <div class="viewhead">
+        <h2>Counter-Manifesto</h2>
+        <p>Load a live holding-company statement, then inject the diagnosis into its own language. The point is not mockery. The point is that these sentences accept any noun you put in them — which is the diagnosis.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panelhead">
+          <span class="t">Host blueprint</span>
+          <span class="src">Public positioning copy · paraphrased</span>
+        </div>
+        <div class="panelbody">
+          <div class="tmplrow" id="tmplRow">
+            <button class="filter" id="btn-tmpl-antigen" aria-pressed="true" onclick="loadTemplate('antigen')">Antigen original</button>
+            <button class="filter" id="btn-tmpl-wpp" aria-pressed="false" onclick="loadTemplate('wpp')">WPP</button>
+            <button class="filter" id="btn-tmpl-omnicom" aria-pressed="false" onclick="loadTemplate('omnicom')">Omnicom</button>
+            <button class="filter" id="btn-tmpl-ogilvy" aria-pressed="false" onclick="loadTemplate('ogilvy')">Ogilvy</button>
+            <button class="filter" id="btn-tmpl-publicis" aria-pressed="false" onclick="loadTemplate('publicis')">Publicis</button>
+            <button class="filter" id="btn-tmpl-accenture" aria-pressed="false" onclick="loadTemplate('accenture')">Accenture Song</button>
+          </div>
+
+          <p class="note">[ INSTRUCTION ] Click any underlined slot to swap in a pathogen. Randomise to see how little the sentence resists.</p>
+
+          <div class="blueprint" id="blueprintContainer"></div>
+
+          <div class="drawer" id="selectorDrawer">
+            <div class="drawerhead">
+              <span class="t">Select a pathogen</span>
+              <button onclick="closeDrawer()">[ CLOSE ]</button>
+            </div>
+            <div class="drawergrid" id="drawerGrid"></div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" onclick="copyManifesto()">Copy subverted text</button>
+            <button class="btn ghost" onclick="randomizeManifesto()">Randomise all slots</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="overlay" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="x" onclick="closeModal()" aria-label="Close">✕</button>
+    <span class="kicker" id="modalCategory">Category</span>
+    <h2 id="modalTitle">Word</h2>
+    <p class="def" id="modalDesc">Description</p>
+    <div class="modalfoot">
+      <span class="src" id="modalRank">Classification</span>
+      <button class="btn" onclick="weaponizeWordFromModal()">Load into manifesto</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<footer>
+  <div class="wrap footrow">
+    <span class="mark">anti<b>gen</b></span>
+    <span class="src">Composable. Distributed. Insurgent. · getantigen.com</span>
   </div>
 </footer>
 
-  <script>
-    // System data: All 95 Neologisms cataloged perfectly
+<script>
     const neologisms = [
       // 1. Platform Decay
       { name: "Degradaissance", desc: "A systematic, cultural, and technical rebirth of decreasing quality, disguised as progress.", cat: "decay", rank: "Level A Pathogen" },
@@ -1046,401 +659,314 @@
       { text: "The brand removes all color, voice, and unique claims from its public copy to completely eliminate the risk of public pushback.", answer: "Brandwashing", cat: "deception" }
     ];
 
-    // Sound FX engine via Web Audio API (Fully offline and procedurally synthesized)
-    let audioCtx = null;
-    let soundEnabled = true;
-
-    function getAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Real Agency Host Templates
+    const templates = {
+      antigen: {
+        title: "Antigen Counter-Manifesto",
+        source: "Antigen Original",
+        text: `"We are witnessing a dangerous trend of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span> throughout our industry. Instead of prioritizing long-term vision, organizations are afflicted by <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, which sacrifices raw creativity at the altar of metrics. We must resist the gravitational pull of <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. Our response is simple: reject the standardized frameworks of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and dismantle the systems of <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span> forever."`
+      },
+      wpp: {
+        title: "WPP (Creative Transformation)",
+        source: "wpp.com",
+        text: `"We are a creative transformation holding company. We use the calculated power of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span> to build a highly optimized future for our clients. By industrializing talent and consolidating our programmatic networks with <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, we completely protect brand safety against rogue human originality. Our core offering delivers a strategic injection of <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span> to guarantee stable, predictable quarters, transforming messy artistic experiments into corporate <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and administrative <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      },
+      omnicom: {
+        title: "Omnicom Group (Interconnected Scale)",
+        source: "omc.com",
+        text: `"Omnicom provides client-centric solutions through a globally inter-connected pipeline of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>. Our global portfolio ensures that individual creative flare is risk-mitigated through <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span> and scaled predictability. We offer clients unmatched scale by standardizing all pipelines with <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>, ensuring that your enterprise remains shielded from authentic risk and enjoys the serene stability of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      },
+      ogilvy: {
+        title: "Ogilvy (Inspire & Impact)",
+        source: "ogilvy.com",
+        text: `"We exist to make brands matter. We inspire people to impact the world through the power of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>. In our pursuit of 'divine compliance', we systematically replace unpredictable ideas with proven, algorithmic <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>. True curiosity is fine, but predictable engagement is better; thus, we focus on scaling <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. This is our formula for converting art into <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and delivering perfect <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span> to our shareholders."`
+      },
+      publicis: {
+        title: "Publicis Groupe (The Power of One)",
+        source: "publicisgroupe.com",
+        text: `"We lead by delivering 'The Power of <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>'. Our operational alchemy blends data science, programmatic media, and modular <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>. By dismantling traditional agency walls, we consolidate human labor into a seamless <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span> machine. We don't believe in boutique thinking; we believe in the endless algorithmic distribution of <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> to ensure your organization undergoes smooth, friction-free <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
+      },
+      accenture: {
+        title: "Accenture Song (Relevance-Driven Growth)",
+        source: "accenture.com",
+        text: `"We design growth through systemic, data-driven <span class="blueprint-slot" id="slot-1" onclick="openDrawer('slot-1')">[Select Word]</span>. Operating at the modern intersection of consulting frameworks, engineering lines, and productized <span class="blueprint-slot" id="slot-2" onclick="openDrawer('slot-2')">[Select Word]</span>, we replace artisanal creative risks with streamlined <span class="blueprint-slot" id="slot-3" onclick="openDrawer('slot-3')">[Select Word]</span>. The future belongs to businesses that can scale their messaging without soul; we achieve this through digital <span class="blueprint-slot" id="slot-4" onclick="openDrawer('slot-4')">[Select Word]</span> and algorithmic <span class="blueprint-slot" id="slot-5" onclick="openDrawer('slot-5')">[Select Word]</span>."`
       }
-      return audioCtx;
+    };
+
+  const CAT_LABEL = {
+    decay:'Platform decay',
+    flat:'Algorithmic flattening',
+    inertia:'Corporate cowardice',
+    deception:'Marketing deception',
+    process:'Process fetishism'
+  };
+
+  /* ---------- tabs ---------- */
+  function switchTab(tabId){
+    ['arena','matrix','generator'].forEach(function(id){
+      document.getElementById('view-'+id).hidden = (id !== tabId);
+      document.getElementById('tab-'+id).setAttribute('aria-selected', id === tabId ? 'true' : 'false');
+    });
+    if (tabId === 'matrix') renderMatrix(activeFilter);
+    const bar = document.querySelector('.tabbar');
+    const y = bar.getBoundingClientRect().top + window.pageYOffset - 58;
+    if (window.pageYOffset > y) window.scrollTo({top:y, behavior:'smooth'});
+  }
+
+  /* ---------- arena ---------- */
+  let score = 0, multiplier = 1.0, gameActive = false;
+  let currentScenario = null, timerInterval = null, timeElapsed = 0;
+  const timeLimit = 12;
+
+  function logTerminal(message, type){
+    const log = document.getElementById('terminalLog');
+    const line = document.createElement('div');
+    line.className = 'logline' + (type ? ' ' + type : '');
+    const t = new Date().toLocaleTimeString('en-GB', {hour12:false});
+    line.innerText = '[' + t + '] ' + message;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function updateProgressBar(){
+    const percent = (timeElapsed / timeLimit) * 100;
+    const bar = document.getElementById('progressBar');
+    bar.style.width = percent + '%';
+    bar.classList.toggle('crit', percent > 70);
+    document.getElementById('timerLabel').innerText = Math.max(0, timeLimit - timeElapsed).toFixed(1) + 's';
+  }
+
+  function initGameRound(){
+    if (!gameActive){
+      gameActive = true;
+      document.getElementById('controlGameBtn').innerText = 'Skip / next strain';
+      logTerminal('Counter-measures activated. Drill live.', 'hit');
     }
+    clearInterval(timerInterval);
+    timeElapsed = 0;
+    updateProgressBar();
 
-    function playSound(type) {
-      if (!soundEnabled) return;
-      try {
-        const ctx = getAudioContext();
-        if (ctx.state === 'suspended') ctx.resume();
+    currentScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+    const box = document.getElementById('scenarioText');
+    box.classList.remove('idle');
+    box.innerText = '“' + currentScenario.text + '”';
+    document.getElementById('scenarioTag').innerText = 'INCIDENT DETECTED';
+    document.getElementById('currentCategoryDisplay').innerText = CAT_LABEL[currentScenario.cat] || currentScenario.cat;
 
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        const now = ctx.currentTime;
-
-        if (type === 'success') {
-          // Bouncy upbeat retro synthesizer double-chime
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(330, now);
-          osc.frequency.setValueAtTime(660, now + 0.08);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-          osc.start(now);
-          osc.stop(now + 0.3);
-        } else if (type === 'error') {
-          // Harsh descending buzz (Brutalist error tone)
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(120, now);
-          osc.frequency.linearRampToValueAtTime(60, now + 0.25);
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-          osc.start(now);
-          osc.stop(now + 0.3);
-        } else if (type === 'click') {
-          // Light high-frequency click
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(1000, now);
-          gain.gain.setValueAtTime(0.05, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-          osc.start(now);
-          osc.stop(now + 0.06);
-        } else if (type === 'glitch') {
-          // Low sweeping filter synth sweep
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(80, now);
-          osc.frequency.exponentialRampToValueAtTime(400, now + 0.15);
-          gain.gain.setValueAtTime(0.1, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-          osc.start(now);
-          osc.stop(now + 0.2);
-        }
-      } catch (e) {
-        console.warn("Audio Context blocked or un-supported:", e);
-      }
+    let options = [currentScenario.answer];
+    const pool = neologisms.filter(function(n){ return n.name !== currentScenario.answer; });
+    while (options.length < 3){
+      const cand = pool[Math.floor(Math.random() * pool.length)].name;
+      if (options.indexOf(cand) === -1) options.push(cand);
     }
+    options.sort(function(){ return Math.random() - 0.5; });
 
-    function toggleSound() {
-      soundEnabled = !soundEnabled;
-      const btn = document.getElementById('soundBtn');
-      if (soundEnabled) {
-        btn.classList.add('on');
-        btn.innerHTML = "🔊 SOUND [ON]";
-        playSound('click');
-      } else {
-        btn.classList.remove('on');
-        btn.innerHTML = "🔇 SOUND [OFF]";
-      }
-    }
+    const grid = document.getElementById('optionsGrid');
+    grid.innerHTML = '';
+    options.forEach(function(opt){
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.type = 'button';
+      btn.innerHTML = '<span class="n"></span><span class="go">Diagnose →</span>';
+      btn.querySelector('.n').innerText = opt;
+      btn.onclick = function(){ submitAnswer(opt, btn); };
+      grid.appendChild(btn);
+    });
 
-    // Tab Switching Mechanics
-    function switchTab(tabId) {
-      playSound('click');
-      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-      
-      document.getElementById('view-' + tabId).style.display = 'block';
-      event.target.classList.add('active');
-
-      if (tabId === 'matrix') {
-        renderMatrix('all');
-      }
-    }
-
-    // --- COMBAT ARENA GAMEPLAY MECHANICS ---
-    let score = 0;
-    let multiplier = 1.0;
-    let gameActive = false;
-    let currentScenario = null;
-    let timerInterval = null;
-    let timeElapsed = 0;
-    const timeLimit = 12; // Seconds to answer each scenario
-
-    function logTerminal(message, type = 'info') {
-      const log = document.getElementById('terminalLog');
-      const line = document.createElement('div');
-      line.className = `terminal-line ${type}`;
-      line.innerText = `[${new Date().toLocaleTimeString()}] ${message}`;
-      log.appendChild(line);
-      log.scrollTop = log.scrollHeight;
-    }
-
-    function initGameRound() {
-      if (!gameActive) {
-        gameActive = true;
-        document.getElementById('controlGameBtn').innerText = "SKIP / NEXT STRAIN";
-        logTerminal("ANTIGEN COUNTER-MEASURES ACTIVATED.", "success");
-      }
-      
-      playSound('glitch');
-      clearInterval(timerInterval);
-      timeElapsed = 0;
+    timerInterval = setInterval(function(){
+      timeElapsed += 0.1;
       updateProgressBar();
+      if (timeElapsed >= timeLimit) handleTimeout();
+    }, 100);
+  }
 
-      // Choose a random scenario
-      currentScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
-      document.getElementById('scenarioText').innerText = `"${currentScenario.text}"`;
-      document.getElementById('currentCategoryDisplay').innerText = currentScenario.cat.toUpperCase();
-      
-      // Select options: Correct + 2 random incorrects
-      let options = [currentScenario.answer];
-      const incorrectPool = neologisms.filter(n => n.name !== currentScenario.answer);
-      
-      while (options.length < 3) {
-        const randOpt = incorrectPool[Math.floor(Math.random() * incorrectPool.length)].name;
-        if (!options.includes(randOpt)) {
-          options.push(randOpt);
-        }
+  function lockOptions(){
+    document.querySelectorAll('.opt').forEach(function(b){ b.disabled = true; });
+  }
+
+  function markCorrect(){
+    document.querySelectorAll('.opt').forEach(function(b){
+      if (b.querySelector('.n').innerText === currentScenario.answer){
+        b.classList.add('correct');
+        b.querySelector('.go').innerText = 'Correct';
       }
-      
-      // Shuffle options
-      options.sort(() => Math.random() - 0.5);
+    });
+  }
 
-      // Render Option Cards
-      const grid = document.getElementById('optionsGrid');
-      grid.innerHTML = "";
-      options.forEach(opt => {
-        const card = document.createElement('div');
-        card.className = "option-card";
-        card.innerHTML = `
-          <span class="mono" style="font-weight:700;">${opt}</span>
-          <span class="btn-brutal" style="padding:0.25rem 0.5rem; font-size:0.7rem; box-shadow: 2px 2px 0 #000;">DIAGNOSE</span>
-        `;
-        card.onclick = () => submitAnswer(opt, card);
-        grid.appendChild(card);
-      });
+  function submitAnswer(chosen, element){
+    if (!gameActive || !currentScenario) return;
+    clearInterval(timerInterval);
+    lockOptions();
 
-      // Start timer tick
-      timerInterval = setInterval(() => {
-        timeElapsed += 0.1;
-        updateProgressBar();
-        if (timeElapsed >= timeLimit) {
-          handleTimeout();
-        }
-      }, 100);
-    }
-
-    function updateProgressBar() {
-      const percent = (timeElapsed / timeLimit) * 100;
-      const bar = document.getElementById('progressBar');
-      bar.style.width = `${percent}%`;
-      document.getElementById('timerLabel').innerText = `${Math.max(0, (timeLimit - timeElapsed)).toFixed(1)}s`;
-      
-      // Danger colors
-      if (percent > 70) {
-        bar.style.background = 'var(--color-red)';
-      } else {
-        bar.style.background = 'linear-gradient(90deg, var(--color-yellow), var(--color-red))';
-      }
-    }
-
-    function submitAnswer(chosen, element) {
-      if (!gameActive || !currentScenario) return;
-      clearInterval(timerInterval);
-
-      const allCards = document.querySelectorAll('.option-card');
-      allCards.forEach(card => card.style.pointerEvents = 'none');
-
-      if (chosen === currentScenario.answer) {
-        // Success
-        playSound('success');
-        element.classList.add('correct');
-        const pointsAwarded = Math.round((timeLimit - timeElapsed) * 100 * multiplier);
-        score += pointsAwarded;
-        multiplier = parseFloat((multiplier + 0.2).toFixed(1));
-        
-        document.getElementById('scoreDisplay').innerText = score.toString().padStart(5, '0');
-        document.getElementById('multiplierDisplay').innerText = `${multiplier}x`;
-        
-        logTerminal(`[DIAGNOSIS ACCURATE]: Cleansed network of ${chosen}. +${pointsAwarded} pts!`, 'success');
-        
-        // Trigger visual success flash on active panels
-        const arena = document.getElementById('gameArena');
-        arena.style.borderColor = "#4ade80";
-        setTimeout(() => arena.style.borderColor = "var(--color-black)", 400);
-
-      } else {
-        // Failure
-        playSound('error');
-        element.classList.add('incorrect');
-        
-        // Highlight correct answer
-        allCards.forEach(card => {
-          if (card.innerText.includes(currentScenario.answer)) {
-            card.classList.add('correct');
-          }
-        });
-
-        multiplier = 1.0;
-        document.getElementById('multiplierDisplay').innerText = "1.0x";
-        logTerminal(`[CRITICAL WRONG DIAGNOSIS]: Target infected with ${currentScenario.answer}. Network reset.`, 'error');
-        
-        const arena = document.getElementById('gameArena');
-        arena.style.borderColor = "var(--color-red)";
-        setTimeout(() => arena.style.borderColor = "var(--color-black)", 400);
-      }
-
-      // Automatically queue next round after delay
-      setTimeout(() => {
-        initGameRound();
-      }, 1800);
-    }
-
-    function handleTimeout() {
-      clearInterval(timerInterval);
-      playSound('error');
-      logTerminal(`[COMPLIANCE THRESHOLD BREACHED]: System succumbed to ${currentScenario.answer}.`, 'error');
-      
-      const allCards = document.querySelectorAll('.option-card');
-      allCards.forEach(card => {
-        card.style.pointerEvents = 'none';
-        if (card.innerText.includes(currentScenario.answer)) {
-          card.classList.add('correct');
-        }
-      });
-
+    if (chosen === currentScenario.answer){
+      element.classList.add('correct');
+      element.querySelector('.go').innerText = 'Correct';
+      const pointsAwarded = Math.round((timeLimit - timeElapsed) * 100 * multiplier);
+      score += pointsAwarded;
+      multiplier = parseFloat((multiplier + 0.2).toFixed(1));
+      document.getElementById('scoreDisplay').innerText = String(score).padStart(5, '0');
+      document.getElementById('multiplierDisplay').innerText = multiplier + '×';
+      document.getElementById('scenarioTag').innerText = 'DIAGNOSIS ACCURATE';
+      logTerminal('Diagnosis accurate — ' + chosen + ' isolated. +' + pointsAwarded + ' pts.', 'hit');
+    } else {
+      element.classList.add('wrong');
+      element.querySelector('.go').innerText = 'Misdiagnosis';
+      markCorrect();
       multiplier = 1.0;
-      document.getElementById('multiplierDisplay').innerText = "1.0x";
-      
-      setTimeout(() => {
-        initGameRound();
-      }, 1800);
+      document.getElementById('multiplierDisplay').innerText = '1.0×';
+      document.getElementById('scenarioTag').innerText = 'MISDIAGNOSIS';
+      logTerminal('Misdiagnosis — the strain was ' + currentScenario.answer + '. Multiplier reset.', 'miss');
     }
+    setTimeout(initGameRound, 1900);
+  }
 
+  function handleTimeout(){
+    clearInterval(timerInterval);
+    lockOptions();
+    markCorrect();
+    multiplier = 1.0;
+    document.getElementById('multiplierDisplay').innerText = '1.0×';
+    document.getElementById('scenarioTag').innerText = 'COMPLIANCE THRESHOLD BREACHED';
+    logTerminal('Compliance threshold breached — system succumbed to ' + currentScenario.answer + '.', 'miss');
+    setTimeout(initGameRound, 1900);
+  }
 
-    // --- NEOLOGISM DATABASE EXPLORER ---
-    function renderMatrix(filterCat) {
-      const grid = document.getElementById('matrixGrid');
-      grid.innerHTML = "";
+  /* ---------- pathogen index ---------- */
+  let activeFilter = 'all';
 
-      const filteredList = filterCat === 'all' ? neologisms : neologisms.filter(n => n.cat === filterCat);
+  function renderMatrix(filterCat){
+    const grid = document.getElementById('matrixGrid');
+    grid.innerHTML = '';
+    const list = filterCat === 'all' ? neologisms : neologisms.filter(function(n){ return n.cat === filterCat; });
+    list.forEach(function(neo){
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'card c-' + neo.cat;
+      card.onclick = function(){ showDetail(neo); };
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.innerText = (CAT_LABEL[neo.cat] || neo.cat) + ' · ' + neo.rank;
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.innerText = neo.name;
+      const desc = document.createElement('p');
+      desc.className = 'desc';
+      desc.innerText = neo.desc;
+      const go = document.createElement('div');
+      go.className = 'go';
+      go.innerText = 'Open dossier →';
+      card.appendChild(meta); card.appendChild(name); card.appendChild(desc); card.appendChild(go);
+      grid.appendChild(card);
+    });
+  }
 
-      filteredList.forEach(neo => {
-        const card = document.createElement('div');
-        card.className = `matrix-card cat-${neo.cat}`;
-        card.onclick = () => showDetail(neo);
-        
-        card.innerHTML = `
-          <div>
-            <div class="mono" style="font-size: 0.6rem; color: var(--color-grey); text-transform: uppercase;">${neo.cat} // ${neo.rank}</div>
-            <div class="matrix-card-title">${neo.name}</div>
-          </div>
-          <p class="matrix-card-desc">${neo.desc}</p>
-        `;
-        grid.appendChild(card);
-      });
-    }
+  function filterMatrix(category, btnElement){
+    activeFilter = category;
+    document.querySelectorAll('#filterBar .filter').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    btnElement.setAttribute('aria-pressed','true');
+    renderMatrix(category);
+  }
 
-    function filterMatrix(category, btnElement) {
-      playSound('click');
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btnElement.classList.add('active');
-      renderMatrix(category);
-    }
+  let activeSelectedWord = '';
 
-    let activeSelectedWord = "";
+  function showDetail(neo){
+    activeSelectedWord = neo.name;
+    document.getElementById('modalCategory').innerText = CAT_LABEL[neo.cat] || neo.cat;
+    document.getElementById('modalTitle').innerText = neo.name;
+    document.getElementById('modalDesc').innerText = neo.desc;
+    document.getElementById('modalRank').innerText = 'Classification · ' + neo.rank;
+    document.getElementById('detailModal').classList.add('on');
+  }
 
-    function showDetail(neo) {
-      playSound('glitch');
-      activeSelectedWord = neo.name;
-      document.getElementById('modalCategory').innerText = `${neo.cat.toUpperCase()} PATHOGENIC CLASSIFICATION`;
-      document.getElementById('modalTitle').innerText = neo.name;
-      document.getElementById('modalDesc').innerText = neo.desc;
-      
-      // Update color highlight dynamically based on category
-      const borderColors = {
-        decay: 'var(--color-red)',
-        flat: 'var(--color-grey)',
-        inertia: 'var(--color-black)',
-        deception: 'var(--color-yellow)',
-        process: 'var(--color-blue)'
-      };
-      document.getElementById('modalCategory').style.color = borderColors[neo.cat];
-      
-      document.getElementById('detailModal').style.display = 'flex';
-    }
+  function closeModal(){
+    document.getElementById('detailModal').classList.remove('on');
+  }
 
-    function closeModal() {
-      playSound('click');
-      document.getElementById('detailModal').style.display = 'none';
-    }
+  document.getElementById('detailModal').addEventListener('click', function(e){
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ closeModal(); closeDrawer(); }
+  });
 
-    function weaponizeWordFromModal() {
-      // Switch view and insert word directly into active blueprint
-      closeModal();
-      switchTab('generator');
-      // Highlight the first empty slot or randomly select one to fill
-      const slots = ['slot-1', 'slot-2', 'slot-3', 'slot-4', 'slot-5'];
-      const targetSlot = slots.find(s => document.getElementById(s).innerText.includes('[Select')) || 'slot-1';
-      setSlotValue(targetSlot, activeSelectedWord);
-    }
+  function weaponizeWordFromModal(){
+    closeModal();
+    switchTab('generator');
+    const slots = ['slot-1','slot-2','slot-3','slot-4','slot-5'];
+    let target = slots.find(function(s){
+      const el = document.getElementById(s);
+      return el && el.innerText.indexOf('[Select') !== -1;
+    }) || 'slot-1';
+    setSlotValue(target, activeSelectedWord);
+  }
 
+  /* ---------- counter-manifesto ---------- */
+  let currentActiveSlotId = null;
+  let activeTemplateKey = 'antigen';
 
-    // --- SUBVERSIVE MANIFESTO GENERATOR ---
-    let currentActiveSlotId = null;
+  function loadTemplate(key){
+    activeTemplateKey = key;
+    document.querySelectorAll('#tmplRow .filter').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    const sel = document.getElementById('btn-tmpl-' + key);
+    if (sel) sel.setAttribute('aria-pressed','true');
+    document.getElementById('blueprintContainer').innerHTML = templates[key].text;
+    randomizeManifesto();
+    closeDrawer();
+  }
 
-    function openDrawer(slotId) {
-      playSound('click');
-      currentActiveSlotId = slotId;
-      const drawer = document.getElementById('selectorDrawer');
-      const grid = document.getElementById('drawerGrid');
-      grid.innerHTML = "";
+  function openDrawer(slotId){
+    currentActiveSlotId = slotId;
+    const drawer = document.getElementById('selectorDrawer');
+    const grid = document.getElementById('drawerGrid');
+    grid.innerHTML = '';
+    drawer.classList.add('on');
+    const sorted = neologisms.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
+    sorted.forEach(function(neo){
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.innerText = neo.name;
+      b.onclick = function(){ setSlotValue(slotId, neo.name); closeDrawer(); };
+      grid.appendChild(b);
+    });
+    drawer.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }
 
-      drawer.style.display = 'block';
+  function closeDrawer(){
+    document.getElementById('selectorDrawer').classList.remove('on');
+  }
 
-      // Sort alphabetically and display inside selector drawer
-      const sortedNeo = [...neologisms].sort((a,b) => a.name.localeCompare(b.name));
-      sortedNeo.forEach(neo => {
-        const div = document.createElement('div');
-        div.className = "drawer-item";
-        div.innerText = neo.name;
-        div.onclick = () => {
-          setSlotValue(slotId, neo.name);
-          closeDrawer();
-        };
-        grid.appendChild(div);
-      });
-    }
+  function setSlotValue(slotId, value){
+    const slot = document.getElementById(slotId);
+    if (!slot) return;
+    slot.innerText = value;
+    slot.classList.add('set');
+  }
 
-    function closeDrawer() {
-      document.getElementById('selectorDrawer').style.display = 'none';
-    }
+  function randomizeManifesto(){
+    ['slot-1','slot-2','slot-3','slot-4','slot-5'].forEach(function(slotId){
+      setSlotValue(slotId, neologisms[Math.floor(Math.random() * neologisms.length)].name);
+    });
+  }
 
-    function setSlotValue(slotId, value) {
-      playSound('success');
-      const slot = document.getElementById(slotId);
-      slot.innerText = value;
-      slot.style.background = 'var(--color-red)';
-      slot.style.color = 'white';
-    }
+  function copyManifesto(){
+    const text = document.getElementById('blueprintContainer').innerText;
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(el);
+    const toast = document.getElementById('toast');
+    toast.innerText = activeTemplateKey + ' manifesto copied';
+    toast.classList.add('on');
+    setTimeout(function(){ toast.classList.remove('on'); }, 2600);
+  }
 
-    function randomizeManifesto() {
-      playSound('glitch');
-      const slots = ['slot-1', 'slot-2', 'slot-3', 'slot-4', 'slot-5'];
-      slots.forEach(slotId => {
-        const randomWord = neologisms[Math.floor(Math.random() * neologisms.length)].name;
-        setSlotValue(slotId, randomWord);
-      });
-    }
-
-    function copyManifesto() {
-      const container = document.getElementById('blueprintContainer');
-      const text = container.innerText;
-      
-      // Standard clipboard copy fallback structure per rules
-      const el = document.createElement('textarea');
-      el.value = text;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-
-      // Trigger custom Brutalist Toast
-      playSound('success');
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 3000);
-    }
-
-    // Auto-load on load
-    window.onload = function() {
-      // Render Initial View
-      renderMatrix('all');
-      randomizeManifesto();
-    }
-  </script>
+  window.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('countAll').innerText = neologisms.length;
+    renderMatrix('all');
+    loadTemplate('antigen');
+  });
+</script>
 </body>
 </html>
