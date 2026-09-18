@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Insurgent Questions · Multiplier Global Exchange for Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ───────────────────────────────────────────────── */
+:root {
+  --color-red: #e31d28;
+  --color-magenta: #e3195b;
+  --color-crimson: #b11226;
+  --color-black: #111111;
+  --color-ink: #1e1c17;
+  --color-white: #ffffff;
+  --color-paper: #f8f7f6;
+  --color-smoke: #e8e8e8;
+  --color-grey: #9fa2a4;
+  --color-blue: #08a7d8;
+  --color-yellow: #ffc000;
+  --gradient-insurgence: linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --gradient-red-dark: linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-display: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+  --font-sans: 'Montserrat', Inter, Arial, sans-serif;
+  --rule: 1px solid rgba(17,17,17,.14);
+  --shadow-hard: 8px 8px 0 rgba(17,17,17,.95);
+  --shadow-red: 8px 8px 0 rgba(227,29,40,.95);
+  --page-pad: clamp(1.25rem, 4vw, 3.5rem);
+
+  /* Vector accent colours — used only as left-border accents on V3 system */
+  --v1: #e31d28;
+  --v2: #e3195b;
+  --v3: #08a7d8;
+  --v4: #b11226;
+  --v5: #e31d28;
+  --v6: #1e1c17;
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-paper);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  font-size: clamp(.95rem, 1.1vw, 1.1rem);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+::selection { background: var(--color-yellow); color: var(--color-black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--color-red); }
+
+/* ── HEADER — insurgence gradient ───────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--gradient-insurgence);
+  padding: 2.5rem var(--page-pad) 2rem;
+  color: var(--color-white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(0,0,0,.22), transparent 36%),
+    linear-gradient(90deg, rgba(0,0,0,.14), transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .5rem;
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: .85;
+  letter-spacing: -.01em;
+  color: var(--color-white);
+  margin-bottom: .4rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.header-badge {
+  text-align: right;
+  border-left: 4px solid var(--color-yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.badge-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: .2rem;
+}
+.badge-count {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-yellow);
+  letter-spacing: .03em;
+}
+.badge-note {
+  font-size: .68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  margin-top: .2rem;
+}
+
+/* ── PHASE 01 BLOCK ──────────────────────────────────────────────────── */
+.phase-section {
+  background: var(--color-ink);
+  padding: 3rem var(--page-pad);
+}
+.phase-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase-eyebrow {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: .75rem;
+}
+.phase-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.02em;
+  color: var(--color-white);
+  margin-bottom: 2.5rem;
+}
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  border-color: rgba(255,255,255,.1);
+}
+.phase-block {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.phase-block:last-child { border-right: none; }
+.phase-block-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.phase-block-body {
+  font-size: .88rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.78);
+  line-height: 1.7;
+}
+.phase-block-body strong {
+  color: var(--color-white);
+  font-weight: 800;
+}
+.phase-block.gap-block {
+  border-left: 4px solid var(--color-red);
+  padding-left: calc(2rem - 4px);
+}
+.phase-block.gap-block .phase-block-label { color: var(--color-red); }
+
+/* ── VECTOR NAV ──────────────────────────────────────────────────────── */
+.vector-nav {
+  background: var(--color-white);
+  border-bottom: var(--rule);
+  padding: 0 var(--page-pad);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.vector-nav::-webkit-scrollbar { display: none; }
+.vnav-btn {
+  padding: .75rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--color-grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  flex-shrink: 0;
+}
+.vnav-btn:hover { color: var(--color-black); }
+.vnav-btn.active { color: var(--color-red); border-bottom-color: var(--color-red); }
+
+/* ── MAIN ────────────────────────────────────────────────────────────── */
+.main {
+  padding: 3rem var(--page-pad) 5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ── VECTOR SECTION ──────────────────────────────────────────────────── */
+.vector-section { margin-bottom: 4rem; }
+
+.vector-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-black);
+  flex-wrap: wrap;
+}
+.vector-number {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  flex-shrink: 0;
+}
+.vector-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--color-black);
+}
+.vector-tagline {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-grey);
+  margin-left: auto;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* ── CARD GRID ───────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ── FLIP CARD ───────────────────────────────────────────────────────── */
+.flip-card {
+  perspective: 1200px;
+  height: 380px;
+  cursor: pointer;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .5s cubic-bezier(.45,.05,.55,.95);
+  transform-style: preserve-3d;
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* FRONT — evidence-style: white, ruled, red top border */
+.flip-front {
+  background: var(--color-white);
+  border: var(--rule);
+  border-top: 6px solid var(--v-accent, var(--color-red));
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.card-vector-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 1rem;
+}
+.card-question {
+  font-family: var(--font-sans);
+  font-size: clamp(.88rem, 1.2vw, 1rem);
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.5;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: var(--rule);
+}
+.antigen-wordmark {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+.flip-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.flip-hint svg { width: 11px; height: 11px; }
+
+/* BACK — insurgence gradient */
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--gradient-insurgence);
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+.back-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.back-context {
+  font-size: clamp(.85rem, 1.1vw, .95rem);
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1.65;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.back-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+.back-vector-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  color: var(--color-yellow);
+}
+.back-hint {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--color-ink);
+  padding: .75rem var(--page-pad);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+}
+.progress-label {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  white-space: nowrap;
+}
+.progress-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.1);
+}
+.progress-fill {
+  height: 100%;
+  background: var(--color-yellow);
+  transition: width .4s ease;
+}
+.progress-count {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-yellow);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.reset-btn {
+  padding: .35rem .9rem;
+  border: 1.5px solid rgba(255,255,255,.2);
+  background: none;
+  color: rgba(255,255,255,.4);
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .15s;
+}
+.reset-btn:hover { border-color: var(--color-yellow); color: var(--color-yellow); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .phase-grid { grid-template-columns: 1fr; }
+  .phase-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .phase-block:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .main { padding: 2rem 1.25rem 5rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .flip-card { height: 340px; }
+  .vector-tagline { display: none; }
+}
+</style>
+<style data-antigen-header-layout>body{padding-top:58px!important} [id]{scroll-margin-top:78px}
+  .phase-nav,.vector-nav,.sticky-nav,.chrome-header,.filterbar,.toolbar,.topbar{top:58px!important}
+  @media print{body{padding-top:0!important} antigen-header{display:none}}</style>
+</head>
+<body>
+<antigen-header><template shadowrootmode="open"><link rel="stylesheet" href="../shared/site-header.css"><nav aria-label="Main">
+  <div class="wrap navrow">
+    <a href="../index.html" class="mark" style="text-decoration:none">anti<b>gen</b></a>
+    <div class="navlinks">
+      <a href="../index.html#symptoms">Symptoms</a>
+      <a href="../index.html#wound">The wound</a>
+      <a href="../index.html#diagnosis">Diagnosis</a>
+      <a href="../index.html#treatment">Treatment</a>
+      <a href="../sandbox.html">Sandbox</a>
+      <details class="navdrop">
+        <summary>Services</summary>
+        <div class="navdrop-menu">
+          <a href="../agency-services.html">Agencies</a>
+          <a href="../brands-services.html">Brands</a>
+          <a href="../adtech-services.html">Adtech &amp; Martech</a>
+          <a href="../startup-services.html">Startups</a>
+        </div>
+      </details>
+    </div>
+    <details class="navmobile">
+      <summary aria-label="Menu"><span class="hbg"></span></summary>
+      <div class="navmobile-panel">
+        <a href="../index.html#symptoms">Symptoms</a>
+        <a href="../index.html#wound">The wound</a>
+        <a href="../index.html#diagnosis">Diagnosis</a>
+        <a href="../index.html#treatment">Treatment</a>
+        <a href="../sandbox.html">Sandbox</a>
+        <a href="../agency-services.html">Agencies</a>
+        <a href="../brands-services.html">Brands</a>
+        <a href="../adtech-services.html">Adtech &amp; Martech</a>
+        <a href="../startup-services.html">Startups</a>
+      </div>
+    </details>
+    <a class="btn small" href="../booking.html">Book a call</a>
+  </div>
+</nav></template></antigen-header>
+
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN — Insurgent Questions Protocol · Multiplier · Phase 01</div>
+      <h1 class="header-title">Assumption<br>Detonation<br>Deck</h1>
+      <div class="header-sub">6 Vectors · 24 Questions · Click to reveal strategic context</div>
+    </div>
+    <div class="header-badge">
+      <div class="badge-label">Insurgent Questions™</div>
+      <div class="badge-count">24</div>
+      <div class="badge-note">Multiplier · Global Exchange for Work</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 01 -->
+<section class="phase-section">
+  <div class="phase-inner">
+    <div class="phase-eyebrow">Phase 01 · Naive Enquiry</div>
+    <h2 class="phase-title">Naive<br>Enquiry</h2>
+    <div class="phase-grid">
+      <div class="phase-block">
+        <div class="phase-block-label">What you told me</div>
+        <p class="phase-block-body">"Multiplier is an EOR and payroll company operating in 160+ countries. You want to scale by targeting large enterprises and rebranding from a service provider into a <strong>'Global Exchange for Work.'</strong> This phrase is corporate fluff; I need to know the mechanical reality: are you building a liquidity pool for talent, a new payment rail, or <strong>just changing the marketing wrapper on existing legal entity outsourcing?</strong>"</p>
+      </div>
+      <div class="phase-block">
+        <div class="phase-block-label">What I heard</div>
+        <p class="phase-block-body">You assume enterprise buyers find the <strong>'EOR' label too limiting</strong> and will be more attracted to a platform or infrastructure play. You are betting that <strong>category repositioning will solve the friction of enterprise adoption</strong>, and that your current software can handle the compliance nuances of 160+ different legal jurisdictions better than localised competitors.</p>
+      </div>
+      <div class="phase-block gap-block">
+        <div class="phase-block-label">The Gap</div>
+        <p class="phase-block-body">There is a structural contradiction between being an <strong>'infrastructure platform'</strong> (a hidden, foundational layer) and an <strong>'exchange'</strong> (a dynamic marketplace). You have not defined <strong>the specific unit of value being exchanged</strong> that justifies the new category. The brief also lacks the technical or operational evidence to prove how your infrastructure differs mechanically from the dozens of other EOR providers making identical global claims.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VECTOR NAV -->
+<nav class="vector-nav" id="vectorNav">
+  <button class="vnav-btn active" onclick="filterVector('all',this)">All Vectors</button>
+  <button class="vnav-btn" onclick="filterVector('v1',this)">V1 · Assumption Archaeology</button>
+  <button class="vnav-btn" onclick="filterVector('v2',this)">V2 · Consensus Forensics</button>
+  <button class="vnav-btn" onclick="filterVector('v3',this)">V3 · Audience Inversion</button>
+  <button class="vnav-btn" onclick="filterVector('v4',this)">V4 · Category Heresy</button>
+  <button class="vnav-btn" onclick="filterVector('v5',this)">V5 · Future Blindness</button>
+  <button class="vnav-btn" onclick="filterVector('v6',this)">V6 · Measurement Theater</button>
+</nav>
+
+<!-- CARDS -->
+<main class="main" id="main"></main>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <span class="progress-label">Revealed</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="progress-count" id="progressCount">0 / 24</span>
+  <button class="reset-btn" onclick="resetAll()">Reset</button>
+</div>
+
+<script>
+const VECTORS = [
+  {
+    id:"v1", number:"Vector 01", name:"Assumption Archaeology",
+    tagline:"Exhuming the beliefs that have become invisible.",
+    accent:"#e31d28",
+    cards:[
+      { q:"If we assume enterprise clients only use EOR as a temporary bridge to entity ownership, are we inadvertently building a business model designed for churn rather than long-term infrastructure?",
+        ctx:"Identifying the 'EOR as a transition' belief is crucial to repositioning as a permanent Global Exchange for Work rather than a stopgap solution." },
+      { q:"Why do we accept that local labour laws must dictate the structure of global teams, rather than treating global work as a sovereign category of engagement that overrides traditional jurisdiction?",
+        ctx:"This challenges the invisible rule that the platform must be subservient to local norms, opening the door for truly disruptive cross-border work products." },
+      { q:"We operate on the belief that compliance is a risk to be mitigated; what if the market actually needs compliance to be a performance lever that accelerates hiring speed rather than just a safety net?",
+        ctx:"Shifting from a defensive to an offensive view of compliance changes the platform's role from a legal cost centre to an engine for competitive growth." },
+      { q:"We assume a centralised 'hub-and-spoke' model for global management is the natural order; what if the enterprise of the future is a decentralised network that requires no single point of employment control?",
+        ctx:"To lead the 'Global Exchange for Work,' Multiplier must prepare for a shift away from traditional corporate hierarchies toward more fluid, peer-to-peer work structures." }
+    ]
+  },
+  {
+    id:"v2", number:"Vector 02", name:"Consensus Forensics",
+    tagline:"Identifying where agreement masks a lack of conviction.",
+    accent:"#e3195b",
+    cards:[
+      { q:"How much of our 'Global Exchange for Work' positioning was driven by actual enterprise demand versus an internal need to escape the commoditised EOR label?",
+        ctx:"If the pivot is purely semantic rather than structural, the organisation risks an identity crisis where marketing promises outpace product capabilities and actual market pull." },
+      { q:"In the push to cover 160+ countries, which regional operational leads voiced concerns about compliance depth that were ultimately 'managed' to preserve the coverage narrative?",
+        ctx:"Suppressed operational warnings regarding local nuances often resurface as catastrophic legal liabilities or compliance failures during enterprise-level audits." },
+      { q:"When the sales organisation reports 'product-market fit' for the new platform services, are they relaying client enthusiasm or silencing internal scepticism to meet growth targets?",
+        ctx:"Artificial consensus on product readiness leads to over-promising, which destroys long-term brand equity with the multinational clients the firm is currently courting." },
+      { q:"Is the expansion into peripheral workforce services a deliberate architectural choice, or the result of a consensus to never say 'no' to a single feature request?",
+        ctx:"A lack of dissent in the product roadmap creates a bloated, unfocused platform that lacks the specialised excellence required to compete in the complex global infrastructure space." }
+    ]
+  },
+  {
+    id:"v3", number:"Vector 03", name:"Audience Inversion",
+    tagline:"Focusing on the voices you've filtered out.",
+    accent:"#08a7d8",
+    cards:[
+      { q:"How would our platform architecture shift if the primary customer was the international worker seeking portable benefits and legal sovereignty, rather than the enterprise seeking to minimise administrative overhead?",
+        ctx:"A true 'Global Exchange for Work' requires equilibrium between both sides of the transaction. Over-indexing on employer convenience risks turning the platform into a tool for labour commoditisation rather than a balanced marketplace." },
+      { q:"Why is our strategy silent on the perspective of local HR leaders in host countries who view Multiplier's 'automated compliance' as a bypass mechanism that undermines their professional oversight and jurisdictional authority?",
+        ctx:"Enterprise adoption is often stalled not by the C-suite, but by middle-management functional experts who perceive global infrastructure platforms as an existential threat to their local relevance." },
+      { q:"What are the specific operational criticisms from the 'old-guard' multinational CFOs who have explicitly rejected our model in favour of traditional, high-friction entity establishment?",
+        ctx:"Ignoring the sceptics who value permanence over agility masks the hidden risks in the EOR model that may prevent Multiplier from becoming a foundational enterprise standard." },
+      { q:"If we interviewed the contractors who have churned from the platform, to what extent would they describe our 'Global Exchange' as a digital wall that obscures their relationship with their employer rather than facilitating it?",
+        ctx:"The 'Exchange' branding implies connection, but if the talent feels alienated or commoditised by the interface, the platform becomes a point of friction that hurts client retention in the long term." }
+    ]
+  },
+  {
+    id:"v4", number:"Vector 04", name:"Category Heresy",
+    tagline:"Challenging the unwritten rules of the category.",
+    accent:"#b11226",
+    cards:[
+      { q:"If the EOR model is fundamentally a risk mitigation tool, why is it priced as a high-margin service premium rather than a standardised, low-margin insurance product?",
+        ctx:"This questions whether the business model relies on an artificial premium for complexity that is increasingly being commoditised by automation and global transparency." },
+      { q:"Why must a 'Global Exchange for Work' remain anchored to national legal entities if the talent and value creation are increasingly post-geographic and digital-first?",
+        ctx:"It challenges the industry's foundational dependency on local borders, suggesting a future where work is decoupled from territorial legal structures to increase liquidity." },
+      { q:"Does the industry standard of 'white-glove implementation' mask a systemic failure to build infrastructure that is truly invisible, self-correcting, and autonomous?",
+        ctx:"Relying on human-led service to bridge product gaps is a scaling bottleneck that contradicts the 'infrastructure' promise of the new category Multiplier seeks to lead." },
+      { q:"Why is the category's primary unit of value still the 'employee head' rather than the 'transaction of work,' if we are moving toward a liquid global talent marketplace?",
+        ctx:"Per-head pricing is a legacy of the HR outsourcing era; a true exchange would monetise the flow of value and the efficiency of the connection, not just the count of personnel." }
+    ]
+  },
+  {
+    id:"v5", number:"Vector 05", name:"Future Blindness",
+    tagline:"Signals from the future being treated as noise.",
+    accent:"#e31d28",
+    cards:[
+      { q:"As generative AI and autonomous agents begin to fulfil specialised functions, how does a business model built on headcounts and payroll cycles survive a transition toward automated, task-based, and non-human labour procurement?",
+        ctx:"Focusing exclusively on human employment infrastructure ignores the signal that future organisational growth may come from purchasing outputs from autonomous systems rather than managing international personnel." },
+      { q:"What evidence are we ignoring that suggests the Global Exchange for Work will be dominated by decentralised protocols rather than centralised intermediaries who charge margins on compliance and administration?",
+        ctx:"Assuming the platform must sit in the middle of every transaction ignores the shift toward peer-to-peer contracting and blockchain-verified identity systems that may eventually bypass traditional gatekeepers." },
+      { q:"To what extent are we overlooking the rise of digital protectionism and local data residency laws that treat centralised global workforce platforms as systemic risks to national labour sovereignty?",
+        ctx:"If nations restrict labour data and funds transfer to domestic-only rails to protect their economies, a centralised global hub becomes a liability and a single point of failure rather than a scalable asset." },
+      { q:"If high-value talent is increasingly moving toward a sovereign model where they dictate terms via private cooperatives, why is the platform still optimising for corporate-down control structures?",
+        ctx:"We risk building tools for the employer's legacy needs while the most critical segment of the global workforce migrates to platforms that offer them leverage and portability rather than just a compliance shell." }
+    ]
+  },
+  {
+    id:"v6", number:"Vector 06", name:"Measurement Theater",
+    tagline:"Metrics that validate rather than inform.",
+    accent:"#1e1c17",
+    cards:[
+      { q:"How much of our '160+ countries' metric represents active, scalable infrastructure versus dormant legal entities maintained solely for marketing prestige?",
+        ctx:"Vanity reach can mask operational fragility. For enterprise clients, the depth of compliance in a few key markets is often more valuable than a wide but shallow footprint." },
+      { q:"Are the KPIs for our 'Global Exchange for Work' pivot actually tracking ecosystem interactions, or are they just legacy EOR billing cycles with a new label?",
+        ctx:"Measurement theater often involves rebranding old metrics to give the illusion of strategic evolution without changing the underlying business model or value capture." },
+      { q:"Does our retention data prioritise the satisfaction of the corporate procurement officer while ignoring the friction experienced by the international talent?",
+        ctx:"In a true workforce infrastructure platform, the talent is the primary stakeholder. High admin satisfaction can coexist with high talent churn, which eventually erodes enterprise trust." },
+      { q:"Does our 'Time to Onboard' metric celebrate the speed of legal execution while obscuring the time it takes for a new global hire to become operationally productive?",
+        ctx:"Speed of contract signing is a vendor-centric metric. Enterprises care about time-to-value; focusing on the former ignores the complex cultural and operational integration they actually pay us to solve." }
+    ]
+  }
+];
+
+let flipped = new Set();
+let currentFilter = 'all';
+
+function totalVisible() {
+  if (currentFilter === 'all') return VECTORS.reduce((a,v) => a + v.cards.length, 0);
+  return VECTORS.find(v => v.id === currentFilter)?.cards.length ?? 0;
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  VECTORS.forEach(vec => {
+    if (currentFilter !== 'all' && currentFilter !== vec.id) return;
+
+    const section = document.createElement('div');
+    section.className = 'vector-section';
+
+    const header = document.createElement('div');
+    header.className = 'vector-header';
+    header.innerHTML = `
+      <span class="vector-number">${vec.number}</span>
+      <h2 class="vector-name">${vec.name}</h2>
+      <span class="vector-tagline">${vec.tagline}</span>
+    `;
+    section.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+
+    vec.cards.forEach((card, idx) => {
+      const cardId = `${vec.id}-${idx}`;
+      const isFlipped = flipped.has(cardId);
+
+      const el = document.createElement('div');
+      el.className = `flip-card${isFlipped ? ' flipped' : ''}`;
+      el.style.setProperty('--v-accent', vec.accent);
+
+      el.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-face flip-front" style="border-top-color:${vec.accent}">
+            <div>
+              <div class="card-vector-label" style="color:${vec.accent}">${vec.number} · ${vec.name}</div>
+              <div class="card-question">${card.q}</div>
+            </div>
+            <div class="card-footer">
+              <span class="antigen-wordmark">antigen</span>
+              <span class="flip-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0 1 16-3.3M20 15a9 9 0 0 1-16 3.3"/></svg>
+                Reveal
+              </span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <div>
+              <div class="back-label">Strategic Context</div>
+              <div class="back-context">${card.ctx}</div>
+            </div>
+            <div class="back-footer">
+              <span class="back-vector-name">${vec.name}</span>
+              <span class="back-hint">Flip back</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      el.addEventListener('click', () => {
+        el.classList.toggle('flipped');
+        flipped[el.classList.contains('flipped') ? 'add' : 'delete'](cardId);
+        updateProgress();
+      });
+
+      grid.appendChild(el);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  updateProgress();
+}
+
+function filterVector(id, btn) {
+  currentFilter = id;
+  document.querySelectorAll('.vnav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function updateProgress() {
+  const total = totalVisible();
+  const revealed = [...flipped].filter(id =>
+    currentFilter === 'all' || id.startsWith(currentFilter)
+  ).length;
+  document.getElementById('progressFill').style.width = total > 0 ? (revealed/total*100)+'%' : '0%';
+  document.getElementById('progressCount').textContent = `${revealed} / ${total}`;
+}
+
+function resetAll() { flipped.clear(); render(); }
+
+render();
+</script>
+</body>
+</html>
