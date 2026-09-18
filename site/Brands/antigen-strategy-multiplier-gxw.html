@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGEN — Strategy · Multiplier · The Global Exchange for Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ANTIGEN V3 TOKENS ─────────────────────────────────────────────── */
+:root {
+  --red:        #e31d28;
+  --magenta:    #e3195b;
+  --crimson:    #b11226;
+  --black:      #111111;
+  --ink:        #1e1c17;
+  --white:      #ffffff;
+  --paper:      #f8f7f6;
+  --smoke:      #e8e8e8;
+  --grey:       #9fa2a4;
+  --yellow:     #ffc000;
+  --blue:       #08a7d8;
+  --grad-ins:   linear-gradient(135deg, #e31d28 0%, #e3195b 72%, #f0448e 100%);
+  --grad-dark:  linear-gradient(135deg, #e31d28 0%, #b11226 100%);
+  --font-d:     'Bebas Neue', Impact, sans-serif;
+  --font-s:     'Montserrat', Arial, sans-serif;
+  --rule:       1px solid rgba(17,17,17,.13);
+  --rule-w:     1px solid rgba(255,255,255,.1);
+  --shadow:     8px 8px 0 rgba(17,17,17,.92);
+  --shadow-r:   8px 8px 0 rgba(227,29,40,.88);
+  --pad:        clamp(1.25rem, 4vw, 3.5rem);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--font-s);
+  font-size: clamp(.93rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--yellow); color: var(--black); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ─── STICKY PHASE NAV ─────────────────────────────────────────────── */
+.phase-nav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: var(--white);
+  border-bottom: var(--rule);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 var(--pad);
+}
+.phase-nav::-webkit-scrollbar { display: none; }
+.pnav-btn {
+  flex-shrink: 0;
+  padding: .7rem 1rem;
+  font-family: var(--font-s);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--grey);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.pnav-btn:hover { color: var(--black); }
+.pnav-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+/* ─── HEADER ───────────────────────────────────────────────────────── */
+.page-header {
+  position: relative;
+  background: var(--grad-ins);
+  padding: 3rem var(--pad) 2.5rem;
+  color: var(--white);
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0,0,0,.22), transparent 38%),
+    linear-gradient(90deg, rgba(0,0,0,.16), transparent 52%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative; z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.56);
+  margin-bottom: .6rem;
+}
+.header-title {
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: .83;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: .5rem;
+}
+.header-sub {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.48);
+  margin-top: .75rem;
+}
+.header-kicker {
+  border-left: 4px solid var(--yellow);
+  padding-left: 1.25rem;
+  flex-shrink: 0;
+}
+.kicker-label {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.46);
+  margin-bottom: .3rem;
+}
+.kicker-value {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1;
+  color: var(--yellow);
+  letter-spacing: .04em;
+}
+.kicker-note {
+  font-size: .64rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.36);
+  margin-top: .25rem;
+}
+
+/* ─── PHASE WRAPPER ────────────────────────────────────────────────── */
+.phase {
+  padding: 3.5rem var(--pad);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.phase + .phase { padding-top: 0; }
+
+/* ─── PHASE LABEL ──────────────────────────────────────────────────── */
+.phase-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--black);
+}
+.phase-number {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.phase-name {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -.015em;
+  color: var(--black);
+}
+.phase-tagline {
+  font-size: .8rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--grey);
+  margin-left: auto;
+}
+
+/* ─── GET-TO-BY ────────────────────────────────────────────────────── */
+.gtb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+}
+.gtb-cell {
+  padding: 1.75rem 2rem;
+  border-right: var(--rule);
+}
+.gtb-cell:last-child { border-right: none; }
+.gtb-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.gtb-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* ─── METRICS ROW ──────────────────────────────────────────────────── */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.metric-card {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 6px solid var(--red);
+  padding: 1.5rem;
+  text-align: center;
+}
+.metric-value {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: .4rem;
+}
+.metric-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+
+/* ─── CRITIQUE BOX ─────────────────────────────────────────────────── */
+.critique-box {
+  background: var(--black);
+  padding: 1.75rem 2rem;
+  margin-top: 2rem;
+  border-left: 6px solid var(--yellow);
+}
+.critique-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.critique-body {
+  font-size: .88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  line-height: 1.65;
+}
+
+/* ─── DARK SECTION ─────────────────────────────────────────────────── */
+.dark-section {
+  background: var(--ink);
+  padding: 3.5rem var(--pad);
+}
+.dark-section .phase-label {
+  border-bottom-color: rgba(255,255,255,.15);
+}
+.dark-section .phase-number { color: var(--yellow); }
+.dark-section .phase-name { color: var(--white); }
+.dark-section .phase-tagline { color: rgba(255,255,255,.4); }
+
+/* ─── INSIGHT / FRICTION ───────────────────────────────────────────── */
+.insight-inner { max-width: 1440px; margin: 0 auto; }
+
+.insight-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4.5vw, 4.5rem);
+  line-height: .88;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 2.5rem;
+  max-width: 1000px;
+}
+.insight-headline em {
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.truth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2.5rem;
+}
+.truth-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.truth-cell:last-child { border-right: none; }
+.truth-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.truth-body {
+  font-size: .88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  line-height: 1.65;
+}
+
+.tension-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.tension-card {
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.tension-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.tension-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.tension-sub {
+  font-size: .82rem;
+  font-style: italic;
+  color: rgba(255,255,255,.5);
+}
+.tension-vs {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  color: var(--red);
+  text-align: center;
+}
+
+.insight-pull {
+  border-left: 6px solid var(--red);
+  padding: 1.5rem 2rem;
+  background: rgba(227,29,40,.08);
+  margin-bottom: 2.5rem;
+}
+.insight-pull:last-child { margin-bottom: 0; }
+.insight-pull p {
+  font-family: var(--font-d);
+  font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+  line-height: 1.1;
+  color: var(--white);
+  letter-spacing: .01em;
+}
+.insight-pull span { color: var(--yellow); }
+
+/* ─── PROVOCATION ──────────────────────────────────────────────────── */
+.prov-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.prov-sub {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--grey);
+  margin-bottom: 2.5rem;
+  max-width: 760px;
+  line-height: 1.6;
+}
+
+.rule-break {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: var(--rule);
+  margin-bottom: 1.25rem;
+}
+.rule-cell {
+  padding: 1.75rem 2rem;
+}
+.rule-cell:first-child {
+  border-right: var(--rule);
+  background: var(--smoke);
+}
+.rule-cell:last-child { background: var(--white); }
+.rule-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--rule);
+}
+.rule-cell:first-child .rule-tag { color: var(--grey); }
+.rule-cell:last-child .rule-tag { color: var(--red); }
+.rule-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.rule-body strong { color: var(--black); font-weight: 800; }
+
+.provocation-q {
+  background: var(--black);
+  padding: 2.5rem 2rem;
+  margin: 2rem 0;
+  border-left: 8px solid var(--red);
+}
+.provocation-q p {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: .015em;
+}
+.provocation-q span { color: var(--yellow); }
+.provocation-q small {
+  display: block;
+  font-family: var(--font-s);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+
+.earn-box {
+  background: var(--white);
+  border: var(--rule);
+  padding: 1.75rem 2rem;
+  border-left: 6px solid var(--yellow);
+  margin-bottom: 2rem;
+}
+.earn-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .75rem;
+}
+.earn-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* ─── LEXICON SWAP ─────────────────────────────────────────────────── */
+.lexicon {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: var(--rule);
+  background: var(--white);
+}
+.lex-cell {
+  padding: 1.5rem 1.75rem;
+  border-right: var(--rule);
+}
+.lex-cell:last-child { border-right: none; }
+.lex-old {
+  font-size: .78rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--grey);
+  text-decoration: line-through;
+  margin-bottom: .5rem;
+}
+.lex-new {
+  font-family: var(--font-d);
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  color: var(--red);
+  line-height: 1.05;
+}
+
+/* ─── TERRITORY ────────────────────────────────────────────────────── */
+.territory-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--white);
+  margin-bottom: 2rem;
+  max-width: 900px;
+}
+.territory-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  line-height: 1.7;
+  max-width: 900px;
+  margin-bottom: 2.5rem;
+}
+
+.pillar-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 2rem;
+}
+.pillar-cell {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.pillar-cell:last-child { border-right: none; }
+.pillar-num {
+  font-family: var(--font-d);
+  font-size: 3.5rem;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.pillar-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  color: var(--white);
+  margin-bottom: .75rem;
+  line-height: 1;
+}
+.pillar-body {
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+  line-height: 1.65;
+}
+.pillar-body strong { color: var(--yellow); font-weight: 800; }
+
+.battle-cry {
+  padding: 2rem;
+  border: 2px solid var(--yellow);
+  text-align: center;
+}
+.battle-cry p {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 3vw, 2.8rem);
+  color: var(--yellow);
+  letter-spacing: .04em;
+  line-height: 1.1;
+}
+
+/* ─── BIG IDEA ─────────────────────────────────────────────────────── */
+.big-idea-hero {
+  background: var(--black);
+  padding: 3rem var(--pad);
+}
+.bi-inner { max-width: 1440px; margin: 0 auto; }
+.bi-eyebrow {
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+.bi-title {
+  font-family: var(--font-d);
+  font-size: clamp(3.4rem, 8vw, 9rem);
+  line-height: .82;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.bi-title span { color: var(--red); }
+.bi-descriptor {
+  font-size: clamp(.9rem, 1.2vw, 1.1rem);
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+  max-width: 820px;
+  line-height: 1.65;
+  margin-bottom: 3rem;
+}
+
+.idea-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.idea-pillars.three { grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem; }
+.idea-pillar {
+  padding: 1.75rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.idea-pillar:last-child { border-right: none; }
+.idea-pillar-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: .75rem;
+}
+.idea-pillar-name {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.idea-pillar-body {
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.62);
+  line-height: 1.65;
+}
+.idea-pillar-body strong { color: var(--yellow); font-weight: 800; }
+
+/* ─── EXECUTION SYSTEM ─────────────────────────────────────────────── */
+.exec-headline {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+.exec-lead {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--grey);
+  line-height: 1.7;
+  max-width: 820px;
+  margin-bottom: 2.5rem;
+}
+
+.exec-hero {
+  background: var(--white);
+  border: var(--rule);
+  border-top: 8px solid var(--red);
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.exec-hero-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+}
+.exec-hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.exec-hero-body {
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.exec-hero-body + .exec-hero-body { margin-top: 1rem; }
+.exec-hero-body em { font-style: italic; color: var(--red); font-weight: 700; }
+.exec-hero-body strong { font-weight: 800; }
+
+.exec-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.exec-step {
+  background: var(--white);
+  border: var(--rule);
+  padding: 1.75rem 2rem;
+  position: relative;
+}
+.exec-step-num {
+  font-family: var(--font-d);
+  font-size: 4rem;
+  color: var(--smoke);
+  line-height: 1;
+  position: absolute;
+  top: 1rem; right: 1.25rem;
+}
+.exec-step-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .5rem;
+}
+.exec-step-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: .75rem;
+  padding-right: 3rem;
+}
+.exec-step-body {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.exec-step-body strong { font-weight: 800; color: var(--red); }
+.exec-step-body em { font-style: italic; }
+
+.media-role {
+  background: var(--ink);
+  padding: 1.75rem 2rem;
+  border-left: 6px solid var(--red);
+}
+.media-role-tag {
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: .75rem;
+}
+.media-role-body {
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  line-height: 1.7;
+}
+
+/* ─── SAY / DON'T SAY ──────────────────────────────────────────────── */
+.say-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.12);
+  margin-top: 1.5rem;
+}
+.say-cell {
+  padding: 1.5rem 1.75rem;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.say-cell:last-child { border-right: none; }
+.say-tag {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.say-cell.no .say-tag { color: var(--grey); }
+.say-cell.yes .say-tag { color: var(--yellow); }
+.say-line {
+  font-size: .84rem;
+  font-weight: 600;
+  line-height: 1.6;
+  padding: .6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.say-line:last-child { border-bottom: none; padding-bottom: 0; }
+.say-cell.no .say-line { color: rgba(255,255,255,.42); font-style: italic; }
+.say-cell.yes .say-line { color: rgba(255,255,255,.85); }
+
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
+.page-footer {
+  background: var(--black);
+  padding: 2.5rem var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-wordmark {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: .25em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.footer-meta {
+  font-size: .65rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .gtb-grid, .truth-grid, .pillar-list, .lexicon { grid-template-columns: 1fr; }
+  .gtb-cell { border-right: none; border-bottom: var(--rule); }
+  .gtb-cell:last-child { border-bottom: none; }
+  .lex-cell { border-right: none; border-bottom: var(--rule); }
+  .lex-cell:last-child { border-bottom: none; }
+  .truth-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .truth-cell:last-child { border-bottom: none; }
+  .pillar-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .pillar-cell:last-child { border-bottom: none; }
+  .tension-row { grid-template-columns: 1fr; }
+  .tension-vs { display: none; }
+  .metrics-row { grid-template-columns: 1fr; gap: 1rem; }
+  .rule-break { grid-template-columns: 1fr; }
+  .rule-cell:first-child { border-right: none; border-bottom: var(--rule); }
+  .exec-steps { grid-template-columns: 1fr; }
+  .idea-pillars, .idea-pillars.three { grid-template-columns: 1fr; }
+  .idea-pillar { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .idea-pillar:last-child { border-bottom: none; }
+  .say-grid { grid-template-columns: 1fr; }
+  .say-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .say-cell:last-child { border-bottom: none; }
+}
+</style>
+<style data-antigen-header-layout>body{padding-top:58px!important} [id]{scroll-margin-top:78px}
+  .phase-nav,.vector-nav,.sticky-nav,.chrome-header,.filterbar,.toolbar,.topbar{top:58px!important}
+  @media print{body{padding-top:0!important} antigen-header{display:none}}</style>
+</head>
+<body>
+<antigen-header><template shadowrootmode="open"><link rel="stylesheet" href="../shared/site-header.css"><nav aria-label="Main">
+  <div class="wrap navrow">
+    <a href="../index.html" class="mark" style="text-decoration:none">anti<b>gen</b></a>
+    <div class="navlinks">
+      <a href="../index.html#symptoms">Symptoms</a>
+      <a href="../index.html#wound">The wound</a>
+      <a href="../index.html#diagnosis">Diagnosis</a>
+      <a href="../index.html#treatment">Treatment</a>
+      <a href="../sandbox.html">Sandbox</a>
+      <details class="navdrop">
+        <summary>Services</summary>
+        <div class="navdrop-menu">
+          <a href="../agency-services.html">Agencies</a>
+          <a href="../brands-services.html">Brands</a>
+          <a href="../adtech-services.html">Adtech &amp; Martech</a>
+          <a href="../startup-services.html">Startups</a>
+        </div>
+      </details>
+    </div>
+    <details class="navmobile">
+      <summary aria-label="Menu"><span class="hbg"></span></summary>
+      <div class="navmobile-panel">
+        <a href="../index.html#symptoms">Symptoms</a>
+        <a href="../index.html#wound">The wound</a>
+        <a href="../index.html#diagnosis">Diagnosis</a>
+        <a href="../index.html#treatment">Treatment</a>
+        <a href="../sandbox.html">Sandbox</a>
+        <a href="../agency-services.html">Agencies</a>
+        <a href="../brands-services.html">Brands</a>
+        <a href="../adtech-services.html">Adtech &amp; Martech</a>
+        <a href="../startup-services.html">Startups</a>
+      </div>
+    </details>
+    <a class="btn small" href="../booking.html">Book a call</a>
+  </div>
+</nav></template></antigen-header>
+
+
+<!-- STICKY NAV -->
+<nav class="phase-nav">
+  <a href="#phase1" class="pnav-btn active">01 &middot; The Input</a>
+  <a href="#phase2" class="pnav-btn">02 &middot; Insight</a>
+  <a href="#phase3" class="pnav-btn">03 &middot; Provocation</a>
+  <a href="#phase4" class="pnav-btn">04 &middot; Territory</a>
+  <a href="#phase5" class="pnav-btn">05 &middot; Big Idea</a>
+  <a href="#phase6" class="pnav-btn">06 &middot; Execution</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">ANTIGEN Intelligence Stack &middot; Strategy Sidekick Output</div>
+      <div class="header-title">Stop Renting<br>Borders.</div>
+      <div class="header-sub">Multiplier &middot; Global Employment Infrastructure &middot; EOR to the Global Exchange for Work</div>
+    </div>
+    <div class="header-kicker">
+      <div class="kicker-label">Infrastructure Footprint</div>
+      <div class="kicker-value">160+</div>
+      <div class="kicker-note">Countries &middot; Single Unified Ledger</div>
+      <div class="kicker-label" style="margin-top:1.5rem;">Category Shift</div>
+      <div class="kicker-value">EOR &rarr; GXW</div>
+      <div class="kicker-note">Enterprise Adoption &middot; C-Suite Buyer</div>
+    </div>
+  </div>
+</header>
+
+<!-- PHASE 1: THE INPUT -->
+<section id="phase1">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 01</span>
+      <h2 class="phase-name">The Input</h2>
+      <span class="phase-tagline">GET&ndash;TO&ndash;BY &middot; The Strategic Mandate</span>
+    </div>
+
+    <div class="gtb-grid">
+      <div class="gtb-cell">
+        <div class="gtb-tag">GET</div>
+        <p class="gtb-body">Multinational and scaling businesses currently viewing Multiplier as a niche global EOR service provider.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">TO</div>
+        <p class="gtb-body">Recognize and adopt Multiplier as their comprehensive, unified &ldquo;Global Exchange for Work&rdquo; infrastructure.</p>
+      </div>
+      <div class="gtb-cell">
+        <div class="gtb-tag">BY</div>
+        <p class="gtb-body">Positioning its infrastructure as a complete ecosystem for global payroll, compliance, and workforce management.</p>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-value">160+</div>
+        <div class="metric-label">Jurisdictions Cleared &amp; Settled on One Ledger</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">3</div>
+        <div class="metric-label">Exchange Layers &mdash; Clearinghouse, Treaty Engine, Asset Layer</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">$10B</div>
+        <div class="metric-label">Sovereign Tax Exposed &mdash; The Global Leakage Index</div>
+      </div>
+    </div>
+
+    <div class="critique-box">
+      <div class="critique-tag">&#9888; Critique on Potential Weakness &middot; Non-Negotiables</div>
+      <p class="critique-body">The industry operates on a comfortable lie: <em>&ldquo;companies use EORs simply to bypass the headache of setting up local entities.&rdquo;</em> That is a dangerous oversimplification that reduces EOR to an administrative checkbox and keeps Multiplier trapped in a commoditized feature war with Deel, Atlas, and Oyster. Traditional teams will reflexively retreat to onboarding speed, dashboard UX, and country-count bragging. <strong style="color:var(--yellow);">No &ldquo;hire anyone, anywhere&rdquo; platitudes. No gamified SaaS friendliness. No positioning the EOR as a temporary bridge to an entity. Do not sell a better tollbooth.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2: INSIGHT -->
+<section id="phase2">
+  <div class="dark-section">
+    <div class="insight-inner">
+      <div class="phase-label">
+        <span class="phase-number">Phase 02</span>
+        <h2 class="phase-name">Insight</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.4);">The Sovereignty Paradox &middot; Friction Diagnosis</span>
+      </div>
+
+      <h3 class="insight-headline">You are building a global culture on the backs of <em>second-class citizens</em>.</h3>
+
+      <div class="tension-row">
+        <div class="tension-card">
+          <div class="tension-tag">The Illusion</div>
+          <div class="tension-title">One Unified Company</div>
+          <p class="tension-sub">One mission, one team, one global culture &mdash; the story told on every careers page and all-hands deck.</p>
+        </div>
+        <div class="tension-vs">VS</div>
+        <div class="tension-card">
+          <div class="tension-tag">The Reality</div>
+          <div class="tension-title">A Fragmented Colony</div>
+          <p class="tension-sub">EOR workarounds and third-party tech that treat international talent as high-risk legal liabilities and operational exceptions.</p>
+        </div>
+      </div>
+
+      <div class="truth-grid">
+        <div class="truth-cell">
+          <div class="truth-tag">Friction 01 &middot; The Core vs. The Fringe</div>
+          <p class="truth-body">Companies want high-performance global teams, but their infrastructure treats domestic employees as &ldquo;core&rdquo; and international employees as &ldquo;peripheral risk.&rdquo;</p>
+        </div>
+        <div class="truth-cell">
+          <div class="truth-tag">Friction 02 &middot; Compliance Paralysis</div>
+          <p class="truth-body">C-suite executives want agility, but their legal teams operate with a fortress mentality. Every new hire in a new country is treated like a custom diplomatic mission rather than a routine transaction.</p>
+        </div>
+        <div class="truth-cell">
+          <div class="truth-tag">Friction 03 &middot; The Infrastructure Tax</div>
+          <p class="truth-body">Instead of a fluid exchange where talent and capital move seamlessly, businesses pay a massive &ldquo;complexity tax&rdquo; to middlemen who profit off the deliberate obfuscation of local labor laws.</p>
+        </div>
+      </div>
+
+      <div class="insight-pull">
+        <p>When a scaling business uses a traditional EOR, they aren't outsourcing payroll &mdash; <span>they are structurally segregating their workforce.</span> This is not global expansion; it is human capital arbitrage disguised as a borderless team.</p>
+      </div>
+
+      <div class="rule-break" style="border-color:rgba(255,255,255,.12); margin-bottom:0;">
+        <div class="rule-cell" style="background:rgba(255,255,255,.04); border-right-color:rgba(255,255,255,.1);">
+          <div class="rule-tag" style="color:rgba(255,255,255,.4); border-bottom-color:rgba(255,255,255,.1);">The Safe View</div>
+          <p class="rule-body" style="color:rgba(255,255,255,.55); font-style:italic;">&ldquo;We help you hire legally in 160+ countries.&rdquo; An administrative commodity.</p>
+        </div>
+        <div class="rule-cell" style="background:rgba(227,29,40,.1);">
+          <div class="rule-tag" style="color:var(--yellow); border-bottom-color:rgba(255,255,255,.12);">The Provocative Reality</div>
+          <p class="rule-body" style="color:rgba(255,255,255,.85);">&ldquo;Your HR tech stack is actively undoing your culture by treating your most strategic global hires as legal exceptions.&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3: PROVOCATION -->
+<section id="phase3">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 03</span>
+      <h2 class="phase-name">Provocation</h2>
+      <span class="phase-tagline">Rule Breaking &middot; The Category Kill</span>
+    </div>
+
+    <h3 class="prov-headline">The EOR is Dead.<br>Long Live the Clearinghouse.</h3>
+    <p class="prov-sub">For a decade, Silicon Valley sold the Employer of Record as a software cure-all &mdash; slick UIs masking high-margin middlemen leasing legal entities to desperate companies. Enterprise CFOs and General Counsels will not outsource corporate sovereignty to a third-party startup's shell company. Three category rules must now be violated.</p>
+
+    <div class="rule-break">
+      <div class="rule-cell">
+        <div class="rule-tag">Rule 01 &middot; The Legacy Category</div>
+        <p class="rule-body">Treat payroll and employment as &ldquo;people ops&rdquo; admin.</p>
+      </div>
+      <div class="rule-cell">
+        <div class="rule-tag">The Counter-Rule</div>
+        <p class="rule-body"><strong>Treat employment as a cross-border asset class.</strong> Work is an exchange of value. Multiplier is the financial infrastructure that clears, settles, and secures that exchange across sovereign borders.</p>
+      </div>
+    </div>
+
+    <div class="rule-break">
+      <div class="rule-cell">
+        <div class="rule-tag">Rule 02 &middot; The Legacy Category</div>
+        <p class="rule-body">Hide the plumbing behind a friendly, gamified SaaS UI.</p>
+      </div>
+      <div class="rule-cell">
+        <div class="rule-tag">The Counter-Rule</div>
+        <p class="rule-body"><strong>Weaponize the plumbing.</strong> Enterprise buyers don't care about colorful dashboards; they care about sovereign risk mitigation, local balance sheet strength, and tax-treasury optimization.</p>
+      </div>
+    </div>
+
+    <div class="rule-break">
+      <div class="rule-cell">
+        <div class="rule-tag">Rule 03 &middot; The Legacy Category</div>
+        <p class="rule-body">Frame the EOR as a temporary &ldquo;bridge&rdquo; until you set up an entity.</p>
+      </div>
+      <div class="rule-cell">
+        <div class="rule-tag">The Counter-Rule</div>
+        <p class="rule-body"><strong>Frame the EOR as the permanent destination.</strong> Building entities is a legacy 20th-century tax drag. Multiplier's infrastructure is more robust, compliant, and liquid than any in-house entity an enterprise could build.</p>
+      </div>
+    </div>
+
+    <div class="provocation-q">
+      <small>The Detonation Thesis</small>
+      <p>If money has Wall Street and data has AWS, <span>work needs a global clearinghouse.</span> Multiplier is the SWIFT network for human capital.</p>
+    </div>
+
+    <div class="earn-box">
+      <div class="earn-tag">Why It Earns Attention</div>
+      <p class="earn-body">It kills the label the entire category depends on. When an enterprise uses Multiplier, they are not &ldquo;outsourcing employment&rdquo; &mdash; they are plugging into a closed-loop sovereign infrastructure that handles the custody, settlement, and compliance of human labor globally. The narrative moves from <em>&ldquo;hire a software engineer in India without setting up an entity&rdquo;</em> to <em>&ldquo;instantly clear and settle compliant labor transactions across 160+ jurisdictions without exposing your balance sheet to sovereign risk.&rdquo;</em> No feature-war competitor can follow without abandoning their own business model.</p>
+    </div>
+
+    <div class="exec-steps">
+      <div class="exec-step">
+        <div class="exec-step-num">01</div>
+        <div class="exec-step-tag">Strategic Provocation</div>
+        <div class="exec-step-title">Fire the &ldquo;HR Buyer&rdquo;</div>
+        <p class="exec-step-body">Stop selling to HR Managers who care about onboarding checklists. Target the <strong>CFO, General Counsel, and Chief Risk Officer.</strong> Frame Multiplier not as an employee engagement tool, but as sovereign risk-mitigation infrastructure that reduces Permanent Establishment exposure and optimizes treasury management.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">02</div>
+        <div class="exec-step-tag">Strategic Provocation</div>
+        <div class="exec-step-title">Introduce Clearing &amp; Settlement</div>
+        <p class="exec-step-body">Purge &ldquo;EOR&rdquo; and &ldquo;Payroll&rdquo; from enterprise positioning entirely. Replace consumer-grade HR language with <strong>financial-grade terminology</strong> across every surface, deck, contract, and product name.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">03</div>
+        <div class="exec-step-tag">Strategic Provocation</div>
+        <div class="exec-step-title">The &ldquo;Anti-SaaS&rdquo; Pricing Model</div>
+        <p class="exec-step-body">Legacy HR Tech charges per-seat, per-month &mdash; penalizing companies for growing their workforce. Introduce <strong>Volume-Based Settlement Pricing:</strong> treat labor payments like FX transactions. The more volume cleared through the infrastructure, the lower the basis points. An infrastructure partner, not a software line-item.</p>
+      </div>
+    </div>
+
+    <div class="lexicon">
+      <div class="lex-cell">
+        <div class="lex-old">Global Payroll</div>
+        <div class="lex-new">Global Labor Settlement</div>
+      </div>
+      <div class="lex-cell">
+        <div class="lex-old">EOR Services</div>
+        <div class="lex-new">Sovereign Employment Custody</div>
+      </div>
+      <div class="lex-cell">
+        <div class="lex-old">Contractor Management</div>
+        <div class="lex-new">Liquidity Management for Contingent Capital</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4: TERRITORY -->
+<section id="phase4">
+  <div class="dark-section">
+    <div class="insight-inner">
+      <div class="phase-label">
+        <span class="phase-number">Phase 04</span>
+        <h2 class="phase-name">Territory</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.4);">Sovereign Execution &middot; Emotional Space Claimed</span>
+      </div>
+
+      <h3 class="territory-headline">Sovereign Execution</h3>
+      <p class="territory-lead">The global employment category has built a multi-billion-dollar moat out of fear. Legacy EOR providers profit by making the world seem terrifyingly complex and impossible to navigate without their expensive hand-holding &mdash; selling &ldquo;peace of mind&rdquo; the way protection rackets sell safety. Our defensive emotional space is not Peace of Mind. It is the visceral, unshakeable confidence of an enterprise that operates completely detached from the friction of geography: the transition from asking local bureaucracies for permission to treating the entire planet as a single, unified database of talent and opportunity.</p>
+
+      <div class="tension-row">
+        <div class="tension-card">
+          <div class="tension-tag">From &middot; Anxious / Compliant / Reactive</div>
+          <div class="tension-title">Fear of Getting Caught</div>
+          <p class="tension-sub">&ldquo;Is this contractor compliant?&rdquo; &middot; &ldquo;What are the local pension laws?&rdquo; &middot; &ldquo;I hope our EOR doesn't leak data.&rdquo;</p>
+        </div>
+        <div class="tension-vs">&rarr;</div>
+        <div class="tension-card">
+          <div class="tension-tag">To &middot; Autonomous / Borderless / Dominant</div>
+          <div class="tension-title">Sovereign Execution</div>
+          <p class="tension-sub">&ldquo;This talent is ours. The plumbing is instant.&rdquo; &middot; &ldquo;Borders are just lines on a map we bypassed.&rdquo; &middot; &ldquo;We own the infrastructure. We own the speed.&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="pillar-list">
+        <div class="pillar-cell">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">We Kill the &ldquo;Local Expert&rdquo; Myth</div>
+          <p class="pillar-body">Legacy providers want you to believe hiring in Brazil is fundamentally different from hiring in Japan, requiring bespoke, expensive localization. We prove that under the hood, <strong>all work is an exchange of value.</strong> We normalize the world.</p>
+        </div>
+        <div class="pillar-cell">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">We Shift the Enemy</div>
+          <p class="pillar-body">The enemy is no longer the risk of a compliance audit. The enemy is <strong>friction.</strong> Any day spent waiting for a local entity setup is a day of lost market dominance.</p>
+        </div>
+        <div class="pillar-cell">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">The Power Dynamic Inversion</div>
+          <p class="pillar-body">We stop playing the helpful assistant who submits your paperwork. Multiplier is the <strong>industrial-grade utility grid.</strong> You don't thank the power grid for working; you just build empires on top of it.</p>
+        </div>
+      </div>
+
+      <div class="insight-pull">
+        <p>We reject the premise that a border should dictate a company's destiny &mdash; <span>or a human's worth.</span> We don't help you &ldquo;manage&rdquo; the complexity of 160+ countries; we dismantle it.</p>
+      </div>
+
+      <div class="battle-cry">
+        <p>You don't expand into a market.<br>You simply turn it on.<br>That isn't compliance. That is sovereignty.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: BIG IDEA -->
+<section id="phase5">
+  <div class="big-idea-hero">
+    <div class="bi-inner">
+      <div class="phase-label" style="border-bottom-color:rgba(255,255,255,.12);">
+        <span class="phase-number" style="color:var(--red);">Phase 05</span>
+        <h2 class="phase-name" style="color:var(--white);">Big Idea</h2>
+        <span class="phase-tagline" style="color:rgba(255,255,255,.35);">Platform Concept &middot; The Sovereign-Free Enterprise</span>
+      </div>
+      <div class="bi-eyebrow">The Platform</div>
+      <div class="bi-title">The Global<br><span>Exchange for Work.</span></div>
+      <p class="bi-descriptor">Enterprise organizations do not want to manage &ldquo;entities&rdquo; or worry about &ldquo;local labor laws.&rdquo; They want unrestricted access to global cognitive capacity with zero friction. The Big Idea positions Multiplier as the operating infrastructure that renders geopolitical borders economically obsolete. Just as SWIFT standardized cross-border financial routing and Visa unified global merchant transactions, Multiplier becomes the sovereign-grade routing protocol for human labor. We do not manage compliance &mdash; we arbitrate it. We do not run payroll &mdash; we clear global talent liquidity.</p>
+
+      <div class="idea-pillars three">
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">Layer I &middot; Replaces Fragmented Local Payroll</div>
+          <div class="idea-pillar-name">The Clearinghouse</div>
+          <p class="idea-pillar-body">Why are you running 15 different payroll cycles for 15 different countries? On the Multiplier Exchange, global payroll is a <strong>single, consolidated ledger cleared in real-time.</strong></p>
+        </div>
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">Layer II &middot; Replaces Tax Attorneys &amp; Risk Managers</div>
+          <div class="idea-pillar-name">The Treaty Engine</div>
+          <p class="idea-pillar-body">Local labor laws change weekly. The Treaty Engine codifies global tax, benefits, and labor law into <strong>automated smart-compliance protocols</strong>, shielding enterprises from systemic regulatory risk by default.</p>
+        </div>
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">Layer III &middot; Replaces the Legacy &ldquo;EOR&rdquo; Label</div>
+          <div class="idea-pillar-name">The Asset Layer</div>
+          <p class="idea-pillar-body">Full-time, contractor, or gig-specialist &mdash; all talent routes through the same compliant infrastructure. <strong>Stop segmenting your workforce by legal loopholes.</strong> Manage them as unified operational power.</p>
+        </div>
+      </div>
+
+      <div class="idea-pillars">
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">The Manifesto</div>
+          <div class="idea-pillar-name">Labor is an Asset Class</div>
+          <p class="idea-pillar-body">Companies have treated global hiring as an immigration problem. We treat it as a <strong>liquidity problem.</strong> Multiplier makes human capital instantly liquid across 160+ jurisdictions &mdash; scale up, pivot, and wind down global teams at the speed you deploy cloud compute. The foreign subsidiary is a 20th-century tax trap.</p>
+        </div>
+        <div class="idea-pillar">
+          <div class="idea-pillar-tag">The Strategic Directive</div>
+          <div class="idea-pillar-name">Kill &ldquo;Easy Remote Hiring&rdquo;</div>
+          <p class="idea-pillar-body">&ldquo;Hire anyone in minutes&rdquo; is a toy value proposition. The new C-suite narrative: <strong>build a geopolitically hedged enterprise.</strong> Financial-grade infrastructure that lets businesses diversify their talent footprint and execute global workforce strategy with absolute regulatory immunity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 6: EXECUTION SYSTEM -->
+<section id="phase6">
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 06</span>
+      <h2 class="phase-name">Execution System</h2>
+      <span class="phase-tagline">Earned-First &middot; Attack the Financial Waste</span>
+    </div>
+
+    <h3 class="exec-headline">The Rent-a-Boss Scam.<br>Expose the Administrative Debt.</h3>
+    <p class="exec-lead">The EOR industry has built a multi-billion-dollar tollbooth on the border of global talent and called it &ldquo;enablement.&rdquo; We will not run ads about seamless onboarding. We will bypass HR media entirely and target the financial and operational architects of scaling enterprises &mdash; CFOs, COOs, and VPs of Global Ops &mdash; by exposing the hidden tax of global expansion.</p>
+
+    <div class="exec-hero">
+      <div class="exec-hero-tag">Hero Execution &middot; Earned-First Lightning Rod</div>
+      <div class="exec-hero-title">The Global Leakage Audit</div>
+      <p class="exec-hero-body">Multiplier launches an aggressive, data-backed investigative index exposing the <strong>&ldquo;Sovereign Tax&rdquo;</strong> &mdash; the billions wasted by multinationals on EOR markups, redundant local entity maintenance, and FX slippage. Legacy EOR routes value through percentage markups and entity bloat into fat vendor margin. The Multiplier Exchange routes it through API-driven clear-and-settlement into net savings reinvested in talent.</p>
+      <p class="exec-hero-body">Anchoring the index is a public, un-gated diagnostic: <em>The EOR Off-Ramp Calculator.</em> Input current EOR headcount and location; the tool calculates exactly how much the incumbent provider is overcharging relative to the true cost of localized compliance infrastructure &mdash; then returns a customized &ldquo;Off-Ramp Blueprint&rdquo; converting variable compliance markups into flat-rate infrastructure fees.</p>
+    </div>
+
+    <div class="exec-steps">
+      <div class="exec-step">
+        <div class="exec-step-num">02</div>
+        <div class="exec-step-tag">01 &middot; The Trigger</div>
+        <div class="exec-step-title">The &ldquo;Rent-A-Boss&rdquo; Open Letter</div>
+        <p class="exec-step-body">A full-page print and digital offensive in the <em>Financial Times</em> and <em>Wall Street Journal</em> declaring the EOR category obsolete. <strong>Target output:</strong> virality among CFOs who already view EOR as a temporary, expensive band-aid.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">03</div>
+        <div class="exec-step-tag">02 &middot; The Data</div>
+        <div class="exec-step-title">The Sovereign Tax Index</div>
+        <p class="exec-step-body">An annual index ranking the most expensive countries to hire in, exposing how legacy EORs double-dip on local tax structures and benefits margins. <strong>Target output:</strong> picked up by <em>TechCrunch, Sifted,</em> and <em>Bloomberg</em> as the benchmark for global expansion efficiency.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">04</div>
+        <div class="exec-step-tag">03 &middot; The Alliance</div>
+        <div class="exec-step-title">The Sovereign Work Alliance</div>
+        <p class="exec-step-body">A coalition of scaling scale-ups &mdash; top-tier YC and Sequoia portfolio companies &mdash; committing publicly to <strong>&ldquo;Zero-Markup&rdquo; global hiring practices.</strong> <strong>Target output:</strong> community-driven peer pressure that forces other scaling companies to audit their HR tech stack.</p>
+      </div>
+      <div class="exec-step">
+        <div class="exec-step-num">05</div>
+        <div class="exec-step-tag">04 &middot; The Migration</div>
+        <div class="exec-step-title">Enterprise Language Reset</div>
+        <p class="exec-step-body">Systematically kill the language of &ldquo;HR outsourcing&rdquo; and replace it with the language of financial and operational infrastructure. Legacy narrative &mdash; <em>&ldquo;we manage your global HR risk&rdquo;</em> &mdash; is defensive, administrative, slow, and lands as <strong>an expensive outsourcing vendor.</strong> The Exchange narrative &mdash; <em>&ldquo;we clear and settle global work&rdquo;</em> &mdash; is offensive, infrastructural, liquid, and lands as <strong>the global operating system.</strong></p>
+      </div>
+    </div>
+
+    <div class="media-role">
+      <div class="media-role-tag">The Message Migration Strategy</div>
+      <p class="media-role-body">Every surface, every deck, every sales conversation migrates on the same day. The words are the strategy.</p>
+      <div class="say-grid">
+        <div class="say-cell no">
+          <div class="say-tag">&#10005; Do Not Say</div>
+          <div class="say-line">&ldquo;We are an EOR with better customer service.&rdquo;</div>
+          <div class="say-line">&ldquo;Hire anyone, anywhere.&rdquo; &mdash; a meaningless, overused platitude.</div>
+        </div>
+        <div class="say-cell yes">
+          <div class="say-tag">&#10003; Say</div>
+          <div class="say-line">&ldquo;We are the clearinghouse for global employment. We treat global payroll and compliance as an API-first utility, not a manual service.&rdquo;</div>
+          <div class="say-line">&ldquo;Standardize your global human capital. Deploy, pay, and scale talent across 160+ countries on a single unified ledger.&rdquo;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-wordmark">antigen</div>
+  <div class="footer-meta">
+    Strategy Output &middot; Multiplier &middot; The Global Exchange for Work<br>
+    ANTIGEN Intelligence Stack &middot; Phase 01&ndash;06 &middot; Confidential
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section[id], div[id]');
+const btns = document.querySelectorAll('.pnav-btn');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      btns.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
