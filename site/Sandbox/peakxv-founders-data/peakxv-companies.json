@@ -1,0 +1,2585 @@
+{
+ "source": "Peak XV portfolio",
+ "count": 254,
+ "sectors": [
+  "AI",
+  "Consumer",
+  "DeepTech",
+  "Developer Tools",
+  "Enterprise",
+  "FinTech",
+  "Healthcare"
+ ],
+ "stages": [
+  "Acquired",
+  "Growth",
+  "IPO",
+  "Seed",
+  "Series A",
+  "Venture"
+ ],
+ "companies": [
+  {
+   "name": "Care.Fi",
+   "description": "Indian healthcare fintech for hospitals offering AI-enabled end-to-end claim management via RevNow (revenue cycle management) and CareCred (insurance receivables financing) to improve settlement ratios and working capital.",
+   "stage": "Series A",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "care-fi"
+  },
+  {
+   "name": "BlinkIt",
+   "description": "BlinkIt is an on-demand delivery service that connects consumers with local merchants in the neighbourhood. It was acquired by Zomato in 2022.",
+   "stage": "Acquired",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "blinkit"
+  },
+  {
+   "name": "Happay",
+   "description": "Happay is a business expense app that lets users pay anyone, anywhere using just a mobile number. It was acquired by Cred in 2022.",
+   "stage": "Acquired",
+   "firstPartnered": "2015",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "happay"
+  },
+  {
+   "name": "Knowlarity",
+   "description": "Knowlarity provides cloud telephony solutions to business enterprises. It was acquired by Gupshup in 2022.",
+   "stage": "Acquired",
+   "firstPartnered": "2012",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "knowlarity"
+  },
+  {
+   "name": "Pingsafe",
+   "description": "PingSafe is a cloud-native application protection platform (CNAPP) that utilizes a unique offensive security engine to simulate real-world attacks, helping businesses identify and fix critical cloud vulnerabilities with zero false positives. It was acquired in 2024 by SentinelOne and rebranded to SentinelOne.",
+   "stage": "Acquired",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "pingsafe"
+  },
+  {
+   "name": "SKS Microfinance",
+   "description": "Bharat Financial Inclusion Limited (BFIL), formerly known as SKS Microfinance, is a leading Indian financial services company and one of the largest microfinance institutions (MFIs) in India.",
+   "stage": "Acquired",
+   "firstPartnered": "2007",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "sks-microfinance"
+  },
+  {
+   "name": "Slintel",
+   "description": "Slintel helps users identify active buyers so GTM teams can prioritize and build pipeline. It was acquired by 6Sense in 2022.",
+   "stage": "Acquired",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "slintel"
+  },
+  {
+   "name": "Snapdeal",
+   "description": "Snapdeal is a prominent Indian e-commerce marketplace that connects millions of buyers with sellers, primarily focusing on value-priced, unbranded, and semi-branded merchandise across categories like fashion, home, and electronics for value-conscious consumers.",
+   "stage": "Acquired",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "snapdeal"
+  },
+  {
+   "name": "Amara Raja Group",
+   "description": "Amara Raja Group is an Indian multinational conglomerate that operates a diverse portfolio of businesses across industrial and automotive sectors. It is best known for its flagship public entity, Amara Raja Energy & Mobility, which is one of India's largest manufacturers of energy storage products, lead-acid batteries (under the popular Amaron and Powerzone brands), and EV charging solutions, with additional operations in infrastructure, electronic manufacturing, engineering, and packaged foods.",
+   "stage": "IPO",
+   "firstPartnered": "2011",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "amara-raja-group"
+  },
+  {
+   "name": "Aptus Housing Finance",
+   "description": "Aptus provides affordable home loans and loans against property to self-employed and underserved customers.",
+   "stage": "IPO",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "aptus-housing-finance"
+  },
+  {
+   "name": "Awfis",
+   "description": "Awfis is a flexible workspace platform offering workspaces, meeting rooms and managed offices across India.",
+   "stage": "IPO",
+   "firstPartnered": "2017",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "awfis"
+  },
+  {
+   "name": "Bajaj Holdings",
+   "description": "Indian holding and investment company of the Bajaj Group, holding strategic stakes in Bajaj Auto, Bajaj Finserv, and other group entities and managing surplus investments across equity, fixed income, and real estate.",
+   "stage": "IPO",
+   "firstPartnered": "2008",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "bajaj-holdings"
+  },
+  {
+   "name": "Blackbuck",
+   "description": "BlackBuck is a digital trucking platform helping fleet operators manage loads, payments, fuel and tolling.",
+   "stage": "IPO",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "blackbuck"
+  },
+  {
+   "name": "Bluestone",
+   "description": "BlueStone is an omnichannel jewellery brand offering gold, diamond and gemstone jewellery online and through stores.",
+   "stage": "IPO",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "bluestone"
+  },
+  {
+   "name": "Cafe Coffee Day",
+   "description": "Café Coffee Day is an Indian coffee chain and hospitality brand serving coffee and café experiences.",
+   "stage": "IPO",
+   "firstPartnered": "2006",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "cafe-coffee-day"
+  },
+  {
+   "name": "Capillary Technologies",
+   "description": "Capillary provides loyalty, customer engagement and commerce software for consumer brands and retailers.",
+   "stage": "IPO",
+   "firstPartnered": "2012",
+   "sectors": [
+    "AI",
+    "Consumer"
+   ],
+   "id": "capillary-technologies"
+  },
+  {
+   "name": "Cognizant Technology",
+   "description": "Global IT services and digital transformation firm offering consulting, technology modernization, cloud, AI and data, cybersecurity, and engineering services across banking, healthcare, insurance, manufacturing, retail, and life sciences.",
+   "stage": "IPO",
+   "firstPartnered": "2008",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "cognizant-technology"
+  },
+  {
+   "name": "eClerx",
+   "description": "eClerx provides business process, data and digital operations services for global enterprises.",
+   "stage": "IPO",
+   "firstPartnered": "2009",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "eclerx"
+  },
+  {
+   "name": "Edelweiss",
+   "description": "Edelweiss is a diversified financial services group across credit, asset management, insurance and wealth.",
+   "stage": "IPO",
+   "firstPartnered": "2007",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "edelweiss"
+  },
+  {
+   "name": "Equitas",
+   "description": "Equitas Small Finance Bank offers banking, deposits, loans and financial services to Indian consumers and businesses.",
+   "stage": "IPO",
+   "firstPartnered": "2009",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "equitas"
+  },
+  {
+   "name": "Five Star Business Finance",
+   "description": "Five Star Business Finance provides secured business loans to small entrepreneurs and self-employed customers in India.",
+   "stage": "IPO",
+   "firstPartnered": "2017",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "five-star-business-finance"
+  },
+  {
+   "name": "Freshworks",
+   "description": "Freshworks builds customer and employee experience software for support, sales, marketing and IT teams.",
+   "stage": "IPO",
+   "firstPartnered": "2016",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "freshworks"
+  },
+  {
+   "name": "Go Colors",
+   "description": "Go Colors is an Indian women’s bottom-wear brand with an omnichannel retail presence.",
+   "stage": "IPO",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "go-colors"
+  },
+  {
+   "name": "Groww",
+   "description": "Groww is an Indian investing platform for stocks, mutual funds, IPOs and other financial products.",
+   "stage": "IPO",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "groww"
+  },
+  {
+   "name": "Havells India",
+   "description": "Havells is an Indian electricals and consumer durables company across lighting, appliances, cables and switchgear.",
+   "stage": "IPO",
+   "firstPartnered": "2007",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "havells-india"
+  },
+  {
+   "name": "ICRA",
+   "description": "Indian credit rating agency offering ratings across corporate debt, financial institutions, structured finance, and infrastructure, plus sectoral research and ESG ratings (ICRA ESG Ratings); majority-owned by Moody's.",
+   "stage": "IPO",
+   "firstPartnered": "2009",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "icra"
+  },
+  {
+   "name": "Idea Cellular",
+   "description": "Idea Cellular was an Indian telecom operator that merged with Vodafone India to form Vodafone Idea.",
+   "stage": "IPO",
+   "firstPartnered": "2006",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "idea-cellular"
+  },
+  {
+   "name": "India Shelter Finance",
+   "description": "India Shelter Finance provides affordable home loans and loans against property to middle-income households.",
+   "stage": "IPO",
+   "firstPartnered": "2010",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "india-shelter-finance"
+  },
+  {
+   "name": "Indigo Paints",
+   "description": "Indigo Paints is an Indian decorative paints company offering interior, exterior and specialty paint products.",
+   "stage": "IPO",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "indigo-paints"
+  },
+  {
+   "name": "Ixigo",
+   "description": "ixigo is an AI-led travel platform for booking trains, flights, buses and hotels in India.",
+   "stage": "IPO",
+   "firstPartnered": "2016",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "ixigo"
+  },
+  {
+   "name": "Just Dial",
+   "description": "Justdial is an Indian local search platform connecting consumers with businesses, services and listings.",
+   "stage": "IPO",
+   "firstPartnered": "2009",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "just-dial"
+  },
+  {
+   "name": "Lovable",
+   "description": "Indian women's innerwear manufacturer and brand (Lovable Lingerie Ltd, BSE-listed) selling bras, panties, sportswear, nightwear, and winterwear via its e-commerce site and offline retail across India.",
+   "stage": "IPO",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "lovable"
+  },
+  {
+   "name": "Mamaearth",
+   "description": "Mamaearth is a toxin-free personal care brand offering skincare, haircare and baby care products.",
+   "stage": "IPO",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "mamaearth"
+  },
+  {
+   "name": "Manappuram",
+   "description": "Manappuram Finance is an Indian NBFC offering gold loans, microfinance, vehicle loans and other credit products.",
+   "stage": "IPO",
+   "firstPartnered": "2007",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "manappuram"
+  },
+  {
+   "name": "Meesho",
+   "description": "Meesho is an Indian e-commerce marketplace focused on value-first online shopping for mass consumers.",
+   "stage": "IPO",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "meesho"
+  },
+  {
+   "name": "Mobikwik",
+   "description": "MobiKwik is a digital payments and financial services platform offering UPI, wallets, credit and savings products.",
+   "stage": "IPO",
+   "firstPartnered": "2013",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "mobikwik"
+  },
+  {
+   "name": "Naukri",
+   "description": "India's largest online job and recruitment platform (Info Edge) offering job listings, resume database access, employer hiring tools, and HR SaaS to job-seekers and recruiters across India.",
+   "stage": "IPO",
+   "firstPartnered": "2006",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "naukri"
+  },
+  {
+   "name": "Persistent",
+   "description": "Global digital engineering and enterprise modernization services company offering software product engineering, cloud, data, AI, and industry solutions across BFSI, healthcare, life sciences, and tech — listed on Indian exchanges.",
+   "stage": "IPO",
+   "firstPartnered": "2010",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "persistent"
+  },
+  {
+   "name": "Pine Labs",
+   "description": "Pine Labs provides merchant commerce infrastructure across payments, issuing, affordability and loyalty.",
+   "stage": "IPO",
+   "firstPartnered": "2009",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "pine-labs"
+  },
+  {
+   "name": "Prataap Snacks",
+   "description": "Prataap Snacks makes and markets packaged snacks under brands such as Yellow Diamond.",
+   "stage": "IPO",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "prataap-snacks"
+  },
+  {
+   "name": "Quick Heal",
+   "description": "Quick Heal provides cybersecurity products for consumers, enterprises and government customers.",
+   "stage": "IPO",
+   "firstPartnered": "2010",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "quick-heal"
+  },
+  {
+   "name": "Star Health",
+   "description": "Star Health is an Indian standalone health insurer offering retail, family and group health insurance.",
+   "stage": "IPO",
+   "firstPartnered": "2010",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "star-health"
+  },
+  {
+   "name": "Stovekraft",
+   "description": "Stovekraft makes kitchen appliances and cookware under brands including Pigeon and Gilma.",
+   "stage": "IPO",
+   "firstPartnered": "2010",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "stovekraft"
+  },
+  {
+   "name": "Tracxn",
+   "description": "Private company data and intelligence platform tracking 7.1M+ startups across 2,000+ sectors and 30+ countries — used by investors, corporates, and bankers for deal discovery and market intelligence.",
+   "stage": "IPO",
+   "firstPartnered": "2016",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "tracxn"
+  },
+  {
+   "name": "Truecaller",
+   "description": "Truecaller helps people identify calls, block spam and communicate more safely on mobile.",
+   "stage": "IPO",
+   "firstPartnered": "2013",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "truecaller"
+  },
+  {
+   "name": "Ujjivan",
+   "description": "Ujjivan Small Finance Bank provides banking and credit products for underserved Indian customers.",
+   "stage": "IPO",
+   "firstPartnered": "2008",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "ujjivan"
+  },
+  {
+   "name": "Wakefit",
+   "description": "Wakefit is a sleep and home solutions brand offering mattresses, furniture and home products.",
+   "stage": "IPO",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "wakefit"
+  },
+  {
+   "name": "Zomato",
+   "description": "Zomato is a food delivery and dining platform within Eternal, serving consumers, restaurants and delivery partners.",
+   "stage": "IPO",
+   "firstPartnered": "2013",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "zomato"
+  },
+  {
+   "name": "1mg",
+   "description": "Indian online pharmacy and healthcare marketplace selling prescription and OTC medicines, vitamins, and health products, with home delivery, lab tests, and doctor consultations across India.",
+   "stage": "Growth",
+   "firstPartnered": "2016",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "1mg"
+  },
+  {
+   "name": "Absolute",
+   "description": "Bioscience company developing climate-focused solutions across agriculture, personal care, and materials science — including carbon-neutral farming inputs and bio-inspired materials — serving farmers and industries across 20+ countries.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "DeepTech",
+    "Enterprise"
+   ],
+   "id": "absolute"
+  },
+  {
+   "name": "Aragen Life Sciences",
+   "description": "Aragen Life Sciences is a leading global contract research, development, and manufacturing organization (CRDMO) that provides small and large molecule R&D services to the global pharmaceutical, biotech, and agrochemical industries.",
+   "stage": "Growth",
+   "firstPartnered": "2007",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "aragen-life-sciences"
+  },
+  {
+   "name": "Aricent",
+   "description": "Aricent was a major global design, software, and product engineering services company that specialized in communications technology, IoT frameworks, and connectivity solutions for the telecommunications, semiconductor, and automotive industries. Originally founded in India as Hughes Software Systems, the company evolved through multiple private equity transitions before being acquired by the French engineering giant Altran in 2018 (which was subsequently integrated into Capgemini Engineering).",
+   "stage": "Growth",
+   "firstPartnered": "2006",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "aricent"
+  },
+  {
+   "name": "ASG Eye Hospital",
+   "description": "Indian eye care chain operating 180+ hospitals with 700+ specialists, offering LASIK, cataract, retina, and other ophthalmic surgeries and treatments across India and select international locations.",
+   "stage": "Growth",
+   "firstPartnered": "2012",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "asg-eye-hospital"
+  },
+  {
+   "name": "Atlan",
+   "description": "Enterprise context layer that unifies metadata from data warehouses, BI tools, and business applications into a knowledge graph so AI agents and data teams can act on trusted, business-aware data — used by Mastercard, Workday, and General Motors.",
+   "stage": "Growth",
+   "firstPartnered": "2020",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "atlan"
+  },
+  {
+   "name": "Atomicwork",
+   "description": "AI-native IT and enterprise service management platform whose AI \"coworkers\" automate IT operations, employee support, and business workflows across Slack, Microsoft Teams, and ServiceNow.",
+   "stage": "Growth",
+   "firstPartnered": "2025",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "atomicwork"
+  },
+  {
+   "name": "BankBazaar",
+   "description": "Indian online marketplace for credit cards, personal loans, home loans, and other financial products — offering comparison, application, and free credit score tools across major banks.",
+   "stage": "Growth",
+   "firstPartnered": "2014",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "bankbazaar"
+  },
+  {
+   "name": "Bounce Infinity",
+   "description": "Indian electric scooter brand designing and selling EV two-wheelers (e.1, e.1LE, e.1+) with portable batteries and dealer support across Indian cities.",
+   "stage": "Growth",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "bounce-infinity"
+  },
+  {
+   "name": "Cardekho",
+   "description": "CarDekho is an auto-tech platform helping users research, buy and sell new and used cars.",
+   "stage": "Growth",
+   "firstPartnered": "2013",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "cardekho"
+  },
+  {
+   "name": "Cars24",
+   "description": "CARS24 is an auto-tech platform making it simpler to buy, sell and finance used cars.",
+   "stage": "Growth",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "cars24"
+  },
+  {
+   "name": "Chargebee",
+   "description": "Chargebee helps subscription businesses manage billing, revenue recognition, pricing and retention.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "chargebee"
+  },
+  {
+   "name": "Charlotte Tilbury",
+   "description": "British luxury beauty brand selling makeup, skincare, and fragrance created by makeup artist Charlotte Tilbury, distributed direct-to-consumer online and through department stores globally.",
+   "stage": "Growth",
+   "firstPartnered": "2017",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "charlotte-tilbury"
+  },
+  {
+   "name": "Citrus Payment",
+   "description": "Indian online payment gateway (acquired by PayU) offering payment processing, wallet, and merchant solutions for businesses accepting consumer payments.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "citrus-payment"
+  },
+  {
+   "name": "ClassPlus",
+   "description": "India-based SaaS for educators and coaching businesses — lets tutors, coaching centres, and content creators run their own branded mobile app to deliver classes, manage students, sell courses, and process payments.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "classplus"
+  },
+  {
+   "name": "Cloudnine",
+   "description": "Cloudnine is a maternity, childcare and fertility hospital network serving families across India.",
+   "stage": "Growth",
+   "firstPartnered": "2013",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "cloudnine"
+  },
+  {
+   "name": "CRED",
+   "description": "CRED is a members-only fintech platform offering credit card payments, rewards, credit and financial products.",
+   "stage": "Growth",
+   "firstPartnered": "2018",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "cred"
+  },
+  {
+   "name": "Curatio Healthcare",
+   "description": "Curatio Healthcare is a leading Indian pharmaceutical company specializing in dermatology and cosmetic skincare products. The company was fully acquired by Indian multinational pharmaceutical giant Torrent Pharmaceuticals.",
+   "stage": "Growth",
+   "firstPartnered": "2015",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "curatio-healthcare"
+  },
+  {
+   "name": "Dailyhunt",
+   "description": "Dailyhunt is a local-language content platform for news, video and entertainment across India.",
+   "stage": "Growth",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "dailyhunt"
+  },
+  {
+   "name": "Digit Insurance",
+   "description": "Go Digit is a digital-first general insurer offering motor, health, travel and business insurance in India.",
+   "stage": "Growth",
+   "firstPartnered": "2022",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "digit-insurance"
+  },
+  {
+   "name": "Druva",
+   "description": "Druva provides cloud-native data security, backup and cyber resilience for enterprises.",
+   "stage": "Growth",
+   "firstPartnered": "2010",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "druva"
+  },
+  {
+   "name": "Eruditus",
+   "description": "Eruditus partners with leading universities to deliver executive and professional education globally.",
+   "stage": "Growth",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "eruditus"
+  },
+  {
+   "name": "Finova Capital",
+   "description": "RBI-licensed Indian NBFC providing MSME business loans, home loans, and personal loans (₹50K to ₹25 lakhs) to small businesses and individuals with limited access to formal credit.",
+   "stage": "Growth",
+   "firstPartnered": "2017",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "finova-capital"
+  },
+  {
+   "name": "Fintellix",
+   "description": "Regulatory reporting, risk management, and data analytics SaaS for banks and financial institutions globally — supports both regulated entities (compliance, risk) and regulators (supervisory oversight).",
+   "stage": "Growth",
+   "firstPartnered": "2012",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "fintellix"
+  },
+  {
+   "name": "FirstClub",
+   "description": "FirstClub is a quality-first quick-commerce platform offering curated, private-label-led groceries and everyday essentials for India's top 30 million households.",
+   "stage": "Growth",
+   "firstPartnered": "2026",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "firstclub"
+  },
+  {
+   "name": "Flobiz",
+   "description": "AI-powered business management SaaS for Indian small businesses offering billing, accounting, inventory, payments, and customer management through its myBillBook app.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "flobiz"
+  },
+  {
+   "name": "Genesis Colors",
+   "description": "Indian fashion and luxury brand house (acquired by Reliance Brands) holding ownership/licenses of Indian designer labels including Satya Paul and other premium fashion brands. [Note: site redirects to Reliance Brands Facebook page]",
+   "stage": "Growth",
+   "firstPartnered": "2008",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "genesis-colors"
+  },
+  {
+   "name": "GlobalLogic",
+   "description": "GlobalLogic (globallogic.com) is a major digital product engineering services company that integrates advanced software engineering, experience design, and data/AI capabilities to help enterprise brands design, build, and deploy digital products, platforms, and experiences. Headquartered in Silicon Valley (San Jose, California) with a massive global operational footprint across the Americas, Europe, and India, the company was acquired by Japanese electronics and technology conglomerate Hitachi, Ltd., and operates as an integral part of Hitachi's digital business ecosystem.",
+   "stage": "Growth",
+   "firstPartnered": "2008",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "globallogic"
+  },
+  {
+   "name": "Heads Up For Tails",
+   "description": "Indian premium pet care brand selling pet food, toys, grooming products, accessories, and apparel for dogs and cats through its e-commerce site and physical retail stores.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "heads-up-for-tails"
+  },
+  {
+   "name": "HealthKart",
+   "description": "HealthKart is a nutrition and wellness platform offering sports nutrition, supplements and health products.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "healthkart"
+  },
+  {
+   "name": "Hector Beverages",
+   "description": "Indian F&B company best known for Paper Boat, a brand of nostalgia-inspired traditional juices and beverages, plus sparkling water, dry fruits, and snacks sold to retail consumers.",
+   "stage": "Growth",
+   "firstPartnered": "2012",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "hector-beverages"
+  },
+  {
+   "name": "Hevo Data",
+   "description": "Fully managed, no-code ELT/data pipeline platform with 150+ pre-built connectors that moves data from SaaS sources into warehouses for data and analytics teams.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "hevo-data"
+  },
+  {
+   "name": "Jupiter",
+   "description": "Indian neo-banking app offering savings accounts, credit cards, personal loans, mutual fund and gold investments, and expense tracking through partnerships with regulated banks — targeting digital-first consumers.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "jupiter"
+  },
+  {
+   "name": "K12 Techno Services",
+   "description": "K12 Techno Services provides education services, curriculum and school management support to K-12 institutions.",
+   "stage": "Growth",
+   "firstPartnered": "2010",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "k12-techno-services"
+  },
+  {
+   "name": "La Renon",
+   "description": "La Renon is an Indian pharmaceutical company focused on chronic therapies and specialty healthcare.",
+   "stage": "Growth",
+   "firstPartnered": "2015",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "la-renon"
+  },
+  {
+   "name": "MedGenome",
+   "description": "Indian genomics and genetic diagnostics company offering clinical genetic testing, NGS-based diagnostics, and research services for hereditary disorders, oncology, reproductive health, and infectious disease across hospitals, clinicians, and patients in South Asia.",
+   "stage": "Growth",
+   "firstPartnered": "2015",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "medgenome"
+  },
+  {
+   "name": "Micromax",
+   "description": "Indian consumer electronics conglomerate (Micromax Group) with businesses spanning mobile phones (Micromax), contract manufacturing (Bhagwati Products), semiconductors (MiPhi), biofuels, and startup energy.",
+   "stage": "Growth",
+   "firstPartnered": "2010",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "micromax"
+  },
+  {
+   "name": "Moglix",
+   "description": "Indian B2B industrial e-commerce platform supplying MRO, electricals, power tools, safety equipment, and packaging to manufacturers and enterprise procurement teams, with a consumer-facing site for individual buyers.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "moglix"
+  },
+  {
+   "name": "Moolchand",
+   "description": "Multi-specialty Indian hospital network (Moolchand Kharaiti Ram Hospital / Medcity) offering cardiology, oncology, orthopedics, fertility, pediatrics, and 50+ medical specialties to patients in India and 50+ countries.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "moolchand"
+  },
+  {
+   "name": "Mu Sigma",
+   "description": "Decision sciences firm combining math, data analytics, AI, and business consulting to build decision systems for 140+ Fortune 500 companies across 12+ industries.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "mu-sigma"
+  },
+  {
+   "name": "Neo Wealth",
+   "description": "Neo is a wealth and asset management platform serving high-net-worth individuals, families and institutions.",
+   "stage": "Growth",
+   "firstPartnered": "2023",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "neo-wealth"
+  },
+  {
+   "name": "Octro",
+   "description": "Indian mobile gaming company developing casual and skill-based titles — poker, rummy, teen patti, slots, blackjack, tambola — for players globally.",
+   "stage": "Growth",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "octro"
+  },
+  {
+   "name": "OlaCabs",
+   "description": "OlaCabs, popularly known as Ola, is a mobile app for personal transportation in India.",
+   "stage": "Growth",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "olacabs"
+  },
+  {
+   "name": "OneAssist",
+   "description": "OneAssist provides protection, repair and assistance plans for devices, appliances, cards and other consumer assets.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "oneassist"
+  },
+  {
+   "name": "OneCard",
+   "description": "OneCard offers a mobile-first credit card experience with a premium metal card and app-led controls.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "onecard"
+  },
+  {
+   "name": "Paras",
+   "description": "Paras Pharmaceuticals was an Indian consumer healthcare company behind brands including Moov, D’Cold and Krack.",
+   "stage": "Growth",
+   "firstPartnered": "2006",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "paras"
+  },
+  {
+   "name": "Plum",
+   "description": "Indian employee health benefits platform offering group health, term life, and personal accident insurance plus telehealth, health checkups, and mental health services to companies of all sizes.",
+   "stage": "Growth",
+   "firstPartnered": "2020",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "plum"
+  },
+  {
+   "name": "Polygon Labs",
+   "description": "Layer-2 blockchain infrastructure for global payments and stablecoins — offers settlement layers, wallet infrastructure, cross-chain interoperability, on/off-ramps, and stablecoin tooling for fintechs, financial institutions, and developers.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "polygon-labs"
+  },
+  {
+   "name": "Progcap",
+   "description": "Indian fintech delivering financing, payments, and business-management tools to underserved retailers, distributors, and small manufacturers — combines credit with supply-chain digitization.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "progcap"
+  },
+  {
+   "name": "Purplle",
+   "description": "Purplle is an online beauty destination offering makeup, skincare, haircare and personal care products.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "purplle"
+  },
+  {
+   "name": "Razorpay",
+   "description": "Razorpay builds payments and banking infrastructure for businesses across online and offline commerce.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "razorpay"
+  },
+  {
+   "name": "Rebel Foods",
+   "description": "Rebel Foods operates cloud kitchen brands and a food-tech platform for internet-first restaurants.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "rebel-foods"
+  },
+  {
+   "name": "SaaS Labs",
+   "description": "AI-first SaaS company offering JustCall (cloud phone system), ServiceAgent (AI call answering), Helpwise (shared inbox), AtomsAI, and CallPage — used by sales, support, and marketing teams to scale customer interactions.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "saas-labs"
+  },
+  {
+   "name": "Sarvagram",
+   "description": "India's first rural-household financial services platform offering farm, business, personal, gold, home, and consumer-durable loans plus farm-equipment services and insurance to rural households via a phygital model.",
+   "stage": "Growth",
+   "firstPartnered": "2024",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "sarvagram"
+  },
+  {
+   "name": "Scaler Academy",
+   "description": "Scaler is a transformative tech school, helping working professionals and college students build their career and create impact with impeccable coding skills.",
+   "stage": "Growth",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "scaler-academy"
+  },
+  {
+   "name": "Scapia",
+   "description": "India-based travel-rewards fintech issuing co-branded credit cards (with Federal Bank, BOBCard) where everyday spend earns \"Scapia coins\" redeemable on flights, hotels, trains, and buses — zero joining, annual, and forex fees.",
+   "stage": "Growth",
+   "firstPartnered": "2025",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "scapia"
+  },
+  {
+   "name": "Sri Mandir (AppsForBharat)",
+   "description": "India's largest Hindu devotional app (developed by AppsForBharat) letting 30M+ devotees book online pujas and chadhava at 100+ temples, access aartis and mantras, and use horoscope and spiritual services.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "sri-mandir-appsforbharat"
+  },
+  {
+   "name": "Stable Money",
+   "description": "Stable Money helps Indian consumers access fixed deposits, bonds and other fixed-income products digitally.",
+   "stage": "Growth",
+   "firstPartnered": "2026",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "stable-money"
+  },
+  {
+   "name": "Suburban Diagnostics",
+   "description": "Indian diagnostics chain offering pathology, radiology, and cardiology tests, health check-up packages, home sample collection, hospital lab management, and corporate wellness services.",
+   "stage": "Growth",
+   "firstPartnered": "2012",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "suburban-diagnostics"
+  },
+  {
+   "name": "Truemeds",
+   "description": "Indian e-pharmacy delivering prescription and OTC medicines across India — recommends affordable generic substitutes via free doctor consultations to help chronic patients save on regular prescriptions.",
+   "stage": "Growth",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "truemeds"
+  },
+  {
+   "name": "Twin Health",
+   "description": "Twin Health uses a Whole Body Digital Twin to help people manage and reverse chronic metabolic disease.",
+   "stage": "Growth",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "twin-health"
+  },
+  {
+   "name": "Unacademy",
+   "description": "India's largest online learning platform offering live classes, recorded lessons, mock tests, and practice for 200+ competitive exams (UPSC, JEE, NEET, banking, govt) via 14,000+ educators to 100M+ learners.",
+   "stage": "Growth",
+   "firstPartnered": "2017",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "unacademy"
+  },
+  {
+   "name": "UnitedLex",
+   "description": "Legal data, analytics, and managed services firm offering tech-enabled litigation support, IP services, legal operations consulting, and AI advisory to in-house legal teams and law firms globally.",
+   "stage": "Growth",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "unitedlex"
+  },
+  {
+   "name": "Urban Ladder",
+   "description": "Indian online furniture and home décor retailer (now part of Reliance Retail) selling beds, sofas, dining sets, storage, mattresses, lighting, and décor with delivery, installation, and repair across major Indian cities.",
+   "stage": "Growth",
+   "firstPartnered": "2015",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "urban-ladder"
+  },
+  {
+   "name": "Vasan Eye Care",
+   "description": "Indian eye-care hospital chain offering cataract, LASIK, retina, glaucoma, and other ophthalmic services across centres in India and select international markets.",
+   "stage": "Growth",
+   "firstPartnered": "2009",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "vasan-eye-care"
+  },
+  {
+   "name": "Via",
+   "description": "India's largest travel network (EBIX Travels) offering flight, hotel, holiday, rail, bus, and car booking to consumers, travel agents, and corporate clients via web and a franchise/agent network.",
+   "stage": "Growth",
+   "firstPartnered": "2009",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "via"
+  },
+  {
+   "name": "Vini Cosmetics",
+   "description": "Vini Cosmetics is an Indian personal care company best known for brands including Fogg.",
+   "stage": "Growth",
+   "firstPartnered": "2013",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "vini-cosmetics"
+  },
+  {
+   "name": "Whatfix",
+   "description": "AI-powered digital adoption platform offering in-app guidance, training, and usage analytics that help large enterprises in BFSI, healthcare, and other industries accelerate adoption of complex software.",
+   "stage": "Growth",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "whatfix"
+  },
+  {
+   "name": "Wildcraft",
+   "description": "Wildcraft is a prominent Indian outdoor and adventure gear company that manufactures, markets, and distributes a wide portfolio of performance-oriented backpacks, travel luggage, rucksacks, outdoor footwear, clothing, and multi-utility gear for travel, trekking, and active lifestyles.",
+   "stage": "Growth",
+   "firstPartnered": "2013",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "wildcraft"
+  },
+  {
+   "name": "Yubi",
+   "description": "Yubi is an Indian fintech company that operates an end-to-end, unified digital debt marketplace and lending infrastructure platform, seamlessly connecting corporate borrowers, small businesses, and individual originators with banks, institutional investors, and lenders across products like loans, co-lending, bonds, supply chain finance, and securitization.",
+   "stage": "Growth",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "yubi"
+  },
+  {
+   "name": "Zetwerk",
+   "description": "Zetwerk is a manufacturing network that helps companies source custom products and manage supply chains.",
+   "stage": "Growth",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "zetwerk"
+  },
+  {
+   "name": "Agrani Labs",
+   "description": "Builds AI GPUs and end-to-end software for enterprise and datacenter compute infrastructure.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "DeepTech",
+    "AI"
+   ],
+   "id": "agrani-labs"
+  },
+  {
+   "name": "Ambak",
+   "description": "Indian home loan marketplace connecting borrowers with 70+ banks to compare rates and get sanctioned faster, offering home loans, balance transfers, and construction loans at zero commission to consumers.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "ambak"
+  },
+  {
+   "name": "Amnic",
+   "description": "Engineering intelligence platform combining FinOps cloud-cost management with a context graph (Radix) that links deployment, cost, and observability signals to root-cause issues across engineering systems.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "amnic"
+  },
+  {
+   "name": "Animall",
+   "description": "Animall is an Indian agritech startup and peer-to-peer (P2P) livestock marketplace designed to digitize cattle trading. Operating as an online Pashu Mela (cattle fair), the commission-free platform connects dairy farmers directly with buyers to purchase and sell cows, buffaloes, and goats, while also integrating value-added services such as cattle assessment, veterinary support, livestock insurance, and dairy farming loans.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "animall"
+  },
+  {
+   "name": "Apna",
+   "description": "Indian job platform connecting blue- and grey-collar workers with employers, serving 1000+ enterprises and millions of MSMEs across the country.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "apna"
+  },
+  {
+   "name": "Apna Mart",
+   "description": "Apna Mart is an Indian retail and quick-commerce startup that operates a technology-driven, franchise-based omnichannel grocery network. Focused primarily on Tier-2 and Tier-3 cities (such as Ranchi and Jamshedpur), the platform functions as an asset-light \"DMart for smaller cities,\" combining physical neighborhood convenience stores with an online application that offers rapid hyper-local delivery of groceries and household essentials.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "apna-mart"
+  },
+  {
+   "name": "ApnaKlub",
+   "description": "B2B FMCG wholesale platform supplying 400+ brands to retail store owners across India's Tier 2 and Tier 3 cities, with inventory access, credit, and 48-hour delivery.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "apnaklub"
+  },
+  {
+   "name": "Arintra",
+   "description": "AI-powered autonomous medical coding platform that integrates with EHRs like Epic and Athena to automate coding workflows, improve accuracy, and accelerate revenue cycle management for US health systems and physician groups.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "AI",
+    "Healthcare"
+   ],
+   "id": "arintra"
+  },
+  {
+   "name": "Atlys",
+   "description": "Mobile-first visa application platform offering on-time visa delivery to 120+ countries through AI-powered document automation, compliance checking, and status tracking for global travelers.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "atlys"
+  },
+  {
+   "name": "Aukera Jewellery",
+   "description": "Indian lab-grown diamond jewellery brand designing rings, earrings, necklaces, and other fine pieces for consumers seeking ethical, sustainably-sourced diamond jewellery.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "aukera-jewellery"
+  },
+  {
+   "name": "Avataar",
+   "description": "Enterprise agentic AI platform building domain-specialized AI agents that automate operational workflows and drive cost efficiency for large businesses.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "avataar"
+  },
+  {
+   "name": "BazaarNow",
+   "description": "BazaarNow is a habit-led quick commerce platform built for middle-class households in Tier 2 and Tier 3 India.",
+   "stage": "Venture",
+   "firstPartnered": "2026",
+   "sectors": [],
+   "id": "bazaarnow"
+  },
+  {
+   "name": "BharatPe",
+   "description": "BharatPe offers payments, credit and financial services for merchants and small businesses across India.",
+   "stage": "Venture",
+   "firstPartnered": "2018",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "bharatpe"
+  },
+  {
+   "name": "Brick & Bolt",
+   "description": "Indian tech-enabled home construction company offering end-to-end design-to-build services for residential and commercial projects, with ESCROW-secured payments and app-based project tracking — 9,000+ homes built.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "brick-bolt"
+  },
+  {
+   "name": "Bright",
+   "description": "US fintech offering AI-driven debt payoff plans, secured credit lines, personal loans up to $10K, cash advances, and rent reporting to help consumers across the credit spectrum reduce debt and build credit.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "bright"
+  },
+  {
+   "name": "C2i Semiconductors",
+   "description": "Power management semiconductor startup developing chips for high-performance, integrated edge computing — focused on performance-per-watt for organizations building next-generation edge solutions.",
+   "stage": "Venture",
+   "firstPartnered": "2026",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "c2i-semiconductors"
+  },
+  {
+   "name": "Clarisights",
+   "description": "Enterprise marketing analytics platform unifying channel, web, and backend data into self-serve dashboards so marketing and data teams at large enterprises can go \"from question to insight in minutes\" without SQL or spreadsheets.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "clarisights"
+  },
+  {
+   "name": "ClearTax",
+   "description": "India's largest tax and financial compliance platform offering income tax e-filing, GST software, invoicing, and enterprise tax-compliance tools for individuals, SMBs, large enterprises, tax professionals, and chartered accountants.",
+   "stage": "Venture",
+   "firstPartnered": "2014",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "cleartax"
+  },
+  {
+   "name": "CleverTap",
+   "description": "All-in-one customer engagement and retention platform offering analytics, personalization, experimentation, and campaign orchestration across email, push, WhatsApp, SMS, and in-app channels for 2,000+ consumer brands worldwide.",
+   "stage": "Venture",
+   "firstPartnered": "2015",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "clevertap"
+  },
+  {
+   "name": "Cloudphysician",
+   "description": "Hospital-care AI platform combining ambient intelligence and computer vision on live video, vitals, and EMR data to flag patient safety risks (falls, pressure ulcers, infections) and support inpatient care teams.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "AI",
+    "Healthcare"
+   ],
+   "id": "cloudphysician"
+  },
+  {
+   "name": "Coinswitch",
+   "description": "Indian retail cryptocurrency exchange offering trading in 400+ tokens (spot, futures with up to 100x leverage, options, Web3) via mobile and web platforms — serving Indian retail and institutional investors.",
+   "stage": "Venture",
+   "firstPartnered": "2018",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "coinswitch"
+  },
+  {
+   "name": "Convosight",
+   "description": "Convosight is the world’s first community management platform that uses the power of data analytics and machine learning to help admins and brands create, moderate, grow and leverage communities meaningfully.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "convosight"
+  },
+  {
+   "name": "Cuemath",
+   "description": "1:1 personalised online math tutoring service for K-8 students across 80+ countries, delivering twice-weekly classes with certified tutors via an interactive, gamified learning platform.",
+   "stage": "Venture",
+   "firstPartnered": "2016",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "cuemath"
+  },
+  {
+   "name": "Darwinbox",
+   "description": "AI-native human capital management (HCM) platform serving large enterprises across Asia with end-to-end HR software covering core HR, talent management, payroll, and employee experience.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "darwinbox"
+  },
+  {
+   "name": "Dashverse",
+   "description": "Comics, manga, and manhwa publishing platform offering a reader app for serialized titles across multiple genres and a creator studio (\"Dashtoon Studio\") for users to make their own comics using AI tools.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "dashverse"
+  },
+  {
+   "name": "DeHaat",
+   "description": "Indian agritech platform connecting farmers to integrated services — agri-inputs, advisory, soil and crop monitoring, market access, and farm financing — through a network of micro-entrepreneur centres.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "dehaat"
+  },
+  {
+   "name": "Dezy",
+   "description": "Indian dental healthcare chain offering aligners, implants, root canals, whitening, and general dentistry across signature clinics in multiple cities, with online consultations and a network of dentists.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "dezy"
+  },
+  {
+   "name": "Digantara",
+   "description": "Indian space-intelligence company building space situational awareness infrastructure — hardware (PRISM, PULSE), data platforms (LOCUS, IRIS), and analytics (STARS) — for satellite operators and government agencies needing orbital surveillance and tracking.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "digantara"
+  },
+  {
+   "name": "DrinkPrime",
+   "description": "Indian subscription water-purifier service offering IoT-enabled RO purifiers on a monthly rental (from ₹359/month) with zero upfront cost and lifetime free maintenance, available across 9 major Indian cities.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "drinkprime"
+  },
+  {
+   "name": "Drip Capital",
+   "description": "Cross-border trade finance platform offering working capital and invoice/post-shipment financing to small and mid-sized exporters and importers in emerging markets, including India, US, and Mexico.",
+   "stage": "Venture",
+   "firstPartnered": "2017",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "drip-capital"
+  },
+  {
+   "name": "Elivaas",
+   "description": "Elivaas is a tech-driven hospitality and property management platform in India that offers travelers a curated marketplace of luxury villa rentals while providing second-home owners with end-to-end management, monetization, and upkeep services.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "elivaas"
+  },
+  {
+   "name": "Ethereal Machines",
+   "description": "Indian deep-tech precision-manufacturing platform offering on-demand 3- and 5-axis CNC machining for aerospace, healthcare, electronics, drones, and semiconductors — customers upload CAD files and get instant quotes and parts.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "ethereal-machines"
+  },
+  {
+   "name": "FamApp",
+   "description": "Indian teen-focused fintech offering a prepaid card and UPI-enabled app (FamApp) for teenagers to learn money management with parental oversight, plus savings, rewards, and small-value spends.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "famapp"
+  },
+  {
+   "name": "Fittr",
+   "description": "India-based health and wellness platform combining diagnostics, coaching, real-time monitoring via smart wearables (HART Smart Ring, Sense scales), and rehab services to help individuals and corporates prevent and manage chronic conditions.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "fittr"
+  },
+  {
+   "name": "GoKwik",
+   "description": "GoKwik is an Indian e-commerce enablement platform that utilizes AI and data analytics to provide direct-to-consumer (D2C) brands with checkout solutions, fraud prevention, and Return-to-Origin (RTO) reduction tools.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "gokwik"
+  },
+  {
+   "name": "GoodScore",
+   "description": "Indian credit-management app helping users improve their credit score to 750+ through detailed reports, personalised video guidance, 1:1 consultation, and 24/7 chat support, plus loan and bill payment tracking.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "goodscore"
+  },
+  {
+   "name": "Hippo Video",
+   "description": "Agentic AI video creation platform for sales, marketing, support, and comms — offers text-to-video, AI avatars in 30+ languages, and campaign automation for businesses across hospitality, SaaS, and enterprise.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "AI"
+   ],
+   "id": "hippo-video"
+  },
+  {
+   "name": "HomeLane",
+   "description": "Indian end-to-end interior design company offering modular kitchens, wardrobes, and full home interiors to homeowners across 50+ cities via online consultations and 50+ experience centres, with ~45-day delivery.",
+   "stage": "Venture",
+   "firstPartnered": "2015",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "homelane"
+  },
+  {
+   "name": "Hubble",
+   "description": "Hubble creates a rewarding savings experience to help users reach their goals.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "hubble"
+  },
+  {
+   "name": "HYOU Fine Jewelry",
+   "description": "HYOU Fine Jewelry is a premium direct-to-consumer (D2C) jewelry brand that specializes in designing and retailing modern, everyday luxury fine jewelry crafted from responsibly sourced precious metals, high-quality lab grown diamonds, and gemstones.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "hyou-fine-jewelry"
+  },
+  {
+   "name": "Hyuga Life",
+   "description": "Hyuga Life helps new age Indian consumers upgrade their quality of life through better home and health products.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "hyuga-life"
+  },
+  {
+   "name": "InVideo",
+   "description": "AI-powered video creation platform letting creators, marketers, and agencies generate, edit, and publish videos via prompts — features AI video generation, image creation, voice synthesis, and editor.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "invideo"
+  },
+  {
+   "name": "KhataBook",
+   "description": "Khatabook is an Indian fintech platform and digital ledger app that helps micro, small, and medium enterprises (MSMEs) digitize their bookkeeping, manage business expenses, and streamline credit recording and collection.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "khatabook"
+  },
+  {
+   "name": "LambdaTest",
+   "description": "LambdaTest is an AI-powered, cloud-based unified test execution platform that allows developers and QA teams to run manual and automated tests on their web and mobile applications across over 3,000 different browsers, operating systems, and real devices.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "lambdatest"
+  },
+  {
+   "name": "Last9",
+   "description": "Observability platform unifying logs, traces, metrics, and real-user monitoring with an AI control plane that helps engineering teams triage and remediate incidents faster across complex stacks.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Developer Tools"
+   ],
+   "id": "last9"
+  },
+  {
+   "name": "Leap Finance",
+   "description": "Indian fintech offering collateral-free education loans and financial products to students pursuing higher education abroad — primarily masters programs in the US, UK, Canada, and Australia.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "leap-finance"
+  },
+  {
+   "name": "LightMetrics",
+   "description": "Video telematics company providing AI dash-cam software (RideView) to telematics service providers and trucking OEMs — edge-AI detection of risky driving behaviour and in-cab coaching for fleet safety.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "lightmetrics"
+  },
+  {
+   "name": "Lyskraft",
+   "description": "Lyskraft is building India's leading omni channel curated multi-brand platform for premium women's fashion.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "lyskraft"
+  },
+  {
+   "name": "MasterChow",
+   "description": "Indian D2C Asian-food brand selling ready-to-cook noodles, sauces, condiments, and meal kits for under-10-minute home cooking of dishes like chowmein, fried rice, and ramen.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "masterchow"
+  },
+  {
+   "name": "Meragi",
+   "description": "Indian end-to-end wedding planning and design company curating destination and city weddings — covers venues, decor, vendor coordination, catering, photography, and logistics for couples across India.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "meragi"
+  },
+  {
+   "name": "Metropolitan Stock Exchange of India",
+   "description": "SEBI-recognized stock exchange offering trading in equity, equity derivatives, currency derivatives, and debt market segments to brokers, institutions, and retail investors in India.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "metropolitan-stock-exchange-of-india"
+  },
+  {
+   "name": "Mindgrove",
+   "description": "Indian fabless semiconductor design company building India-designed System-on-Chips (SoCs) for IoT, vision, automotive, wearables, industrial automation, and smart home applications.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "mindgrove"
+  },
+  {
+   "name": "Minimalist",
+   "description": "Indian D2C personal care brand selling science-led skincare, haircare, and body care formulated for specific concerns like acne, pigmentation, and dryness with transparent ingredient disclosure — affordable, no-marketing-fluff positioning.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "minimalist"
+  },
+  {
+   "name": "Mobile Premier League",
+   "description": "Mobile Premier League is a skill-gaming platform where users play mobile games and tournaments.",
+   "stage": "Venture",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "mobile-premier-league"
+  },
+  {
+   "name": "Mokobara",
+   "description": "Indian D2C travel-goods brand designing and selling suitcases, backpacks, briefcases, totes, wallets, and accessories with an intelligent-design aesthetic — sold online and through physical stores.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "mokobara"
+  },
+  {
+   "name": "Moonfrog",
+   "description": "Indian mobile games studio developing casual board and card titles — Ludo Club, Teen Patti Gold, Parchis Club, and Rummy Gold — distributed globally via Google Play and the App Store.",
+   "stage": "Venture",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "moonfrog"
+  },
+  {
+   "name": "Mosaic Wellness",
+   "description": "Mosaic Wellness builds digital health and wellness brands across men’s health, women’s health and family wellness.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "mosaic-wellness"
+  },
+  {
+   "name": "NatHabit",
+   "description": "Indian D2C Ayurvedic personal care brand selling fresh-made hair, skin, body, baby, and men's grooming products formulated with herbs, oils, and butters — no chemicals or preservatives.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "nathabit"
+  },
+  {
+   "name": "Newtrace",
+   "description": "Indian climate-tech startup developing advanced electrode and stack technology for water electrolyzers (VoltaGen) to produce cost-competitive green hydrogen for industrial refining and oil & gas customers.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "newtrace"
+  },
+  {
+   "name": "Osfin",
+   "description": "Low-code financial-operations automation platform offering intelligent reconciliation, data integration, and real-time visibility across payments, banking, fintech, insurance, capital markets, gaming, and retail — 170+ integrations.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "osfin"
+  },
+  {
+   "name": "OYO",
+   "description": "OYO is a hospitality platform helping small hotels and homes manage demand, distribution and operations.",
+   "stage": "Venture",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "oyo"
+  },
+  {
+   "name": "Pagarbook",
+   "description": "PagarBook aims to build a Human Capital Platform for Indian SMEs.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "pagarbook"
+  },
+  {
+   "name": "Park+",
+   "description": "India-based mobility super app offering smart parking, FASTag, e-challan checks, car insurance, used-car listings, car loans, plus B2B valet and access management for individual car owners and businesses.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "park"
+  },
+  {
+   "name": "PayGlocal",
+   "description": "All-in-one cross-border payments platform offering multi-currency accounts, international payment gateways, Apple Pay support, and fraud detection across 180+ countries and 120+ currencies for exporters, e-commerce sellers, and enterprises.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "payglocal"
+  },
+  {
+   "name": "Porter",
+   "description": "Porter is an on-demand logistics platform for trucks, two-wheelers and packers and movers in India.",
+   "stage": "Venture",
+   "firstPartnered": "2015",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "porter"
+  },
+  {
+   "name": "Powerplay",
+   "description": "Construction management SaaS and mobile app helping Indian developers, contractors, and site teams digitize project tracking, materials, labour payroll, issue resolution, and finance in one place.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "AI"
+   ],
+   "id": "powerplay"
+  },
+  {
+   "name": "PowerUp Money",
+   "description": "PowerUp Money is a mutual fund advisory platform helping Indians review, select and manage investments.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "powerup-money"
+  },
+  {
+   "name": "Practo",
+   "description": "Indian healthcare super-app offering doctor discovery, in-person and video consultations, medicine delivery, lab tests, surgery care, and clinic management software for consumers and providers.",
+   "stage": "Venture",
+   "firstPartnered": "2011",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "practo"
+  },
+  {
+   "name": "Prayaan Capital",
+   "description": "Indian MSME-focused NBFC offering affordable secured business loans (up to 72 months) and unsecured working capital and housing loans (up to 48 months) to small and micro-enterprises.",
+   "stage": "Venture",
+   "firstPartnered": "2026",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "prayaan-capital"
+  },
+  {
+   "name": "Primetrace",
+   "description": "Indian consumer AI startup operating a portfolio of mobile apps — Kutumb (community), Crafto AI (status creation), Tarot AI, Sundar AI (photo gen), and Polo (dating) — serving millions of Indian users.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "primetrace"
+  },
+  {
+   "name": "Prismforce",
+   "description": "AI workforce-transformation platform whose suite (SkillPrism, IntelliPrism, OutlookPrism, InsightPrism, CareerPrism, SelectPrism) helps IT services, BPO, and professional services firms assess, develop, and deploy talent.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "prismforce"
+  },
+  {
+   "name": "Privado",
+   "description": "Privacy compliance platform using AI agents to automate data privacy assessments, build dynamic data maps, and audit code, websites, mobile apps, and third-party tools for CCPA, GDPR, and other regulations.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "privado"
+  },
+  {
+   "name": "Prizm",
+   "description": "Prizm Payment Services built electronic payments infrastructure in India and became part of Hitachi Payments.",
+   "stage": "Venture",
+   "firstPartnered": "2008",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "prizm"
+  },
+  {
+   "name": "Procol",
+   "description": "Indian B2B procurement and sourcing SaaS that runs reverse-auctions, RFQs, and contract management for enterprise procurement teams to negotiate better prices with suppliers.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise",
+    "AI"
+   ],
+   "id": "procol"
+  },
+  {
+   "name": "Qure.ai",
+   "description": "Indian medical-imaging AI company offering FDA/CE-cleared products — qXR (chest X-ray), qER (head CT/stroke), lung nodule management, qTrack (TB case management) — used across 5,500+ sites in 105+ countries.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "AI",
+    "Healthcare"
+   ],
+   "id": "qure-ai"
+  },
+  {
+   "name": "RapidCanvas",
+   "description": "Enterprise AI platform combining agentic AI with domain experts (\"Hybrid Approach\") to move mid-to-large enterprises from AI pilots to production use cases like invoice matching, fraud detection, and demand forecasting across BFSI, manufacturing, retail, energy, and education.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "rapidcanvas"
+  },
+  {
+   "name": "Rigi",
+   "description": "Rigi is a platform for creators, influencers and celebrities to grow, manage and monetise their community. It is aimed at both established and aspiring online creators who want to pursue their passion.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "rigi"
+  },
+  {
+   "name": "Ringg AI",
+   "description": "Enterprise conversational AI platform for automating customer interactions across voice and messaging.",
+   "stage": "Venture",
+   "firstPartnered": "2026",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "ringg-ai"
+  },
+  {
+   "name": "Round1 AI",
+   "description": "Round1 (also operating as TAL by Grapevine) is an AI-powered talent acquisition and hiring platform that matches tech professionals with corporate job opportunities by utilizing data insights from Grapevine, a professional community platform.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Consumer",
+    "AI"
+   ],
+   "id": "round1-ai"
+  },
+  {
+   "name": "Rupeek",
+   "description": "Rupeek is an asset-backed Indian digital lending and fintech platform that specializes in providing affordable, doorstep and branch-based gold loans with minimal paperwork and instant online processing through partnerships with trusted banks.",
+   "stage": "Venture",
+   "firstPartnered": "2016",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "rupeek"
+  },
+  {
+   "name": "SalarySe",
+   "description": "Indian salary-linked fintech offering credit cards (Level UP, UP), instant salary advances (InstaCash, up to 80% of salary in 2 seconds), FDs at up to 8.15%, UPI rewards, and brand deals to salaried employees.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "salaryse"
+  },
+  {
+   "name": "Sarvam",
+   "description": "Sarvam AI builds full-stack generative AI models and platforms for India’s languages and enterprise needs.",
+   "stage": "Venture",
+   "firstPartnered": "2023",
+   "sectors": [
+    "AI"
+   ],
+   "id": "sarvam"
+  },
+  {
+   "name": "SCIO Health Analytics",
+   "description": "SCIO Health Analytics provided healthcare analytics and insights before becoming part of EXL Health.",
+   "stage": "Venture",
+   "firstPartnered": "2007",
+   "sectors": [
+    "Enterprise",
+    "Healthcare"
+   ],
+   "id": "scio-health-analytics"
+  },
+  {
+   "name": "Shipsy",
+   "description": "AI-native logistics platform combining transportation and warehouse management with AI agents to plan, execute, track, and settle shipments for 250+ enterprise customers across retail, manufacturing, and 3PL/logistics.",
+   "stage": "Venture",
+   "firstPartnered": "2020",
+   "sectors": [
+    "Enterprise",
+    "AI"
+   ],
+   "id": "shipsy"
+  },
+  {
+   "name": "Sigmoid Analytics",
+   "description": "AI and data consulting firm helping Fortune 1000 enterprises modernise data infrastructure and implement generative and agentic AI solutions across CPG, retail, financial services, and life sciences.",
+   "stage": "Venture",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "sigmoid-analytics"
+  },
+  {
+   "name": "Sirion",
+   "description": "Sirion is an AI-native contract lifecycle management platform for enterprise contracting and supplier management.",
+   "stage": "Venture",
+   "firstPartnered": "2014",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "sirion"
+  },
+  {
+   "name": "Skillmatics",
+   "description": "Indian D2C children's brand designing and selling award-winning family games, educational toys, board and card games, craft kits, and activity books for ages 0-8+ to promote screen-free, educational play.",
+   "stage": "Venture",
+   "firstPartnered": "2019",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "skillmatics"
+  },
+  {
+   "name": "Smallcase",
+   "description": "Indian investment platform offering thematic stock and ETF portfolios (smallcases), direct mutual funds, and expert-managed portfolios to retail investors through partnerships with brokers and asset managers.",
+   "stage": "Venture",
+   "firstPartnered": "2018",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "smallcase"
+  },
+  {
+   "name": "Stanza Living",
+   "description": "Indian managed-living provider offering student housing, professional co-living, and managed apartments across 450+ residences (70,000+ beds) in 15+ cities, with fully furnished, app-managed accommodation.",
+   "stage": "Venture",
+   "firstPartnered": "2018",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "stanza-living"
+  },
+  {
+   "name": "Sweet Karam Coffee",
+   "description": "Indian D2C food brand selling authentic South Indian snacks, sweets, filter coffee, milk mixes, pickles, and traditional foods — sold online in India and internationally.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "sweet-karam-coffee"
+  },
+  {
+   "name": "The Whole Truth",
+   "description": "Indian clean-label nutrition brand selling no-added-sugar, no-additive protein bars, peanut butters, muesli, granola, and snacks formulated for health-conscious Indian consumers.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "the-whole-truth"
+  },
+  {
+   "name": "Toddle",
+   "description": "K-12 learning platform combining curriculum planning, teaching, assessment, reporting, and parent communication for 2,500+ schools globally — AI-powered tools to help teachers personalise student learning.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "toddle"
+  },
+  {
+   "name": "Turtlemint",
+   "description": "Turtlemint is an insurance platform helping consumers and advisors compare, buy and manage policies.",
+   "stage": "Venture",
+   "firstPartnered": "2016",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "turtlemint"
+  },
+  {
+   "name": "Twid",
+   "description": "Indian rewards-first UPI payments app aggregating credit-card, debit-card, and brand reward points into one wallet and letting consumers spend them at merchant checkouts.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "twid"
+  },
+  {
+   "name": "Vaaree",
+   "description": "Indian D2C home and lifestyle marketplace selling design-led home décor, tableware, furniture, and gifting products to urban Indian consumers.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "vaaree"
+  },
+  {
+   "name": "Wizcommerce",
+   "description": "AI platform for wholesale distributors, manufacturers, and wholesalers — includes WizOrder (rep order app), WizShop (B2B e-commerce), WizStudio (AI product imagery), and WizPay (B2B payments) plus AI co-workers.",
+   "stage": "Venture",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "wizcommerce"
+  },
+  {
+   "name": "Zamp",
+   "description": "Enterprise AI-employee platform whose autonomous agents execute and learn business processes across finance, operations, and admin — used by DoorDash, Uber, Mindbody, and other enterprises.",
+   "stage": "Venture",
+   "firstPartnered": "2022",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "zamp"
+  },
+  {
+   "name": "Zanskar",
+   "description": "Algorithmic fintech building infrastructure that uses algorithms to create fairer, more transparent, and more efficient financial markets for global market participants.",
+   "stage": "Venture",
+   "firstPartnered": "2024",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "zanskar"
+  },
+  {
+   "name": "Zet",
+   "description": "Indian financial-products distribution platform enabling part-time agents and creators to sell credit cards, loans, and other financial products to friends, family, and community for commissions.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "zet"
+  },
+  {
+   "name": "Zilo",
+   "description": "India-based same-day fashion delivery service offering 200+ branded clothing items for men, women, and kids in Mumbai with 60-minute to 2-hour home delivery and free home try-on.",
+   "stage": "Venture",
+   "firstPartnered": "2026",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "zilo"
+  },
+  {
+   "name": "Zuper",
+   "description": "AI-powered field service management platform consolidating operations for service businesses (with deep specialization in roofing) — handles dispatch, scheduling, work orders, billing, and customer comms in one system.",
+   "stage": "Venture",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "zuper"
+  },
+  {
+   "name": "Aampe",
+   "description": "Aampe turns customer communication into a retention growth engine.",
+   "stage": "Seed",
+   "firstPartnered": "2020",
+   "sectors": [
+    "AI"
+   ],
+   "id": "aampe"
+  },
+  {
+   "name": "Alma",
+   "description": "AI-native company productivity platform helping teams capture, organise, and surface institutional knowledge using AI.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "AI"
+   ],
+   "id": "alma"
+  },
+  {
+   "name": "Aretto",
+   "description": "Direct-to-consumer children's footwear brand whose shoes expand up to three sizes as kids' feet grow, serving newborns through older kids with product lines like Aretto Tyny and Aretto Leaps.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "aretto"
+  },
+  {
+   "name": "BambooBox",
+   "description": "AI-powered account-based marketing operating system combining platform, AI agents, and expert services to execute end-to-end ABM programs for B2B marketing and sales teams.",
+   "stage": "Seed",
+   "firstPartnered": "2021",
+   "sectors": [
+    "AI"
+   ],
+   "id": "bamboobox"
+  },
+  {
+   "name": "BiteSpeed",
+   "description": "AI-native marketing, sales, and support OS for e-commerce brands — autonomous AI agents manage customer conversations across WhatsApp, email, voice, and social for 6,000+ online retailers globally.",
+   "stage": "Seed",
+   "firstPartnered": "2022",
+   "sectors": [
+    "AI"
+   ],
+   "id": "bitespeed"
+  },
+  {
+   "name": "Blend",
+   "description": "All-in-one AI design studio for e-commerce offering AI model try-ons, ghost mannequin effects, lifestyle product photography, AI videos, logo creation, and background removal for online retailers, designers, and content creators.",
+   "stage": "Seed",
+   "firstPartnered": "2021",
+   "sectors": [
+    "AI",
+    "Consumer"
+   ],
+   "id": "blend"
+  },
+  {
+   "name": "BoomerangAI",
+   "description": "B2B sales enablement platform (now operating as Boomerang at getboomerang.ai) helping revenue teams orchestrate buyer engagement and account workflows.",
+   "stage": "Seed",
+   "firstPartnered": "2022",
+   "sectors": [
+    "AI"
+   ],
+   "id": "boomerangai"
+  },
+  {
+   "name": "Boxs",
+   "description": "Boxs is a design-to-build automation platform for architects, interior designers and construction companies.",
+   "stage": "Seed",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "boxs"
+  },
+  {
+   "name": "Brightpoint Studios",
+   "description": "Mobile games studio whose flagship title \"Solitaire Castle Royal\" is a tripeaks card game with 12,000+ levels combining brain-training gameplay with castle-building mechanics for casual mobile gamers.",
+   "stage": "Seed",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "brightpoint-studios"
+  },
+  {
+   "name": "Climes",
+   "description": "Climate finance platform working to bridge the climate funding gap by connecting capital with verified carbon and environmental projects.",
+   "stage": "Seed",
+   "firstPartnered": "2022",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "climes"
+  },
+  {
+   "name": "Companion Labs",
+   "description": "India-focused consumer AI startup building AI-native entertainment products and experiences for a billion Indians.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer",
+    "AI"
+   ],
+   "id": "companion-labs"
+  },
+  {
+   "name": "Cybrilla",
+   "description": "Indian mutual fund infrastructure company providing API-based investing primitives (\"Fintech Primitives\") used by 70+ partners; recently received an RTA license from SEBI and is integrating with ONDC for distributed mutual fund transactions.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "cybrilla"
+  },
+  {
+   "name": "Equilibrium",
+   "description": "Full-stack carbon removal company building scalable, high-integrity carbon sink projects with farmers in the Global South — combines proprietary MRV technology with blended finance to deliver carbon credits while improving farmer livelihoods.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "equilibrium"
+  },
+  {
+   "name": "Fitbudd",
+   "description": "All-in-one personal training software for PTs, gyms, fitness studios, and influencers — provides a branded mobile app, client management, workout programming, scheduling, payments, and marketing tools to 10,000+ coaches across 80+ countries.",
+   "stage": "Seed",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "fitbudd"
+  },
+  {
+   "name": "ForgeCode",
+   "description": "GraphQL runtime and configuration platform (fka TailCall), an AI-native developer platform helping engineering teams compose APIs and build software faster.",
+   "stage": "Seed",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Developer Tools"
+   ],
+   "id": "forgecode"
+  },
+  {
+   "name": "Gan.ai",
+   "description": "Gan.ai is on a mission to democratize personalized video creation. The company leverages AI to create customized videos at scale, empowering brands to build personal connections with their customers.",
+   "stage": "Seed",
+   "firstPartnered": "2022",
+   "sectors": [
+    "AI"
+   ],
+   "id": "gan-ai"
+  },
+  {
+   "name": "Gumlet",
+   "description": "Media hosting, optimization, and delivery platform offering video hosting and DRM, image optimization, and CDN delivery to e-commerce brands, edtech platforms, and content creators.",
+   "stage": "Seed",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "gumlet"
+  },
+  {
+   "name": "Ignosis AI",
+   "description": "Financial data intelligence and AI agent platform for BFSI — combines India's Account Aggregator framework with analytics to automate decisions for banks, digital lenders, wealth managers, and insurers.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "ignosis-ai"
+  },
+  {
+   "name": "InCore Semiconductors",
+   "description": "Indian RISC-V processor design company offering an automated SoC Generator platform and customizable RISC-V cores that let startups, fabless companies, and OEMs build custom silicon for IoT, automotive, edge AI, and storage.",
+   "stage": "Seed",
+   "firstPartnered": "2023",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "incore-semiconductors"
+  },
+  {
+   "name": "Kello",
+   "description": "Kello is an AI-powered recruitment platform that streamlines candidate discovery and hiring workflows by allowing teams to search resumes in plain language, resurface past applicants, analyze developer code repositories, and integrate directly with email and applicant tracking systems.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "AI"
+   ],
+   "id": "kello"
+  },
+  {
+   "name": "Luma",
+   "description": "Luma Fertility is a chain of tech-enabled clinics focused on transforming the IVF and egg-freezing experience with a customer-first approach and strong clinical protocols. The company aims to provide best-in-class care and a seamless customer experience through modern setups.",
+   "stage": "Seed",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Healthcare"
+   ],
+   "id": "luma"
+  },
+  {
+   "name": "Metastable Materials",
+   "description": "Indian lithium-ion battery recycling company using a proprietary Integrated Carbothermal Reduction™ process to extract metals from used batteries, plus logistics services — supplies recycled materials to steel and EV battery manufacturers.",
+   "stage": "Seed",
+   "firstPartnered": "2023",
+   "sectors": [
+    "DeepTech"
+   ],
+   "id": "metastable-materials"
+  },
+  {
+   "name": "Neude Skin",
+   "description": "Neude Skin is ushering in a milk renaissance in skincare with efficacy-first formulations powered by the science of milk.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "neude-skin"
+  },
+  {
+   "name": "Nimbbl",
+   "description": "Indian payment infrastructure platform offering a single integration to 25+ payment gateways with smart routing and checkout optimization — 6,000+ merchants use it to lift conversion and reduce failed payments.",
+   "stage": "Seed",
+   "firstPartnered": "2021",
+   "sectors": [
+    "FinTech"
+   ],
+   "id": "nimbbl"
+  },
+  {
+   "name": "OnFinance AI",
+   "description": "OnFinance AI builds ComplianceOS, an AI agent platform for regulatory compliance in financial services.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "AI",
+    "FinTech"
+   ],
+   "id": "onfinance-ai"
+  },
+  {
+   "name": "Orbitshift",
+   "description": "AI \"system of work\" for enterprise account-based sales — products include accountOS (intelligence), knowledgeOS (knowledge hub), rfpOS (RFP automation), and marketingOS (ABM outreach) for sales, bid, and marketing teams.",
+   "stage": "Seed",
+   "firstPartnered": "2024",
+   "sectors": [
+    "AI",
+    "Enterprise"
+   ],
+   "id": "orbitshift"
+  },
+  {
+   "name": "Parseable",
+   "description": "AI-native unified observability platform consolidating logs, metrics, and traces into one system and letting engineers query telemetry in plain English at substantially lower cost than legacy tools.",
+   "stage": "Seed",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Developer Tools"
+   ],
+   "id": "parseable"
+  },
+  {
+   "name": "Pre6",
+   "description": "Pre6 builds AI tools for manufacturing teams, automating drawing interpretation, ballooning, costing and DFM workflows.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "AI"
+   ],
+   "id": "pre6"
+  },
+  {
+   "name": "Pulse Energy",
+   "description": "Operates a virtual EV charging network and fleet management platform offering digital tools for EV charge-point operators and fleet operators.",
+   "stage": "Seed",
+   "firstPartnered": "2023",
+   "sectors": [
+    "Enterprise"
+   ],
+   "id": "pulse-energy"
+  },
+  {
+   "name": "Ten x You",
+   "description": "Ten X You is a sportswear and activewear brand focused on performance footwear and apparel for Indian athletes.",
+   "stage": "Seed",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "ten-x-you"
+  },
+  {
+   "name": "The Health Factory",
+   "description": "Indian healthy-food brand selling zero-maida breads, protein-enriched breads, digestive biscuits, peanut butter, and other clean-label snacks made with 100% chakki-fresh aata and no chemical preservatives — sold online and through retail.",
+   "stage": "Seed",
+   "firstPartnered": "2024",
+   "sectors": [
+    "Consumer"
+   ],
+   "id": "the-health-factory"
+  },
+  {
+   "name": "Veera Health",
+   "description": "Indian women's health platform offering plant-based supplements and clinician-led programs for PCOS, weight management, skin health, and mental performance — backed by clinical research and a medical team.",
+   "stage": "Seed",
+   "firstPartnered": "2021",
+   "sectors": [
+    "Consumer",
+    "Healthcare"
+   ],
+   "id": "veera-health"
+  },
+  {
+   "name": "Wobot AI",
+   "description": "Computer vision platform that turns existing CCTV camera feeds into actionable insights — automates safety compliance, process monitoring, and operational efficiency for restaurants, manufacturers, retailers, and hospitality.",
+   "stage": "Seed",
+   "firstPartnered": "2020",
+   "sectors": [
+    "AI"
+   ],
+   "id": "wobot-ai"
+  },
+  {
+   "name": "Zoop",
+   "description": "Zoop is an Indian social and live-video commerce platform that operates as a digital \"live bazaar\" for wholesalers, resellers, and independent manufacturers.",
+   "stage": "Seed",
+   "firstPartnered": "2025",
+   "sectors": [
+    "Consumer",
+    "AI"
+   ],
+   "id": "zoop"
+  }
+ ]
+}

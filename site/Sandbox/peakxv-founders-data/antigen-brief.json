@@ -1,0 +1,713 @@
+{
+ "meta": {
+  "title": "The ANTIGEN Brief — Founder Session",
+  "subtitle": "A two-hour diagnostic. 28 questions. One uncomfortable truth.",
+  "totalMinutes": 120,
+  "questionCount": 28,
+  "sectionCount": 9,
+  "source": "ANTIGEN_Brief_Founder_Session.md"
+ },
+ "beforeTheRoom": [
+  {
+   "key": "ventureName",
+   "label": "Venture / brand / product",
+   "type": "text",
+   "prefill": "name"
+  },
+  {
+   "key": "foundersInRoom",
+   "label": "Founders in the room",
+   "type": "text",
+   "prefill": null
+  },
+  {
+   "key": "category",
+   "label": "Category and primary market",
+   "type": "text",
+   "prefill": "sectors"
+  },
+  {
+   "key": "primaryCustomer",
+   "label": "Primary customer, in one line",
+   "type": "text",
+   "prefill": "description"
+  },
+  {
+   "key": "stage",
+   "label": "Stage",
+   "type": "choice",
+   "options": [
+    "Pre-launch",
+    "Launched",
+    "Scaling",
+    "Stalled"
+   ],
+   "prefill": null
+  },
+  {
+   "key": "problemPrompted",
+   "label": "The problem that made you book this session",
+   "type": "textarea",
+   "prefill": null
+  },
+  {
+   "key": "sessionDate",
+   "label": "Date and time",
+   "type": "date",
+   "prefill": null
+  },
+  {
+   "key": "scribeName",
+   "label": "Who is scribing",
+   "type": "text",
+   "prefill": null
+  }
+ ],
+ "sections": [
+  {
+   "code": "01",
+   "title": "ORIGIN",
+   "question": "Why does this exist?",
+   "minutes": 12,
+   "description": "Most organisations can explain what they do. Few can explain why they matter. The strongest are built around a conviction, not a product.",
+   "questions": [
+    {
+     "id": "q01",
+     "number": "01",
+     "title": "The originating incident",
+     "prompt": "What did you see or experience that made this worth doing?",
+     "weakAnswerTell": "Weak: \"we spotted a gap in the market\". Strong: an incident, with a date and a consequence.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Weak: \"we spotted a gap in the market\". Strong: an incident, with a date and a consequence."
+     }
+    },
+    {
+     "id": "q02",
+     "number": "02",
+     "title": "The non-consensus belief",
+     "prompt": "What did you believe about this category that the people already in it did not?",
+     "weakAnswerTell": "Weak: \"we are more customer-centric\". If a competitor could claim it in their next deck, it is not a belief.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Weak: \"we are more customer-centric\". If a competitor could claim it in their next deck, it is not a belief."
+     }
+    },
+    {
+     "id": "q03",
+     "number": "03",
+     "title": "Existence without revenue",
+     "prompt": "If revenue were guaranteed forever, would this organisation still exist — and doing what?",
+     "weakAnswerTell": "Circle one, then answer the second half honestly. The second half is the real question.",
+     "input": {
+      "type": "binary+text",
+      "options": [
+       "Yes",
+       "No"
+      ],
+      "textLabel": "And doing what?"
+     },
+     "ai": {
+      "mode": "silent"
+     }
+    }
+   ]
+  },
+  {
+   "code": "02",
+   "title": "CONTEXT",
+   "question": "What is the world around you doing?",
+   "minutes": 12,
+   "description": "Businesses do not operate in isolation. Most teams watch themselves and their competitors. The resilient ones watch the forces that will make the current proposition obsolete.",
+   "questions": [
+    {
+     "id": "q04",
+     "number": "04",
+     "title": "What is accelerating",
+     "prompt": "What is changing faster than your current strategy assumes?",
+     "weakAnswerTell": "Weak: \"AI\". Name the specific shift, roughly when it started, and what it breaks for you.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "draft",
+      "brief": "Research shifts in this company’s category that are moving faster than an incumbent strategy would assume. Name the specific shift, roughly when it started, and what it breaks. Do not answer with “AI” as a category-wide trend.",
+      "rubric": "Weak: \"AI\". Name the specific shift, roughly when it started, and what it breaks for you."
+     }
+    },
+    {
+     "id": "q05",
+     "number": "05",
+     "title": "What stays the same",
+     "prompt": "What is staying stubbornly the same in human behaviour here — what need survives every new tool, channel and trend?",
+     "weakAnswerTell": "This is where durable strategy is built. If you cannot name one, you are building on a fashion.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "This is where durable strategy is built. If you cannot name one, you are building on a fashion."
+     }
+    },
+    {
+     "id": "q06",
+     "number": "06",
+     "title": "What competitors ignore",
+     "prompt": "What is happening around you that your competitors are ignoring — and why can they afford to ignore it?",
+     "weakAnswerTell": "The second half matters more than the first. If they can afford to ignore it, so can you.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "draft",
+      "brief": "Identify what is happening around this company that its competitors are visibly ignoring, and state why they can afford to ignore it. The second half matters more than the first.",
+      "rubric": "The second half matters more than the first. If they can afford to ignore it, so can you."
+     }
+    }
+   ]
+  },
+  {
+   "code": "03",
+   "title": "ENTROPY",
+   "question": "Where has everything become the same?",
+   "minutes": 18,
+   "description": "Competitive analysis usually hunts for differences. The bigger opportunity is finding where the whole category has converged. Predictability creates vulnerability.",
+   "questions": [
+    {
+     "id": "q07",
+     "number": "07",
+     "title": "The alternatives",
+     "prompt": "Who would your customer use tomorrow if you vanished tonight? Name five, including \"do nothing\".",
+     "weakAnswerTell": "\"Do nothing\" is usually the market leader. Treat it as a real competitor.",
+     "input": {
+      "type": "table",
+      "rows": 5,
+      "columns": [
+       "Competitor or substitute",
+       "What they claim",
+       "Why a customer would pick them"
+      ]
+     },
+     "ai": {
+      "mode": "draft",
+      "brief": "Draft five alternatives this company’s customer could use tomorrow, including “do nothing”. For each, give what they claim and why a customer would pick them. Draw competitors from the Peak XV portfolio peer set where relevant.",
+      "rubric": "\"Do nothing\" is usually the market leader. Treat it as a real competitor."
+     }
+    },
+    {
+     "id": "q08",
+     "number": "08",
+     "title": "Dead language",
+     "prompt": "Which words, claims and phrases appear on every website in your category? List the dead ones.",
+     "weakAnswerTell": "The test: cross out any word your three closest competitors could also use. What survives?",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "draft",
+      "brief": "List the words, claims and phrases that appear across websites in this company’s category. Return the dead ones — any term the three closest competitors could also use.",
+      "rubric": "The test: cross out any word your three closest competitors could also use. What survives?"
+     }
+    },
+    {
+     "id": "q09",
+     "number": "09",
+     "title": "Distinctiveness without logos",
+     "prompt": "Strip every logo from the work. Could a customer still tell yours from theirs — and what specifically gives you away?",
+     "weakAnswerTell": "Circle one, then give the evidence. \"Our tone of voice\" is not evidence.",
+     "input": {
+      "type": "binary+text",
+      "options": [
+       "Yes",
+       "No"
+      ],
+      "textLabel": "What specifically gives you away?"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Circle one, then give the evidence. \"Our tone of voice\" is not evidence."
+     }
+    },
+    {
+     "id": "q10",
+     "number": "10",
+     "title": "The unadmitted safe option",
+     "prompt": "Where do you choose the safe option without admitting it — in product, pricing, hiring, or how you talk?",
+     "weakAnswerTell": "Every organisation does this. The question is which one you are willing to name in front of each other.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Every organisation does this. The question is which one you are willing to name in front of each other."
+     }
+    }
+   ]
+  },
+  {
+   "code": "04",
+   "title": "THE HUMAN PROBLEM",
+   "question": "What are people actually buying?",
+   "minutes": 12,
+   "description": "Customers rarely buy products. They buy outcomes, and underneath those, feelings, status and identity.",
+   "questions": [
+    {
+     "id": "q11",
+     "number": "11",
+     "title": "The practical problem",
+     "prompt": "What practical problem do you solve — stated the way your customer would state it to a colleague, not the way you would state it in a deck?",
+     "weakAnswerTell": "If it contains the words \"platform\", \"solution\" or \"seamless\", rewrite it.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "If it contains the words \"platform\", \"solution\" or \"seamless\", rewrite it."
+     }
+    },
+    {
+     "id": "q12",
+     "number": "12",
+     "title": "The feeling",
+     "prompt": "What do they want to feel, or stop feeling, at the moment they choose you?",
+     "weakAnswerTell": "Relief, safety, momentum, status, control, vindication. Pick the real one.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Relief, safety, momentum, status, control, vindication. Pick the real one."
+     }
+    },
+    {
+     "id": "q13",
+     "number": "13",
+     "title": "Who they become",
+     "prompt": "Who does choosing you help them become, in front of someone whose opinion they care about?",
+     "weakAnswerTell": "Name the someone. A boss, a peer, a rival, a spouse, a client. The audience is the point.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Name the someone. A boss, a peer, a rival, a spouse, a client. The audience is the point."
+     }
+    }
+   ]
+  },
+  {
+   "code": "05",
+   "title": "TENSION",
+   "question": "Where is the heat?",
+   "minutes": 15,
+   "description": "Growth hides inside unresolved contradictions. Most organisations smooth tension away. Strategic advantage comes from choosing one and owning it.",
+   "questions": [
+    {
+     "id": "q14",
+     "number": "14",
+     "title": "The contradiction",
+     "prompt": "Which contradiction genuinely shapes this business? Tick one. One.",
+     "weakAnswerTell": "Ticking three means you have not chosen. Choosing is the exercise.",
+     "input": {
+      "type": "single+other",
+      "options": [
+       "Scale vs intimacy",
+       "Speed vs depth",
+       "Credibility vs provocation",
+       "Accessible vs aspirational",
+       "Local truth vs global codes",
+       "Efficiency vs ritual",
+       "Familiarity vs surprise"
+      ],
+      "allowOther": true
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Ticking three means you have not chosen. Choosing is the exercise."
+     }
+    },
+    {
+     "id": "q15",
+     "number": "15",
+     "title": "The over-served side",
+     "prompt": "Which side of it are you over-serving today, and what has that cost you?",
+     "weakAnswerTell": "Weak: \"we balance both\". Balance is what the category does. Name the cost in customers, margin, talent or time.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Weak: \"we balance both\". Balance is what the category does. Name the cost in customers, margin, talent or time."
+     }
+    },
+    {
+     "id": "q16",
+     "number": "16",
+     "title": "The uncomfortable truth",
+     "prompt": "What uncomfortable truth is limiting your next phase of growth — the one everybody in this room already knows and nobody has said out loud?",
+     "weakAnswerTell": "If this box is comfortable to fill in, it is not the answer. Leave it and come back at the end of the session.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "silent"
+     }
+    }
+   ]
+  },
+  {
+   "code": "06",
+   "title": "THE LIQUID IDEA",
+   "question": "What do you actually believe?",
+   "minutes": 20,
+   "description": "Products evolve, markets shift, campaigns expire. Beliefs endure. The output of this section is not a tagline — it is an idea capable of generating decisions about product, hiring, pricing and refusal.",
+   "questions": [
+    {
+     "id": "q17",
+     "number": "17",
+     "title": "The liquid idea",
+     "prompt": "Complete the sentence. Then rewrite it twice, until it stops sounding like the category.",
+     "weakAnswerTell": "Attempt one will sound like everyone else. That is expected. Attempt three is the one that matters.",
+     "input": {
+      "type": "fields",
+      "fields": [
+       {
+        "key": "attempt1",
+        "label": "[Name] exists so that [who] can"
+       },
+       {
+        "key": "attempt2",
+        "label": "Attempt 2"
+       },
+       {
+        "key": "attempt3",
+        "label": "Attempt 3"
+       }
+      ],
+      "answerField": "attempt3"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Attempt one will sound like everyone else. That is expected. Attempt three is the one that matters.",
+      "crossRefs": [
+       {
+        "question": "Q08",
+        "instruction": "Compare attempt three against the Q08 dead-language list and report the overlap."
+       }
+      ]
+     }
+    },
+    {
+     "id": "q18",
+     "number": "18",
+     "title": "The enemy",
+     "prompt": "What is the enemy? Not a competitor — the habit, inertia, fear or market failure you exist to attack.",
+     "weakAnswerTell": "If the enemy is a named company, you have a rivalry, not a belief.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "If the enemy is a named company, you have a rivalry, not a belief."
+     }
+    },
+    {
+     "id": "q19",
+     "number": "19",
+     "title": "Ownability",
+     "prompt": "Could your nearest competitor say your sentence with equal credibility? If yes, it is not yours yet — what proof can only you offer?",
+     "weakAnswerTell": "Circle one. A \"no\" you cannot evidence is a \"yes\".",
+     "input": {
+      "type": "binary+text",
+      "options": [
+       "Yes",
+       "No"
+      ],
+      "textLabel": "What proof can only you offer?"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Circle one. A \"no\" you cannot evidence is a \"yes\".",
+      "crossRefs": [
+       {
+        "question": "Q07",
+        "instruction": "Name which competitor from the Q07 table could make the same claim with equal credibility."
+       }
+      ]
+     }
+    },
+    {
+     "id": "q20",
+     "number": "20",
+     "title": "What it forces you to stop",
+     "prompt": "What would this belief force you to stop doing within thirty days?",
+     "weakAnswerTell": "Weak: \"nothing\". A belief that costs you nothing will change nothing.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Weak: \"nothing\". A belief that costs you nothing will change nothing."
+     }
+    }
+   ]
+  },
+  {
+   "code": "07",
+   "title": "MEMORY",
+   "question": "What survives contact?",
+   "minutes": 10,
+   "description": "People forget information and remember emotion. Distinctiveness is built from what can be repeated without you in the room.",
+   "questions": [
+    {
+     "id": "q21",
+     "number": "21",
+     "title": "What gets repeated",
+     "prompt": "What should a customer be able to repeat twenty-four hours later, unprompted, to somebody else?",
+     "weakAnswerTell": "Write the actual sentence they would say. Not the theme. The sentence.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Write the actual sentence they would say. Not the theme. The sentence."
+     }
+    },
+    {
+     "id": "q22",
+     "number": "22",
+     "title": "The signal",
+     "prompt": "What signal — something seen, used, felt or tested — proves the belief without you explaining it?",
+     "weakAnswerTell": "Claims are said. Signals are experienced. If it needs a paragraph of explanation, it is a claim.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Claims are said. Signals are experienced. If it needs a paragraph of explanation, it is a claim."
+     }
+    },
+    {
+     "id": "q23",
+     "number": "23",
+     "title": "What you must never do",
+     "prompt": "What must you never do, because doing it would expose you as generic?",
+     "weakAnswerTell": "Name the specific behaviour, not the value. \"Never compromise on quality\" is not an answer.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Name the specific behaviour, not the value. \"Never compromise on quality\" is not an answer."
+     }
+    }
+   ]
+  },
+  {
+   "code": "08",
+   "title": "THE MOVE",
+   "question": "What happens on Monday?",
+   "minutes": 15,
+   "description": "This is where strategy usually dies. The objective is not a campaign. It is one reversible experiment that produces market evidence within thirty days.",
+   "questions": [
+    {
+     "id": "q24",
+     "number": "24",
+     "title": "The smallest reversible action",
+     "prompt": "What is the smallest reversible action that would tell you whether this belief changes behaviour?",
+     "weakAnswerTell": "Format: if we do X, then Y should happen, because Z. If it needs a budget approval, it is not the smallest version.",
+     "input": {
+      "type": "fields",
+      "fields": [
+       {
+        "key": "if",
+        "label": "If we"
+       },
+       {
+        "key": "then",
+        "label": "then"
+       },
+       {
+        "key": "because",
+        "label": "because"
+       }
+      ]
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Format: if we do X, then Y should happen, because Z. If it needs a budget approval, it is not the smallest version."
+     }
+    },
+    {
+     "id": "q25",
+     "number": "25",
+     "title": "The metric",
+     "prompt": "What must be true for it to work, and which single metric will tell you inside thirty days?",
+     "weakAnswerTell": "Impressions, reach and engagement are vanity here. Pick the metric that indicates the system moved.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Impressions, reach and engagement are vanity here. Pick the metric that indicates the system moved."
+     }
+    },
+    {
+     "id": "q26",
+     "number": "26",
+     "title": "What pays for it",
+     "prompt": "What are you stopping, cutting or de-funding to pay for it?",
+     "weakAnswerTell": "Weak: \"we will absorb it\". Absorbed work does not happen.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "Weak: \"we will absorb it\". Absorbed work does not happen."
+     }
+    },
+    {
+     "id": "q27",
+     "number": "27",
+     "title": "Owner and decision date",
+     "prompt": "Who owns it, and on what date do you decide to scale it, change it or stop?",
+     "weakAnswerTell": "A name and a date. Not a team and a quarter.",
+     "input": {
+      "type": "table",
+      "rows": 3,
+      "columns": [
+       "Owner",
+       "Decision date",
+       "Decision to be made"
+      ]
+     },
+     "ai": {
+      "mode": "probe",
+      "rubric": "A name and a date. Not a team and a quarter."
+     }
+    }
+   ]
+  },
+  {
+   "code": "09",
+   "title": "THE CLOSE",
+   "question": "The catalytic question",
+   "minutes": 6,
+   "description": "One question to reframe the whole session. Answer it last, individually, in silence, and read the answers aloud without discussion.",
+   "questions": [
+    {
+     "id": "q28",
+     "number": "28",
+     "title": "What the world would miss",
+     "prompt": "Imagine this organisation disappears tomorrow. Not the products. Not the services. Not the revenue. What deeper thing would the world genuinely miss?",
+     "weakAnswerTell": "One sentence each, written separately. Because that answer is usually the strategy.",
+     "input": {
+      "type": "textarea"
+     },
+     "ai": {
+      "mode": "silent"
+     }
+    }
+   ]
+  }
+ ],
+ "response": [
+  {
+   "element": "The gravity we are escaping",
+   "source": "The story the category, and we, currently repeat",
+   "fromQuestions": [
+    "Q04",
+    "Q08"
+   ]
+  },
+  {
+   "element": "The entropy",
+   "source": "Where we are indistinguishable today",
+   "fromQuestions": [
+    "Q09",
+    "Q10"
+   ]
+  },
+  {
+   "element": "The tension we will own",
+   "source": "The contradiction we are choosing, and the side we will stop over-serving",
+   "fromQuestions": [
+    "Q14",
+    "Q15"
+   ]
+  },
+  {
+   "element": "The uncomfortable truth",
+   "source": "The thing that was hardest to say in the room",
+   "fromQuestions": [
+    "Q16"
+   ]
+  },
+  {
+   "element": "The liquid idea",
+   "source": "Attempt three, as written",
+   "fromQuestions": [
+    "Q17"
+   ]
+  },
+  {
+   "element": "The enemy",
+   "source": "The habit, inertia or failure we attack",
+   "fromQuestions": [
+    "Q18"
+   ]
+  },
+  {
+   "element": "What we now refuse",
+   "source": "What we stop doing, and by when",
+   "fromQuestions": [
+    "Q20",
+    "Q23",
+    "Q26"
+   ]
+  },
+  {
+   "element": "The first move",
+   "source": "The experiment, the owner, the metric, the decision date",
+   "fromQuestions": [
+    "Q24",
+    "Q25",
+    "Q26",
+    "Q27"
+   ]
+  },
+  {
+   "element": "What the world would miss",
+   "source": "One sentence",
+   "fromQuestions": [
+    "Q28"
+   ]
+  }
+ ],
+ "logs": {
+  "disagreement": {
+   "label": "Where we didn’t agree",
+   "columns": [
+    "Section",
+    "What we disagreed about",
+    "Why it matters",
+    "Who decides, and when"
+   ]
+  },
+  "openQuestions": {
+   "label": "Open questions",
+   "columns": [
+    "Open question",
+    "Owner",
+    "Due"
+   ]
+  }
+ },
+ "footer": "anti**gen** — Composable. Distributed. Insurgent. · 1antigen.com"
+}
