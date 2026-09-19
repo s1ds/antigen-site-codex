@@ -425,7 +425,7 @@ function vGate() {
     b.onclick = function () {
       b.disabled = true; msg.textContent = '';
       fetch(AI_ENDPOINT + '/gate', {
-        method: 'POST', credentials: 'include',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: inp.value })
       }).then(function (r) { return r.ok ? r.json() : Promise.reject(r); })
@@ -931,12 +931,23 @@ function priorsFor(q) {
   return out;
 }
 
+/* The token travels in the Authorization header, not a cookie. The endpoint
+   is on a different origin to this page, so a cookie would be third-party and
+   is dropped by default in Safari and increasingly elsewhere. */
 function callAI(path, payload) {
+  var headers = { 'Content-Type': 'application/json' };
+  if (S.gate && S.gate.token) headers.Authorization = 'Bearer ' + S.gate.token;
   return fetch(AI_ENDPOINT + path, {
-    method: 'POST', credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    headers: headers,
     body: JSON.stringify(payload)
-  }).then(function (r) { return r.ok ? r.json() : Promise.reject(r); });
+  }).then(function (r) {
+    if (r.status === 401) {          /* token expired or revoked */
+      S.gate = { token: null, label: null }; save(); go('gate');
+      return Promise.reject(r);
+    }
+    return r.ok ? r.json() : Promise.reject(r);
+  });
 }
 
 /* ---------------- 5 · section close ---------------- */
