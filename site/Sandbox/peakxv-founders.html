@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>The ANTIGEN Brief — Founder Session</title>
+<meta name="description" content="A two-hour strategic diagnostic completed by a founding team in one room. 28 questions. One uncomfortable truth." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F0EB; --ink:#292929; --red:#E33737; --muted:#7C7870;
+  --line:rgba(41,41,41,.18); --rule:rgba(41,41,41,.32);
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Barlow',Arial,sans-serif;
+  --mono:'Courier New',ui-monospace,monospace;
+  /* Reserved exclusively for AI-drafted panels. Not decoration: it is the DRAFT state. */
+  --ai:#FFC000;
+  --white:#FBFAF8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper)}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+button{font-family:var(--body);cursor:pointer}
+input,textarea,select{font-family:var(--body);font-size:16px;color:var(--ink)}
+
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:700}
+.lede{font-size:19px;line-height:1.45;color:#3a3733}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(44px,7vw,84px);line-height:.92;text-transform:uppercase;letter-spacing:.01em}
+h2{font-family:var(--disp);font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:.95;text-transform:uppercase}
+h3{font-size:17px;text-transform:uppercase;letter-spacing:.06em}
+
+/* ---------- shared controls ---------- */
+.btn{display:inline-block;background:var(--red);color:var(--paper);font-weight:700;font-size:13px;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:13px 26px;
+  border:1px solid var(--red);font-family:var(--body)}
+.btn:hover{background:var(--ink);border-color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.small{padding:9px 16px;font-size:11.5px}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn[disabled]:hover{background:var(--red);border-color:var(--red)}
+.btn.ghost[disabled]:hover{background:transparent;color:var(--ink)}
+
+.field{width:100%;background:var(--white);border:1px solid var(--rule);padding:12px 14px;
+  font-size:16px;line-height:1.5;border-radius:0}
+textarea.field{min-height:150px;resize:vertical;font-family:var(--body)}
+.field:focus{outline:3px solid var(--red);outline-offset:0}
+label.lbl{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+
+/* ---------- views ---------- */
+.view{display:none;padding:52px 0 96px}
+.view.on{display:block}
+
+/* ---------- gate ---------- */
+.gatebox{max-width:460px;margin:6vh auto 0;border:1px solid var(--rule);background:var(--white);padding:34px}
+.gatebox h2{margin-bottom:6px}
+.gate-msg{font-size:14px;color:var(--red);min-height:22px;margin-top:10px;font-weight:600}
+.note{font-size:14px;color:var(--muted);line-height:1.5}
+
+/* ---------- company picker ---------- */
+.typeahead{position:relative}
+.results{border:1px solid var(--rule);border-top:0;background:var(--white);max-height:330px;overflow-y:auto}
+.results button{display:block;width:100%;text-align:left;background:none;border:0;
+  border-bottom:1px solid var(--line);padding:11px 14px;font-size:15px}
+.results button:last-child{border-bottom:0}
+.results button:hover,.results button:focus{background:var(--paper);color:var(--red)}
+.results .rname{font-weight:600}
+.results .rmeta{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.record{border:1px solid var(--rule);background:var(--white);padding:22px;margin-top:22px}
+.record dl{display:grid;grid-template-columns:150px 1fr;gap:9px 18px;font-size:15px;margin-top:14px}
+.record dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+
+/* ---------- facts ---------- */
+.facts{display:grid;gap:18px;margin-top:26px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule);margin-left:8px;vertical-align:2px}
+.tag.draft{background:var(--ai);border-color:var(--ink)}
+
+/* ---------- session chrome ---------- */
+.sessbar{position:sticky;top:58px;z-index:30;background:var(--paper);border-bottom:1px solid var(--line);
+  padding:11px 0}
+.sessbar .row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.secmark{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.secmark b{color:var(--ink)}
+.clock{font-family:var(--mono);font-size:13px;letter-spacing:.08em;border:1px solid var(--rule);padding:4px 10px}
+.clock.over{color:var(--paper);background:var(--red);border-color:var(--red)}
+.meter{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.progress{height:3px;background:var(--line);margin-top:9px}
+.progress i{display:block;height:3px;background:var(--red);width:0}
+
+/* ---------- question ---------- */
+.qnum{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--red);font-weight:700}
+.qprompt{font-size:clamp(21px,2.8vw,29px);line-height:1.22;font-weight:600;margin:12px 0 0;max-width:34em}
+.tell{border-left:3px solid var(--rule);padding:9px 0 9px 15px;margin:18px 0 26px;
+  font-size:15px;line-height:1.5;color:#4a463f;max-width:44em}
+.tell b{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:3px;font-weight:700}
+
+.opts{display:grid;gap:9px;margin-bottom:18px}
+.opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--rule);background:var(--white);padding:11px 14px;cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt input{margin-top:4px;accent-color:var(--red)}
+.opt.sel{border-color:var(--red);box-shadow:3px 3px 0 var(--red)}
+.binary{display:flex;gap:9px;margin-bottom:16px}
+.binary .opt{flex:0 0 auto;min-width:104px}
+
+table.grid{width:100%;border-collapse:collapse;background:var(--white);margin-bottom:8px}
+table.grid th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:9px 10px;border:1px solid var(--rule);font-weight:700}
+table.grid td{border:1px solid var(--rule);padding:0}
+table.grid input{width:100%;border:0;background:transparent;padding:10px;font-size:15px}
+table.grid input:focus{outline:2px solid var(--red);outline-offset:-2px}
+
+.subfields{display:grid;gap:14px;margin-bottom:8px}
+
+/* ---------- AI ---------- */
+.ai{margin-top:26px;border:1px solid var(--ink);background:var(--white)}
+.ai-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:9px 14px;border-bottom:1px solid var(--ink);background:var(--ink);color:var(--paper)}
+.ai-head span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+.ai-body{padding:16px;font-family:var(--mono);font-size:14.5px;line-height:1.55}
+.ai.draft{border-color:var(--ink)}
+.ai.draft .ai-head{background:var(--ai);color:var(--ink)}
+.ai-item{border-bottom:1px solid var(--line);padding:13px 0}
+.ai-item:first-child{padding-top:0}
+.ai-item:last-child{border-bottom:0;padding-bottom:0}
+.prov{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:2px 6px;margin-right:8px;white-space:nowrap}
+.prov.record{background:var(--ai)}
+.prov.unverified{background:var(--red);color:var(--paper);border-color:var(--red)}
+.ai-acts{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line)}
+.ai.inert{border-color:var(--line);opacity:.72}
+.ai.inert .ai-head{background:var(--paper);color:var(--muted);border-bottom-color:var(--line)}
+.ai.inert .ai-body{color:var(--muted)}
+
+.qnav{display:flex;justify-content:space-between;gap:12px;margin-top:34px;
+  border-top:1px solid var(--line);padding-top:22px;flex-wrap:wrap}
+
+/* ---------- section close ---------- */
+.closebox{border:1px solid var(--ink);background:var(--white);padding:26px;margin-top:26px;box-shadow:6px 6px 0 var(--ink)}
+
+/* ---------- response + export ---------- */
+table.resp{width:100%;border-collapse:collapse;margin-top:24px;background:var(--white)}
+table.resp th,table.resp td{border:1px solid var(--rule);padding:12px;vertical-align:top;text-align:left;font-size:15px}
+table.resp th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:210px}
+table.resp .src{font-family:var(--mono);font-size:10px;color:var(--muted);display:block;margin-top:5px;letter-spacing:.06em}
+table.resp textarea{width:100%;border:0;background:transparent;resize:vertical;min-height:62px;font-size:15px;font-family:var(--body)}
+table.resp textarea:focus{outline:2px solid var(--red);outline-offset:-2px}
+.exports{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+
+.sitefoot{border-top:1px solid var(--line);margin-top:40px;padding:30px 0 60px;
+  font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.sitefoot a{color:var(--muted)}
+.sitefoot a:hover{color:var(--red)}
+
+.fail{border:2px solid var(--red);background:var(--white);padding:26px;margin:40px auto;max-width:700px}
+.fail h2{color:var(--red)}
+.fail code{font-family:var(--mono);font-size:13px}
+
+@media(max-width:700px){
+  body{font-size:16px}
+  .record dl{grid-template-columns:1fr;gap:3px 0}
+  .record dt{padding-top:10px}
+  .sessbar .row{gap:9px}
+  table.resp th{width:auto;display:block;border-bottom:0}
+  table.resp td{display:block}
+  .binary{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+@media print{
+  .sessbar,.qnav,.exports,.ai-acts,antigen-header,.noprint{display:none!important}
+  .view{display:block!important;padding:0}
+  body{background:#fff;font-size:12pt}
+  .closebox,.ai{box-shadow:none}
+}
+</style>
+<style data-antigen-header-layout>body{padding-top:58px!important} [id]{scroll-margin-top:78px}
+  .sessbar{top:58px!important}
+  @media print{body{padding-top:0!important} antigen-header{display:none}}</style>
+</head>
+<body>
+<antigen-header><template shadowrootmode="open"><link rel="stylesheet" href="../shared/site-header.css"><nav aria-label="Main">
+  <div class="wrap navrow">
+    <a href="../index.html" class="mark" style="text-decoration:none">anti<b>gen</b></a>
+    <div class="navlinks">
+      <a href="../index.html#symptoms">Symptoms</a>
+      <a href="../index.html#wound">The wound</a>
+      <a href="../index.html#diagnosis">Diagnosis</a>
+      <a href="../index.html#treatment">Treatment</a>
+      <a href="../sandbox.html">Sandbox</a>
+      <details class="navdrop">
+        <summary>Services</summary>
+        <div class="navdrop-menu">
+          <a href="../agency-services.html">Agencies</a>
+          <a href="../brands-services.html">Brands</a>
+          <a href="../adtech-services.html">Adtech &amp; Martech</a>
+          <a href="../startup-services.html">Startups</a>
+        </div>
+      </details>
+    </div>
+    <details class="navmobile">
+      <summary aria-label="Menu"><span class="hbg"></span></summary>
+      <div class="navmobile-panel">
+        <a href="../index.html#symptoms">Symptoms</a>
+        <a href="../index.html#wound">The wound</a>
+        <a href="../index.html#diagnosis">Diagnosis</a>
+        <a href="../index.html#treatment">Treatment</a>
+        <a href="../sandbox.html">Sandbox</a>
+        <a href="../agency-services.html">Agencies</a>
+        <a href="../brands-services.html">Brands</a>
+        <a href="../adtech-services.html">Adtech &amp; Martech</a>
+        <a href="../startup-services.html">Startups</a>
+      </div>
+    </details>
+    <a class="btn small" href="../booking.html">Book a call</a>
+  </div>
+</nav></template></antigen-header>
+
+<main id="app">
+  <div class="wrap" id="boot"><p class="note" style="padding:60px 0">Loading the instrument…</p></div>
+</main>
+
+<footer class="sitefoot noprint">
+  <div class="wrap">
+    anti<b>gen</b> — Composable. Distributed. Insurgent. ·
+    <a href="https://1antigen.com">1antigen.com</a> ·
+    <a href="../booking.html">Book a call</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+'use strict';
+
+/* ------------------------------------------------------------------
+   AI endpoint.
+
+   Set this to the origin of the Worker that holds the API key, e.g.
+   'https://brief-ai.1antigen.workers.dev'. While it is null every AI
+   affordance renders visibly inert and no network call is attempted.
+
+   The page never holds a key. The gate protects the endpoint, not this
+   file — a static page at a public URL cannot hide its own source.
+------------------------------------------------------------------- */
+var AI_ENDPOINT = null;
+
+var DATA_DIR = 'peakxv-founders-data/';
+var STORE = 'antigen_founder_session_v1';
+
+var brief = null, companies = null, S = null, timer = null, curQ = null;
+
+/* ---------------- state ---------------- */
+function blank() {
+  return {
+    gate: { token: null, label: null },
+    company: null,            // the selected portfolio record, or null
+    verified: true,           // false after manual entry -> drafts are UNVERIFIED
+    facts: {},
+    answers: {},              // qid -> { value, accepted, draft, probe, stood }
+    disagreements: {},        // section code -> text ('' means "we agreed")
+    response: {},             // response row index -> edited text
+    view: 'gate',
+    qi: 0,                    // flat question index
+    sectionStart: null        // ms timestamp the current section began
+  };
+}
+function load() {
+  try {
+    var raw = localStorage.getItem(STORE);
+    if (raw) { var p = JSON.parse(raw); if (p && p.answers) return p; }
+  } catch (e) { /* private mode, blocked storage, corrupt payload */ }
+  return blank();
+}
+function save() {
+  try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) { /* quota */ }
+}
+
+/* ---------------- helpers ---------------- */
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+function flat() {
+  var out = [];
+  brief.sections.forEach(function (s) {
+    s.questions.forEach(function (q) { out.push({ q: q, s: s }); });
+  });
+  return out;
+}
+function ans(qid) {
+  if (!S.answers[qid]) S.answers[qid] = { value: null, accepted: false, draft: null, probe: null, stood: false };
+  return S.answers[qid];
+}
+
+/* An answer counts only when the founders have accepted it.
+   An untouched AI draft does not count. The meter must not lie. */
+function isComplete(q) {
+  var a = S.answers[q.id];
+  if (!a || !a.accepted) return false;
+  return hasContent(q, a.value);
+}
+function hasContent(q, v) {
+  if (v == null) return false;
+  var t = q.input.type;
+  if (t === 'table') {
+    return (v.rows || []).some(function (r) {
+      return (r || []).some(function (c) { return String(c || '').trim(); });
+    });
+  }
+  if (t === 'fields') {
+    return q.input.fields.some(function (f) { return String((v || {})[f.key] || '').trim(); });
+  }
+  if (t === 'binary+text') return String((v || {}).text || '').trim() || (v || {}).choice;
+  if (t === 'single+other') return String((v || {}).choice || '').trim() || String((v || {}).other || '').trim();
+  return String(v).trim();
+}
+function completed() {
+  return flat().filter(function (x) { return isComplete(x.q); }).length;
+}
+
+/* ---------------- boot ---------------- */
+function fail(msg, detail) {
+  var host = document.getElementById('app');
+  host.innerHTML = '';
+  var w = el('div', 'wrap');
+  var b = el('div', 'fail');
+  b.appendChild(el('h2', null, 'The instrument did not load'));
+  b.appendChild(el('p', 'note', msg));
+  if (detail) {
+    var c = el('p', null); c.style.marginTop = '12px';
+    var code = el('code', null, detail); b.appendChild(c); c.appendChild(code);
+  }
+  w.appendChild(b); host.appendChild(w);
+}
+
+/* Assert the instrument before rendering a single question.
+   A silently wrong instrument is worse than a page that will not load. */
+function assertBrief(b) {
+  var errs = [];
+  if (!b.sections || b.sections.length !== 9) errs.push('sections=' + ((b.sections || []).length));
+  var qs = [];
+  (b.sections || []).forEach(function (s) { (s.questions || []).forEach(function (q) { qs.push(q); }); });
+  if (qs.length !== 28) errs.push('questions=' + qs.length);
+  var mins = (b.sections || []).reduce(function (t, s) { return t + (s.minutes || 0); }, 0);
+  if (mins !== 120) errs.push('minutes=' + mins);
+  var by = { draft: [], silent: [], probe: [] };
+  qs.forEach(function (q) { (by[q.ai.mode] || (by[q.ai.mode] = [])).push(q.number); });
+  if (by.draft.sort().join() !== '04,06,07,08') errs.push('draft=' + by.draft.join('/'));
+  if (by.silent.sort().join() !== '03,16,28') errs.push('silent=' + by.silent.join('/'));
+  if (by.probe.length !== 21) errs.push('probe=' + by.probe.length);
+  return errs;
+}
+
+function boot() {
+  Promise.all([
+    fetch(DATA_DIR + 'antigen-brief.json').then(function (r) {
+      if (!r.ok) throw new Error('antigen-brief.json ' + r.status); return r.json(); }),
+    fetch(DATA_DIR + 'peakxv-companies.json').then(function (r) {
+      if (!r.ok) throw new Error('peakxv-companies.json ' + r.status); return r.json(); })
+  ]).then(function (res) {
+    brief = res[0]; companies = res[1].companies || [];
+    var errs = assertBrief(brief);
+    if (errs.length) {
+      fail('The brief failed its structural checks, so it has not been rendered. ' +
+           'Expected 9 sections, 28 questions and 120 minutes.', errs.join('  ·  '));
+      return;
+    }
+    S = load();
+    render();
+  }).catch(function (e) {
+    fail('The data files could not be loaded. They must sit in ' + DATA_DIR +
+         ' beside this page.', String(e.message || e));
+  });
+}
+
+/* ---------------- routing ---------------- */
+function go(view) { S.view = view; save(); render(); window.scrollTo(0, 0); }
+
+function render() {
+  var host = document.getElementById('app');
+  host.innerHTML = '';
+  var v = { gate: vGate, company: vCompany, facts: vFacts, session: vSession,
+            close: vClose, response: vResponse, exports: vExport }[S.view] || vGate;
+  host.appendChild(v());
+  save();
+}
+function viewShell(id) { var d = el('div', 'view on'); d.id = 'v-' + id; return d; }
+
+/* ---------------- 1 · gate ---------------- */
+function vGate() {
+  var v = viewShell('gate'), w = el('div', 'wrap');
+  var box = el('div', 'gatebox');
+  box.appendChild(el('p', 'kicker', 'The ANTIGEN Brief'));
+  box.appendChild(el('h2', null, 'Founder Session'));
+  box.appendChild(el('p', 'note', 'A two-hour diagnostic. 28 questions. One uncomfortable truth.'));
+
+  if (!AI_ENDPOINT) {
+    var n = el('p', 'note'); n.style.margin = '20px 0';
+    n.textContent = 'AI assistance is not configured on this deployment. ' +
+      'The session runs in full without it — every question carries its own ' +
+      'weak-answer test, which is what the AI would otherwise be checking.';
+    box.appendChild(n);
+    var b0 = el('button', 'btn', 'Begin the session');
+    b0.onclick = function () { go('company'); };
+    box.appendChild(b0);
+  } else {
+    var lab = el('label', 'lbl', 'Access code'); lab.style.marginTop = '22px';
+    var inp = el('input', 'field'); inp.type = 'password'; inp.autocomplete = 'off';
+    var msg = el('p', 'gate-msg');
+    var b = el('button', 'btn', 'Enter'); b.style.marginTop = '16px';
+    b.onclick = function () {
+      b.disabled = true; msg.textContent = '';
+      fetch(AI_ENDPOINT + '/gate', {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: inp.value })
+      }).then(function (r) { return r.ok ? r.json() : Promise.reject(r); })
+        .then(function (d) { S.gate = { token: d.token, label: d.label || null }; go('company'); })
+        .catch(function () { b.disabled = false; msg.textContent = 'That code was not accepted.'; });
+    };
+    inp.onkeydown = function (e) { if (e.key === 'Enter') b.click(); };
+    box.appendChild(lab); box.appendChild(inp); box.appendChild(msg); box.appendChild(b);
+  }
+  w.appendChild(box); v.appendChild(w);
+  return v;
+}
+
+/* ---------------- 2 · company ---------------- */
+function vCompany() {
+  var v = viewShell('company'), w = el('div', 'wrap');
+  w.appendChild(el('p', 'kicker', 'Step 1 of 3'));
+  w.appendChild(el('h1', null, 'Which venture'));
+  var l = el('p', 'lede'); l.style.margin = '14px 0 26px';
+  l.textContent = 'Search the Peak XV portfolio, or enter the venture manually.';
+  w.appendChild(l);
+
+  var ta = el('div', 'typeahead');
+  var inp = el('input', 'field'); inp.type = 'search';
+  inp.placeholder = 'Start typing a company name…';
+  inp.setAttribute('aria-label', 'Search the portfolio');
+  var res = el('div', 'results'); res.style.display = 'none';
+  ta.appendChild(inp); ta.appendChild(res); w.appendChild(ta);
+
+  var detail = el('div'); w.appendChild(detail);
+
+  function show(c) {
+    detail.innerHTML = '';
+    var box = el('div', 'record');
+    box.appendChild(el('h3', null, c.name));
+    var dl = el('dl');
+    [['Description', c.description], ['Stage', c.stage],
+     ['First partnered', c.firstPartnered], ['Sectors', (c.sectors || []).join(', ')]]
+      .forEach(function (p) {
+        dl.appendChild(el('dt', null, p[0]));
+        dl.appendChild(el('dd', null, p[1] || '—'));
+      });
+    box.appendChild(dl);
+
+    var ask = el('p'); ask.style.margin = '20px 0 12px'; ask.style.fontWeight = '600';
+    ask.textContent = 'Is this still accurate?';
+    box.appendChild(ask);
+    var warn = el('p', 'note');
+    warn.textContent = 'These descriptions are undated, and some partnerships go back to 2007. ' +
+      'Anything the AI drafts from an inaccurate record inherits the error.';
+    box.appendChild(warn);
+
+    var row = el('div'); row.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;margin-top:18px';
+    var yes = el('button', 'btn', 'Yes — continue');
+    yes.onclick = function () { S.company = c; S.verified = true; prefill(c); go('facts'); };
+    var edit = el('button', 'btn ghost', 'Needs correcting');
+    edit.onclick = function () { S.company = c; S.verified = false; prefill(c); go('facts'); };
+    row.appendChild(yes); row.appendChild(edit);
+    box.appendChild(row);
+    detail.appendChild(box);
+  }
+
+  inp.oninput = function () {
+    var t = inp.value.trim().toLowerCase();
+    res.innerHTML = '';
+    if (t.length < 2) { res.style.display = 'none'; return; }
+    var hits = companies.filter(function (c) {
+      return c.name.toLowerCase().indexOf(t) > -1;
+    }).slice(0, 40);
+    if (!hits.length) { res.style.display = 'none'; return; }
+    hits.forEach(function (c) {
+      var b = el('button');
+      b.appendChild(el('span', 'rname', c.name));
+      b.appendChild(el('span', 'rmeta', '  ' + c.stage + ' · ' + (c.sectors || []).join(', ')));
+      b.onclick = function () { res.style.display = 'none'; inp.value = c.name; show(c); };
+      res.appendChild(b);
+    });
+    res.style.display = '';
+  };
+
+  var manual = el('div'); manual.style.marginTop = '30px';
+  var mb = el('button', 'btn ghost', 'Not in the portfolio — enter manually');
+  mb.onclick = function () {
+    S.company = null; S.verified = false; go('facts');
+  };
+  manual.appendChild(mb);
+  var mn = el('p', 'note'); mn.style.marginTop = '10px';
+  mn.textContent = 'Everything the AI drafts afterwards is then labelled UNVERIFIED.';
+  manual.appendChild(mn);
+  w.appendChild(manual);
+
+  v.appendChild(w);
+  return v;
+}
+
+/* Venture, category and customer prefill from the record as DRAFT.
+   Stage deliberately does not: the record carries an investment stage
+   (Seed, Series A, Growth) and this field wants an operating one. */
+function prefill(c) {
+  if (!c) return;
+  if (!S.facts.ventureName) { S.facts.ventureName = c.name; S.facts._d_ventureName = true; }
+  if (!S.facts.category) { S.facts.category = (c.sectors || []).join(', '); S.facts._d_category = true; }
+  if (!S.facts.primaryCustomer) { S.facts.primaryCustomer = c.description; S.facts._d_primaryCustomer = true; }
+}
+
+/* ---------------- 3 · before the room ---------------- */
+function vFacts() {
+  var v = viewShell('facts'), w = el('div', 'wrap');
+  w.appendChild(el('p', 'kicker', 'Step 2 of 3 · Before the room'));
+  w.appendChild(el('h1', null, 'The facts'));
+  var l = el('p', 'lede'); l.style.margin = '14px 0 4px';
+  l.textContent = 'Ten minutes, no discussion. Do not spend session time on facts.';
+  w.appendChild(l);
+  if (!S.verified) {
+    var u = el('p', 'note'); u.style.marginTop = '10px';
+    u.textContent = 'This venture was entered manually or flagged as needing correction, ' +
+      'so AI-drafted claims will carry an UNVERIFIED label.';
+    w.appendChild(u);
+  }
+
+  var g = el('div', 'facts');
+  brief.beforeTheRoom.forEach(function (f) {
+    var wrapf = el('div');
+    var lab = el('label', 'lbl'); lab.textContent = f.label; lab.htmlFor = 'f-' + f.key;
+    if (S.facts['_d_' + f.key]) lab.appendChild(el('span', 'tag draft', 'Draft'));
+    wrapf.appendChild(lab);
+
+    var ctl;
+    if (f.type === 'choice') {
+      ctl = el('select', 'field'); ctl.id = 'f-' + f.key;
+      ctl.appendChild(el('option', null, ''));
+      f.options.forEach(function (o) {
+        var op = el('option', null, o); op.value = o;
+        if (S.facts[f.key] === o) op.selected = true;
+        ctl.appendChild(op);
+      });
+    } else if (f.type === 'textarea') {
+      ctl = el('textarea', 'field'); ctl.id = 'f-' + f.key;
+      ctl.style.minHeight = '92px'; ctl.value = S.facts[f.key] || '';
+    } else {
+      ctl = el('input', 'field'); ctl.id = 'f-' + f.key;
+      ctl.type = f.type === 'date' ? 'date' : 'text';
+      ctl.value = S.facts[f.key] || '';
+    }
+    ctl.oninput = ctl.onchange = function () {
+      S.facts[f.key] = ctl.value;
+      if (S.facts['_d_' + f.key]) { delete S.facts['_d_' + f.key]; lab.querySelector('.tag') && lab.querySelector('.tag').remove(); }
+      save();
+    };
+    wrapf.appendChild(ctl);
+    g.appendChild(wrapf);
+  });
+  w.appendChild(g);
+
+  var nav = el('div', 'qnav');
+  var back = el('button', 'btn ghost', 'Back');
+  back.onclick = function () { go('company'); };
+  var next = el('button', 'btn', 'Enter the room');
+  next.onclick = function () { S.qi = 0; S.sectionStart = Date.now(); go('session'); };
+  nav.appendChild(back); nav.appendChild(next);
+  w.appendChild(nav);
+  v.appendChild(w);
+  return v;
+}
+
+/* ---------------- 4 · session ---------------- */
+function vSession() {
+  var v = viewShell('session');
+  var list = flat();
+  if (S.qi >= list.length) { S.qi = list.length - 1; }
+  var cur = list[S.qi], q = cur.q, sec = cur.s;
+  curQ = q;
+
+  /* --- sticky bar --- */
+  var bar = el('div', 'sessbar'), brow = el('div', 'wrap');
+  var row = el('div', 'row');
+  var sm = el('div', 'secmark');
+  sm.innerHTML = 'Section ' + esc(sec.code) + ' · <b>' + esc(sec.title) + '</b>';
+  var right = el('div'); right.style.cssText = 'display:flex;gap:12px;align-items:center';
+  var clock = el('span', 'clock', '00:00'); clock.id = 'clock';
+  var meter = el('span', 'meter', completed() + ' / 28 accepted');
+  right.appendChild(meter); right.appendChild(clock);
+  row.appendChild(sm); row.appendChild(right);
+  brow.appendChild(row);
+  var pr = el('div', 'progress'); var pi = el('i');
+  pi.style.width = (completed() / 28 * 100) + '%';
+  pr.appendChild(pi); brow.appendChild(pr);
+  bar.appendChild(brow); v.appendChild(bar);
+
+  var w = el('div', 'wrap'); w.style.paddingTop = '38px';
+
+  w.appendChild(el('p', 'qnum', 'Q' + q.number + ' · ' + q.title));
+  w.appendChild(el('h2', 'qprompt', q.prompt));
+
+  var tell = el('div', 'tell');
+  tell.appendChild(el('b', null, 'The weak-answer test'));
+  tell.appendChild(document.createTextNode(q.weakAnswerTell));
+  w.appendChild(tell);
+
+  w.appendChild(inputFor(q));
+  w.appendChild(aiFor(q));
+
+  /* --- nav --- */
+  var nav = el('div', 'qnav');
+  var prev = el('button', 'btn ghost', 'Previous');
+  prev.disabled = S.qi === 0;
+  prev.onclick = function () { stepTo(S.qi - 1); };
+
+  var fwd = el('div'); fwd.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap';
+  var a = ans(q.id);
+  var acc = el('button', 'btn', 'Accept this answer');
+  acc.id = 'acceptBtn';
+  acc.onclick = function () {
+    a.accepted = !a.accepted; save(); render();
+  };
+  paintAccept(acc);
+
+  var isLast = S.qi === list.length - 1;
+  var endsSection = isLast || list[S.qi + 1].s.code !== sec.code;
+  var next = el('button', 'btn', endsSection ? 'Close section ' + sec.code : 'Next');
+  next.onclick = function () {
+    if (endsSection) { go('close'); } else { stepTo(S.qi + 1); }
+  };
+  fwd.appendChild(acc); fwd.appendChild(next);
+  nav.appendChild(prev); nav.appendChild(fwd);
+  w.appendChild(nav);
+
+  v.appendChild(w);
+  startClock(sec);
+  return v;
+}
+
+function stepTo(i) {
+  var list = flat();
+  var from = list[S.qi], to = list[i];
+  if (to && from && to.s.code !== from.s.code) S.sectionStart = Date.now();
+  S.qi = i; save(); render(); window.scrollTo(0, 0);
+}
+
+/* The clock is a section clock, not a per-question one. On overrun it turns
+   red and nothing else happens: no lockout, no modal. Its only job is to
+   make the overrun visible. */
+function startClock(sec) {
+  if (timer) clearInterval(timer);
+  if (!S.sectionStart) { S.sectionStart = Date.now(); save(); }
+  function tick() {
+    var node = document.getElementById('clock');
+    if (!node) { clearInterval(timer); return; }
+    var secs = Math.floor((Date.now() - S.sectionStart) / 1000);
+    var m = Math.floor(secs / 60), ss = secs % 60;
+    node.textContent = (m < 10 ? '0' : '') + m + ':' + (ss < 10 ? '0' : '') + ss +
+      ' / ' + sec.minutes + ':00';
+    if (secs > sec.minutes * 60) node.classList.add('over');
+    else node.classList.remove('over');
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+/* ---------------- inputs ---------------- */
+function inputFor(q) {
+  var a = ans(q.id), t = q.input.type, box = el('div');
+
+  function touch(val) { a.value = val; a.accepted = false; save(); syncMeter(); }
+
+  if (t === 'textarea') {
+    var ta = el('textarea', 'field');
+    ta.value = a.value || '';
+    ta.setAttribute('aria-label', 'Answer');
+    ta.oninput = function () { touch(ta.value); };
+    box.appendChild(ta);
+
+  } else if (t === 'binary+text') {
+    var val = a.value || { choice: null, text: '' };
+    var bin = el('div', 'binary');
+    q.input.options.forEach(function (o) {
+      var lab = el('label', 'opt' + (val.choice === o ? ' sel' : ''));
+      var r = el('input'); r.type = 'radio'; r.name = q.id + '-bin';
+      r.checked = val.choice === o;
+      r.onchange = function () { val.choice = o; touch(val); render(); };
+      lab.appendChild(r); lab.appendChild(el('span', null, o));
+      bin.appendChild(lab);
+    });
+    box.appendChild(bin);
+    var l2 = el('label', 'lbl', q.input.textLabel || 'Answer');
+    var t2 = el('textarea', 'field'); t2.value = val.text || '';
+    t2.oninput = function () { val.text = t2.value; touch(val); };
+    box.appendChild(l2); box.appendChild(t2);
+
+  } else if (t === 'single+other') {
+    /* Single-select, deliberately. The question reads "Tick one. One." and its
+       whole point is that ticking three means you have not chosen. */
+    var sv = a.value || { choice: null, other: '', note: '' };
+    var opts = el('div', 'opts');
+    q.input.options.forEach(function (o) {
+      var lab = el('label', 'opt' + (sv.choice === o ? ' sel' : ''));
+      var r = el('input'); r.type = 'radio'; r.name = q.id + '-one';
+      r.checked = sv.choice === o;
+      r.onchange = function () { sv.choice = o; sv.other = ''; touch(sv); render(); };
+      lab.appendChild(r); lab.appendChild(el('span', null, o));
+      opts.appendChild(lab);
+    });
+    var labO = el('label', 'opt' + (sv.choice === '__other' ? ' sel' : ''));
+    var rO = el('input'); rO.type = 'radio'; rO.name = q.id + '-one';
+    rO.checked = sv.choice === '__other';
+    rO.onchange = function () { sv.choice = '__other'; touch(sv); render(); };
+    var oi = el('input', 'field'); oi.placeholder = 'Other'; oi.value = sv.other || '';
+    oi.style.cssText = 'border:0;background:transparent;padding:0;flex:1';
+    oi.oninput = function () { sv.choice = '__other'; rO.checked = true; sv.other = oi.value; touch(sv); };
+    labO.appendChild(rO); labO.appendChild(oi);
+    opts.appendChild(labO);
+    box.appendChild(opts);
+    var ln = el('label', 'lbl', 'Why this one');
+    var tn = el('textarea', 'field'); tn.value = sv.note || '';
+    tn.oninput = function () { sv.note = tn.value; touch(sv); };
+    box.appendChild(ln); box.appendChild(tn);
+
+  } else if (t === 'table') {
+    var cols = q.input.columns, rows = q.input.rows;
+    var tv = a.value && a.value.rows ? a.value : { rows: [] };
+    while (tv.rows.length < rows) tv.rows.push(cols.map(function () { return ''; }));
+    var tbl = el('table', 'grid');
+    var thead = el('thead'), tr0 = el('tr');
+    cols.forEach(function (c) { tr0.appendChild(el('th', null, c)); });
+    thead.appendChild(tr0); tbl.appendChild(thead);
+    var tb = el('tbody');
+    tv.rows.forEach(function (r, ri) {
+      var tr = el('tr');
+      cols.forEach(function (c, ci) {
+        var td = el('td'), i2 = el('input');
+        i2.type = 'text'; i2.value = r[ci] || '';
+        i2.setAttribute('aria-label', c + ' row ' + (ri + 1));
+        i2.oninput = function () { tv.rows[ri][ci] = i2.value; touch(tv); };
+        td.appendChild(i2); tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    tbl.appendChild(tb); box.appendChild(tbl);
+
+  } else if (t === 'fields') {
+    var fv = a.value || {};
+    var g = el('div', 'subfields');
+    q.input.fields.forEach(function (f) {
+      var d = el('div');
+      d.appendChild(el('label', 'lbl', f.label));
+      var ta2 = el('textarea', 'field'); ta2.style.minHeight = '84px';
+      ta2.value = fv[f.key] || '';
+      ta2.oninput = function () { fv[f.key] = ta2.value; touch(fv); };
+      d.appendChild(ta2); g.appendChild(d);
+    });
+    box.appendChild(g);
+  }
+  return box;
+}
+
+/* Editing an answer withdraws its acceptance. The button has to say so, or it
+   claims an acceptance the meter is no longer counting. */
+function paintAccept(node) {
+  var b = node || document.getElementById('acceptBtn');
+  if (!b || !curQ) return;
+  var a = ans(curQ.id);
+  b.textContent = a.accepted ? 'Accepted ✓' : 'Accept this answer';
+  b.className = a.accepted ? 'btn ghost' : 'btn';
+}
+
+function syncMeter() {
+  var m = document.querySelector('.meter');
+  if (m) m.textContent = completed() + ' / 28 accepted';
+  var p = document.querySelector('.progress i');
+  if (p) p.style.width = (completed() / 28 * 100) + '%';
+  paintAccept();
+}
+
+/* ---------------- AI affordances ---------------- */
+function aiFor(q) {
+  /* silent: the affordance is absent, not disabled. Nothing is rendered here
+     for Q03, Q16 or Q28 under any circumstance. */
+  if (q.ai.mode === 'silent') return document.createDocumentFragment();
+  if (q.ai.mode === 'draft') return draftPanel(q);
+  return probePanel(q);
+}
+
+function inertPanel(label, text) {
+  var p = el('div', 'ai inert');
+  var h = el('div', 'ai-head'); h.appendChild(el('span', null, label));
+  p.appendChild(h);
+  p.appendChild(el('div', 'ai-body', text));
+  return p;
+}
+
+function draftPanel(q) {
+  var a = ans(q.id);
+  if (!AI_ENDPOINT) {
+    return inertPanel('AI: Draft — not configured',
+      'This question would normally open with AI-drafted research for you to ' +
+      'correct or reject. Write it yourself; the weak-answer test above is the ' +
+      'same standard the draft would be held to.');
+  }
+  var p = el('div', 'ai draft');
+  var h = el('div', 'ai-head');
+  h.appendChild(el('span', null, 'AI: Draft — wrong until you correct it'));
+  p.appendChild(h);
+  var body = el('div', 'ai-body');
+
+  if (!a.draft) {
+    body.textContent = 'Nothing drafted yet.';
+    p.appendChild(body);
+    var acts = el('div', 'ai-acts');
+    var b = el('button', 'btn small', 'Draft this');
+    b.onclick = function () {
+      b.disabled = true; b.textContent = 'Drafting…';
+      callAI('/ai-draft', { questionId: q.id, company: S.company, verified: S.verified,
+                            priors: priorsFor(q) })
+        .then(function (d) { a.draft = d.items || []; save(); render(); })
+        .catch(function () { b.disabled = false; b.textContent = 'Draft this'; body.textContent = 'The draft could not be produced.'; });
+    };
+    acts.appendChild(b); p.appendChild(acts);
+    return p;
+  }
+
+  a.draft.forEach(function (it) {
+    var row = el('div', 'ai-item');
+    var lbl = (it.label || 'INFERRED').toLowerCase().replace(/\s+/g, '');
+    var cls = lbl.indexOf('record') > -1 ? 'record' : (lbl.indexOf('unverified') > -1 ? 'unverified' : '');
+    row.appendChild(el('span', 'prov ' + cls, it.label || 'INFERRED'));
+    row.appendChild(document.createTextNode(it.claim || ''));
+    body.appendChild(row);
+  });
+  p.appendChild(body);
+
+  var acts2 = el('div', 'ai-acts');
+  var accept = el('button', 'btn small', 'Accept into my answer');
+  accept.onclick = function () {
+    var text = a.draft.map(function (i) { return '[' + (i.label || 'INFERRED') + '] ' + i.claim; }).join('\n');
+    if (q.input.type === 'table') {
+      var tv = a.value && a.value.rows ? a.value : { rows: [] };
+      a.draft.forEach(function (i, ix) {
+        if (!tv.rows[ix]) tv.rows[ix] = q.input.columns.map(function () { return ''; });
+        tv.rows[ix][0] = i.claim;
+      });
+      a.value = tv;
+    } else {
+      a.value = (a.value ? a.value + '\n\n' : '') + text;
+    }
+    a.accepted = false;  /* accepting the draft into the box is not accepting the answer */
+    save(); render();
+  };
+  var rewrite = el('button', 'btn small ghost', 'Rewrite');
+  rewrite.onclick = function () { a.draft = null; save(); render(); };
+  var reject = el('button', 'btn small ghost', 'Reject');
+  reject.onclick = function () { a.draft = null; save(); render(); };
+  acts2.appendChild(accept); acts2.appendChild(rewrite); acts2.appendChild(reject);
+  p.appendChild(acts2);
+  return p;
+}
+
+function probePanel(q) {
+  var a = ans(q.id);
+  if (!AI_ENDPOINT) {
+    return inertPanel('AI: Probe — not configured',
+      'This question would normally return a single challenge to your answer. ' +
+      'Hold it against the weak-answer test above instead.');
+  }
+  var p = el('div', 'ai');
+  var h = el('div', 'ai-head');
+  h.appendChild(el('span', null, a.stood ? 'AI: Probe — stood by' : 'AI: Probe — one challenge'));
+  p.appendChild(h);
+  var body = el('div', 'ai-body');
+  body.textContent = a.probe || 'Submit your answer for one challenge. The AI will not write it for you.';
+  p.appendChild(body);
+
+  var acts = el('div', 'ai-acts');
+  if (!a.probe) {
+    var b = el('button', 'btn small', 'Challenge this answer');
+    b.disabled = !hasContent(q, a.value);
+    b.onclick = function () {
+      b.disabled = true; b.textContent = 'Thinking…';
+      callAI('/ai-probe', { questionId: q.id, answer: a.value, priors: priorsFor(q) })
+        .then(function (d) { a.probe = d.verdict || d.challenge || 'Logged.'; save(); render(); })
+        .catch(function () { b.disabled = false; b.textContent = 'Challenge this answer'; });
+    };
+    acts.appendChild(b);
+  } else {
+    var again = el('button', 'btn small', 'Answer again');
+    again.onclick = function () { a.probe = null; a.stood = false; a.accepted = false; save(); render(); };
+    /* "Stand by it" is a legitimate ending, and it is recorded. */
+    var stand = el('button', 'btn small ghost', a.stood ? 'Standing by it ✓' : 'Stand by it');
+    stand.onclick = function () { a.stood = true; save(); render(); };
+    acts.appendChild(again); acts.appendChild(stand);
+  }
+  p.appendChild(acts);
+  return p;
+}
+
+/* Prior answers travel with every request, so the Q17→Q08 and Q19→Q07
+   cross-references work without retrofitting the payload shape later. */
+function priorsFor(q) {
+  var out = {};
+  (q.ai.crossRefs || []).forEach(function (x) {
+    var a = S.answers[x.question.toLowerCase()];
+    if (a && a.value) out[x.question] = a.value;
+  });
+  return out;
+}
+
+function callAI(path, payload) {
+  return fetch(AI_ENDPOINT + path, {
+    method: 'POST', credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function (r) { return r.ok ? r.json() : Promise.reject(r); });
+}
+
+/* ---------------- 5 · section close ---------------- */
+function vClose() {
+  var v = viewShell('close'), w = el('div', 'wrap');
+  var list = flat(), sec = list[S.qi].s;
+  var key = sec.code;
+
+  w.appendChild(el('p', 'kicker', 'Section ' + sec.code + ' · ' + sec.title));
+  w.appendChild(el('h1', null, 'Where we didn’t agree'));
+  var l = el('p', 'lede'); l.style.margin = '14px 0 0';
+  l.textContent = 'Do not resolve it. Record it. This is the most valuable thing on the page.';
+  w.appendChild(l);
+
+  var box = el('div', 'closebox');
+  var ta = el('textarea', 'field');
+  ta.style.minHeight = '170px';
+  ta.value = S.disagreements[key] && S.disagreements[key] !== '__agreed' ? S.disagreements[key] : '';
+  ta.setAttribute('aria-label', 'What we disagreed about');
+  ta.oninput = function () { S.disagreements[key] = ta.value; save(); };
+  box.appendChild(ta);
+  w.appendChild(box);
+
+  var nav = el('div', 'qnav');
+  var back = el('button', 'btn ghost', 'Back to the questions');
+  back.onclick = function () { go('session'); };
+
+  var fwd = el('div'); fwd.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap';
+  /* Skipping requires an explicit action. The box is always shown. */
+  var agreed = el('button', 'btn ghost', 'We agreed — nothing to record');
+  agreed.onclick = function () { S.disagreements[key] = '__agreed'; advance(); };
+  var onward = el('button', 'btn', 'Record and continue');
+  onward.onclick = function () { advance(); };
+  fwd.appendChild(agreed); fwd.appendChild(onward);
+  nav.appendChild(back); nav.appendChild(fwd);
+  w.appendChild(nav);
+
+  function advance() {
+    save();
+    if (S.qi >= list.length - 1) { go('response'); return; }
+    S.qi = S.qi + 1; S.sectionStart = Date.now(); go('session');
+  }
+
+  v.appendChild(w);
+  return v;
+}
+
+/* ---------------- 6 · the response ---------------- */
+function answerText(q) {
+  var a = S.answers[q.id];
+  if (!a || a.value == null) return '';
+  var t = q.input.type, v = a.value;
+  if (t === 'table') {
+    return (v.rows || []).filter(function (r) {
+      return (r || []).some(function (c) { return String(c || '').trim(); });
+    }).map(function (r) { return r.join(' · '); }).join('\n');
+  }
+  if (t === 'fields') {
+    return q.input.fields.map(function (f) {
+      return v[f.key] ? f.label + ': ' + v[f.key] : '';
+    }).filter(Boolean).join('\n');
+  }
+  if (t === 'binary+text') {
+    return [v.choice, v.text].filter(Boolean).join(' — ');
+  }
+  if (t === 'single+other') {
+    var c = v.choice === '__other' ? v.other : v.choice;
+    return [c, v.note].filter(Boolean).join(' — ');
+  }
+  return String(v);
+}
+/* The one-pager takes attempt three from Q17, as the source document
+   specifies — not all three attempts. The full working stays in the export. */
+function responseText(q) {
+  var a = S.answers[q.id];
+  if (!a || a.value == null) return '';
+  if (q.input.answerField && q.input.type === 'fields') {
+    return String(a.value[q.input.answerField] || '');
+  }
+  return answerText(q);
+}
+function qById(num) {
+  var hit = null;
+  flat().forEach(function (x) { if ('Q' + x.q.number === num) hit = x.q; });
+  return hit;
+}
+
+function vResponse() {
+  if (timer) clearInterval(timer);
+  var v = viewShell('response'), w = el('div', 'wrap');
+  w.appendChild(el('p', 'kicker', 'The ANTIGEN Response'));
+  w.appendChild(el('h1', null, 'One page'));
+  var l = el('p', 'lede'); l.style.margin = '14px 0 0';
+  l.textContent = 'Assembled by the scribe within twenty-four hours, while the room is still fresh. ' +
+    'Every row traces to the questions it came from. Edit before exporting.';
+  w.appendChild(l);
+
+  var t = el('table', 'resp');
+  brief.response.forEach(function (row, ix) {
+    var tr = el('tr');
+    var th = el('th');
+    th.appendChild(document.createTextNode(row.element));
+    th.appendChild(el('span', 'src', row.fromQuestions.join(', ')));
+    var td = el('td');
+    var ta = el('textarea');
+    if (S.response[ix] == null) {
+      S.response[ix] = row.fromQuestions.map(function (n) {
+        var q = qById(n); return q ? responseText(q) : '';
+      }).filter(Boolean).join('\n\n');
+    }
+    ta.value = S.response[ix];
+    ta.setAttribute('aria-label', row.element);
+    ta.oninput = function () { S.response[ix] = ta.value; save(); };
+    td.appendChild(ta);
+    tr.appendChild(th); tr.appendChild(td);
+    t.appendChild(tr);
+  });
+  w.appendChild(t);
+
+  var nav = el('div', 'qnav');
+  var back = el('button', 'btn ghost', 'Back to the session');
+  back.onclick = function () { go('session'); };
+  var next = el('button', 'btn', 'Export');
+  next.onclick = function () { go('exports'); };
+  nav.appendChild(back); nav.appendChild(next);
+  w.appendChild(nav);
+  v.appendChild(w);
+  return v;
+}
+
+/* ---------------- 7 · export ---------------- */
+function buildMarkdown() {
+  var L = [];
+  L.push('# ' + brief.meta.title);
+  L.push('');
+  L.push('**' + brief.meta.subtitle + '**');
+  L.push('');
+  L.push('## Before the room');
+  L.push('');
+  L.push('| | |');
+  L.push('|---|---|');
+  brief.beforeTheRoom.forEach(function (f) {
+    L.push('| **' + f.label + '** | ' +
+      String(S.facts[f.key] || '').replace(/\n/g, '<br>') + ' |');
+  });
+  L.push('');
+  brief.sections.forEach(function (s) {
+    L.push('---');
+    L.push('');
+    L.push('## ' + s.code + '  ' + s.title);
+    L.push('');
+    L.push('**' + s.question + '**  ·  `' + s.minutes + ' MINUTES`');
+    L.push('');
+    s.questions.forEach(function (q) {
+      L.push('### Q' + q.number + '  ' + q.prompt);
+      L.push('');
+      L.push('> ' + q.weakAnswerTell);
+      L.push('');
+      L.push('`AI: ' + q.ai.mode.toUpperCase() + '`');
+      L.push('');
+      var a = S.answers[q.id];
+      L.push('**Answer:**' + (a && a.accepted ? '' : '  _(not accepted)_'));
+      L.push('');
+      L.push(answerText(q) || '_No answer recorded._');
+      if (a && a.probe) { L.push(''); L.push('> AI challenge: ' + a.probe +
+        (a.stood ? '  _(stood by)_' : '')); }
+      L.push('');
+    });
+    var d = S.disagreements[s.code];
+    L.push('> **WHERE WE DIDN’T AGREE — SECTION ' + s.code + '**');
+    L.push('>');
+    L.push('> ' + (d === '__agreed' ? '_The room agreed._' : (d || '_Not recorded._')));
+    L.push('');
+  });
+  L.push('---');
+  L.push('');
+  L.push('## The ANTIGEN Response');
+  L.push('');
+  L.push('| Element | Source | Answer |');
+  L.push('|---|---|---|');
+  brief.response.forEach(function (r, ix) {
+    L.push('| **' + r.element + '** | ' + r.source + ' (' + r.fromQuestions.join(', ') + ') | ' +
+      String(S.response[ix] || '').replace(/\n/g, '<br>') + ' |');
+  });
+  L.push('');
+  L.push('## Disagreement log');
+  L.push('');
+  L.push('| Section | What we disagreed about |');
+  L.push('|---|---|');
+  brief.sections.forEach(function (s) {
+    var d = S.disagreements[s.code];
+    if (d && d !== '__agreed') L.push('| ' + s.code + ' ' + s.title + ' | ' + d.replace(/\n/g, '<br>') + ' |');
+  });
+  L.push('');
+  L.push('---');
+  L.push('');
+  L.push(brief.footer);
+  return L.join('\n');
+}
+
+function download(name, text, mime) {
+  var b = new Blob([text], { type: mime + ';charset=utf-8' });
+  var u = URL.createObjectURL(b);
+  var a = document.createElement('a');
+  a.href = u; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function () { URL.revokeObjectURL(u); }, 1500);
+}
+function slug() {
+  return (S.facts.ventureName || 'antigen-session').toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function vExport() {
+  if (timer) clearInterval(timer);
+  var v = viewShell('exports'), w = el('div', 'wrap');
+  w.appendChild(el('p', 'kicker', 'Step 3 of 3'));
+  w.appendChild(el('h1', null, 'Take it with you'));
+  var l = el('p', 'lede'); l.style.margin = '14px 0 0';
+  l.textContent = completed() + ' of 28 answers accepted. Nothing is stored on a server: ' +
+    'this session lives in this browser and in the files you export.';
+  w.appendChild(l);
+
+  var e = el('div', 'exports');
+  var md = el('button', 'btn', 'Markdown');
+  md.onclick = function () { download(slug() + '-antigen-brief.md', buildMarkdown(), 'text/markdown'); };
+  var js = el('button', 'btn ghost', 'JSON');
+  js.onclick = function () {
+    download(slug() + '-antigen-session.json', JSON.stringify(S, null, 2), 'application/json');
+  };
+  var pdf = el('button', 'btn ghost', 'PDF (print)');
+  pdf.onclick = function () { go('response'); setTimeout(function () { window.print(); }, 260); };
+  e.appendChild(md); e.appendChild(js); e.appendChild(pdf);
+  w.appendChild(e);
+
+  var imp = el('div'); imp.style.marginTop = '38px';
+  imp.appendChild(el('label', 'lbl', 'Re-import a session'));
+  var fi = el('input'); fi.type = 'file'; fi.accept = 'application/json';
+  fi.onchange = function () {
+    var f = fi.files && fi.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var p = JSON.parse(r.result);
+        if (!p || !p.answers) throw new Error('not a session file');
+        S = p; save(); go('response');
+      } catch (err) { alert('That file could not be read as a session.'); }
+    };
+    r.readAsText(f);
+  };
+  imp.appendChild(fi);
+  w.appendChild(imp);
+
+  var nav = el('div', 'qnav');
+  var back = el('button', 'btn ghost', 'Back to the response');
+  back.onclick = function () { go('response'); };
+  var reset = el('button', 'btn ghost', 'Start a new session');
+  reset.onclick = function () {
+    if (confirm('This clears the current session from this browser. Export first if you need it.')) {
+      S = blank(); save(); go('gate');
+    }
+  };
+  nav.appendChild(back); nav.appendChild(reset);
+  w.appendChild(nav);
+
+  v.appendChild(w);
+  return v;
+}
+
+boot();
+})();
+</script>
+</body>
+</html>
